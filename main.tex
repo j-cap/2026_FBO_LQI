@@ -1,0 +1,292 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{amsmath,amssymb,bm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit}
+
+% -----------------------------------------------------------------------------
+% Draft helpers -- remove before submission
+% -----------------------------------------------------------------------------
+\newcommand{\draftnote}[1]{\textcolor{blue!70!black}{\textbf{[Draft note:} #1\textbf{]}}}
+\newcommand{\todo}[1]{\textcolor{red!70!black}{\textbf{[TODO:} #1\textbf{]}}}
+\newcommand{\method}{DA-FBO}
+\newcommand{\distdyn}{d^{\mathrm{dyn}}}
+\newcommand{\risk}{\mathcal{R}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\safeSet}{\mathcal{S}}
+
+\title{Dynamics-Aware Federated Bayesian Optimization for Safe Controller Calibration in Heterogeneous Systems}
+
+\author{\IEEEauthorblockN{Jakob Weber, Markus Gurtner, Adrian Trachte, Andreas Kugi}
+\IEEEauthorblockA{\textit{Draft author list -- affiliations to be inserted after venue decision}}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Controller calibration from closed-loop experiments is naturally distributed in fleets of related but dynamically heterogeneous systems. Bayesian optimization (BO) can tune controller parameters with few experiments, while federated BO allows multiple agents to collaborate without centralizing their local evaluation histories. However, indiscriminate collaboration can cause negative transfer when the clients' closed-loop objectives differ. This paper develops a dynamics-aware federated Bayesian optimization framework that uses locally identified models and their uncertainty to decide when controller-calibration information should be shared. Each client identifies a compact local model and covariance, from which the server constructs an uncertainty-aware pairwise dynamics distance. That distance is converted into a transfer-risk score that gates or weights peer information in a federated Thompson-sampling scheme. Candidate controllers are synthesized locally from the target client's identified model and are screened against model uncertainty and physical constraints before closed-loop evaluation. The method is studied for LQI yaw-rate tracking in a heterogeneous vehicle fleet under both matched-model and nonlinear model-mismatch conditions. Preliminary mechanism experiments show that uncertainty-aware dynamics distance predicts controller-transfer loss even when hard cluster-specific tuning provides little average benefit. \draftnote{Replace the final sentence by the full DA-FBO sample-efficiency and safety results once Phase 1B and the federated BO campaign are complete.}
+\end{abstract}
+
+\begin{IEEEkeywords}
+federated learning, Bayesian optimization, controller tuning, LQI, heterogeneous systems, safe learning, system identification, vehicle control
+\end{IEEEkeywords}
+
+\section{Introduction}
+\label{sec:introduction}
+Modern fleets of vehicles, robots, energy systems, and industrial assets contain many systems that perform the same control task but differ in their local dynamics. These differences can arise from operating conditions, payload, component variation, wear, or unmodeled plant effects. A controller designed for one nominal model can therefore yield substantially different closed-loop behavior across clients. At the same time, the data required to characterize and calibrate each client are naturally distributed and may be expensive or undesirable to centralize. Federated learning provides a general framework for exploiting distributed data while keeping local datasets at the clients~\cite{mcmahan2017communication}. For control, however, the central difficulty is not only statistical non-IID data. The clients can represent genuinely different dynamical systems, such that information useful for one closed loop can be harmful for another.
+
+Our previous work addressed the first part of this problem through uncertainty-aware clustered federated system identification~\cite{weber2026ifac}. Each client performs local recursive identification and communicates an estimated model together with its covariance. Uncertainty-aware distances in parameter space reveal reusable dynamical structure across the fleet, after which representative models can be used for model-based controller synthesis. This pipeline answers the question of \emph{which model} should represent a client or a group of clients. It does not remove the subsequent controller-calibration problem. In particular, an LQR or LQI controller is fixed only after its state and input weighting matrices have been chosen. These weights encode the desired tracking, control-effort, and robustness trade-offs and are typically selected manually or by repeated simulation.
+
+Bayesian optimization (BO) is well suited to this calibration problem because closed-loop controller evaluations are expensive, noisy, and generally available only as zeroth-order measurements of task performance~\cite{frazier2018tutorial}. BO-based automatic controller tuning has been demonstrated for LQR design~\cite{marco2016lqr}, safe controller tuning on robotic systems~\cite{berkenkamp2016safe,berkenkamp2023safe}, automotive PI calibration~\cite{schillinger2017safe}, and, more recently, LQI and MPC tuning with crash constraints~\cite{vonrohr2024local}. These methods establish that model-based controller structures can be retained while their design parameters are refined from closed-loop data. Their standard formulation nevertheless treats each controlled system separately.
+
+Federated Bayesian optimization (FBO) extends BO to distributed black-box optimization. Federated Thompson sampling (FTS) uses random Fourier features to exchange compact Gaussian-process surrogate information and provides convergence results that are robust to heterogeneous agents~\cite{dai2020fts}. Differentially private variants further show how user-level privacy can be integrated into federated BO~\cite{dai2021dpfts}. Related collaborative BO methods allow heterogeneous agents to borrow useful designs without directly exchanging sensitive local observations~\cite{chen2025collaborative}. The central unresolved issue for fleet control is therefore not whether black-box information \emph{can} be shared, but \emph{which clients should trust each other}. Generic FBO treats heterogeneity mainly through statistical differences between local black-box functions. In a dynamical fleet, additional physical structure is available: every client can provide an identified model and an estimate of its uncertainty.
+
+This observation motivates the central hypothesis
+\begin{equation}
+    \distdyn_{ij} \uparrow
+    \quad \Longrightarrow \quad
+    \text{risk of harmful controller-calibration transfer} \uparrow,
+    \label{eq:intro_hypothesis}
+\end{equation}
+where $\distdyn_{ij}$ denotes an uncertainty-aware distance between the identified dynamics of clients $i$ and $j$. This differs from hard clustered controller design. Hard clustering assumes that clients inside one cluster should share the same model or controller design. Our preliminary experiments instead indicate that cluster-level average tuning provides little benefit over a single fleet-wide calibration, while pairwise transfer can still be strongly asymmetric and harmful for dynamically distant clients. The identified model is therefore more naturally used as a \emph{continuous transfer descriptor}: nearby clients should exchange BO information strongly, whereas distant clients should be down-weighted or excluded.
+
+A second difficulty is safe exploration. BO can deliberately evaluate uncertain regions of the search space, which is undesirable when those evaluations correspond to physical controllers. Safe BO addresses this problem by restricting the acquisition process to parameters that satisfy learned safety constraints with high probability~\cite{berkenkamp2016safe,berkenkamp2023safe}. In the present setting, system identification provides an additional source of safety information before any new closed-loop experiment is performed. The same covariance used to assess cross-client similarity can be reused to test a proposed LQI controller over a family of plausible local models. This creates a natural separation between \emph{transfer safety}, which determines whose BO information is trusted, and \emph{target-local controller safety}, which determines whether the resulting candidate is admissible for the target client.
+
+The proposed framework, termed \emph{dynamics-aware federated Bayesian optimization} (\method{}), combines these ideas. Local model estimates and covariances define pairwise dynamics distances. A monotone transfer-risk map converts those distances into client-to-client trust weights. The weights modify federated Thompson sampling so that peer surrogate information is transferred selectively rather than globally. Independently of the information source, every proposed controller is synthesized using the target client's local model and screened using local model uncertainty and physical constraints before a closed-loop rollout.
+
+The main contributions are:
+\begin{itemize}
+\item We formulate heterogeneous fleet controller calibration as a federated black-box optimization problem in which each client retains its local closed-loop evaluation history while exposing an uncertain low-order dynamics descriptor.
+\item We introduce an uncertainty-aware dynamics distance and a corresponding transfer-risk score for selective federated BO. In contrast to hard clustering, the proposed mechanism continuously weights or gates peer BO information according to predicted transfer risk.
+\item We develop a dynamics-aware extension of federated Thompson sampling in which client $i$ receives peer surrogate samples only from sufficiently compatible clients, while the final LQI candidate is always synthesized and evaluated for client $i$ itself.
+\item We combine cross-client transfer gating with a target-local uncertainty-aware controller screen. The latter rejects candidates whose closed-loop stability or physical constraints are insufficiently robust over the identified model uncertainty before an expensive plant evaluation is executed. \draftnote{Unless a formal guarantee is proved, use ``safety-aware'' or ``risk-aware'' rather than claiming guaranteed safety in the final manuscript.}
+\item We evaluate the mechanism on a heterogeneous lateral-vehicle benchmark under matched linear dynamics and nonlinear tire-model mismatch. \draftnote{Final contribution statement should report the full-scale Phase 1B relation and the DA-FBO sample-efficiency / unsafe-evaluation reductions once available.}
+\end{itemize}
+
+The work is related to federated LQR methods for heterogeneous dynamical systems~\cite{wang2026fedlqr}, but differs in objective and architecture. Federated LQR directly learns control policies from distributed interaction data. Here, the controller remains model based: local system identification defines the plant model used for LQI synthesis, while federated BO calibrates only a low-dimensional set of interpretable controller-design weights.
+
+\section{Problem Formulation}
+\label{sec:problem}
+\subsection{Heterogeneous fleet and local identification}
+Consider a fleet of $N$ clients indexed by $i\in\mathcal{C}=\{1,\ldots,N\}$. The true plant of client $i$ is
+\begin{align}
+    x_{i,k+1} &= f_i(x_{i,k},u_{i,k},w_{i,k}), \\
+    y_{i,k} &= h_i(x_{i,k},v_{i,k}),
+\end{align}
+where the plant maps $f_i$ may differ across clients. Each client fits a compact local model
+\begin{equation}
+    x_{k+1}=A(\theta_i)x_k+B(\theta_i)u_k
+\end{equation}
+from local identification data and communicates $\hat\theta_i$ together with covariance $\hat\Sigma_i$. Raw identification trajectories remain local. The true plant and the control-design model need not have the same structure. In the mismatch case, the true plant contains nonlinear tire saturation while identification and controller synthesis retain the linear two-state lateral model.
+
+\subsection{LQI controller calibration}
+For local model $(\hat A_i,\hat B_i,\hat C_i)$ and reference $r_k$, augment the state with integral tracking error
+\begin{equation}
+    z_{k+1}=z_k+T_s(r_k-\hat C_i x_k).
+\end{equation}
+Let $x_k^a=[x_k^\top,z_k^\top]^\top$ and normalize the augmented coordinates as
+\begin{equation}
+    \tilde x_k^a=S_x^{-1}x_k^a,
+    \qquad S_x=\mathrm{diag}(s_1,\ldots,s_{n_a}).
+\end{equation}
+The LQI cost is parameterized by $\xi\in\Xi\subset\mathbb{R}^{d}$,
+\begin{align}
+    Q(\xi)&=\mathrm{diag}(10^{\xi_1},\ldots,10^{\xi_d}),\\
+    R&=I.
+\end{align}
+One global cost scale is fixed because simultaneous positive scaling of $Q$ and $R$ does not change the standard LQR/LQI gain. Solving the DARE yields
+\begin{equation}
+    K_i(\xi)=\mathrm{LQI}(\hat A_i,\hat B_i,\hat C_i,Q(\xi),R).
+\end{equation}
+The federated algorithm therefore transfers calibration information in $\xi$-space, not a fixed feedback gain.
+
+For calibration episode $\omega$, applying $K_i(\xi)$ to the true plant produces tracking loss $J_i(\xi;\omega)$ with black-box objective
+\begin{equation}
+    f_i(\xi)=\mathbb{E}_\omega[J_i(\xi;\omega)].
+\end{equation}
+In the vehicle benchmark, $J_i$ is yaw-rate tracking RMSE. Steering magnitude, steering rate, sideslip, and closed-loop stability are treated as feasibility constraints.
+
+\subsection{Federated calibration objective}
+Federation is not intended to force one shared optimum. Instead, collaboration should reduce the number of local evaluations needed for each client to approach its own best feasible calibration
+\begin{equation}
+    \xi_i^\star\in\arg\min_{\xi\in\safeSet_i}f_i(\xi).
+\end{equation}
+The key requirement is \emph{positive transfer}: information from client $j$ should influence client $i$ only when it is expected to reduce search effort without inducing harmful candidate selection.
+
+\section{Dynamics-Aware Federated Bayesian Optimization}
+\label{sec:method}
+The method has three layers: uncertain local identification, dynamics-aware peer selection for FBO, and target-local candidate screening.
+
+\subsection{Uncertainty-aware dynamics distance}
+For clients $i$ and $j$, define
+\begin{equation}
+    (\distdyn_{ij})^2=(\hat\theta_i-\hat\theta_j)^\top
+    (\hat\Sigma_i+\hat\Sigma_j+\epsilon I)^{-1}
+    (\hat\theta_i-\hat\theta_j).
+    \label{eq:dyn_distance}
+\end{equation}
+A direct similarity score is
+\begin{equation}
+    s_{ij}=\exp\!\left(-\frac{(\distdyn_{ij})^2}{2\ell_d^2}\right).
+\end{equation}
+The covariance weighting prevents uncertain parameter differences from being interpreted as equally strong evidence as precisely identified differences.
+
+\subsection{Transfer-risk calibration}
+For development clients, let $\xi_j^\star$ denote the weight vector selected for donor client $j$. Its relative transfer loss on target $i$ is
+\begin{equation}
+    L_{i\leftarrow j}=\frac{f_i(\xi_j^\star)-f_i(\xi_i^\star)}{f_i(\xi_i^\star)+\epsilon_J}.
+    \label{eq:transfer_loss}
+\end{equation}
+For an acceptable degradation $\tau_L$, fit a monotone calibration map on a disjoint development fleet,
+\begin{equation}
+    \hat p_{ij}^{\mathrm{risk}}=g_{\tau_L}(\distdyn_{ij})
+    \approx\Pr(L_{i\leftarrow j}>\tau_L\mid\distdyn_{ij}).
+\end{equation}
+Isotonic regression is a suitable first implementation. An online-only variant can use $\hat p_{ij}^{\mathrm{risk}}=1-s_{ij}$.
+
+The admissible peer set is
+\begin{equation}
+    \mathcal N_i=\{j\neq i:\hat p_{ij}^{\mathrm{risk}}\le p_{\max}\},
+\end{equation}
+with normalized peer weights
+\begin{equation}
+    \alpha_{ij}=\frac{(1-\hat p_{ij}^{\mathrm{risk}})^\gamma}{\sum_{\ell\in\mathcal N_i}(1-\hat p_{i\ell}^{\mathrm{risk}})^\gamma}.
+\end{equation}
+
+\subsection{Local Gaussian-process models and federated Thompson sampling}
+Each client models its local objective as
+\begin{equation}
+    f_i(\xi)\sim\mathcal{GP}(m_i(\xi),k_i(\xi,\xi')).
+\end{equation}
+Inputs are normalized to the unit hypercube and local observations standardized. A Mat\'ern-$5/2$ kernel is used in the first implementation. Following FTS~\cite{dai2020fts}, random Fourier features can approximate GP posterior samples,
+\begin{equation}
+    \tilde f_{i,n}(\xi)=\phi(\xi)^\top w_{i,n},
+\end{equation}
+so that a sampled parameter vector $w_{i,n}$ represents compact Thompson-sample information without transmitting the client's raw objective history.
+
+At BO round $n$, target client $i$ either follows its own Thompson sample or a trusted peer sample. Let
+\begin{equation}
+    z_{i,n}\sim\mathrm{Bernoulli}(\lambda_n),
+\end{equation}
+where $\lambda_n$ is the collaboration probability. If $z_{i,n}=0$, the candidate comes from the local posterior. If $z_{i,n}=1$, peer $j\in\mathcal N_i$ is sampled according to $\alpha_{ij}$ and the candidate is obtained from the peer's Thompson function. This transfers a \emph{search suggestion} in the common LQI weight space, not a controller gain. The target client then synthesizes $K_i(\xi)$ from its own model.
+
+A useful schedule is
+\begin{equation}
+    \lambda_n=\lambda_0\exp(-n/n_\lambda),
+\end{equation}
+so peer information accelerates early exploration while the target's own evidence increasingly dominates later calibration.
+
+\subsection{Target-local uncertainty-aware screening}
+Dynamics-aware peer selection reduces the chance of importing misleading information but does not itself ensure that the suggested controller is suitable for the target. From $(\hat\theta_i,\hat\Sigma_i)$, sample plausible local models
+\begin{equation}
+    \theta_i^{(m)}\sim\mathcal N(\hat\theta_i,\hat\Sigma_i),
+    \qquad m=1,\ldots,M_u.
+\end{equation}
+For candidate $\xi$, synthesize $K_i(\xi)$ and estimate the fraction of sampled models satisfying a closed-loop spectral-radius margin,
+\begin{equation}
+    \hat p_i^{\mathrm{stab}}(\xi)=\frac{1}{M_u}\sum_{m=1}^{M_u}\mathbb I\!\left[\rho(A_{\mathrm{cl}}(\theta_i^{(m)},K_i(\xi)))<1-\varepsilon_\rho\right].
+\end{equation}
+Require $\hat p_i^{\mathrm{stab}}(\xi)\ge1-\alpha_u$ and nominal or sampled rollouts to satisfy the configured steering, steering-rate, and sideslip limits. Rejected candidates do not consume a physical rollout. Unless a formal robust certificate is added, this mechanism should be described as \emph{uncertainty-aware pre-evaluation screening}, not a formal safety guarantee.
+
+\subsection{Communication and privacy scope}
+Raw identification and controller-evaluation trajectories remain local. The server receives uncertain identification descriptors $(\hat\theta_i,\hat\Sigma_i)$ and compact surrogate information such as RFF Thompson-sample parameters. This is a data-locality property, not a formal privacy guarantee. Differential privacy can in principle be added using existing DP-FBO mechanisms~\cite{dai2021dpfts}, but is outside the minimum scope of this paper.
+
+\section{Experimental Setup}
+\label{sec:experiments}
+\draftnote{This section is intentionally coarse in v1. Populate exact values from the frozen experiment configuration after full-scale Phase 1B.}
+
+\subsection{Vehicle benchmark and model mismatch}
+Use the existing heterogeneous lateral-vehicle fleet from~\cite{weber2026ifac}. Each client has the two-state lateral variables $x=[\beta,r]^\top$, steering input $u=\delta$, and yaw-rate tracking output. The default fleet contains three latent regimes representing low-speed, payload, and high-speed operation with client-level parameter scatter.
+
+Two plant conditions should be reported:
+\begin{enumerate}
+\item \textbf{Phase 1A -- matched model:} the true client and identified controller model share the linear bicycle-model structure. Differences arise from client parameters and finite identification uncertainty.
+\item \textbf{Phase 1B -- structural mismatch:} the true plant uses smooth saturating tire forces, while RLS identification and LQI synthesis retain the linear two-state model. This creates a controlled model-reality gap without changing the federated identification interface.
+\end{enumerate}
+Data must be split into disjoint identification, BO-calibration, and held-out test episodes.
+
+\subsection{Phase-1 mechanism study}
+Before evaluating FBO, establish the mechanism that motivates selective transfer. On a common Sobol set of LQI weights, compute pairwise uncertainty-aware dynamics distance $\distdyn_{ij}$, pairwise controller-transfer loss $L_{i\leftarrow j}$ from~\eqref{eq:transfer_loss}, whole-landscape rank distance as a secondary diagnostic, and global, true-regime, estimated-cluster, and individual held-out calibration performance. The primary figure is $\distdyn_{ij}$ versus $L_{i\leftarrow j}$ with fleet-level bootstrap confidence intervals. A second analysis bins $\distdyn_{ij}$ and estimates
+\begin{equation}
+    \Pr(L_{i\leftarrow j}>\tau_L\mid \distdyn_{ij}\in\text{bin}),
+\end{equation}
+which directly motivates the transfer-risk map.
+
+\subsection{Compared BO methods}
+The final study should compare at least:
+\begin{table}[t]
+\centering
+\caption{Planned controller-calibration methods.}
+\label{tab:methods}
+\scriptsize
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{ID} & \textbf{Method} \\
+\midrule
+M0 & fixed / hand-tuned LQI \\
+M1 & independent BO, one GP per client \\
+M2 & global FTS, dynamics-agnostic peer transfer \\
+M3 & hard-cluster FTS using inferred model clusters \\
+M4 & \method{} with direct similarity weighting \\
+M5 & \method{} with calibrated transfer-risk weighting \\
+M6 & M5 + target-local uncertainty-aware safety screen \\
+M7 & oracle peer compatibility / centralized reference \\
+\bottomrule
+\end{tabular}
+\end{table}
+Budget comparisons must be matched by the expensive quantity: the number of local closed-loop evaluations. Server rounds alone are not a fair sample-efficiency metric when different methods evaluate different numbers of clients.
+
+\subsection{Primary metrics}
+Report best held-out tracking RMSE versus local evaluation budget, evaluations required to reach within $5\%$ and $10\%$ of the oracle calibration, normalized regret, number of unsafe/infeasible physical rollouts, number of candidates rejected by the model screen, tail transfer risk such as the $90$th percentile of $L_{i\leftarrow j}$, and communication payload.
+
+\subsection{Ablations}
+The minimum ablation set is:
+\begin{enumerate}
+\item Euclidean parameter distance versus uncertainty-aware distance~\eqref{eq:dyn_distance};
+\item hard clustering versus continuous transfer gating;
+\item direct kernel risk versus calibrated risk;
+\item safety screen off versus on;
+\item matched-model versus nonlinear-mismatch plant;
+\item sensitivity to $p_{\max}$, $\ell_d$, and the collaboration schedule $\lambda_n$.
+\end{enumerate}
+
+\section{Results and Discussion}
+\label{sec:results}
+\subsection{Identified dynamics predict controller-transfer risk}
+\todo{Insert full-scale Phase 1A and Phase 1B headline figure and update numerical values. The main argument should be mechanistic rather than only statistical: global and hard-cluster tuning can perform similarly in fleet-average RMSE while pairwise transfer still contains substantial tail risk. This motivates selective transfer even when hard specialization does not improve the mean.}
+
+\subsection{Does dynamics-aware FBO reduce local experiments?}
+\todo{Primary DA-FBO result. Plot best held-out RMSE / normalized regret versus local controller evaluations for M1--M7. The desired result is that DA-FBO improves early sample efficiency over independent BO and avoids the negative-transfer tail of global FTS.}
+
+\subsection{Safety-screening effectiveness}
+\todo{Compare candidate proposals, pre-evaluation rejections, actual unsafe rollouts, false rejections, and final tracking performance. Separate transfer gating from target-local plant screening so that their roles remain visible.}
+
+\subsection{Matched versus mismatched plants}
+\todo{Use Phase 1A as a negative-control / low-mismatch setting and Phase 1B as the main realistic case. Discuss whether the benefit of dynamics-aware transfer grows when model-based synthesis is imperfect.}
+
+\subsection{Limitations}
+The first iteration should explicitly discuss: the dynamics distance~\eqref{eq:dyn_distance} is symmetric while empirical controller transfer can be directional; the risk calibration $g_{\tau_L}$ may be fleet- and task-dependent and therefore requires a development fleet or online adaptation; raw-data locality does not imply differential privacy; Monte Carlo screening from identification covariance is not a formal robust-stability guarantee unless the uncertainty set and certificate are strengthened accordingly; the study uses a low-dimensional LQI calibration space, which is appropriate for BO but does not directly establish scalability to high-dimensional controller architectures; and the vehicle validation remains simulation based until real fleet data or hardware experiments are added.
+
+\section{Conclusion}
+\label{sec:conclusion}
+This paper studies federated controller calibration for fleets in which clients share a control task but not identical dynamics. The proposed framework uses uncertain local system identifications to decide how Bayesian-optimization experience should transfer between clients. Rather than assigning one calibration per hard cluster, dynamics-aware federated BO treats identified similarity as a continuous trust signal and combines it with target-local uncertainty-aware controller screening. This architecture preserves model-based LQI synthesis while using distributed closed-loop experiments only for the low-dimensional calibration that the identified model cannot determine reliably.
+
+\todo{Final conclusion should report the full-scale sample-efficiency and safety results. If no formal safety theorem is added, conclude in terms of reduced unsafe evaluations / risk-aware calibration rather than guaranteed safety.}
+
+\section*{Draft Development Notes}
+\begin{itemize}
+\item \textbf{Working title:} If the safety layer remains empirical/model-screening only, consider ``Dynamics-Aware Federated Bayesian Optimization for \emph{Safety-Aware} Controller Calibration in Heterogeneous Systems.'' Reserve ``Safe'' for a version with an explicit probabilistic or robust guarantee.
+\item \textbf{Core novelty to protect:} not ``BO tunes LQI'' and not ``FBO exists.'' The intended novelty is using uncertain identified dynamics as a physically meaningful transfer descriptor that controls collaborative black-box optimization and prevents negative transfer.
+\item \textbf{Algorithmic target:} Dynamics-aware FTS is preferable to simple surrogate averaging because it directly extends a published FBO mechanism and transfers search suggestions rather than averaging heterogeneous objective values.
+\item \textbf{Experimental priority:} finish full-scale Phase 1B, then implement M1/M2/M4 before adding the risk-calibrated and safety-screened variants. The paper can survive without a sophisticated risk calibrator if direct uncertainty-aware similarity already produces the desired sample-efficiency/tail-risk behavior.
+\end{itemize}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
