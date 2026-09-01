@@ -18,6 +18,12 @@
 \newcommand{\distdyn}{d^{\mathrm{dyn}}}
 \newcommand{\calD}{\mathcal{D}}
 \newcommand{\feasSet}{\mathcal{F}}
+\newcommand{\placeholderfigure}[1]{%
+    \fbox{\parbox[c][3.7cm][c]{0.94\linewidth}{\centering\small
+    \textbf{FIGURE PLACEHOLDER}\\[1.5mm]#1}}}
+\newcommand{\placeholderfigurewide}[1]{%
+    \fbox{\parbox[c][4.2cm][c]{0.96\textwidth}{\centering\small
+    \textbf{FIGURE PLACEHOLDER}\\[1.5mm]#1}}}
 
 \title{Dynamics-Aware Federated Bayesian Optimization for Controller Calibration in Heterogeneous Systems}
 
@@ -60,7 +66,7 @@ where $\distdyn_{ij}$ is an uncertainty-aware distance between the identified dy
 
 This choice is supported by our mechanism experiments. After correcting the LQI normalization, held-out evaluation protocol, and physical constraints, dynamics distance consistently predicts controller-transfer degradation. On the final fixed-speed fleet, the relation remains moderate but statistically clear, while transfer itself is asymmetric: for example, payload clients can be vulnerable recipients of calibrations obtained on lighter vehicles. A recipient-side directional gate was therefore investigated as an additional mechanism. The subsequent BO experiment, however, shows that the simpler symmetric similarity weighting already provides the useful sample-efficiency gain, whereas the extra gate does not improve optimization. We therefore retain the dynamics similarity as the principal method and treat recipient-aware gating as an ablation.
 
-The resulting framework, termed \emph{dynamics-aware federated Bayesian optimization} (\method{}), keeps raw identification and closed-loop trajectories local. Clients share uncertain model descriptors and low-dimensional BO observations in the common controller-weight space. For every target client, peer observations are incorporated into a Gaussian-process surrogate with a weight determined by identified dynamics similarity. Expected improvement (EI) then proposes a new LQI weighting, from which the target client synthesizes its own gain and performs its own constrained plant evaluation.
+The resulting framework, termed \emph{dynamics-aware federated Bayesian optimization} (\method{}), keeps raw identification and closed-loop trajectories local. Clients share uncertain model descriptors and low-dimensional BO observations in the common controller-weight space. For every target client, peer observations are incorporated into a Gaussian-process surrogate with a weight determined by identified dynamics similarity. Expected improvement (EI) then proposes a new LQI weighting, from which the target client synthesizes its own gain and performs its own constrained plant evaluation. Figure~\ref{fig:method_overview} summarizes this information flow.
 
 The main contributions are:
 \begin{itemize}
@@ -69,6 +75,13 @@ The main contributions are:
     \item We develop a common weighted-GP/EI calibration framework in which independent BO, global pooling, similarity-weighted FBO, and a recipient-aware extension differ only in their cross-client observation weights, enabling a controlled ablation of the information-transfer mechanism.
     \item We provide mechanism evidence that identified dynamics distance predicts controller-transfer degradation on matched and mismatched plants, and preliminary BO evidence that similarity-weighted FBO improves finite-budget convergence while global pooling produces negative transfer. \draftnote{Replace preliminary medium-scale numbers by the final statistically replicated campaign before submission.}
 \end{itemize}
+
+\begin{figure*}[t]
+    \centering
+    \placeholderfigurewide{\textbf{Method overview.} Show multiple clients with local trajectory data $\rightarrow$ local identification $(\hat\theta_i,\hat\Sigma_i)$ $\rightarrow$ server-side pairwise dynamics distance $d_{ij}^{\rm dyn}$ and similarity $s_{ij}$ $\rightarrow$ target-specific weighted GP/EI $\rightarrow$ candidate $\xi_i$ $\rightarrow$ client-local LQI synthesis and plant evaluation. Visually distinguish what remains local (raw trajectories, plant rollout) from what is shared (model descriptors and scalar BO observations).}
+    \caption{Planned overview of dynamics-aware federated Bayesian optimization. Identified dynamics determine how strongly cross-client calibration observations influence each target client's BO surrogate; controller gains are always synthesized and evaluated locally for the target client.}
+    \label{fig:method_overview}
+\end{figure*}
 
 The work is related to federated LQR for heterogeneous dynamical systems~\cite{wang2026fedlqr}, but differs in objective and architecture. Federated LQR directly learns control policies from distributed interactions. Here, local system identification remains the basis for model-based LQI synthesis; federation acts only on the low-dimensional black-box calibration problem that remains after the model has been identified.
 
@@ -250,10 +263,33 @@ The primary metric is normalized simple regret versus local evaluation budget. F
 \label{sec:results}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mechanism: dynamics similarity contains useful transfer information}
-The corrected Phase-1 experiments show that hard cluster-level calibration is not consistently superior to a single global calibration, but pairwise controller transfer is nevertheless structured by identified dynamics. On the final fixed-speed fleet, the distance--transfer relation remains moderate but clearly positive. The donor--recipient matrix is asymmetric: payload clients are particularly vulnerable recipients of controllers tuned on lower-mass plants, whereas payload-tuned controllers transfer comparatively safely in the reverse direction. This observation motivated the recipient-aware gate, but the BO comparison below indicates that the simpler continuous similarity is already the more effective information-transfer mechanism.
+The corrected Phase-1 experiments show that hard cluster-level calibration is not consistently superior to a single global calibration, but pairwise controller transfer is nevertheless structured by identified dynamics. On the final fixed-speed fleet, the distance--transfer relation remains moderate but clearly positive. Figure~\ref{fig:distance_transfer} is intended to make this mechanism explicit before the BO performance results are introduced.
+
+\begin{figure}[t]
+    \centering
+    \placeholderfigure{\textbf{Dynamics distance $\rightarrow$ transfer loss.} Plot $d_{ij}^{\rm dyn}$ on the x-axis and $L_{i\leftarrow j}$ on the y-axis for the final fixed-speed fleet. Prefer a light pairwise point cloud plus binned median/mean and confidence interval. Annotate Spearman $\rho$ and the fleet-level bootstrap CI. If space allows, use two panels for matched-model and nonlinear-mismatch cases; otherwise show the final mismatched fixed-speed case and report robustness in text.}
+    \caption{Planned mechanism figure: controller-transfer degradation as a function of uncertainty-aware identified-dynamics distance. The figure should establish why dynamics similarity is a meaningful relevance signal for collaborative BO.}
+    \label{fig:distance_transfer}
+\end{figure}
+
+The donor--recipient matrix is asymmetric: payload clients are particularly vulnerable recipients of controllers tuned on lower-mass plants, whereas payload-tuned controllers transfer comparatively safely in the reverse direction. Figure~\ref{fig:transfer_matrix} gives this relationship a physical interpretation and illustrates why indiscriminate global sharing can be harmful. This observation motivated the recipient-aware gate, but the BO comparison below indicates that the simpler continuous similarity is already the more effective information-transfer mechanism.
+
+\begin{figure}[t]
+    \centering
+    \placeholderfigure{\textbf{Donor $\rightarrow$ recipient transfer matrix.} $3\times3$ heatmap of mean held-out transfer loss for diagnostic generating families nominal, payload, and tire-degraded. Rows are donors, columns are recipients. Print percentages inside cells and use a common sequential scale. Highlight the elevated nominal$\rightarrow$payload and tire-degraded$\rightarrow$payload transfer losses and the directional asymmetry.}
+    \caption{Planned donor--recipient transfer-loss heatmap. Diagnostic family labels are used only for interpretation and are never provided to the proposed algorithm.}
+    \label{fig:transfer_matrix}
+\end{figure}
 
 \subsection{Similarity-weighted FBO improves finite-budget convergence}
-Table~\ref{tab:prelim_regret} summarizes the corrected 30-client, five-seed decision run. Similarity-weighted FBO is not best immediately after initialization: at 10 local evaluations global pooling has the lowest median regret. Once more client-specific evidence is available, however, the methods separate strongly. At 15 evaluations, similarity FBO reaches median normalized regret $0.007$, compared with $0.026$ for independent BO and $0.029$ for global pooling. At 20 evaluations, similarity FBO reaches $0.0014$, compared with $0.0053$ and $0.0144$, respectively.
+The main paper result should be the full finite-budget trajectory rather than only the final controller. Figure~\ref{fig:bo_convergence} therefore plots normalized simple regret against the number of local plant evaluations. Table~\ref{tab:prelim_regret} summarizes the currently available corrected 30-client, five-seed decision run. Similarity-weighted FBO is not best immediately after initialization: at 10 local evaluations global pooling has the lowest median regret. Once more client-specific evidence is available, however, the methods separate strongly. At 15 evaluations, similarity FBO reaches median normalized regret $0.007$, compared with $0.026$ for independent BO and $0.029$ for global pooling. At 20 evaluations, similarity FBO reaches $0.0014$, compared with $0.0053$ and $0.0144$, respectively.
+
+\begin{figure*}[t]
+    \centering
+    \placeholderfigurewide{\textbf{Headline BO convergence figure.} Plot normalized simple regret $r(n)$ versus local evaluations/client for Independent BO, Global BO, Similarity FBO, and Recipient-aware FBO. Use the final 15--20-seed campaign, median trajectory as the central line, and paired seed-level confidence bands. Mark Sobol initialization end ($n=8$) and checkpoints $n=10,15,20,25$. The visual message should be: global sharing can be competitive early, similarity-weighted FBO separates in the finite-budget regime, and recipient-aware gating does not improve on similarity-only.}
+    \caption{Planned headline result: finite-budget controller-calibration performance versus the number of local closed-loop evaluations. Similarity-weighted FBO should be interpreted as a sample-efficiency method, not as changing the asymptotic optimum.}
+    \label{fig:bo_convergence}
+\end{figure*}
 
 \begin{table}[t]
 \centering
@@ -271,12 +307,29 @@ $n$ & Independent & Global & Similarity & Recipient-aware \\
 \end{tabular}
 \end{table}
 
-The secondary metrics support the same ordering. Similarity FBO reaches the 5\%-of-oracle target in 98.0\% of client/seed runs, compared with 96.7\% for independent BO, 94.7\% for global BO, and 97.3\% for the recipient-aware method. Its budget-censored mean evaluations to that target are also lowest (9.07 versus 9.35, 9.50, and 9.30, respectively), and it has the lowest mean infeasible evaluation count (0.93 versus 0.96, 1.08, and 1.00).
+The secondary metrics support the same ordering. Similarity FBO reaches the 5\%-of-oracle target in 98.0\% of client/seed runs, compared with 96.7\% for independent BO, 94.7\% for global BO, and 97.3\% for the recipient-aware method. Its budget-censored mean evaluations to that target are also lowest (9.07 versus 9.35, 9.50, and 9.30, respectively), and it has the lowest mean infeasible evaluation count (0.93 versus 0.96, 1.08, and 1.00). In the final campaign, these trajectory-level results will be compressed by the AURC and evaluations-to-target summaries in Fig.~\ref{fig:sample_efficiency_summary}.
+
+\begin{figure}[t]
+    \centering
+    \placeholderfigure{\textbf{Sample-efficiency summary, two panels.} Left: AURC (area under normalized-regret curve) per method with paired seed-level distributions/CI. Right: budget-censored evaluations required to reach within 5\% of the client oracle. Lower is better in both panels. Use identical method order as Fig.~\ref{fig:bo_convergence}.}
+    \caption{Planned compact sample-efficiency summary. AURC captures performance over the entire finite calibration trajectory, while evaluations-to-target gives an interpretable experiment-count measure.}
+    \label{fig:sample_efficiency_summary}
+\end{figure}
 
 The important interpretation is therefore not that federation changes the best attainable controller. Rather, selective sharing improves \emph{how quickly} clients reach the useful region of the LQI weight space. Global pooling can help very early, when observations are scarce, but becomes harmful once heterogeneous observations begin to distort the target client's surrogate. Dynamics similarity preserves the useful part of collaboration while reducing that negative transfer.
 
 \subsection{The recipient-aware gate does not improve the main method}
 Although Phase 1D showed a physically interpretable relation between recipient-predicted sideslip and directional transfer loss, the recipient-aware method does not outperform plain similarity weighting at any reported checkpoint. At the final medium-scale checkpoint its regret is $0.0181$, even worse than independent BO. The current evidence therefore does not justify the additional model-screening complexity. We retain the result as an informative ablation and carry only the similarity-weighted method into the final statistical campaign.
+
+\subsection{Where does collaboration help?}
+The generating-family labels are not used by the algorithm, but they provide a useful diagnostic for interpreting the source of the sample-efficiency gain. Figure~\ref{fig:family_breakdown} is reserved for a family-wise breakdown of AURC or finite-budget regret. It should remain in the main paper only if the final campaign reveals a clear mechanistic pattern, for example a larger benefit on payload clients; otherwise it should move to the appendix or supplementary material.
+
+\begin{figure}[t]
+    \centering
+    \placeholderfigure{\textbf{Optional family-wise benefit figure.} Show either AURC or Similarity-FBO-minus-Independent improvement separately for nominal, payload, and tire-degraded recipients. Prefer paired distributions over simple bars. Include only if the final campaign reveals a stable and interpretable family-dependent effect; otherwise move this figure to supplementary material.}
+    \caption{Optional diagnostic: family-wise sample-efficiency benefit. Diagnostic family labels are used only post hoc and are not available to the proposed FBO algorithm.}
+    \label{fig:family_breakdown}
+\end{figure}
 
 \subsection{Current limitations}
 The medium-scale study contains only five independent fleet seeds. Individual clients within one seed share the same communication pool and are therefore not independent method-level replicates. The quantitative BO conclusions must consequently be confirmed with substantially more independent seeds before submission. The final campaign should use 15--20 seeds, extend the local evaluation budget to approximately 25 points, and report paired statistics at the fleet-seed level. AURC and family-specific results will test whether the sample-efficiency advantage persists across the full calibration trajectory and whether it is concentrated in particular plant families.
@@ -299,6 +352,7 @@ The preliminary corrected medium-scale results support the intended mechanism: i
     \item \textbf{Privacy wording:} raw trajectories remain local, but scalar BO observations are currently shared. Do not claim differential privacy.
     \item \textbf{Recipient-aware gate:} retain as an ablation only; do not tune additional gate variants unless the final campaign contradicts the medium-scale ordering.
     \item \textbf{Final campaign:} 30 clients, 15--20 independent fleet seeds, about 25 evaluations/client, paired seed-level statistics, AURC, evaluations-to-5\%-oracle, infeasible evaluations, and diagnostic family breakdown.
+    \item \textbf{Figure plan:} Fig.~\ref{fig:method_overview} method overview; Fig.~\ref{fig:distance_transfer} dynamics distance vs. transfer loss; Fig.~\ref{fig:transfer_matrix} donor--recipient heatmap; Fig.~\ref{fig:bo_convergence} headline regret trajectory; Fig.~\ref{fig:sample_efficiency_summary} AURC/evaluations-to-target; Fig.~\ref{fig:family_breakdown} optional family analysis.
     \item \textbf{Historical Phase 1A/1B material:} use only as compact mechanism/robustness evidence. The final benchmark should remain the physically cleaner fixed-speed nominal/payload/tire-degraded fleet.
 \end{itemize}
 
