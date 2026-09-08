@@ -1,0 +1,61 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{amsmath,amssymb,bm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{multirow}
+
+\newcommand{\todo}[1]{\textcolor{red!70!black}{\textbf{[TODO:} #1\textbf{]}}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\feasSet}{\mathcal{F}}
+\newcommand{\AURCstar}{\mathrm{AURC}_{\star}}
+\newcommand{\Nfive}{N_{5\%}}
+\newcommand{\distdyn}{d^{\mathrm{dyn}}}
+\newcommand{\placeholderfigurewide}[1]{%
+    \fbox{\parbox[c][4.5cm][c]{0.96\textwidth}{\centering\small
+    \textbf{FIGURE PLACEHOLDER}\\[1.5mm]#1}}}
+
+\title{Fleet-Informed Bayesian Optimization for Data-Efficient Controller Calibration}
+
+\author{\IEEEauthorblockN{Jakob Weber, Markus Gurtner, Adrian Trachte, Andreas Kugi}
+\IEEEauthorblockA{\textit{Draft author list -- affiliations to be finalized}}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Controller calibration is commonly repeated for every new system variant, although mature fleets may already contain substantial information about which controller-design parameters perform well. This paper studies whether historical fleet calibration experience can reduce the number of new closed-loop experiments required for a newly arriving client. We consider LQI yaw-rate tracking for a heterogeneous vehicle fleet and use Bayesian optimization (BO) to tune a three-dimensional controller-weight vector. Historical scalar calibration observations from previously optimized clients warm-start the target client's Gaussian-process surrogate, while every candidate controller is synthesized from the target client's own identified model and evaluated only on its local nonlinear plant. A pre-registered confirmatory campaign with 20 previously untouched fleet seeds and 120 held-out targets shows that mature-fleet warm start reduces the mean number of target-local experiments required to reach within 5\% of the client-specific oracle from 6.63 to 3.07, a 54\% reduction, while strongly reducing variability. Dynamics-aware weighting of historical observations provides no measurable improvement over unweighted pooling. A separate landscape study explains this result: despite substantial plant heterogeneity, pairwise LQI-calibration landscapes remain highly rank-correlated, with Spearman correlation above 0.95 for every evaluated client pair. The results indicate that fleet-level controller-calibration knowledge can be broadly reusable even when the underlying plant dynamics differ substantially.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Bayesian optimization, controller calibration, transfer learning, LQI, heterogeneous systems, vehicle control
+\end{IEEEkeywords}
+
+\section{Introduction}
+Controller calibration is an important but expensive part of commissioning modern dynamical systems. Even when the controller structure is fixed by model-based design, parameters such as LQR/LQI state and input penalties still determine the final compromise between tracking performance, control effort, and robustness. Bayesian optimization (BO) is attractive for this task because it can optimize low-dimensional controller parameters from a limited number of expensive zeroth-order evaluations~\cite{frazier2018tutorial,marco2016lqr,berkenkamp2016safe,schillinger2017safe,vonrohr2024local}.
+
+A fleet setting changes the calibration problem fundamentally. Vehicles or machines are commissioned one after another, and earlier clients may already have accumulated closed-loop calibration experience. Repeating a cold-start optimization for every new client ignores this information. Collaborative and federated BO similarly exploit information distributed across multiple agents~\cite{dai2020fts,dai2021dpfts,chen2025collaborative}. For controller calibration, however, the central question is how transferable previous calibration observations remain when the underlying dynamical systems differ.
+
+The intuitive answer is not obvious. Heterogeneous vehicle dynamics can change closed-loop behavior substantially, and uncertainty-aware dynamics estimates contain useful structure for clustered system identification and controller design~\cite{weber2026ifac}. This motivates dynamics-aware transfer. At the same time, the controller-calibration problem may be much more invariant than the plant itself: different models can induce similar rankings of the same low-dimensional LQI weight configurations, in which case broad reuse of fleet experience may be sufficient.
+
+This paper studies that distinction in a mature-fleet setting. A new target joins a fleet whose previous clients have already completed BO-based controller calibration. Historical clients provide scalar calibration records in the common controller-weight space. The target starts with two local initialization experiments, fits a GP surrogate jointly to its own and historical observations, and sequentially evaluates new target-specific LQI controllers. Historical observations do not count toward the target's experimental budget, and no fixed feedback gain is transferred.
+
+The contributions are:
+\begin{itemize}
+    \item We formulate \emph{mature-fleet controller calibration} as a transfer problem in which historical fleet calibration observations reduce the number of new closed-loop experiments required by a newly arriving client.
+    \item In a pre-registered held-out campaign on a heterogeneous nonlinear vehicle fleet, fleet-informed warm start reduces the mean number of local evaluations needed to reach within 5\% of the client-specific oracle from 6.63 to 3.07 and strongly reduces the difficult-client tail.
+    \item We characterize why broad transfer is possible. Although identified vehicle dynamics differ substantially, the LQI-calibration landscapes remain highly rank-correlated. Consistent with this observation, dynamics-aware weighting does not outperform simple unweighted pooling on fresh confirmatory data.
+\end{itemize}
+
+Figure~\ref{fig:concept} summarizes the commissioning workflow.
+
+\begin{figure*}[t]
+    \centering
+    \placeholderfigurewide{\textbf{Fig. 1 -- Fleet-informed controller calibration concept.} Mature fleet with historical calibration records $\rightarrow$ newly arriving target $\rightarrow$ two target-local initialization experiments $\rightarrow$ fleet-informed GP/EI $\rightarrow$ target-local LQI synthesis and closed-loop evaluation.}
+    \caption{Fleet-informed controller calibration. Historical calibration records from mature clients warm-start the BO surrogate of a newly arriving target. Only the target's new closed-loop evaluations count toward the commissioning budget; controller gains are synthesized and evaluated locally for the target.}
+    \label{fig:concept}
+\end{figure*}
+
