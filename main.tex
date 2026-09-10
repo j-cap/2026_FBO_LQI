@@ -7,6 +7,7 @@
 \usepackage{xcolor}
 \usepackage{url}
 \usepackage{multirow}
+\usepackage[caption=false,font=footnotesize]{subfig}
 
 \newcommand{\todo}[1]{\textcolor{red!70!black}{\textbf{[TODO:} #1\textbf{]}}}
 \newcommand{\calD}{\mathcal{D}}
@@ -20,6 +21,14 @@
 \newcommand{\placeholderfigurewide}[1]{%
     \fbox{\parbox[c][4.5cm][c]{0.96\textwidth}{\centering\small
     \textbf{FIGURE PLACEHOLDER}\\[1.5mm]#1}}}
+\newcommand{\figurepdf}[2]{%
+    \IfFileExists{#2}{%
+        \includegraphics[width=#1]{#2}%
+    }{%
+        \fbox{\parbox[c][3.4cm][c]{#1}{\centering\small
+        \textbf{PDF FIGURE PENDING}\\[1.5mm]\texttt{#2}}}%
+    }%
+}
 
 \title{Fleet-Informed Bayesian Optimization for Data-Efficient Controller Calibration}
 
@@ -351,8 +360,7 @@ Each BO evaluation measures yaw-rate root-mean-square error over a common pair o
 
 \begin{figure}[t]
 \centering
-\color{blue}
-\placeholderfigure{\textbf{Lane-change reference trajectories.} Plot the yaw-rate references $r^{\mathrm{ref}}(t)$ for $T_{\mathrm{lc}}=1.0$ s and $T_{\mathrm{lc}}=2.0$ s on a common time axis.}
+\figurepdf{0.96\columnwidth}{figures/lane_change_reference.pdf}
 \caption{\textcolor{blue}{Yaw-rate references used for controller calibration. Every client is evaluated on both lane-change maneuvers, and each BO query averages three stochastic episodes per maneuver.}}
 \label{fig:lane_change_reference}
 \end{figure}
@@ -381,8 +389,14 @@ The key comparison is $\rho_{ij}^{J}$ versus $\distdyn_{ij}$.
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.98\textwidth]{figures/fig2_dynamics_vs_landscape_similarity.png}
-\caption{\textcolor{blue}{Plant heterogeneity does not translate into comparable controller-calibration heterogeneity. Despite substantial differences in identified dynamics, the LQI calibration landscapes remain highly rank-correlated across the evaluated fleet.}}
+\subfloat[\textcolor{blue}{Vehicle-parameter heterogeneity.}\label{fig:landscape_params}]{%
+    \figurepdf{0.475\textwidth}{figures/parameter_heterogeneity.pdf}%
+}
+\hfill
+\subfloat[\textcolor{blue}{Dynamics distance versus calibration-landscape similarity.}\label{fig:landscape_similarity}]{%
+    \figurepdf{0.475\textwidth}{figures/dynamics_landscape_similarity.pdf}%
+}
+\caption{\textcolor{blue}{Plant heterogeneity does not translate into comparable controller-calibration heterogeneity. Panel (a) shows the physical variation across the three vehicle families. Panel (b) shows that the LQI calibration landscapes remain highly rank-correlated even when the identified dynamics are far apart.}}
 \label{fig:landscape}
 \end{figure*}
 
@@ -438,7 +452,7 @@ Figure~\ref{fig:convergence} shows reference-relative regret versus the number o
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.98\textwidth]{figures/fig3_confirmatory_convergence.png}
+\figurepdf{0.82\textwidth}{figures/confirmatory_convergence.pdf}
 \caption{\textcolor{blue}{Held-out convergence over 20 fleet realizations and 120 new-client calibration problems. Fleet warm start accelerates controller calibration from the first BO iterations. Dynamics weighting and unweighted pooling exhibit essentially identical convergence.}}
 \label{fig:convergence}
 \end{figure*}
@@ -468,8 +482,14 @@ After only three new-client experiments, 76.7\% of globally warm-started clients
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.98\textwidth]{figures/fig4_n5pct_summary.png}
-\caption{\textcolor{blue}{Number of new-client experiments required to reach within 5\% of the client-specific offline reference. Fleet warm start approximately halves the mean commissioning effort and largely removes the difficult-client tail.}}
+\subfloat[\textcolor{blue}{Empirical cumulative distribution of $\Nfive$.}\label{fig:n5_ecdf}]{%
+    \figurepdf{0.475\textwidth}{figures/n5pct_ecdf.pdf}%
+}
+\hfill
+\subfloat[\textcolor{blue}{Success probability at fixed local budgets.}\label{fig:n5_success}]{%
+    \figurepdf{0.475\textwidth}{figures/fixed_budget_success.pdf}%
+}
+\caption{\textcolor{blue}{New-client experiments required to reach within 5\% of the client-specific offline reference. Panel (a) shows the full distribution of $\Nfive$. Panel (b) shows the probability of meeting the criterion within three and five local experiments.}}
 \label{fig:n5}
 \end{figure*}
 
@@ -481,8 +501,14 @@ The null result is structural rather than numerical. The dynamics weighting stro
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.98\textwidth]{figures/fig5_similarity_unnecessary.png}
-\caption{\textcolor{blue}{Dynamics-aware source weighting does not improve new-client sample efficiency. Global and weighted warm start remain effectively identical on held-out data and when same-family source coverage is deliberately reduced.}}
+\subfloat[\textcolor{blue}{Held-out global versus dynamics-weighted warm start.}\label{fig:null_pairwise}]{%
+    \figurepdf{0.475\textwidth}{figures/global_vs_similarity.pdf}%
+}
+\hfill
+\subfloat[\textcolor{blue}{Sensitivity to same-family source coverage.}\label{fig:null_coverage}]{%
+    \figurepdf{0.475\textwidth}{figures/coverage_sensitivity.pdf}%
+}
+\caption{\textcolor{blue}{Dynamics-aware source weighting does not improve new-client sample efficiency. Panel (a) compares global and weighted warm start on the held-out fleets. Panel (b) shows that their performance remains similar when same-family source coverage is deliberately reduced.}}
 \label{fig:null_weighting}
 \end{figure*}
 
