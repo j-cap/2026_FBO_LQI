@@ -1,4 +1,13 @@
 \input{paper_parts/part1.tex}
+
+% Temporary Overleaf compatibility workaround:
+% the repository copies of Figs. 2--5 were corrupted during binary upload.
+% Keep all figure environments, captions, labels, and manuscript references active,
+% but render placeholders until the figure assets are replaced by valid PDFs.
+\renewcommand{\includegraphics}[2][]{%
+  \placeholderfigurewide{\textbf{Result figure temporarily disabled.} The corresponding figure asset remains in the \texttt{figures/} folder and will be re-enabled after replacement with a valid PDF.}%
+}
+
 \input{paper_parts/part2.tex}
 \input{paper_parts/part3.tex}
 \input{paper_parts/part4.tex}
