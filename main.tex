@@ -69,8 +69,8 @@ Figure~\ref{fig:concept} summarizes the commissioning workflow.
 
 \begin{figure*}[t]
     \centering
-    \placeholderfigurewide{\textbf{Fig. 1 -- Fleet-informed controller calibration concept.} Previously calibrated source clients with historical calibration records $\rightarrow$ newly arriving client $\rightarrow$ two local initialization experiments $\rightarrow$ fleet-informed GP and expected improvement $\rightarrow$ client-local LQI synthesis and closed-loop evaluation.}
-    \caption{Fleet-informed controller calibration. Historical calibration records from previously commissioned source clients initialize the BO surrogate of a newly arriving client. Only new closed-loop evaluations performed on that client contribute to its commissioning cost. Each feedback gain is synthesized from the new client's own identified model.}
+    \includegraphics[width=0.96\textwidth]{figures/concept.pdf}
+    \caption{Fleet-informed controller calibration. Historical calibration records from previously commissioned source clients initialize the Bayesian-optimization surrogate of a newly arriving system. Only new closed-loop evaluations performed on that system contribute to its commissioning cost. Each feedback gain is synthesized from the new system's own identified model.}
     \label{fig:concept}
 \end{figure*}
 
