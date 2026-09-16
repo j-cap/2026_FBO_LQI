@@ -37,7 +37,7 @@
 \maketitle
 
 \begin{abstract}
-Controller calibration is often repeated for every new system variant, although previously calibrated fleet members already contain information about promising controller parameters. This paper investigates whether such fleet knowledge can reduce the number of new closed-loop experiments required to calibrate another client. We consider linear-quadratic integral (LQI) yaw-rate control for a heterogeneous vehicle fleet and use Bayesian optimization (BO) to tune three controller-weight parameters. Historical scalar calibration data from previously calibrated clients initialize the Gaussian-process surrogate of a new client. Each proposed parameter vector is converted into an LQI gain using the new client's own identified model and is then evaluated on its nonlinear plant. Across 120 new-client calibration problems from 20 held-out fleet realizations, fleet-informed BO reduces the mean number of new experiments required to reach within 5\% of a client-specific offline reference from 6.63 to 3.07, a reduction of 54\%. Dynamics-aware weighting of the historical data provides no measurable improvement over unweighted pooling. A separate landscape study shows why. Although the plant dynamics differ substantially, the LQI calibration landscapes remain highly rank-correlated, with Spearman correlation above 0.95 for every evaluated client pair. The historical data require experiments on earlier fleet members, but this cost is incurred once and can be reused when later clients are commissioned.
+\rev{Controller calibration is often repeated for every new system variant, although previously calibrated fleet members already contain information about promising controller parameters. This paper investigates whether such fleet knowledge can reduce the number of new closed-loop experiments required to calibrate another system. We consider linear-quadratic integral (LQI) yaw-rate control for a heterogeneous vehicle fleet and use Bayesian optimization (BO) to tune three controller-weight parameters. Historical scalar calibration data from previously calibrated systems initialize the Gaussian-process surrogate of a new system, while every proposed parameter vector is converted into an LQI gain using that system's own identified model. Across 120 new-system calibration problems from 20 held-out fleet realizations, fleet-informed BO reduces the budget-restricted mean number of experiments required to reach within 5\% of an independently scored offline reference from 6.72 to 3.08, a reduction of 54\%. All warm-started runs reach the target within the 12-experiment budget, compared with 79.2\% under independent BO. Dynamics-aware weighting of the historical data provides no measurable improvement over unweighted pooling. A separate 128-point landscape study shows that 99.4\% of evaluated system pairs retain Spearman rank correlation above 0.95 on their jointly feasible calibration points despite substantial dynamics heterogeneity, although a modest residual relation with dynamics similarity remains. The historical data require experiments on earlier fleet members, but this cost is incurred once and can be reused when later systems are commissioned.}
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -61,8 +61,8 @@ This paper studies that distinction for an existing fleet and a newly arriving c
 The final evaluation protocol, including the compared methods, local experiment budget, primary metric, and statistical tests, was fixed before the 20 final fleet realizations were examined. The contributions are:
 \begin{itemize}
     \item We formulate \emph{fleet-informed controller calibration} as a transfer problem in which historical calibration observations from previously commissioned clients are reused to reduce the number of new closed-loop experiments required by another client.
-    \item In a held-out evaluation on a heterogeneous nonlinear vehicle fleet, fleet-informed BO reduces the mean number of local evaluations needed to reach within 5\% of a client-specific offline reference from 6.63 to 3.07 and strongly reduces the difficult-client tail.
-    \item We characterize why broad transfer is possible. Although the identified vehicle dynamics differ substantially, the LQI calibration landscapes remain highly rank-correlated. Consistent with this observation, dynamics-aware weighting does not outperform simple unweighted pooling on the held-out fleets.
+    \item \rev{In a held-out evaluation on a heterogeneous nonlinear vehicle fleet, fleet-informed BO reduces the budget-restricted mean number of local evaluations needed to reach within 5\% of an independently scored offline reference from 6.72 to 3.08, while all warm-started systems reach the criterion within the 12-evaluation budget.}
+    \item \rev{We characterize why broad transfer is possible. Although the identified vehicle dynamics differ substantially, 99.4\% of pairwise LQI calibration landscapes remain rank-correlated above 0.95 on jointly feasible calibration points. Dynamics similarity retains a modest residual relation with landscape similarity, but dynamics-aware weighting still provides no measurable improvement over simple unweighted pooling on the held-out fleets.}
 \end{itemize}
 
 Figure~\ref{fig:concept} summarizes the commissioning workflow.
@@ -142,14 +142,14 @@ For a newly arriving system $i$, all historical records belonging to that same s
 \rev{We distinguish the incremental experimental cost $N_i^{\rm new}$, which counts only closed-loop evaluations newly executed on system $i$, from the historical pool size $N_i^{\rm hist}$, which counts source observations available before system $i$ arrives. In the final full-pool study, $N_i^{\rm hist}=29\times25=725$. The paper's sample-efficiency claim concerns a reduction in $N_i^{\rm new}$ rather than a reduction in the total number of experiments ever performed across the fleet.}
 
 \subsection{Offline reference and threshold metric}
-\rev{The client-specific offline reference $J_i^{\rm ref}$ is computed independently of all BO trajectories. A fixed 32-point Sobol design over the calibration box is evaluated on the nonlinear plant using the common multi-maneuver calibration bank. The best feasible candidate defines the reference calibration vector. This calibration vector is then scored on a disjoint test episode bank to obtain $J_i^{\rm ref}$. The reference is used only for reporting and never enters GP fitting, candidate selection, normalization, or infeasibility handling.}
+\rev{For reporting, each held-out system receives a high-accuracy offline reference that is computed independently of the BO decision process. The reference search first evaluates 1024 Sobol points over $\Xi=[-3,3]^3$ on the system's calibration-episode bank. The eight best feasible Sobol candidates initialize bounded Powell refinements. The best resulting calibration vector $\boldsymbol{\xi}_i^{\rm ref}$ is then scored on an independent reference-test bank containing 20 stochastic episodes per maneuver, yielding $J_i^{\rm ref}$. The reference is used only for reporting and never enters GP fitting, acquisition, normalization, or infeasibility handling. A nested convergence audit on one target from each vehicle family showed that the best 1024-point Sobol value differed from the corresponding 4096-point value by only 0.018\% on average.}
 
-\rev{The 5\% threshold metric is}
+\rev{To compare the BO trajectories and the reference on the same independent evaluation distribution, every incumbent stored along each completed BO trajectory is rescored on the same reference-test bank. Let $J_{i,\mathrm{test}}^{\mathrm{best}}(n)$ denote the best independently rescored incumbent available after $n$ new-system experiments. The latent 5\% hitting time is}
 \begin{equation}
- N_{i,5\%}=\min\left\{n:J_i^{\rm best}(n)\le1.05J_i^{\rm ref}\right\}.
+ T_{i,5\%}=\min\left\{n:J_{i,\mathrm{test}}^{\mathrm{best}}(n)\le1.05J_i^{\rm ref}\right\}.
  \label{eq:n5}
 \end{equation}
-\rev{If the threshold is not reached within the 12-experiment local budget, we assign $N_{i,5\%}=12$. This budget imputation avoids excluding difficult cases and therefore yields a conservative, right-censored measure of incremental commissioning effort. Because the offline reference comes from a finite Sobol scan, a BO trajectory can in principle obtain a cost below $J_i^{\rm ref}$.}
+\rev{All runs are followed to the same local budget $B=12$. If the threshold is not reached by $B$, the hitting time is right-censored at that budget. For budget-restricted mean summaries we use $\min(T_{i,5\%},B)$, denoted by $N_{i,5\%}$ in the remainder. Under this common Type-I censoring this is the restricted mean time to threshold over the available budget. Cumulative success curves treat censored runs as unresolved rather than as successes at $B$.}
 
 \section{Fleet-Informed Bayesian Optimization}
 
@@ -310,19 +310,19 @@ Each BO evaluation measures yaw-rate root-mean-square error over a common pair o
 Yaw-rate RMSE is the calibration metric. A candidate is marked infeasible if LQI synthesis fails or if the nonlinear closed-loop rollout violates the prescribed limits. The sideslip magnitude is limited to $6^\circ$. The steering-rate change is limited to $0.2618$ rad per simulation step. These feasibility conditions are applied consistently to the baseline controller, source histories, offline reference search, and new-system evaluations.
 
 \subsection{Landscape-similarity study}
-To test whether dynamics heterogeneity translates into calibration heterogeneity, selected systems are evaluated on the same 32-point Sobol design $\{\boldsymbol\xi^{(m)}\}_{m=1}^{32}$. A Sobol design is a deterministic low-discrepancy sequence that provides space-filling coverage of the three-dimensional calibration box. Pairwise landscape similarity is
+\rev{To test whether dynamics heterogeneity translates into calibration heterogeneity, all 30 systems in each of five independent fleet realizations are evaluated on the same 128-point Sobol design $\{\boldsymbol\xi^{(m)}\}_{m=1}^{128}$. For system $i$, let $\mathcal F_i$ denote the indices of feasible calibration points and let $\mathcal F_{ij}=\mathcal F_i\cap\mathcal F_j$ denote the jointly feasible subset for a pair. Pairwise landscape similarity is computed only on $\mathcal F_{ij}$,}
 \begin{equation}
- \rho_{ij}^{J}=\operatorname{Spearman}\left(\{J_i(\boldsymbol\xi^{(m)})\}_{m=1}^{32},\{J_j(\boldsymbol\xi^{(m)})\}_{m=1}^{32}\right).
+ \rho_{ij}^{J}=\operatorname{Spearman}\left(\{J_i(\boldsymbol\xi^{(m)})\}_{m\in\mathcal F_{ij}},\{J_j(\boldsymbol\xi^{(m)})\}_{m\in\mathcal F_{ij}}\right).
  \label{eq:landscape_similarity}
 \end{equation}
-\rev{Within each fleet realization, the same 32 calibration vectors and the same episode-bank construction are used for all systems so that the rank comparison is driven by plant differences rather than different sampled controller points. Infeasible points are handled with the same fixed normalized penalty used during BO before ranks are computed. The reported minimum correlation is taken over all evaluated system pairs in the landscape study. \textbf{Landscape-count detail to verify before submission:} state the exact number of fleet realizations, systems, and pairwise comparisons entering Fig.~\ref{fig:landscape}.}
+\rev{This construction prevents common infeasible points from artificially increasing the rank correlation. Feasibility-set agreement is analyzed separately with the Jaccard overlap $|\mathcal F_i\cap\mathcal F_j|/|\mathcal F_i\cup\mathcal F_j|$. The study contains 2175 within-realization system pairs. Realization-level summaries are computed within each of the five fleets and then bootstrapped across fleets so that the large number of dependent pairs is not treated as independent replication.}
 
 \begin{figure*}[t]
 \centering
 \subfloat[Vehicle-parameter heterogeneity.\label{fig:landscape_params}]{\figurepdf{0.475\textwidth}{figures/fig2a_vehicle_parameter_heterogeneity.pdf}}
 \hfill
 \subfloat[Dynamics distance versus calibration-landscape similarity.\label{fig:landscape_similarity}]{\figurepdf{0.475\textwidth}{figures/fig2b_dynamics_vs_landscape_similarity.pdf}}
-\caption{Plant heterogeneity does not translate into comparable controller-calibration heterogeneity. Panel (a) shows the physical variation across the three vehicle families. Panel (b) shows that the LQI calibration landscapes remain highly rank-correlated even when the identified dynamics are far apart.}
+\caption{\rev{Plant heterogeneity produces only limited calibration-landscape heterogeneity. Panel (a) shows the physical variation across the three vehicle families. Panel (b) shows that rank correlation remains high over the full dynamics-distance range when computed only on jointly feasible calibration points.}}
 \label{fig:landscape}
 \end{figure*}
 
@@ -333,14 +333,12 @@ Each new system starts with $n_{\rm init}=2$ local points from a Sobol low-discr
 
 \rev{The experimental accounting is therefore intentionally asymmetric in available information but symmetric in newly executed target experiments. Independent BO receives $N_i^{\rm hist}=0$, while both warm-start methods receive $N_i^{\rm hist}=725$ records that were collected before the new system arrives. All three methods are allowed the same maximum $N_i^{\rm new}=12$ local experiments. This design evaluates incremental commissioning cost after prior fleet experience has already been accumulated.}
 
-The primary metric is $\Nfive$ from~\eqref{eq:n5}. As a secondary continuous metric, we use reference-relative regret
+\rev{The primary metric is the budget-restricted $\Nfive$ defined above. As a secondary continuous metric, we use independently rescored reference-relative regret}
 \begin{equation}
- r_i^{\mathrm{ref}}(n)=\frac{J_i^{\mathrm{best}}(n)-J_i^{\mathrm{ref}}}{J_i^{\mathrm{ref}}}.
+ r_i^{\mathrm{ref}}(n)=\frac{J_{i,\mathrm{test}}^{\mathrm{best}}(n)-J_i^{\mathrm{ref}}}{J_i^{\mathrm{ref}}}.
  \label{eq:regretref}
 \end{equation}
-We also report the area under this regret curve over the early local budget and the probabilities of reaching the 5\% criterion within three and five local experiments.
-
-\rev{Fleet realization is the statistical replication unit. Metrics are first averaged over the six held-out systems in each realization. Paired differences are then formed between methods for each of the 20 realizations. Confidence intervals are obtained by resampling these 20 paired realization-level differences with replacement and taking the 2.5th and 97.5th percentiles. The Wilcoxon signed-rank test is applied to the same 20 paired realization-level mean differences. \textbf{Bootstrap detail to verify before submission:} insert the exact number of bootstrap resamples used by the analysis script.}
+\rev{We also report the area under this regret curve over the early local budget and fixed-budget probabilities of reaching the 5\% criterion. Fleet realization is the statistical replication unit. Metrics are first averaged over the six held-out systems in each realization, paired method differences are then formed for each of the 20 realizations, and 95\% confidence intervals are obtained by bootstrap resampling of these realization-level differences. The Wilcoxon signed-rank test is applied to the same 20 paired realization-level mean differences. \textbf{Bootstrap detail to verify before submission:} insert the exact number of bootstrap resamples used by the analysis script.}
 
 \begin{table}[t]
 \centering
@@ -369,50 +367,48 @@ Primary metric & $\Nfive$\\
 \section{Results}
 
 \subsection{Fleet warm start halves local experimentation}
-Figure~\ref{fig:convergence} shows reference-relative regret versus the number of new experiments performed on each held-out system. Both fleet-informed methods improve markedly faster than independent BO. Global and dynamics-weighted warm start remain nearly indistinguishable.
+\rev{Figure~\ref{fig:convergence} shows independently rescored reference-relative regret versus the number of new experiments performed on each held-out system. Both fleet-informed methods improve markedly faster than independent BO, while global and dynamics-weighted warm start remain nearly indistinguishable.}
 
 \begin{figure*}[t]
 \centering
 \figurepdf{0.82\textwidth}{figures/fig3_confirmatory_convergence.pdf}
-\caption{Held-out convergence over 20 fleet realizations and 120 new-system calibration problems. Fleet warm start accelerates controller calibration from the first BO iterations. Dynamics weighting and unweighted pooling exhibit essentially identical convergence.}
+\caption{\rev{Held-out convergence over 20 fleet realizations and 120 new-system calibration problems after independently rescoring all incumbents on the reference-test bank. Fleet warm start accelerates controller calibration from the first BO iterations. Dynamics weighting and unweighted pooling exhibit essentially identical convergence.}}
 \label{fig:convergence}
 \end{figure*}
 
-Independent BO requires on average 6.63 local experiments to reach within 5\% of the system-specific offline reference, compared with 3.07 for global fleet warm start. This is a 54\% reduction in mean incremental commissioning experiments. The standard deviation decreases from 3.76 to 0.81, which shows that warm start also removes most of the long tail of difficult cold-start systems. The paired realization-level global-minus-independent difference is $-3.567$ experiments, with 95\% bootstrap CI $(-4.908,-2.333)$ and Wilcoxon $p=0.0005$. The result is consistent across all three vehicle families.
+\rev{Under the strengthened reference protocol, independent BO has a budget-restricted mean time to the 5\% criterion of 6.717 local experiments, compared with 3.083 for global fleet warm start. This is a 54.1\% reduction in incremental commissioning experiments. The paired realization-level global-minus-independent difference is $-3.633$ experiments, with 95\% bootstrap CI $(-5.01,-2.37)$ and Wilcoxon $p=0.0005$. The favorable direction occurs in 15 of the 20 held-out fleet realizations and remains consistent across all three vehicle families. Independent BO reaches the criterion within the 12-evaluation budget for 95 of 120 targets, or 79.2\%, whereas both warm-start methods reach it for all 120 targets.}
 
 \begin{table}[t]
 \centering
-\caption{Held-out new-system sample efficiency.}
+\caption{\rev{Held-out new-system sample efficiency under the strengthened reference protocol.}}
 \label{tab:main_results}
 \scriptsize
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{@{}lccccc@{}}
+\begin{tabular}{@{}lcc@{}}
 \toprule
-Method & Mean & Median & Std. & $P(\Nfive\le3)$ & $P(\Nfive\le5)$\\
+Method & Restricted mean $\Nfive$ & $P(T_{5\%}\le B)$\\
 \midrule
-Independent & 6.633 & 6.0 & 3.762 & 0.283 & 0.425\\
-Global warm start & 3.067 & 3.0 & 0.807 & 0.767 & 0.992\\
-Dynamics weighted & 3.058 & 3.0 & 0.770 & 0.758 & 1.000\\
+Independent & 6.717 & 0.792\\
+Global warm start & 3.083 & 1.000\\
+Dynamics weighted & 3.083 & 1.000\\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular}
 \end{table}
 
-After only three new-system experiments, 76.7\% of globally warm-started systems reach the 5\% criterion, compared with 28.3\% under independent BO. After five experiments, the corresponding rates are 99.2\% and 42.5\%, as shown in Fig.~\ref{fig:n5}.
+\rev{Figure~\ref{fig:n5} complements the restricted mean with the full target-attainment behavior. Panel (a) treats unresolved runs as right-censored, so the independent curve correctly plateaus below one instead of forcing censored runs to appear as successes at the final budget. Panel (b) reports success probabilities after three and five local experiments.}
 
 \begin{figure*}[t]
 \centering
-\subfloat[Empirical cumulative distribution of $\Nfive$.\label{fig:n5_ecdf}]{\figurepdf{0.475\textwidth}{figures/fig4a_n5pct_ecdf.pdf}}
+\subfloat[Cumulative fraction reaching the 5\% criterion.\label{fig:n5_ecdf}]{\figurepdf{0.475\textwidth}{figures/fig4a_n5pct_ecdf.pdf}}
 \hfill
 \subfloat[Success probability at fixed local budgets.\label{fig:n5_success}]{\figurepdf{0.475\textwidth}{figures/fig4b_n5pct_success_probability.pdf}}
-\caption{New-system experiments required to reach within 5\% of the system-specific offline reference. Panel (a) shows the full distribution of $\Nfive$. Panel (b) shows the probability of meeting the criterion within three and five local experiments.}
+\caption{\rev{New-system experiments required to reach within 5\% of the independently scored system-specific offline reference. Panel (a) shows cumulative observed target attainment under the common 12-evaluation censoring budget. Panel (b) shows the probability of meeting the criterion within three and five local experiments.}}
 \label{fig:n5}
 \end{figure*}
 
 \subsection{Dynamics-aware weighting adds no measurable benefit}
-On the held-out fleets, dynamics-weighted warm start is statistically indistinguishable from global pooling. The paired realization-level mean difference in $\Nfive$ is $-0.008$ experiments with 95\% CI $(-0.058,+0.033)$ and Wilcoxon $p=0.706$. The secondary early-budget regret analysis gives the same conclusion, with a difference of $-0.0005$, CI $(-0.0050,+0.0041)$, and $p=0.936$.
+\rev{On the held-out fleets, dynamics-weighted warm start provides no detectable improvement over global pooling. The paired realization-level mean difference in budget-restricted $\Nfive$ is $0.000$ experiments with 95\% CI $(-0.05,+0.04)$ and Wilcoxon $p=1.000$. The independently rescored convergence curves in Fig.~\ref{fig:convergence} likewise remain nearly coincident.}
 
-The null result is structural rather than numerical. The dynamics weighting strongly attenuates some cross-family observations and can change acquisition decisions. However, the calibration objective is much more invariant than the plant dynamics. All evaluated system pairs have $\rho_{ij}^{J}\ge0.95$. The separate nine-source coverage experiment also varies the number of same-family sources from five down to zero. Dynamics weighting does not outperform global pooling at any coverage level. Restricting the source set to same-family systems is slightly worse than retaining all available observations.
+\rev{The mechanistic study explains why this null result is plausible without implying that dynamics information is completely irrelevant. On the 128-point jointly feasible landscape grid, 99.4\% of all 2175 system pairs satisfy $\rho_{ij}^{J}\ge0.95$, with a minimum of 0.9355. Mean rank correlation is 0.991 for same-family pairs and 0.985 for cross-family pairs, while the median feasibility-set Jaccard similarity is 1.0. Dynamics similarity $s_{ij}$ still has a modest positive association with landscape similarity. The median within-realization Spearman correlation is 0.245 with 95\% CI $(0.162,0.288)$. Thus the calibration landscapes are not exactly invariant, but the residual dependence is small relative to their uniformly high common correlation floor. This is consistent with the repeated observation that dynamics-aware weighting does not improve outcome-level sample efficiency over broad pooling.}
 
 \begin{figure*}[t]
 \centering
@@ -424,23 +420,21 @@ The null result is structural rather than numerical. The dynamics weighting stro
 \end{figure*}
 
 \subsection{Continuous early-budget performance}
-The primary metric $\Nfive$ is intentionally easy to interpret, but it depends on the selected 5\% threshold. We therefore use the area under the reference-relative regret curve as a secondary continuous measure of calibration progress. This metric integrates the quality of the best controller found over the early experiment budget and does not depend on a single threshold-crossing event.
-
-Global warm start improves the realization-level mean early-budget $\AURCref$ by $-0.3469$ relative to independent BO, with 95\% CI $(-0.4514,-0.2496)$ and $p<0.0001$. All 20 held-out fleet realizations favor global warm start on this metric. Dynamics-weighted warm start yields an almost identical improvement of $-0.3474$. The agreement between $\Nfive$ and the continuous regret metric shows that the main sample-efficiency result is not an artifact of the 5\% criterion.
+\rev{The 5\% threshold is intentionally easy to interpret, but it still selects one performance level. We therefore use the area under the independently rescored reference-relative regret curve as a secondary continuous measure of early calibration progress. Figure~\ref{fig:convergence} shows the same ordering as the threshold metric: both warm-start methods reduce regret substantially earlier than independent BO, while global and dynamics-weighted transfer remain nearly indistinguishable. The agreement between the threshold-based and continuous views shows that the sample-efficiency conclusion is not an artifact of the 5\% criterion.}
 
 \section{Discussion}
-The main practical conclusion is that an existing fleet should be treated as a reusable source of controller-calibration information. In the studied LQI problem, a newly arriving system reaches near-reference performance after roughly three local experiments when historical fleet observations are available, compared with more than six experiments under independent BO. The benefit is especially pronounced in the tail. Almost every warm-started system reaches the 5\% criterion within five evaluations, while fewer than half of the independently optimized systems do so.
+\rev{The main practical conclusion is that an existing fleet should be treated as a reusable source of controller-calibration information. In the studied LQI problem, a newly arriving system reaches near-reference performance after roughly three local experiments when historical fleet observations are available, compared with a budget-restricted mean of 6.7 experiments under independent BO. All 120 warm-started target problems reach the 5\% criterion within the 12-evaluation budget, whereas 20.8\% of the independent runs remain unresolved at that point.}
 
-The more surprising result concerns heterogeneity. The vehicle families differ in mass, yaw inertia, and tire properties, and Fig.~\ref{fig:landscape} shows that their identified dynamics are clearly distinguishable. Nevertheless, these differences do not produce equally different rankings over the LQI weight space. \rev{For the fixed-speed, three-parameter LQI calibration problem and maneuver family studied here, plant heterogeneity therefore need not imply comparable optimization-task heterogeneity. This interpretation is specific to the investigated benchmark and should not be generalized to higher-dimensional controller classes, different operating conditions, or arbitrary heterogeneous plants without further evidence.}
+\rev{The more surprising result concerns heterogeneity. The vehicle families differ in mass, yaw inertia, and tire properties, and Fig.~\ref{fig:landscape} shows that their identified dynamics are clearly distinguishable. Nevertheless, these differences translate into only limited changes in the ordering of LQI calibration settings. On the denser jointly feasible landscape study, 99.4\% of system pairs remain above $\rho_{ij}^{J}=0.95$. A modest residual relationship with dynamics similarity remains, so plant and calibration heterogeneity are not completely decoupled. For the fixed-speed, three-parameter LQI calibration problem and maneuver family studied here, however, that residual dependence is too small to yield a measurable advantage for dynamics-weighted transfer. This interpretation should not be generalized to higher-dimensional controller classes, different operating conditions, or arbitrary heterogeneous plants without further evidence.}
 
-This observation also explains why simple pooling can outperform more selective source use. In a three-dimensional search space with little new-system data, additional historical observations improve GP coverage even when they originate from dynamically different systems. Soft dynamics weighting does not materially harm performance, but it provides no measurable advantage in the present benchmark. This should not be interpreted as a general rejection of dynamics-aware transfer.
+\rev{This observation also explains why simple pooling performs so well. In a three-dimensional search space with little new-system data, additional historical observations improve GP coverage even when they originate from dynamically different systems. The result should not be read as evidence that dynamics similarity contains no information. Rather, the remaining calibration-landscape differences are small relative to the strong cross-system agreement, so selectively attenuating dynamically dissimilar records does not improve commissioning efficiency in the investigated benchmark.}
 
 The historical source records are not free. Each was generated by experiments performed when earlier systems were commissioned. The economic argument is instead one of reuse. Once these evaluations have been collected, their cost can be distributed across subsequent systems. \rev{Accordingly, the reported 54\% reduction is a reduction in incremental new-system commissioning experiments, not a 54\% reduction in total fleet-wide data generation.}
 
-Several limitations remain. Validation is simulation based. The nonlinear evaluation plant is intentionally mismatched to the controller-design model, but real-vehicle confirmation is still missing. The study considers one controller structure, one three-dimensional calibration parameterization, one operating speed, and one lateral tracking application. Higher-dimensional or more task-specific calibration problems may exhibit less transferable landscapes. The present architecture assumes that scalar historical calibration records can be stored centrally or otherwise made available to the new system and does not provide a formal privacy guarantee.
+\rev{Several limitations remain. Validation is simulation based. The nonlinear evaluation plant is intentionally mismatched to the controller-design model, but real-vehicle confirmation is still missing. The study considers one controller structure, one three-dimensional calibration parameterization, one operating speed, and one lateral tracking application. Higher-dimensional or more task-specific calibration problems may exhibit less transferable landscapes. The dense offline reference is numerically well converged and independently scored, but it remains a numerical reference rather than a proof of the global optimum. The present architecture assumes that scalar historical calibration records can be stored centrally or otherwise made available to the new system and does not provide a formal privacy guarantee.}
 
 \section{Conclusion}
-This paper investigated whether controller-calibration experience accumulated by previously commissioned fleet members can reduce the commissioning effort for a newly arriving system. In a held-out study on nonlinear vehicle lateral dynamics, warm-starting Bayesian optimization with historical fleet observations reduced the mean number of new-system experiments required to reach within 5\% of a system-specific offline reference from 6.63 to 3.07 while substantially reducing variability. Dynamics-aware source weighting did not improve over simple global pooling. A calibration-landscape analysis explains this result. Despite substantial dynamics heterogeneity, the ranking of LQI weight configurations remains highly consistent across the investigated systems. \rev{The result therefore supports broad reuse of historical fleet experience for this calibration problem while also showing that the heterogeneity relevant for plant modeling need not be the heterogeneity that governs controller-parameter optimization.}
+\rev{This paper investigated whether controller-calibration experience accumulated by previously commissioned fleet members can reduce the commissioning effort for a newly arriving system. In a held-out study on nonlinear vehicle lateral dynamics, warm-starting Bayesian optimization with historical fleet observations reduced the budget-restricted mean number of new-system experiments required to reach within 5\% of an independently scored system-specific offline reference from 6.72 to 3.08, while all warm-started systems reached the criterion within the 12-evaluation budget. Dynamics-aware source weighting provided no measurable improvement over simple global pooling. A denser calibration-landscape analysis explains this result more precisely: 99.4\% of system pairs remain rank-correlated above 0.95 on jointly feasible calibration points despite substantial dynamics heterogeneity, although a modest residual relationship with dynamics similarity persists. The result therefore supports broad reuse of historical fleet experience for this calibration problem while showing that the heterogeneity relevant for plant modeling need not translate into equally strong heterogeneity in controller-parameter optimization.}
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
