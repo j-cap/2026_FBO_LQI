@@ -14,7 +14,7 @@ Terminology updated throughout (user's Section 7): "oracle" -> "reference",
 in display labels only (the underlying method identifier `"similarity"` in the data is
 untouched - this is a display-label change, not a data/code rename).
 
-Output: figures/fig{2a,2b,3,4a,4b,5a,5b,6}_*.{pdf,png} - PDF (vector) primary, PNG at
+Output: ../latex/figures/fig{2a,2b,3,4a,4b,5a,5b,6}_*.{pdf,png} - PDF (vector) primary, PNG at
 600 dpi fallback, tight bbox, opaque background.
 
 Usage:
@@ -38,7 +38,8 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-FIG_DIR = _ROOT / "figures"
+REPO_ROOT = _ROOT.parent
+FIG_DIR = REPO_ROOT / "latex" / "figures"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # ---- global style (user's Section 1) -----------------------------------------------
