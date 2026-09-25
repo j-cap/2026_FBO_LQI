@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments / local tooling
+.venv/
+venv/
+env/
+.env
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# Experiment caches and generated outputs
+code/results/
+code/.cache/
+code/cache/
+**/joblib_cache/
+
+# Generated local figure workspace (publication figures belong in latex/figures/)
+code/figures/
+
+# LaTeX build products
+latex/*.aux
+latex/*.bbl
+latex/*.blg
+latex/*.fdb_latexmk
+latex/*.fls
+latex/*.log
+latex/*.out
+latex/*.synctex.gz
+latex/*.toc
+latex/*.pdf
+
+# Keep publication-ready PDF figures tracked
+!latex/figures/*.pdf
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
