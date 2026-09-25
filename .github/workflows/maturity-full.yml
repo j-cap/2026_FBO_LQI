@@ -1,0 +1,40 @@
+name: Fleet maturity sweep full
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/maturity-full.yml"
+
+jobs:
+  maturity-sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    defaults:
+      run:
+        working-directory: code
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.3.2 scipy==1.16.1 pandas==2.3.1 matplotlib==3.10.3 scikit-learn==1.7.1 joblib==1.5.1 pyyaml==6.0.3 "pyarrow>=16.0" rich==14.3.2
+      - name: Run full fleet maturity sweep
+        run: python scripts/fleet_maturity_sweep.py --config config/runs/fleet_maturity_sweep_c1cds02.yaml
+      - name: Upload maturity sweep outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fleet-maturity-sweep-full
+          path: |
+            code/results/fleet_maturity_sweep_c1cds02/processed/
+            code/results/fleet_maturity_sweep_c1cds02/run_manifest.yaml
+          if-no-files-found: warn
