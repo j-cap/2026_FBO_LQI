@@ -1,0 +1,52 @@
+# Fleet-maturity sensitivity analysis.
+#
+# This is a controlled sensitivity experiment on the SAME 20 held-out fleet
+# realizations used by the final warm-start confirmatory campaign. It is not a second
+# independent confirmation. Reusing those fleets is intentional: the target systems
+# and their dense independently scored offline references stay fixed while ONLY the
+# amount of historical source experience changes.
+#
+# Source histories are regenerated once per fleet with n_init=2 and total length 25.
+# Maturity levels are nested prefixes of those exact histories:
+#   M_hist = 2, 5, 10, 25 evaluations/source system.
+#
+# Target calibration: independent BO once + global warm start at each M_hist,
+# n_init=2 and total local budget 12. Six targets/fleet (2 per family).
+#
+# Run on C1CDS02:
+#   python scripts\run_remote.py fleet_maturity_sweep_c1cds02.yaml --script fleet_maturity_sweep.py
+kind: phase2_fbo_comparison
+run_tag: fleet_maturity_sweep_c1cds02
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_candidates: 256
+n_oracle_sobol: 32
+
+maturity_levels: [2, 5, 10, 25]
+source_n_init: 2
+source_n_total: 25
+target_slots: ["00", "01"]
+target_n_init: 2
+target_n_iters: 10
+
+# Same 20 held-out realizations as the final confirmatory campaign so the existing
+# dense/independent J_ref_test can be reused directly.
+seeds: [355238, 987946, 299843, 469345, 232036, 298953, 756101, 589478, 467950, 362266,
+        112439, 294494, 607761, 217184, 629215, 321788, 531686, 554774, 731884, 304990]
+
+n_jobs: 4
+offline_reference_tag: offline_reference
