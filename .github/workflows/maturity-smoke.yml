@@ -36,5 +36,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fleet-maturity-smoke
-          path: code/results/fleet_maturity_sweep_smoke/
+          path: |
+            code/results/fleet_maturity_sweep_smoke/processed/
+            code/results/fleet_maturity_sweep_smoke/run_manifest.yaml
           if-no-files-found: warn
