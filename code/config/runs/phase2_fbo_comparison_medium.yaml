@@ -1,0 +1,41 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_medium.yaml
+#
+# Phase 2 medium-scale decision run (user correction, 2026-08-29): 10 clients/family
+# (30 total), 5 independent fleet/BO seeds, 8 init + 12 BO = 20 local evaluations/client
+# - the run whose verdict decides whether s_ij and s_ij*g_i(xi) actually save
+# evaluations before committing to the final statistical campaign. Runs AFTER the
+# oracle-leakage/normalization fix and the 6-client parity-check rerun
+# (phase2_fbo_comparison_smoke), see docs/phase1_diagnostic_findings.md Part 6.
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_medium
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 12
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [42, 123, 456, 789, 1011]   # 5 independent fleet/BO seeds
+
+# Parallelizes across seeds (each seed = its own fleet + own cache subdirectory, see
+# `_prepare_seed_context`/`_run_seed_all_methods` in phase2_fbo_comparison.py) via
+# joblib/loky - same convention as phase1_oracle_landscapes.py. Default granularity
+# ("seed") caps out at len(seeds)=5-way parallelism regardless of how high n_jobs is
+# set, since all 4 methods still run sequentially within one seed's job - a reasonable
+# default for any multi-core machine. For a machine with enough cores to also flatten
+# across methods (e.g. C1CDS05, 16C/32T), see phase2_fbo_comparison_medium_c1cds05.yaml.
+n_jobs: 5

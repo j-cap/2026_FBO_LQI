@@ -1,0 +1,38 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_v3_provenance_check.yaml --stage1-only
+#
+# Cheap diagnostic (step 4 of the user's frozen sequence, Part 8,
+# docs/phase2_diagnostic_findings.md, 2026-09-03): does the v3 baseline-feasibility
+# admission criterion, applied at REALISTIC fleet scale (30 clients/family x 3), cause
+# only mild truncation, or does resampling systematically pull a family's accepted
+# parameters back toward nominal (which would quietly remove the dynamics
+# heterogeneity the paper studies)? --stage1-only stops after fleet
+# identification + baseline/oracle references - no BO, so this is fast. Not paper
+# numbers; a provenance/parameter-distribution check only.
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_v3_provenance_check
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3   # PER MANEUVER under v3 -> 6 total/client/xi-query
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 17
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [11117, 22229, 33343]   # throwaway diagnostic seeds, disjoint from every prior/planned data seed
+
+n_jobs: 3
+parallel_granularity: seed

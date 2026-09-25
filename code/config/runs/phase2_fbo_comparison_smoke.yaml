@@ -1,0 +1,33 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_smoke.yaml
+#
+# Phase 2 smoke run (Next-steps item 4, gated by Phase 1D's "visible enough - implement
+# the recipient-aware gate" verdict, see docs/phase1_diagnostic_findings.md Part 5):
+# first correctness/timing check of the 4-method FBO comparison
+# (independent/global/similarity/recipient_aware), small scale on purpose - 2 clients
+# per family (6 total), 2 seeds, short budgets. Not the numbers for the paper; bump
+# clients_per_regime/n_iters/seeds once this completes cleanly and the convergence
+# curves look sane.
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_smoke
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 2
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh   # matches phase1c_fixed_speed_n60, the run Phase 1D's verdict is based on
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8              # Sobol init points/client (power of 2, per Next-steps item 4: "6-8 Sobol init")
+n_iters: 12             # sequential BO rounds/client (Next-steps item 4 default range is 20-25; smoke uses fewer)
+n_candidates: 256       # EI candidate pool size (shared across rounds)
+n_oracle_sobol: 32      # per-client Sobol reference set for the evals-to-5%-of-oracle metric
+negative_transfer_threshold: 0.10
+
+seeds: [42, 123]        # "few seeds first"

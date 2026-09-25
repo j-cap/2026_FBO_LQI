@@ -1,0 +1,64 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_campaign_v3_c1cds05.yaml
+# (or, from C1CDS05 against the H:\ mapped drive: python scripts\run_remote.py phase2_fbo_comparison_campaign_v3_c1cds05.yaml)
+#
+# The T_lc-redesigned confirmatory campaign (Part 8/9, docs/phase2_diagnostic_findings.md,
+# 2026-09-03) - step 7 of the user's frozen sequence, run only after steps 1-6 (T_lc
+# audit, common-task-distribution redesign, common baseline-feasibility admission,
+# accepted-parameter-distribution check, re-registered primary metric, implementation-
+# parity smoke test) all passed. Same frozen 30-client fleet/algorithm as
+# phase2_fbo_comparison_campaign_c1cds05.yaml, but:
+#   - generation_version: fixed_speed_v3_common_task (every client sees ALL
+#     lane_change_time maneuvers, not one slot-assigned T_lc)
+#   - n_calibration_episodes/n_test_episodes mean PER MANEUVER under v3 -> 3 here means
+#     6 total/client/xi-query (the user's "double the episodes" choice, 2026-09-03)
+#   - 20 ENTIRELY NEW seeds - disjoint from the 20 confounded campaign seeds, the 5 v2
+#     validation seeds, AND the 3 throwaway v3 provenance-check seeds, per the user's
+#     "5 clean development seeds -> freeze design -> 20 untouched confirmatory seeds"
+#     separation. Generated via Random(20260903) for reproducibility, screened against
+#     every prior seed pool.
+#   - trace rows carry BOTH `regret` (secondary continuity metric) and `regret_star`
+#     (new PRIMARY, oracle-relative) - see Part 9. Run scripts/phase2_medium_analysis.py
+#     on the result for the pre-registered PRIMARY paired seed-level AURC_star stats.
+#
+# n_jobs=20/parallel_granularity=seed_method (C1CDS05, 16C/32T): 20 seeds x 4 methods =
+# 80 independent (seed, method) jobs. Doubled episode count (v3) roughly doubles the
+# per-evaluation cost relative to phase2_fbo_comparison_campaign_c1cds05.yaml, which took
+# on the order of a few hours on this machine at the same parallelism - plan for
+# significantly longer, likely most of a day; C1CDS05 (not C1CDS02) is recommended for
+# this run given the added cost.
+#
+# n_jobs capped at 20, not the full 32 threads (user check, 2026-09-03): CPU on C1CDS05
+# was ~2% (idle) but memory already ~48% used by another session/user - 32 concurrent
+# joblib workers (each holding its own fleet/episode arrays + sklearn GP fits) risks
+# pushing total memory into swapping and slowing down BOTH jobs. 20 leaves headroom;
+# bump back toward 32 if C1CDS05's memory usage is confirmed to stay low once this job
+# is running (watch Task Manager after a few minutes).
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_campaign_v3_c1cds05
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3   # PER MANEUVER under v3 -> 6 total/client/xi-query
+n_test_episodes: 3          # PER MANEUVER under v3 -> 6 total/client/xi-query
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 17                        # 8 + 17 = 25 local evaluations/client
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [71063, 45424, 30434, 94266, 40624, 73209, 55549, 42137, 68253, 53722,
+        27553, 76162, 77570, 26257, 99047, 37738, 93873, 39782, 97125, 63934]  # 20 NEW seeds, disjoint from every prior pool
+
+n_jobs: 20
+parallel_granularity: seed_method

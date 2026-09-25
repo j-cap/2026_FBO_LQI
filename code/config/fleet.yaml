@@ -1,0 +1,12 @@
+# Shared fleet-generation defaults, reused by every run config via `fleet_overrides`.
+# Values (variability, lambda_f, delta, lane_change_time) match the precedent already
+# used in paper_UncertaintyAwareClustering/exp_02.ipynb (CLIENT_SPREAD, LAMBDA_F,
+# DELTA, T1_RANGE) so this fleet is directly comparable to the existing IFAC paper's.
+regimes: [LOW_SPEED, PAYLOAD, HIGH_SPEED]  # src2.Cluster names; matches exp_02.ipynb's avail_clusters
+clients_per_regime: 10
+seed: 42
+variability: 0.025
+Ts: 0.05
+lambda_f: 0.99
+delta: 1.0
+lane_change_time: [1.0, 2.0]

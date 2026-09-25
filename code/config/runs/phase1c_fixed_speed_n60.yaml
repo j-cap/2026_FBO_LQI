@@ -1,0 +1,34 @@
+# python scripts/phase1_oracle_landscapes.py --config config/runs/phase1c_fixed_speed_n60.yaml
+#
+# Phase 1C, moderate N (between phase1c_fixed_speed_smoke's N=30 and a full N=60,M=256
+# run): same M=64, fleet doubled to 20 clients/family (N=60) to check whether the
+# smoke run's weak transfer-loss (rho=0.185, CI 0.03-0.36) and landscape (rho=0.273, CI
+# 0.10-0.45) correlations tighten toward significance or toward zero with more
+# statistical power, before deciding whether the structural
+# symmetric-distance-vs-asymmetric-transfer-risk ceiling (see
+# docs/phase1_diagnostic_findings.md) is the full explanation.
+kind: phase1_oracle_landscape
+run_tag: phase1c_fixed_speed_n60
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 20
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_sobol: 64
+n_calibration_episodes: 10
+n_test_episodes: 50
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_clusters: 3
+cluster_seed: 1337
+
+fig_a_grid_resolution: 15
+
+seed: 42
+n_jobs: -1

@@ -1,0 +1,44 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_campaign_c1cds05.yaml
+#
+# The paper-scale campaign frozen in docs/phase2_diagnostic_findings.md Part 4
+# (2026-09-01, following the corrected 5-seed medium run's Part 3 analysis): same
+# frozen 30-client fleet and algorithm as phase2_fbo_comparison_medium.yaml, but
+# >=20 independent fleet/BO seeds (not 15-20) and budget extended to 25 local
+# evaluations/client (n_init=8 + n_iters=17), to resolve what Part 3 found unsettled -
+# between-seed variance in the similarity-vs-independent effect, not within-fleet
+# client count. The first 5 seeds are IDENTICAL to phase2_fbo_comparison_medium's, so
+# that run's already-analyzed data is a valid subset of this one, not a discarded
+# preliminary.
+#
+# n_jobs=32/parallel_granularity=seed_method: 20 seeds x 4 methods = 80 independent
+# (seed, method) jobs, sized for C1CDS05 (16C/32T) - see
+# phase2_fbo_comparison_medium_c1cds05.yaml for why flattening (vs. seed-only
+# parallelism) matters once seed count exceeds the core count.
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_campaign_c1cds05
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 17                        # 8 + 17 = 25 local evaluations/client
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [42, 123, 456, 789, 1011, 85185, 17894, 2642, 63991, 36548,
+        46727, 7983, 37050, 64345, 35492, 83106, 79052, 70443, 90514, 72121]  # 20 seeds; first 5 match the medium run
+
+n_jobs: 32
+parallel_granularity: seed_method

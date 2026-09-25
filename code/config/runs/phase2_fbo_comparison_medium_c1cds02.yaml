@@ -1,0 +1,38 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_medium_c1cds02.yaml
+#
+# Same run as phase2_fbo_comparison_medium.yaml (identical fleet/BO/seed settings - see
+# that file's header for the run's purpose), tuned for the C1CDS02 machine (4 cores).
+# Stays at seed-level granularity rather than C1CDS05's flattened (seed, method)
+# dispatch: with only 4 cores, plain seed-level parallelism (n_jobs=4 over the 5 seeds)
+# already keeps every core busy for nearly the whole run (4 seeds in parallel, the 5th
+# trailing alone) - flattening to 20 (seed, method) jobs wouldn't add any usable
+# parallelism here, only extra process-spawn overhead, since no more than 4 jobs ever
+# run at once either way. See `_prepare_seed_context` / `_run_seed_all_methods` in
+# phase2_fbo_comparison.py.
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_medium_c1cds02
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 12
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [42, 123, 456, 789, 1011]   # 5 independent fleet/BO seeds
+
+n_jobs: 4                    # matches C1CDS02's 4 cores
+parallel_granularity: seed   # default; explicit here since c1cds05's config overrides it

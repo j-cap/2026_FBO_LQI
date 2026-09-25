@@ -1,0 +1,45 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_v2fleet_validation_c1cds02.yaml
+#
+# Small clean validation rerun (docs/phase2_diagnostic_findings.md Part 7, 2026-09-02),
+# next step in the frozen plan after Step C: same frozen fleet scale (30 clients) and
+# 4-method comparison, same BO budget as phase2_fbo_comparison_campaign_c1cds02.yaml,
+# but (1) generation_version=fixed_speed_v2_baseline_feasible (Step C - eliminates the
+# baseline-normalization confound) and (2) 5 NEW seeds, disjoint from all 20 already
+# used in the (confounded) medium/campaign runs, so this is a genuinely fresh check,
+# not a rerun of contaminated seeds.
+#
+# Purpose is NOT statistical significance (5 seeds) - it's to ask: has payload AURC
+# variance dropped, are training targets now numerically comparable (zero
+# baseline_rmse=1.0 fallbacks expected - check feasible_support.csv), does
+# global/similarity/recipient_aware behavior change materially, and does the Part 6
+# stagnation-benefit relation survive? If qualitatively stable, proceed to a proper
+# new 20-seed campaign; if it changes substantially, the confound was influencing the
+# original conclusions.
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_v2fleet_validation_c1cds02
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v2_baseline_feasible
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 17                        # 8 + 17 = 25 local evaluations/client, matches the campaign run
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [24441, 62669, 95449, 81693, 72339]   # 5 NEW seeds, disjoint from all prior (confounded) runs
+
+n_jobs: 4                    # C1CDS02 (4 cores)
+parallel_granularity: seed   # same reasoning as phase2_fbo_comparison_medium_c1cds02.yaml

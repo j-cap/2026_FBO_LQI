@@ -1,0 +1,49 @@
+# python scripts/phase2_coverage_dev.py --config config/runs/phase2_coverage_dev_c1cds05.yaml
+# (or, from C1CDS05 against the H:\ mapped drive:
+#  python scripts\run_remote.py phase2_coverage_dev_c1cds05.yaml --script phase2_coverage_dev.py
+#  - MUST pass --script explicitly, see docs/phase2_diagnostic_findings.md Part 12's
+#  run_remote.py mistake)
+#
+# Controlled fleet-coverage warm-start experiment (Part 17,
+# docs/phase2_diagnostic_findings.md, 2026-09-07) - does dynamics-aware peer selection
+# become valuable once relevant peer coverage is scarce, rather than abundant (Part
+# 16's finding)? Reuses the ALREADY-PERSISTED mature independent-BO histories from
+# phase2_warmstart_dev_c1cds02 - no re-establishment needed, `mature_records_path`
+# below points at that run's output. Same 20 development seeds, same 3 targets/seed
+# (nominal_00/payload_00/tire_degraded_00).
+#
+# q_same in {0,1,3,5} (fixed 9-peer pool), 3 deterministic replicates/condition,
+# independent/global/similarity/same_family_reference (the last only for q_same>0),
+# n_init=2, n_iters=10 (12 total - shorter than Part 14/15's 25, since the application
+# claim is sample efficiency and targets are usually near-optimal by evaluation 3).
+#
+# Cost: ~24,500 target evaluations across 20 seeds/60 targets - no Phase A
+# re-simulation needed (peer histories reused), but more conditions than Part 15's
+# Phase B alone, so plan for a comparable or somewhat longer wall-clock than that run.
+kind: phase2_fbo_comparison
+run_tag: phase2_coverage_dev_c1cds05
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3   # PER MANEUVER under v3 -> 6 total/client/xi-query
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_candidates: 256
+n_oracle_sobol: 32
+
+mature_records_path: results/phase2_warmstart_dev_c1cds02/processed/mature_fleet_records.parquet
+
+seeds: [71063, 45424, 30434, 94266, 40624, 73209, 55549, 42137, 68253, 53722,
+        27553, 76162, 77570, 26257, 99047, 37738, 93873, 39782, 97125, 63934]  # SAME 20 development seeds
+
+n_jobs: 20   # capped below C1CDS05's 32 threads - re-check Task Manager before launch, same memory caveat as prior runs

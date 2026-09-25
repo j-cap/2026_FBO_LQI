@@ -1,0 +1,38 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_medium_c1cds05.yaml
+#
+# Same run as phase2_fbo_comparison_medium.yaml (identical fleet/BO/seed settings - see
+# that file's header for the run's purpose), but with parallelism fully flattened
+# across (seed, method) pairs instead of seeds only, for the C1CDS05 machine
+# (16 physical / 32 logical cores): 5 seeds x 4 methods = 20 independent jobs, a good
+# fit for 32 threads (leaves headroom over pure seed-level parallelism's 5-way cap).
+# Stage 1 (per-seed fleet identification + baseline/oracle references) still runs
+# seed-parallel only, since it isn't per-method work; stage 2 (the actual BO loops,
+# the dominant cost) dispatches all 20 jobs at once. See `_prepare_seed_context` /
+# `_run_seed_method` in phase2_fbo_comparison.py.
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_medium_c1cds05
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 12
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [42, 123, 456, 789, 1011]   # 5 independent fleet/BO seeds
+
+n_jobs: 20                         # 5 seeds x 4 methods, one job each
+parallel_granularity: seed_method  # flatten fully, not just across seeds

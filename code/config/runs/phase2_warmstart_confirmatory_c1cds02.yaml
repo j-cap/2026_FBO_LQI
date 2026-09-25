@@ -1,0 +1,44 @@
+# python scripts/phase2_warmstart_dev.py --config config/runs/phase2_warmstart_confirmatory_c1cds02.yaml
+# (or, from C1CDS02 against the H:\ mapped drive:
+#  python scripts\run_remote.py phase2_warmstart_confirmatory_c1cds02.yaml --script phase2_warmstart_dev.py
+#  - MUST pass --script explicitly, see docs/phase2_diagnostic_findings.md Part 12's
+#  run_remote.py mistake)
+#
+# Same run as phase2_warmstart_confirmatory_c1cds05.yaml (see that file's header for
+# the full design/cost rationale - Part 20, docs/phase2_diagnostic_findings.md,
+# 2026-09-08: FINAL pre-registered confirmatory campaign, 20 entirely new seeds, 6
+# targets/seed, independent/global/similarity-as-ablation, n_init=2/12-total budget),
+# tuned for C1CDS02 (4 cores) instead: n_jobs=4, seed-level parallelism only.
+#
+# Cost: ~19,320 evaluations total (Phase A 750/seed - a FRESH mature-fleet
+# establishment, since these are untouched seeds - + Phase B 216/seed, x 20 seeds) -
+# comparable to phase2_warmstart_dev_c1cds02's volume, which ran in on the order of
+# several hours to most of a day on this machine.
+kind: phase2_fbo_comparison
+run_tag: phase2_warmstart_confirmatory_c1cds02
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3   # PER MANEUVER under v3 -> 6 total/client/xi-query
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_candidates: 256
+n_oracle_sobol: 32
+
+target_slots: ["00", "01"]   # 2 targets/family = 6/seed, per the user's frozen design
+target_n_iters: 10           # n_init=2 + n_iters=10 = 12 total (not 25)
+
+seeds: [355238, 987946, 299843, 469345, 232036, 298953, 756101, 589478, 467950, 362266,
+        112439, 294494, 607761, 217184, 629215, 321788, 531686, 554774, 731884, 304990]  # 20 ENTIRELY NEW seeds, disjoint from every prior pool
+
+n_jobs: 4

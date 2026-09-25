@@ -1,0 +1,42 @@
+# python scripts/phase1_oracle_landscapes.py --config config/runs/phase1_oracle_landscape_full_converged.yaml
+#
+# Full-scale run (doc's recommended 60 clients, M=256) on the settings the smoke
+# diagnostic sequence converged on (see results/phase1_smoke*/phase1_summary.md for
+# the full trail): AGING_TIRES/HIGH_GRIP/PAYLOAD (stiffness-based) regimes, a
+# xi_1/xi_2-narrowed + xi_3-widened box, noise_std raised to 1e-2, 8 identification
+# episodes/client, 10 calibration episodes/candidate. None of the 7 smoke variants
+# showed a robust Criterion-3 (dynamics-predicts-landscape) signal; this checks whether
+# that null result survives more statistical power (60 clients / ~1770 pairs instead of
+# 30 / ~435) before treating it as the Phase-1 verdict.
+#
+# NOTE: this is deliberately kept as a SEPARATE config from
+# phase1_oracle_landscape_full.yaml (which still reflects the doc's original defaults -
+# LOW_SPEED/PAYLOAD/HIGH_SPEED, wide box, low noise, single-episode identification) so
+# both remain available for comparison.
+kind: phase1_oracle_landscape
+run_tag: phase1_full_converged
+
+fleet_config: config/fleet.yaml
+controller_config: config/controller.yaml
+fleet_overrides:
+  regimes: [AGING_TIRES, HIGH_GRIP, PAYLOAD]
+  clients_per_regime: 20
+controller_overrides:
+  xi_lower: [-1.0, -3.0, -3.0]
+  xi_upper: [1.0, 1.0, 6.0]
+  noise_std: 1.0e-2
+
+n_sobol: 256
+n_calibration_episodes: 10
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_clusters: 3
+cluster_seed: 1337
+
+fig_a_grid_resolution: 25
+
+seed: 42
+n_jobs: -1

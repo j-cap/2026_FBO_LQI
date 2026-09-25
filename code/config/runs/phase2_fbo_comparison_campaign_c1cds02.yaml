@@ -1,0 +1,47 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_campaign_c1cds02.yaml
+#
+# Same campaign as phase2_fbo_comparison_campaign_c1cds05.yaml (see that file's header
+# for the run's purpose - the paper-scale campaign frozen in
+# docs/phase2_diagnostic_findings.md Part 4, 2026-09-01: 20 seeds, 25-eval budget,
+# frozen fleet/algorithm), but tuned for C1CDS02 (4 cores) instead of C1CDS05.
+#
+# Stays at seed-level granularity (n_jobs=4, parallel_granularity=seed) rather than
+# C1CDS05's flattened (seed, method) dispatch, same reasoning as
+# phase2_fbo_comparison_medium_c1cds02.yaml: with only 4 cores, plain seed-level
+# parallelism already keeps every core busy: 20 seeds run in 5 waves of 4 in parallel
+# (each wave = all 4 methods sequentially per seed) - flattening to 80 (seed, method)
+# jobs would add process-spawn overhead without adding any usable parallelism, since no
+# more than 4 jobs ever run at once either way.
+#
+# Rough time estimate: the 5-seed/20-budget medium run took ~1h45m on this same
+# 4-core config. This campaign is ~5x the evaluation volume (4x seeds x 1.25x budget)
+# at the SAME parallelism (still 4 workers, unlike C1CDS05's 32) - expect roughly
+# 5x the wall-clock, i.e. on the order of 8-9 hours. Plan for an overnight run.
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_campaign_c1cds02
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 17                        # 8 + 17 = 25 local evaluations/client
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [42, 123, 456, 789, 1011, 85185, 17894, 2642, 63991, 36548,
+        46727, 7983, 37050, 64345, 35492, 83106, 79052, 70443, 90514, 72121]  # 20 seeds; first 5 match the medium run
+
+n_jobs: 4
+parallel_granularity: seed

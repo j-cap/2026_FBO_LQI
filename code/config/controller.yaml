@@ -1,0 +1,71 @@
+# LQI weight parameterization + episode/constraint defaults (plan doc §6-7).
+# u_min/u_max/noise_std/process_noise/T_total/T0/r_max/tfilter match the precedent
+# already used in paper_UncertaintyAwareClustering/exp_02.ipynb (U_MIN/U_MAX,
+# MEAS_NOISE_STD, PROCESS_NOISE_STD, T_TOTAL, T0, R_MAX, tfilter=2*Ts).
+
+# Symmetric box, reverted to the doc's original [-3,3]^3 default (correction-plan item
+# 4 / Phase 1A): the narrowed/xi_3-widened boxes used during the earlier diagnostic
+# sequence (see docs/phase1_diagnostic_findings.md) were compensating for the
+# UNNORMALIZED Q parameterization's pathologies (xi_1 numerically inert, xi_3
+# needing an unbounded range) - state_scale below fixes that at the root, so Phase 1A
+# reruns with the box the doc originally intended, not the diagnostic patches.
+xi_lower: [-3.0, -3.0, -3.0]
+xi_upper: [3.0, 3.0, 3.0]
+fixed_R: 1.0  # never searched - its scale is redundant with Q (correction-plan item 1)
+
+# (beta, r, integrator) diagonal state normalization S_x (doc §6.3; correction-plan
+# item 1). Derived from the FLEET-WIDE trajectory envelope: max|beta|, max|r|, max|z|
+# rolling out EVERY regime's cluster-prototype plant (not just nominal_params()) under
+# the hand-tuned reference controller (hand_tuned_reference_xi below), both
+# lane_change_time options, zero noise. Reproduce via:
+#   python scripts/compute_state_scales.py
+# BUG HISTORY: an earlier version used only nominal_params() (U=15 m/s), giving
+# beta_s=0.0223 - too small for HIGH_SPEED (U=20 m/s), whose beta envelope is 2.4x
+# larger. That made beta_max_deg (below) systematically too tight for HIGH_SPEED
+# specifically, causing 7/20 HIGH_SPEED clients to have ZERO feasible Sobol candidates
+# in phase1a_matched_model_full and corrupting the transfer-loss analysis via one
+# client's degenerate 1/256-feasible "individual optimum". See
+# docs/phase1_diagnostic_findings.md's "outlier donor" investigation.
+state_scale: [0.053229, 0.575573, 0.139862]
+
+u_min: -0.34906585  # -20 deg (rad), matches exp_02.ipynb's U_MIN
+u_max: 0.34906585   # +20 deg (rad), matches exp_02.ipynb's U_MAX
+
+# u_rate_max REVISED (Next-steps audit, see docs/phase1_diagnostic_findings.md "Part 4
+# - feasibility audit"): 0.055 rad/step (~63 deg/s) was never physically derived - it
+# was an empirical 50th-75th percentile of results/phase1_full_converged's data (an
+# earlier run, identity state_scale). Reprocessing phase1b_nonlinear_mismatch_full's
+# already-simulated data (no resimulation) showed it dominates rejection count (96% of
+# all infeasible candidates labeled input_rate_limit) and is wildly regime-imbalanced
+# (LOW_SPEED 80.9% feasible vs. HIGH_SPEED 19.3% at this threshold), confirming it's an
+# artifact, not a real constraint - sweeping the threshold against that same data,
+# LOW_SPEED reaches 98.8% feasible by 100 deg/s and PAYLOAD 81.3% by 300 deg/s, both
+# plateauing gently beyond that. Replaced with a genuinely physically-motivated value:
+# 300 deg/s (~0.2618 rad/step, ~5.24 rad/s) - within the ~300-500 deg/s peak road-wheel
+# rate capability typically cited for electric power-steering actuators, not derived
+# from this benchmark's own data at all.
+#
+# beta_max_deg=6.0 UNCHANGED - the same audit found HIGH_SPEED's low feasibility is NOT
+# a rate-limit artifact: even with the rate constraint removed entirely, HIGH_SPEED
+# feasibility only reaches ~50%, because under the nonlinear tire law HIGH_SPEED
+# clients (U=20 m/s) genuinely diverge to extreme sideslip for a large fraction of
+# candidates (mean |beta|=30 deg, max 219 deg - a spin-out, not a marginal exceedance),
+# while LOW_SPEED/PAYLOAD are 100% beta-feasible at this threshold. beta_max_deg is
+# correctly catching real instability here, not misconfigured - this result is one of
+# the reasons speed was dropped as the fleet-heterogeneity axis (see fleet.yaml).
+u_rate_max: 0.2618
+beta_max_deg: 6.0
+
+noise_std: 1.0e-2          # raised from exp_02.ipynb's MEAS_NOISE_STD=1e-4; see run 5, docs/phase1_diagnostic_findings.md
+process_noise: [0.0, 0.0]  # PROCESS_NOISE_STD in exp_02.ipynb
+
+T_total: 6.0     # T_TOTAL
+T0: 1.0
+r_max: 0.6108652381980153  # 35 deg/s, R_MAX in exp_02.ipynb
+tfilter: 0.1     # 2*Ts smoothing arg, matches exp_02.ipynb's lc_yaw_rate_ref(..., tfilter=2*Ts)
+
+# Reference point only (not used by Phase 0/1 code): log10(Q_BETA=1, Q_R=2, Q_INT=2)
+# from exp_02.ipynb's original hand-tuned LQIConfig, i.e. the xi that reproduces the
+# IFAC paper's existing hand-tuned controller under this xi-parameterization. Useful
+# later as the M0 hand-tuned baseline (doc §12.1).
+hand_tuned_reference_xi: [0.0, 0.30103, 0.30103]

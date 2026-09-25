@@ -1,0 +1,52 @@
+# python scripts/phase2_warmstart_dev.py --config config/runs/phase2_warmstart_dev_c1cds05.yaml
+# (or, from C1CDS05 against the H:\ mapped drive:
+#  python scripts\run_remote.py phase2_warmstart_dev_c1cds05.yaml --script phase2_warmstart_dev.py
+#  - MUST pass --script explicitly, see docs/phase2_diagnostic_findings.md Part 12's
+#  run_remote.py mistake)
+#
+# Frozen mature-fleet leave-one-out warm-start diagnostic (Part 14,
+# docs/phase2_diagnostic_findings.md, 2026-09-07) - deliberately separate from stagnation
+# adaptation (Part 12): establishes whether a mature fleet prior buys local sample
+# efficiency for a NEW client at all, before combining it with anything else. Same 20
+# development seeds as the confirmatory campaign / triggered-dev sweep.
+#
+# Two phases per seed (scripts/phase2_warmstart_dev.py):
+#   Phase A: `independent` BO for ALL 30 clients at the standard mature-fleet budget
+#            (n_init=8, n_iters=17) - the one-time cost of having genuine "mature fleet
+#            knowledge", with the FULL raw per-evaluation history captured (not just
+#            checkpoint summaries).
+#   Phase B: one fixed held-out target per family (client slot "_00", chosen before any
+#            result was seen) reruns from scratch at n_init=2 against the frozen
+#            29-peer independent-history pool, for 3 methods (independent/global/
+#            similarity).
+#
+# Cost: 20 seeds x (30 mature clients + 3 targets x 3 methods) x 25 evaluations/run =
+# 20 x 33 x 25 = 16,500 evaluations - roughly 20-30% of a full multi-method campaign's
+# volume (not the ~10% originally estimated, since Phase A's raw-record capture is a
+# genuine new cost - see the script's module docstring), but well under half, and Phase
+# A's output is reusable for any future expansion without rerunning.
+kind: phase2_fbo_comparison
+run_tag: phase2_warmstart_dev_c1cds05
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3   # PER MANEUVER under v3 -> 6 total/client/xi-query
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_candidates: 256
+n_oracle_sobol: 32
+
+seeds: [71063, 45424, 30434, 94266, 40624, 73209, 55549, 42137, 68253, 53722,
+        27553, 76162, 77570, 26257, 99047, 37738, 93873, 39782, 97125, 63934]  # SAME 20 development seeds
+
+n_jobs: 20   # capped below C1CDS05's 32 threads - see phase2_fbo_comparison_campaign_v3_c1cds05.yaml's note on shared-machine memory; re-check Task Manager before launch

@@ -1,0 +1,15 @@
+# Fixed-speed, plant-property fleet (Next-steps fleet redesign, src/fleet_families.py):
+# replaces LOW_SPEED/HIGH_SPEED (speed-as-heterogeneity) with three plant PROPERTY
+# families, all ~U=15 m/s - nominal (unperturbed baseline), payload (src2's own
+# PAYLOAD prototype: m+20%, Iz+25%), tire-degraded (src2's own AGING_TIRES prototype:
+# Cf-25%). Family labels are diagnostic-only (true_regime for figures/grouping) -
+# clustering/identification only ever see (theta_hat, Sigma_i), exactly as with the
+# old fleet.
+fleet_kind: fixed_speed_families
+clients_per_regime: 10  # n_per_family
+seed: 42
+variability: 0.025
+Ts: 0.05
+lambda_f: 0.99
+delta: 1.0
+lane_change_time: [1.0, 2.0]

@@ -1,0 +1,57 @@
+# python scripts/phase2_warmstart_dev.py --config config/runs/phase2_warmstart_confirmatory_c1cds05.yaml
+# (or, from C1CDS05 against the H:\ mapped drive:
+#  python scripts\run_remote.py phase2_warmstart_confirmatory_c1cds05.yaml --script phase2_warmstart_dev.py
+#  - MUST pass --script explicitly, see docs/phase2_diagnostic_findings.md Part 12's
+#  run_remote.py mistake)
+#
+# FINAL CONFIRMATORY warm-start campaign (Part 20, docs/phase2_diagnostic_findings.md,
+# 2026-09-08) - pre-registered per the user's frozen design, following the decisive
+# negative result for s_ij-weighting (Part 18) and the decision to retire dynamics-aware
+# method development: 20 COMPLETELY UNTOUCHED fleet seeds (disjoint from every seed pool
+# used anywhere in this investigation - the original confounded 20, the v2-validation 5,
+# the v3 provenance-check 3, and the v3 dev/confirmatory 20 reused throughout Parts
+# 10-18), 2 targets/family (client slots "00" AND "01", not just "00" - reduces
+# dependence on one arbitrary target) = 6 targets/seed, n_init=2, n_iters=10 (12 total,
+# not 25 - the application claim is sample efficiency, targets are usually near-optimal
+# by evaluation 3).
+#
+# Primary hypothesis: H1: N_5%,fleet < N_5%,independent. Methods: independent, global
+# (the deployed method), similarity (retained ONLY as an ablation, to show the simpler
+# global method is sufficient - NOT expected to beat global per Parts 10/13/15/18).
+# Primary statistic: per-seed MEAN N_5pct delta (not median - Part 18 found the median
+# too coarse for a design with several targets/seed and small point differences),
+# bootstrap CI over the 20 seeds, Wilcoxon, favorable-seed fraction, PLUS
+# P(N_5pct<=3)/P(N_5pct<=5) as directly-interpretable fixed-budget success rates.
+#
+# Cost: Phase A (mature fleet, 30 clients x 25 evals/seed = 750/seed - a FRESH
+# establishment, since these are untouched seeds with no prior mature-fleet data) +
+# Phase B (6 targets x 3 methods x 12 evals/seed = 216/seed) = ~966 evaluations/seed x
+# 20 seeds = ~19,320 evaluations total - comparable to Part 15's total volume.
+kind: phase2_fbo_comparison
+run_tag: phase2_warmstart_confirmatory_c1cds05
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3   # PER MANEUVER under v3 -> 6 total/client/xi-query
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_candidates: 256
+n_oracle_sobol: 32
+
+target_slots: ["00", "01"]   # 2 targets/family = 6/seed, per the user's frozen design
+target_n_iters: 10           # n_init=2 + n_iters=10 = 12 total (not 25)
+
+seeds: [355238, 987946, 299843, 469345, 232036, 298953, 756101, 589478, 467950, 362266,
+        112439, 294494, 607761, 217184, 629215, 321788, 531686, 554774, 731884, 304990]  # 20 ENTIRELY NEW seeds, disjoint from every prior pool
+
+n_jobs: 20   # capped below C1CDS05's 32 threads - re-check Task Manager before launch, same memory caveat as prior runs

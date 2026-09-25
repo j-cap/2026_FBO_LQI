@@ -1,0 +1,42 @@
+# python scripts/phase2_coverage_dev.py --config config/runs/phase2_coverage_dev_c1cds02.yaml
+# (or, from C1CDS02 against the H:\ mapped drive:
+#  python scripts\run_remote.py phase2_coverage_dev_c1cds02.yaml --script phase2_coverage_dev.py
+#  - MUST pass --script explicitly, see docs/phase2_diagnostic_findings.md Part 12's
+#  run_remote.py mistake)
+#
+# Same run as phase2_coverage_dev_c1cds05.yaml (see that file's header for the full
+# design/cost rationale - Part 17, docs/phase2_diagnostic_findings.md, 2026-09-07),
+# tuned for C1CDS02 (4 cores) instead: n_jobs=4, seed-level parallelism only (this
+# driver has no finer-grained (seed, method) flattening option).
+#
+# Cost: same ~24,500-evaluation volume as the c1cds05 config. On C1CDS02's 4 cores this
+# ran phase2_warmstart_dev_c1cds02 (a somewhat smaller ~19,500-evaluation volume) in on
+# the order of several hours to most of a day - expect something similar or a bit
+# longer here.
+kind: phase2_fbo_comparison
+run_tag: phase2_coverage_dev_c1cds02
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3   # PER MANEUVER under v3 -> 6 total/client/xi-query
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_candidates: 256
+n_oracle_sobol: 32
+
+mature_records_path: results/phase2_warmstart_dev_c1cds02/processed/mature_fleet_records.parquet
+
+seeds: [71063, 45424, 30434, 94266, 40624, 73209, 55549, 42137, 68253, 53722,
+        27553, 76162, 77570, 26257, 99047, 37738, 93873, 39782, 97125, 63934]  # SAME 20 development seeds
+
+n_jobs: 4

@@ -1,0 +1,40 @@
+# python scripts/phase2_fbo_comparison.py --config config/runs/phase2_fbo_comparison_campaign_v3_c1cds02.yaml
+# (or, from C1CDS02 against the H:\ mapped drive: python scripts\run_remote.py phase2_fbo_comparison_campaign_v3_c1cds02.yaml)
+#
+# Same run as phase2_fbo_comparison_campaign_v3_c1cds05.yaml (see that file's header for
+# the full rationale - Part 8/9, docs/phase2_diagnostic_findings.md, 2026-09-03), tuned
+# for C1CDS02 (4 cores) instead: seed-level granularity (n_jobs=4,
+# parallel_granularity=seed), same reasoning as every prior C1CDS02 config in this repo.
+#
+# Given v3's doubled episode count on top of the original campaign's already-estimated
+# ~8-9h on this machine, expect on the order of 16-18h - C1CDS05 is recommended over
+# this config unless C1CDS02 is the only machine available.
+kind: phase2_fbo_comparison
+run_tag: phase2_fbo_comparison_campaign_v3_c1cds02
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3   # PER MANEUVER under v3 -> 6 total/client/xi-query
+n_test_episodes: 3          # PER MANEUVER under v3 -> 6 total/client/xi-query
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 17
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [71063, 45424, 30434, 94266, 40624, 73209, 55549, 42137, 68253, 53722,
+        27553, 76162, 77570, 26257, 99047, 37738, 93873, 39782, 97125, 63934]  # 20 NEW seeds, disjoint from every prior pool
+
+n_jobs: 4
+parallel_granularity: seed

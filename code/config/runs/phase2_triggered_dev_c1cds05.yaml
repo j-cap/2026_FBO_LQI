@@ -1,0 +1,49 @@
+# python scripts/phase2_triggered_dev.py --config config/runs/phase2_triggered_dev_c1cds05.yaml
+# (or, from C1CDS05 against the H:\ mapped drive: python scripts\run_remote.py phase2_triggered_dev_c1cds05.yaml
+#  - run_remote.py's --stage1-only flag does NOT apply to this script)
+#
+# Development-seed sweep for diagnostic-triggered adaptive sharing (Part 12,
+# docs/phase2_diagnostic_findings.md, 2026-09-04). Same frozen fleet/controller
+# settings and the SAME 20 seeds as phase2_fbo_comparison_campaign_v3_c1cds05.yaml -
+# deliberately reused, per the user's plan: those 20 seeds are now DEVELOPMENT data for
+# the adaptive-method hypothesis (the static-FBO hypothesis they were confirmatory data
+# for is closed, Part 10). Runs independent/global/similarity once per seed plus
+# triggered_similarity once per tau in {5/7, 6/7, 1} plus a random-count-matched
+# control (scripts/phase2_triggered_dev.py's TAU_CANDIDATES/REFERENCE_TAU_LABEL) -
+# NOT recipient_aware (retired from the main experiment, Part 12).
+#
+# Cost note: triggered_similarity's pre-cutoff (n<=15) rounds, and EVERY round for a
+# never-activated client, are exact cache hits against `independent`'s own evaluations
+# (same per-seed cache dir, verified byte-identical in tests/test_fleet_bo.py) - only
+# genuinely activated clients' post-cutoff (n=16..25) rounds cost fresh simulation.
+# Expect somewhat more than phase2_fbo_comparison_campaign_v3_c1cds05.yaml's ~5h40m
+# (3 full methods here vs. that run's 4, plus 4 mostly-cheap triggered variants) but not
+# dramatically more - plan for a comparable order of magnitude.
+kind: phase2_fbo_comparison
+run_tag: phase2_triggered_dev_c1cds05
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3   # PER MANEUVER under v3 -> 6 total/client/xi-query
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_init: 8
+n_iters: 17                        # 8 + 17 = 25 local evaluations/client, matches the campaign
+n_candidates: 256
+n_oracle_sobol: 32
+negative_transfer_threshold: 0.10
+
+seeds: [71063, 45424, 30434, 94266, 40624, 73209, 55549, 42137, 68253, 53722,
+        27553, 76162, 77570, 26257, 99047, 37738, 93873, 39782, 97125, 63934]  # SAME 20 seeds as the confirmatory campaign - now development data
+
+n_jobs: 20   # capped below C1CDS05's 32 threads - see phase2_fbo_comparison_campaign_v3_c1cds05.yaml's note on shared-machine memory
