@@ -1,0 +1,36 @@
+# Fleet-maturity sensitivity smoke test.
+# One fleet realization, 6 systems total (2/family), one target/family.
+# Correctness check only; not paper evidence.
+kind: phase2_fbo_comparison
+run_tag: fleet_maturity_sweep_smoke
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 2
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_candidates: 256
+n_oracle_sobol: 32
+
+maturity_levels: [2, 5, 10, 25]
+source_n_init: 2
+source_n_total: 25
+target_slots: ["00"]
+target_n_init: 2
+target_n_iters: 10
+
+seeds: [355238]
+n_jobs: 1
+
+# Reuse the established dense-reference namespace if paper-level rescoring is desired.
+offline_reference_tag: offline_reference
