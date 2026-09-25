@@ -254,7 +254,8 @@ def main(config_path: str, mode: str, n_sobol: int, n_refine_starts: int, n_ref_
         plant_mode=controller_cfg.get("plant_mode", "linear"), mu=controller_cfg.get("tire_mu", 1.0),
     )
 
-    out_dir = _ROOT / "results" / "offline_reference"
+    reference_tag = cfg.get("offline_reference_tag", "offline_reference")
+    out_dir = _ROOT / "results" / reference_tag
     (out_dir / "processed").mkdir(parents=True, exist_ok=True)
     cache_dir = out_dir / "cache"
     cache_dir.mkdir(parents=True, exist_ok=True)
