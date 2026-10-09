@@ -1,0 +1,112 @@
+resolved_config:
+  config:
+    kind: phase2_fbo_comparison
+    run_tag: fleet_maturity_sweep_c1cds02
+    fleet_config: config/fleet_fixed_speed.yaml
+    fleet_overrides:
+      clients_per_regime: 10
+      generation_version: fixed_speed_v3_common_task
+    controller_config: config/controller.yaml
+    controller_overrides:
+      plant_mode: nonlinear_tanh
+      tire_mu: 1.0
+    n_calibration_episodes: 3
+    n_test_episodes: 3
+    episode_base_seed: 5000
+    identification_seed_offset: 1000
+    n_identification_episodes: 8
+    n_candidates: 256
+    n_oracle_sobol: 32
+    maturity_levels:
+    - 2
+    - 5
+    - 10
+    - 25
+    source_n_init: 2
+    source_n_total: 25
+    target_slots:
+    - '00'
+    - '01'
+    target_n_init: 2
+    target_n_iters: 10
+    seeds:
+    - 355238
+    - 987946
+    - 299843
+    - 469345
+    - 232036
+    - 298953
+    - 756101
+    - 589478
+    - 467950
+    - 362266
+    - 112439
+    - 294494
+    - 607761
+    - 217184
+    - 629215
+    - 321788
+    - 531686
+    - 554774
+    - 731884
+    - 304990
+    n_jobs: 4
+    offline_reference_tag: offline_reference
+    _config_path: config/runs/fleet_maturity_sweep_c1cds02.yaml
+  fleet_config:
+    fleet_kind: fixed_speed_families
+    clients_per_regime: 10
+    seed: 42
+    variability: 0.025
+    Ts: 0.05
+    lambda_f: 0.99
+    delta: 1.0
+    lane_change_time:
+    - 1.0
+    - 2.0
+    generation_version: fixed_speed_v3_common_task
+  controller_config:
+    xi_lower:
+    - -3.0
+    - -3.0
+    - -3.0
+    xi_upper:
+    - 3.0
+    - 3.0
+    - 3.0
+    fixed_R: 1.0
+    state_scale:
+    - 0.053229
+    - 0.575573
+    - 0.139862
+    u_min: -0.34906585
+    u_max: 0.34906585
+    u_rate_max: 0.2618
+    beta_max_deg: 6.0
+    noise_std: 0.01
+    process_noise:
+    - 0.0
+    - 0.0
+    T_total: 6.0
+    T0: 1.0
+    r_max: 0.6108652381980153
+    tfilter: 0.1
+    hand_tuned_reference_xi:
+    - 0.0
+    - 0.30103
+    - 0.30103
+    plant_mode: nonlinear_tanh
+    tire_mu: 1.0
+  design:
+    nested_source_histories: true
+    maturity_levels:
+    - 2
+    - 5
+    - 10
+    - 25
+    source_n_init: 2
+    source_n_total: 25
+    target_n_init: 2
+    target_n_iters: 10
+    primary_analysis: dense independently scored reference via rescore_maturity_sweep.py
+timestamp_utc: '2026-09-25T16:33:15.659093+00:00'
