@@ -9,8 +9,8 @@
 \usepackage{multirow}
 \usepackage[caption=false,font=footnotesize]{subfig}
 
-\newcommand{\todo}[1]{\textcolor{red!70!black}{\textbf{[TODO:} #1\textbf{]}}}
-\newcommand{\rev}[1]{\textcolor{red}{#1}}
+\newcommand{\todo}[1]{\textbf{[TODO:} #1\textbf{]}}
+\newcommand{\rev}[1]{#1}
 \newcommand{\calD}{\mathcal{D}}
 \newcommand{\feasSet}{\mathcal{F}}
 \newcommand{\AURCref}{\mathrm{AURC}_{\mathrm{ref}}}
@@ -184,7 +184,7 @@ The new system then synthesizes $\mathbf{K}_i(\boldsymbol{\xi}_{i,n+1})$ and eva
 
 \begin{table}[t]
 \centering
-\caption{BO implementation used in the final study. Red entries require direct source-code verification before submission.}
+\caption{BO implementation used in the final study. Draft verification entries require direct source-code confirmation before submission.}
 \label{tab:bo_details}
 \scriptsize
 \begin{tabular}{@{}ll@{}}
