@@ -5,10 +5,14 @@ Reads the dense-reference rescoring output produced by rescore_maturity_sweep.py
 writes vector PDFs plus 600-dpi PNG fallbacks directly to ../latex/figures/.
 
 Main paper figure:
-  (a) source maturity -> budget-restricted mean N_5%
-  (b) source maturity -> paired experiments saved vs. independent BO
+  (a) source maturity -> budget-restricted mean N_5% with realization-level 95% CIs
+  (b) source maturity -> paired experiments saved vs. independent BO with 95% CIs
 
-A third secondary figure shows P(T_5% <= 3) versus source maturity.
+A third secondary figure shows P(T_5% <= 5) versus source maturity.
+
+All uncertainty intervals use the fleet realization as the resampling unit. Target
+systems within the same realization are first averaged, avoiding visual
+pseudo-replication of the six targets from one generated fleet.
 """
 from __future__ import annotations
 
@@ -29,6 +33,8 @@ FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 SINGLE_COL = (3.45, 2.55)
 MAIN_LW = 2.0
+N_BOOT = 10_000
+BOOTSTRAP_SEED = 0
 
 plt.rcParams.update(
     {
@@ -51,66 +57,153 @@ plt.rcParams.update(
 def _save(fig, stem: str):
     for ext in ("pdf", "png"):
         path = FIG_DIR / f"{stem}.{ext}"
-        fig.savefig(path, bbox_inches="tight", pad_inches=0.03, transparent=False, dpi=600 if ext == "png" else None)
+        fig.savefig(
+            path,
+            bbox_inches="tight",
+            pad_inches=0.03,
+            transparent=False,
+            dpi=600 if ext == "png" else None,
+        )
         print(f"wrote {path}")
 
 
-def _load(analysis_tag: str):
-    path = _ROOT / "results" / analysis_tag / "processed" / "maturity_summary.csv"
-    if not path.exists():
+def _load(analysis_tag: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+    processed = _ROOT / "results" / analysis_tag / "processed"
+    summary_path = processed / "maturity_summary.csv"
+    n5_path = processed / "maturity_n5pct_test.csv"
+    if not summary_path.exists():
         raise FileNotFoundError(
-            f"{path} does not exist. Run scripts/rescore_maturity_sweep.py first."
+            f"{summary_path} does not exist. Run scripts/rescore_maturity_sweep.py first."
         )
-    return pd.read_csv(path).sort_values("maturity")
+    if not n5_path.exists():
+        raise FileNotFoundError(
+            f"{n5_path} does not exist. Run scripts/rescore_maturity_sweep.py first."
+        )
+    summary = pd.read_csv(summary_path).sort_values("maturity")
+    n5 = pd.read_csv(n5_path)
+    return summary, n5
 
 
-def fig_maturity_absolute(df: pd.DataFrame):
+def _bootstrap_mean_ci(
+    values: np.ndarray,
+    *,
+    n_boot: int = N_BOOT,
+    seed: int = BOOTSTRAP_SEED,
+) -> tuple[float, float, float]:
+    """Percentile-bootstrap 95% CI of a mean over independent fleet realizations."""
+    values = np.asarray(values, dtype=float)
+    if values.ndim != 1 or len(values) == 0:
+        raise ValueError("bootstrap input must be a non-empty one-dimensional array")
+    rng = np.random.default_rng(seed)
+    idx = rng.integers(0, len(values), size=(n_boot, len(values)))
+    boot = values[idx].mean(axis=1)
+    lo, hi = np.percentile(boot, [2.5, 97.5])
+    return float(values.mean()), float(lo), float(hi)
+
+
+def _absolute_mean_ci(n5: pd.DataFrame, *, method: str, maturity: int) -> tuple[float, float, float]:
+    """Fleet-realization bootstrap CI after averaging the six targets within each seed."""
+    sub = n5[(n5["method"] == method) & (n5["maturity"] == maturity)]
+    per_seed = sub.groupby("seed")["N_5pct_test"].mean().to_numpy()
+    return _bootstrap_mean_ci(per_seed)
+
+
+def fig_maturity_absolute(summary: pd.DataFrame, n5: pd.DataFrame):
     fig, ax = plt.subplots(figsize=SINGLE_COL)
-    x = df["maturity"].to_numpy()
-    global_mean = df["mean_N5_global"].to_numpy()
-    independent = float(df["mean_N5_independent"].iloc[0])
+    x = summary["maturity"].to_numpy(dtype=float)
+    total_hist = summary["n_hist_total"].to_numpy(dtype=int)
 
-    ax.plot(x, global_mean, marker="o", linewidth=MAIN_LW, label="Fleet warm start")
-    ax.axhline(independent, color="0.45", linestyle="--", linewidth=1.4, label="Independent BO")
+    global_mean, global_lo, global_hi = [], [], []
+    for maturity in summary["maturity"].astype(int):
+        m, lo, hi = _absolute_mean_ci(n5, method="global", maturity=maturity)
+        global_mean.append(m)
+        global_lo.append(lo)
+        global_hi.append(hi)
+    global_mean = np.asarray(global_mean)
+    global_lo = np.asarray(global_lo)
+    global_hi = np.asarray(global_hi)
+    global_yerr = np.vstack([global_mean - global_lo, global_hi - global_mean])
+
+    independent, independent_lo, independent_hi = _absolute_mean_ci(
+        n5, method="independent", maturity=0
+    )
+
+    ax.errorbar(
+        x,
+        global_mean,
+        yerr=global_yerr,
+        marker="o",
+        linewidth=MAIN_LW,
+        capsize=3,
+        label="Fleet warm start",
+    )
+    ax.axhline(
+        independent,
+        color="0.45",
+        linestyle="--",
+        linewidth=1.4,
+        label="Independent BO",
+    )
+    ax.axhspan(independent_lo, independent_hi, color="0.45", alpha=0.10, linewidth=0)
+
     ax.set_xticks(x)
     ax.set_xlabel(r"Historical evaluations per source system $M_{\mathrm{hist}}$")
     ax.set_ylabel(r"Restricted mean $N_{5\%}$")
     ax.legend(loc="best", framealpha=1.0)
+
+    # Secondary axis reports the actual number of historical scalar records available
+    # to each target. The primary axis remains M_hist because repeated source
+    # initialization points are not equivalent to distinct calibration-space locations.
+    top = ax.secondary_xaxis("top")
+    top.set_xticks(x)
+    top.set_xticklabels([str(v) for v in total_hist])
+    top.set_xlabel("Total source observations", fontsize=8)
+    top.tick_params(labelsize=7)
+
     fig.tight_layout()
     _save(fig, "fig7a_fleet_maturity_absolute")
     plt.close(fig)
 
 
-def fig_maturity_savings(df: pd.DataFrame):
+def fig_maturity_savings(summary: pd.DataFrame):
     fig, ax = plt.subplots(figsize=SINGLE_COL)
-    x = df["maturity"].to_numpy()
-    delta = df["delta_global_minus_independent"].to_numpy()
-    lo = df["ci95_low"].to_numpy()
-    hi = df["ci95_high"].to_numpy()
-    yerr = np.vstack([delta - lo, hi - delta])
+    x = summary["maturity"].to_numpy(dtype=float)
+
+    # Store paired deltas in the analysis as global - independent. Plot the sign-flipped
+    # quantity here so positive values directly mean local experiments saved.
+    savings = -summary["delta_global_minus_independent"].to_numpy(dtype=float)
+    savings_lo = -summary["ci95_high"].to_numpy(dtype=float)
+    savings_hi = -summary["ci95_low"].to_numpy(dtype=float)
+    yerr = np.vstack([savings - savings_lo, savings_hi - savings])
 
     ax.axhline(0.0, color="0.25", linestyle="--", linewidth=1.0)
-    ax.errorbar(x, delta, yerr=yerr, marker="o", linewidth=MAIN_LW, capsize=3)
+    ax.errorbar(x, savings, yerr=yerr, marker="o", linewidth=MAIN_LW, capsize=3)
     ax.set_xticks(x)
     ax.set_xlabel(r"Historical evaluations per source system $M_{\mathrm{hist}}$")
-    ax.set_ylabel(r"$\Delta N_{5\%}$: fleet $-$ independent")
+    ax.set_ylabel(r"Mean local experiments saved")
     fig.tight_layout()
     _save(fig, "fig7b_fleet_maturity_savings")
     plt.close(fig)
 
 
-def fig_maturity_early_success(df: pd.DataFrame):
+def fig_maturity_early_success(summary: pd.DataFrame):
     fig, ax = plt.subplots(figsize=SINGLE_COL)
-    x = df["maturity"].to_numpy()
-    fleet = df["p_reach_3_global"].to_numpy()
-    independent = float(df["p_reach_3_independent"].iloc[0])
+    x = summary["maturity"].to_numpy(dtype=float)
+    fleet = summary["p_reach_5_global"].to_numpy(dtype=float)
+    independent = float(summary["p_reach_5_independent"].iloc[0])
 
     ax.plot(x, fleet, marker="o", linewidth=MAIN_LW, label="Fleet warm start")
-    ax.axhline(independent, color="0.45", linestyle="--", linewidth=1.4, label="Independent BO")
+    ax.axhline(
+        independent,
+        color="0.45",
+        linestyle="--",
+        linewidth=1.4,
+        label="Independent BO",
+    )
     ax.set_xticks(x)
     ax.set_ylim(0, 1.05)
     ax.set_xlabel(r"Historical evaluations per source system $M_{\mathrm{hist}}$")
-    ax.set_ylabel(r"$P(T_{5\%}\leq 3)$")
+    ax.set_ylabel(r"$P(T_{5\%}\leq 5)$")
     ax.legend(loc="best", framealpha=1.0)
     fig.tight_layout()
     _save(fig, "fig7c_fleet_maturity_early_success")
@@ -118,10 +211,10 @@ def fig_maturity_early_success(df: pd.DataFrame):
 
 
 def main(analysis_tag: str):
-    df = _load(analysis_tag)
-    fig_maturity_absolute(df)
-    fig_maturity_savings(df)
-    fig_maturity_early_success(df)
+    summary, n5 = _load(analysis_tag)
+    fig_maturity_absolute(summary, n5)
+    fig_maturity_savings(summary)
+    fig_maturity_early_success(summary)
 
 
 if __name__ == "__main__":
@@ -129,7 +222,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--analysis-tag",
         default="fleet_maturity_sweep_c1cds02_reference_robustness",
-        help="results/<tag> containing processed/maturity_summary.csv",
+        help="results/<tag> containing the maturity postprocessing CSV files",
     )
     args = parser.parse_args()
     main(args.analysis_tag)
