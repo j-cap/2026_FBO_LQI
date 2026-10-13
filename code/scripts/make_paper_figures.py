@@ -132,8 +132,8 @@ def fig2a():
     ax.set_ylim(72, 133)
     ax.set_ylabel("Relative to nominal-family mean [%]")
     leg = ax.legend(
-        loc="lower center", bbox_to_anchor=(0.5, 1.01), ncol=3, framealpha=1.0, handletextpad=0.25,
-        columnspacing=0.8, borderpad=0.35,
+        loc="lower left", ncol=1, framealpha=0.95, handletextpad=0.35,
+        borderpad=0.35, fontsize=7,
     )
     for handle in leg.legend_handles:
         handle.set_alpha(1.0)

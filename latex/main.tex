@@ -1,5 +1,9 @@
 \documentclass{l4dc2026}
 
+% The L4DC 2027 site currently links the 2026 class. Keep the organizer-supplied
+% PMLR header unchanged here; replace l4dc2026.cls with the official 2027 class
+% when the organizers publish it rather than overriding volume/year manually.
+
 % The L4DC class loads amsmath, amssymb, natbib, graphicx, url, and algorithm2e.
 \usepackage{subfig}
 \usepackage{flafter}
@@ -25,10 +29,14 @@
 
 \coltauthor{%
 \Name{Jakob Weber} \and
-\Name{Markus Gurtner} \and
-\Name{Adrian Trachte} \and
+\Name{Markus Gurtner}\\
+\addr{Center for Vision, Automation and Control, AIT Austrian Institute of Technology GmbH, Vienna, Austria}
+\AND
+\Name{Adrian Trachte}\\
+\addr{Robert Bosch GmbH, Renningen, Germany}
+\AND
 \Name{Andreas Kugi}\\
-\addr{\textit{Draft author list -- affiliations to be finalized}}%
+\addr{Automation and Control Institute, TU Wien, Vienna, Austria; AIT Austrian Institute of Technology, Vienna, Austria}%
 }
 
 \begin{document}
@@ -216,7 +224,7 @@ Consistent with this structure, dynamics weighting provides no measurable improv
 
 \begin{figure}[t]
 \centering
-\figurepdf{0.52\textwidth}{figures/fig5a_global_vs_weighted_parity.pdf}
+\figurepdf{0.60\textwidth}{figures/fig5a_global_vs_weighted_parity.pdf}
 \caption{Per-realization parity between global and dynamics-weighted warm start on the held-out fleets. Points near the identity line indicate that dynamics-aware attenuation does not improve target-system sample efficiency.}
 \label{fig:null_pairwise}
 \end{figure}
