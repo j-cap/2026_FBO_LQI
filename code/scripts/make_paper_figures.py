@@ -164,10 +164,13 @@ def fig2b():
         r"$\rho_J=0.95$", xy=(0.98, 0.95), xycoords=("axes fraction", "data"),
         ha="right", va="bottom", fontsize=8,
     )
-    share_high = 100.0 * float((pairs_df["rho_J"] >= 0.95).mean())
+    above_threshold = pairs_df["rho_J"] >= 0.95
+    n_high = int(above_threshold.sum())
+    n_total = int(len(pairs_df))
     ax.text(
-        0.98, 0.08, f"{share_high:.1f}% of pairs $\\rho^J_{{ij}}\\geq0.95$",
-        transform=ax.transAxes, ha="right", va="bottom", fontsize=7,
+        0.98, 0.92,
+        f"{n_high} / {n_total} pairs\n$\\rho^J_{{ij}}\\geq0.95$",
+        transform=ax.transAxes, ha="right", va="top", fontsize=7,
         bbox=dict(boxstyle="round,pad=0.25", facecolor="white", edgecolor="#cccccc", linewidth=0.6),
     )
     ax.set_ylim(0.94, 1.002)
