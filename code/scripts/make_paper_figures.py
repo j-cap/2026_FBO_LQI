@@ -10,7 +10,7 @@ parameters, not simulated data.
 Data sources: see each fig_*() function's docstring.
 
 Terminology updated throughout (user's Section 7): "oracle" -> "reference",
-"target-local evaluations" -> "new-client experiments", "similarity" -> "dynamics-weighted"
+"target-local evaluations" -> "target-system evaluations", "similarity" -> "dynamics-weighted"
 in display labels only (the underlying method identifier `"similarity"` in the data is
 untouched - this is a display-label change, not a data/code rename).
 
@@ -66,7 +66,7 @@ plt.rcParams.update(
 )
 
 METHOD_COLORS = {"independent": "#999999", "global": "#D55E00", "similarity": "#0072B2"}
-METHOD_LABELS = {"independent": "Independent", "global": "Global warm start", "similarity": "Dynamics-weighted warm start"}
+METHOD_LABELS = {"independent": "Independent BO", "global": "Global warm start", "similarity": "Dynamics-weighted warm start"}
 FAMILY_COLORS = {"nominal": "#0072B2", "payload": "#D55E00", "tire_degraded": "#009E73"}
 FAMILY_LABELS = {"nominal": "Nominal", "payload": "Payload", "tire_degraded": "Tire-degraded"}
 
@@ -145,7 +145,7 @@ def fig2b():
     if "d_ij" not in pairs_df.columns:
         raise RuntimeError("landscape_similarity_pairs.csv has no d_ij column - run scripts/backfill_landscape_distances.py first")
 
-    fig, ax = plt.subplots(figsize=SINGLE_COL)
+    fig, ax = plt.subplots(figsize=(4.65, 2.55))
     for same, marker, color, label in (
         (True, "o", "#0072B2", "Same family"), (False, "^", "#D55E00", "Cross family"),
     ):
@@ -153,7 +153,14 @@ def fig2b():
         ax.scatter(sub["d_ij"], sub["rho_J"], s=10, alpha=0.4, marker=marker, color=color, linewidths=0, label=label)
     ax.axhline(0.95, color="#333333", linewidth=REF_LW, linestyle="--")
     ax.annotate(
-        r"$\rho_J=0.95$", xy=(0.98, 0.95), xycoords=("axes fraction", "data"), ha="right", va="bottom", fontsize=8,
+        r"$\rho_J=0.95$", xy=(0.98, 0.95), xycoords=("axes fraction", "data"),
+        ha="right", va="bottom", fontsize=8,
+    )
+    share_high = 100.0 * float((pairs_df["rho_J"] >= 0.95).mean())
+    ax.text(
+        0.98, 0.08, f"{share_high:.1f}% of pairs $\\rho^J_{{ij}}\\geq0.95$",
+        transform=ax.transAxes, ha="right", va="bottom", fontsize=7,
+        bbox=dict(boxstyle="round,pad=0.25", facecolor="white", edgecolor="#cccccc", linewidth=0.6),
     )
     ax.set_ylim(0.94, 1.002)
     ax.set_xlabel(r"Dynamics distance $d_{ij}^{\mathrm{dyn}}$")
@@ -199,10 +206,10 @@ def fig3():
     ax.axhline(0.0, color="black", linewidth=0.6, linestyle=":", alpha=0.6)
     ax.set_xlim(2, 12)
     ax.set_xticks([2, 4, 6, 8, 10, 12])
-    ax.set_xlabel(r"New-client experiments $n$")
+    ax.set_xlabel(r"Target-system evaluations $n$")
     ax.set_ylabel(r"Reference-relative regret $r_i^{\mathrm{ref}}(n)$")
     ax.text(
-        0.97, 0.60, "54% fewer experiments\non average (mean $N_{5\\%}$)", transform=ax.transAxes, fontsize=7,
+        0.97, 0.60, "54% fewer target evaluations\non average (mean $N_{5\\%}$)", transform=ax.transAxes, fontsize=7,
         ha="right", va="top", color="#333333",
         bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="#cccccc", linewidth=0.6),
     )
@@ -255,8 +262,8 @@ def fig4a():
                      markeredgecolor=METHOD_COLORS[method], markersize=4, zorder=5, clip_on=False)
     for x_ref in (3, 5):
         ax.axvline(x_ref, color="#999999", linewidth=1.0, linestyle="--", alpha=0.8, zorder=0)
-    ax.set_xlabel(r"$N_{5\%}$ (new-client experiments" + "\nto reach 5% of reference)", fontsize=7.5)
-    ax.set_ylabel("Fraction of new clients")
+    ax.set_xlabel(r"$N_{5\%}$ (target-system evaluations" + "\nto reach 5% of reference)", fontsize=7.5)
+    ax.set_ylabel("Fraction of target systems")
     ax.set_xlim(2, budget)
     ax.set_xticks([2, 4, 6, 8, 10, 12])
     ax.set_yticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
@@ -319,8 +326,8 @@ def fig5a():
     ax.set_xlim(lo, hi)
     ax.set_ylim(lo, hi)
     ax.set_aspect("equal")
-    ax.set_xlabel(r"Mean $N_{5\%}$ per fleet realization, global")
-    ax.set_ylabel(r"Mean $N_{5\%}$ per fleet realization," + "\ndynamics-weighted")
+    ax.set_xlabel(r"Mean $N_{5\%}$, global warm start")
+    ax.set_ylabel(r"Mean $N_{5\%}$, dynamics-weighted")
 
     fig.tight_layout()
     _save(fig, "fig5a_global_vs_weighted_parity")
@@ -363,7 +370,7 @@ def fig5b():
             capsize=2.5, elinewidth=1.0, label=label,
         )
     ax.set_xticks(q_values)
-    ax.set_xlabel(r"$q_{\mathrm{same}}$ (same-family peers in 9-peer pool)")
+    ax.set_xlabel(r"$q_{\mathrm{same}}$ (same-family sources in 9-source pool)")
     ax.set_ylabel(r"Mean $N_{5\%}$")
     leg = ax.legend(loc="upper right", framealpha=1.0, fontsize=6.5, handletextpad=0.4, borderpad=0.4)
 

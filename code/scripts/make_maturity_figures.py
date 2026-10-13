@@ -5,10 +5,9 @@ Reads the dense-reference rescoring output produced by rescore_maturity_sweep.py
 writes vector PDFs plus 600-dpi PNG fallbacks directly to ../latex/figures/.
 
 Main paper figure:
-  (a) source maturity -> budget-restricted mean N_5% with realization-level 95% CIs
-  (b) source maturity -> paired experiments saved vs. independent BO with 95% CIs
+  source maturity -> budget-restricted mean N_5% with realization-level 95% CIs.
 
-A third secondary figure shows P(T_5% <= 5) versus source maturity.
+The paired-savings and early-success views are retained as supplementary diagnostics.
 
 All uncertainty intervals use the fleet realization as the resampling unit. Target
 systems within the same realization are first averaged, avoiding visual
@@ -146,6 +145,25 @@ def fig_maturity_absolute(summary: pd.DataFrame, n5: pd.DataFrame):
     )
     ax.axhspan(independent_lo, independent_hi, color="0.45", alpha=0.10, linewidth=0)
 
+    # Highlight the practically relevant knee using the stored paired-savings analysis.
+    savings = -summary["delta_global_minus_independent"].to_numpy(dtype=float)
+    idx_10 = np.flatnonzero(summary["maturity"].to_numpy(dtype=int) == 10)
+    idx_25 = np.flatnonzero(summary["maturity"].to_numpy(dtype=int) == 25)
+    if len(idx_10) == 1 and len(idx_25) == 1 and savings[idx_25[0]] > 0:
+        share = 100.0 * savings[idx_10[0]] / savings[idx_25[0]]
+        x10 = float(x[idx_10[0]])
+        y10 = float(global_mean[idx_10[0]])
+        ax.annotate(
+            f"{share:.0f}% of mature-fleet saving",
+            xy=(x10, y10),
+            xytext=(12.0, y10 + 1.0),
+            fontsize=7,
+            ha="left",
+            va="center",
+            arrowprops=dict(arrowstyle="->", linewidth=0.7, color="0.35"),
+            bbox=dict(boxstyle="round,pad=0.25", facecolor="white", edgecolor="0.8", linewidth=0.6),
+        )
+
     ax.set_xticks(x)
     ax.set_xlabel(r"Historical evaluations per source system $M_{\mathrm{hist}}$")
     ax.set_ylabel(r"Restricted mean $N_{5\%}$")
@@ -180,7 +198,7 @@ def fig_maturity_savings(summary: pd.DataFrame):
     ax.errorbar(x, savings, yerr=yerr, marker="o", linewidth=MAIN_LW, capsize=3)
     ax.set_xticks(x)
     ax.set_xlabel(r"Historical evaluations per source system $M_{\mathrm{hist}}$")
-    ax.set_ylabel(r"Mean local experiments saved")
+    ax.set_ylabel(r"Mean target evaluations saved")
     fig.tight_layout()
     _save(fig, "fig7b_fleet_maturity_savings")
     plt.close(fig)
