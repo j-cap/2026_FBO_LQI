@@ -19,9 +19,17 @@ Output: ../latex/figures/fig{2a,2b,3,4a,4b,5a,5b,6}_*.{pdf,png} - PDF (vector) p
 
 Usage:
     python scripts/make_paper_figures.py
+    python scripts/make_paper_figures.py --strict
+
+The repository intentionally does not track the large historical `code/results/`
+campaign folders. If a processed source package is absent locally, the default mode
+skips only the affected figure and preserves the already tracked publication PDF.
+Use `--strict` to restore the old fail-fast behavior when running on a machine that
+contains the complete archived result tree.
 """
 from __future__ import annotations
 
+import argparse
 import sys
 from pathlib import Path
 
@@ -407,12 +415,53 @@ def fig6():
     plt.close(fig)
 
 
+def _run_available(*, strict: bool = False) -> None:
+    """Regenerate every figure whose processed source data is available locally.
+
+    Historical paper campaigns predate the repository's compact-data convention and
+    most of their result folders are deliberately ignored by git. Publication PDFs
+    under latex/figures/ remain tracked, so skipping a missing source never deletes or
+    overwrites the last valid figure. The message identifies the missing path so the
+    corresponding compact processed package can be restored later.
+    """
+    jobs = [
+        ("Fig. 2a vehicle heterogeneity", fig2a),
+        ("Fig. 2b landscape similarity", fig2b),
+        ("Fig. 3 confirmatory convergence", fig3),
+        ("Supplement Fig. threshold ECDF", fig4a),
+        ("Supplement Fig. fixed-budget success", fig4b),
+        ("Fig. global-vs-weighted parity", fig5a),
+        ("Supplement Fig. source coverage", fig5b),
+        ("Supplement Fig. lane-change references", fig6),
+    ]
+    skipped: list[tuple[str, str]] = []
+    for label, fn in jobs:
+        try:
+            fn()
+        except FileNotFoundError as exc:
+            if strict:
+                raise
+            missing = str(exc)
+            skipped.append((label, missing))
+            print(f"[skip] {label}: required processed source is not available locally")
+            print(f"       {missing}")
+
+    if skipped:
+        print("\nFigure regeneration completed with skipped archived-data figures.")
+        print("Existing tracked PDFs were left untouched for every skipped figure.")
+        print("To require a complete archive, rerun with --strict.")
+    else:
+        print("\nAll paper figures regenerated successfully.")
+
+
 if __name__ == "__main__":
-    fig2a()
-    fig2b()
-    fig3()
-    fig4a()
-    fig4b()
-    fig5a()
-    fig5b()
-    fig6()
+    parser = argparse.ArgumentParser(
+        description="Regenerate publication figures from locally available processed results."
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Fail on the first missing archived processed-result file instead of preserving the tracked PDF.",
+    )
+    args = parser.parse_args()
+    _run_available(strict=args.strict)
