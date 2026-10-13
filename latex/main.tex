@@ -1,5 +1,8 @@
 \documentclass{l4dc2026}
 
+% Review anonymity: the public L4DC 2027 instructions currently do not state a
+% double-blind requirement. Keep the named-author/default class mode unless the
+% OpenReview submission instructions explicitly request the optional [anon] mode.
 % The L4DC 2027 site currently links the 2026 class. Keep the organizer-supplied
 % PMLR header unchanged here; replace l4dc2026.cls with the official 2027 class
 % when the organizers publish it rather than overriding volume/year manually.
@@ -50,14 +53,14 @@ Bayesian optimization, controller calibration, transfer learning, data-efficient
 \end{keywords}
 
 \section{Introduction}
-Controller calibration is an important but expensive part of commissioning modern dynamical systems. Even when the controller structure follows from model-based design, parameters such as linear-quadratic regulator or integral-control weights determine the final compromise between tracking performance, control effort, and robustness. Bayesian optimization (BO) is attractive for this setting because it can optimize low-dimensional controller parameters from a limited number of expensive closed-loop evaluations~\cite{frazier2018tutorial,marco2016lqr,berkenkamp2016safe,schillinger2017safe,vonrohr2024local}.
+Controller calibration is an important but expensive part of commissioning modern dynamical systems. Even when the controller structure follows from model-based design, parameters such as linear-quadratic regulator or integral-control weights determine the final compromise between tracking performance, control effort, and robustness. Bayesian optimization (BO) is attractive for this setting because it can optimize low-dimensional controller parameters from a limited number of expensive closed-loop evaluations~\citep{frazier2018tutorial,marco2016lqr,berkenkamp2016safe,schillinger2017safe,vonrohr2024local}.
 
 A fleet of related systems changes this optimization problem. Vehicles or machines are commissioned repeatedly, so previously calibrated systems have already evaluated controller parameters that a newly arriving system would otherwise have to rediscover. Reusing these observations can reduce target-system experimentation, but only if the corresponding control-performance landscapes are sufficiently aligned. Plant heterogeneity therefore creates a transfer question that is distinct from ordinary single-system BO: \emph{when are controller-calibration observations from one dynamical system informative for another?}
 
 This question is nontrivial because the same calibration vector does not represent the same feedback gain on every plant. In the setting studied here, each system identifies its own control-design model and recomputes an LQI gain for every candidate weight vector. What is shared across systems is only the low-dimensional calibration coordinate and its observed normalized performance. Hence successful transfer requires similarity of the induced calibration objectives, not equality of the underlying dynamics or controllers.
 
 \subsection{Related work and positioning}
-BO has been used for automatic controller tuning in LQR, PI, and safety-constrained calibration problems~\cite{marco2016lqr,berkenkamp2016safe,schillinger2017safe,vonrohr2024local}. Transfer-learning BO reuses observations or surrogate information from related optimization tasks~\cite{joy2019transfer,tighineanu2022transfer,perrone2018scalable}. Federated and collaborative BO consider optimization with information distributed across agents~\cite{dai2020fts,dai2021dpfts,chen2025collaborative}, while federated control and identification exchange model or design information across heterogeneous dynamical systems~\cite{wang2026fedlqr,weber2026ifac}.
+BO has been used for automatic controller tuning in LQR, PI, and safety-constrained calibration problems~\citep{marco2016lqr,berkenkamp2016safe,schillinger2017safe,vonrohr2024local}. Transfer-learning BO reuses observations or surrogate information from related optimization tasks~\citep{joy2019transfer,tighineanu2022transfer,perrone2018scalable}. Federated and collaborative BO consider optimization with information distributed across agents~\citep{dai2020fts,dai2021dpfts,chen2025collaborative}, while federated control and identification exchange model or design information across heterogeneous dynamical systems~\citep{wang2026fedlqr,weber2026ifac}.
 
 Our objective is different from proposing a new acquisition function, a common fleet controller, or a distributed GP algorithm. We use a deliberately simple pooled warm start to isolate whether historical controller-calibration observations are themselves transferable across heterogeneous plants. A dynamics-weighted variant then tests the natural hypothesis that observations from physically similar systems should be trusted more strongly. This separation lets the experiments distinguish \emph{plant heterogeneity} from \emph{calibration-landscape heterogeneity}, which is the central scientific question of the paper. Because the transferable records are compact and do not contain raw trajectories, the same formulation is compatible with distributed data ownership, but privacy mechanisms and distributed surrogate training are not contributions of this work.
 
@@ -231,7 +234,7 @@ Consistent with this structure, dynamics weighting provides no measurable improv
 
 \begin{figure}[t]
 \centering
-\figurepdf{0.60\textwidth}{figures/fig5a_global_vs_weighted_parity.pdf}
+\figurepdf{0.55\textwidth}{figures/fig5a_global_vs_weighted_parity.pdf}
 \caption{Per-realization parity between global and dynamics-weighted warm start on the held-out fleets. Points near the identity line indicate that dynamics-aware attenuation does not improve target-system sample efficiency.}
 \label{fig:null_pairwise}
 \end{figure}
