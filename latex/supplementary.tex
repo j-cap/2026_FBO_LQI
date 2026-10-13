@@ -82,7 +82,7 @@ At target evaluation $n$, expected improvement is maximized over the fixed 256-p
 \end{equation}
 
 \paragraph{RGPE transfer baseline.}
-RGPE uses the same 25 historical evaluations per source and the same target evaluation budget, but fits one task-standardized GP per source system rather than pooling the observations. A target GP is refit after each local evaluation. At every BO round, 256 joint posterior samples are used to compute pairwise ranking loss on the observed target points; the target model is scored by leave-one-out prediction using its fitted hyperparameters. A model's ensemble weight is the fraction of posterior samples for which it attains the minimum ranking loss. Following the RGPE dilution safeguard, a source is discarded when its median sampled loss exceeds the 95th percentile of target-model loss. The ensemble moments are
+RGPE was added after the original confirmatory analysis as a literature comparator; it reuses the frozen 20 fleet realizations, mature source histories, target systems, local budget, candidate set, and dense-reference scoring protocol. It uses the same 25 historical evaluations per source and the same target evaluation budget, but fits one task-standardized GP per source system rather than pooling the observations. A target GP is refit after each local evaluation. At every BO round, 256 joint posterior samples are used to compute pairwise ranking loss on the observed target points; the target model is scored by leave-one-out prediction using its fitted hyperparameters. A model's ensemble weight is the fraction of posterior samples for which it attains the minimum ranking loss. Following the RGPE dilution safeguard, a source is discarded when its median sampled loss exceeds the 95th percentile of target-model loss. The ensemble moments are
 \begin{equation}
  \mu_{\rm RGPE}(\boldsymbol\xi)=\sum_q w_q\mu_q(\boldsymbol\xi),
  \qquad
@@ -188,7 +188,8 @@ Source history per system & 25 independent-BO evaluations\\
 Warm-start history per target & 725 source observations\\
 Local Sobol initialization & 2 evaluations\\
 Maximum target budget & 12 evaluations\\
-Methods & independent / global / dynamics-weighted / RGPE\\
+Pre-specified methods & independent / global / dynamics-weighted\\
+Post-hoc transfer baseline & RGPE\\
 Primary metric & restricted mean $\Nfive$\\
 \bottomrule
 \end{tabular}
