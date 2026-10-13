@@ -3,6 +3,7 @@
 % The L4DC class loads amsmath, amssymb, natbib, graphicx, url, and algorithm2e.
 \usepackage{subfig}
 \usepackage{flafter}
+\usepackage{placeins}
 \usepackage{times}
 
 \newcommand{\calD}{\mathcal{D}}
@@ -222,6 +223,7 @@ Consistent with this structure, dynamics weighting provides no measurable improv
 
 A separate nine-source coverage study, reported in the supplementary material, confirms that this conclusion does not depend on access to all 29 peers or on a particular same-family source composition.
 
+\FloatBarrier
 \section{Discussion}
 The experiments support a distinction between \emph{plant heterogeneity} and \emph{task-landscape heterogeneity}. The vehicle families are physically distinguishable, yet their LQI calibration rankings remain strongly aligned. In a low-dimensional search space with little target data, broad historical coverage is therefore more valuable than selectively attenuating physically dissimilar sources. This explains why the deliberately simple pooled warm start performs as well as dynamics-aware weighting in the investigated regime.
 
