@@ -5,7 +5,6 @@
 % when the organizers publish it rather than overriding volume/year manually.
 
 % The L4DC class loads amsmath, amssymb, natbib, graphicx, url, and algorithm2e.
-\usepackage{subfig}
 \usepackage{flafter}
 \usepackage{placeins}
 \usepackage{times}
@@ -211,9 +210,17 @@ The key mechanistic result is that substantial plant heterogeneity produces only
 
 \begin{figure}[t]
 \centering
-\subfloat[Vehicle-parameter heterogeneity.\label{fig:landscape_params}]{\figurepdf{0.38\textwidth}{figures/fig2a_vehicle_parameter_heterogeneity.pdf}}
+\begin{minipage}[t]{0.38\textwidth}
+    \centering
+    \figurepdf{\linewidth}{figures/fig2a_vehicle_parameter_heterogeneity.pdf}\\[-0.5mm]
+    {\small (a) Vehicle-parameter heterogeneity.}
+\end{minipage}
 \hfill
-\subfloat[Dynamics distance versus calibration-landscape similarity.\label{fig:landscape_similarity}]{\figurepdf{0.57\textwidth}{figures/fig2b_dynamics_vs_landscape_similarity.pdf}}
+\begin{minipage}[t]{0.57\textwidth}
+    \centering
+    \figurepdf{\linewidth}{figures/fig2b_dynamics_vs_landscape_similarity.pdf}\\[-0.5mm]
+    {\small (b) Dynamics distance versus calibration-landscape similarity.}
+\end{minipage}
 \caption{Plant heterogeneity produces only limited calibration-landscape heterogeneity. Rank correlation remains high across the dynamics-distance range when evaluated only on jointly feasible calibration points; 2174 of 2175 pairs satisfy $\rho_{ij}^{J}\ge0.95$.}
 \label{fig:landscape}
 \end{figure}

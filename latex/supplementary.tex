@@ -4,7 +4,6 @@
 \usepackage{amsmath,amssymb,bm}
 \usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage{subfig}
 \usepackage{times}
 \usepackage{url}
 
@@ -192,9 +191,17 @@ For the source-maturity sensitivity study, each source history is generated once
 
 \begin{figure}[h]
 \centering
-\subfloat[Cumulative observed target attainment.]{\figurepdf{0.47\textwidth}{figures/fig4a_n5pct_ecdf.pdf}}
+\begin{minipage}[t]{0.47\textwidth}
+    \centering
+    \figurepdf{\linewidth}{figures/fig4a_n5pct_ecdf.pdf}\\[-0.5mm]
+    {\small (a) Cumulative observed target attainment.}
+\end{minipage}
 \hfill
-\subfloat[Fixed-budget success probabilities.]{\figurepdf{0.47\textwidth}{figures/fig4b_n5pct_success_probability.pdf}}
+\begin{minipage}[t]{0.47\textwidth}
+    \centering
+    \figurepdf{\linewidth}{figures/fig4b_n5pct_success_probability.pdf}\\[-0.5mm]
+    {\small (b) Fixed-budget success probabilities.}
+\end{minipage}
 \caption{Additional threshold-based views of target-system sample efficiency. Unresolved independent-BO runs remain right-censored rather than being treated as successes at the final budget.}
 \end{figure}
 
