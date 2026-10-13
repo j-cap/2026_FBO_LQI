@@ -16,4 +16,6 @@ For the L4DC 2027 submission, `main.tex` uses the `l4dc2026.cls` class currently
 1. Develop and run experiments under `code/`.
 2. Keep raw/intermediate outputs under `code/results/`.
 3. Export only final paper figures to `latex/figures/`.
-4. Build the manuscript from `latex/main.tex`.
+4. Regenerate publication figures with `python code/scripts/make_paper_figures.py` and `python code/scripts/make_maturity_figures.py` when figure code changes.
+5. Build the L4DC submission from `latex/main.tex`.
+6. Build optional external supplementary material from `latex/supplementary.tex`; it is deliberately not included by `main.tex`.

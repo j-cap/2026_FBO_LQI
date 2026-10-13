@@ -1,0 +1,217 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{times}
+\usepackage{url}
+
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\Nfive}{N_{5\%}}
+\newcommand{\distdyn}{d^{\mathrm{dyn}}}
+\newcommand{\figurepdf}[2]{%
+    \IfFileExists{#2}{\includegraphics[width=#1]{#2}}{%
+        \fbox{\parbox[c][3.4cm][c]{#1}{\centering\small
+        \textbf{PDF FIGURE PENDING}\\[1.5mm]\texttt{#2}}}}%
+}
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+
+\title{Supplementary Material: Fleet-Informed Bayesian Optimization for Data-Efficient Controller Calibration}
+\author{Jakob Weber \and Markus Gurtner \and Adrian Trachte \and Andreas Kugi}
+\date{}
+
+\begin{document}
+\maketitle
+
+This document contains implementation and robustness details that are intentionally kept outside the L4DC main submission to preserve the ten-page main-text budget. The main paper is self-contained with respect to its claims and conclusions.
+
+\section{Detailed LQI Parameterization}
+
+For yaw-rate tracking, the identified two-state model uses $\mathbf{x}=[\beta,r]^\top$ and is augmented by the integral tracking error
+\begin{equation}
+ z_{k+1}=z_k+T_s(r_k^{\rm ref}-r_k).
+\end{equation}
+With $\mathbf{x}_k^a=[\mathbf{x}_k^\top,z_k]^\top$, the fixed scale vector is
+\begin{equation}
+ \mathbf{s}=[0.053229,\,0.575573,\,0.139862]^\top,
+\end{equation}
+and the LQI penalties are
+\begin{equation}
+ \mathbf Q(\boldsymbol{\xi})
+ =\operatorname{diag}\!\left(
+ \frac{10^{\xi_1}}{s_1^2},
+ \frac{10^{\xi_2}}{s_2^2},
+ \frac{10^{\xi_3}}{s_3^2}\right),
+ \qquad \mathbf R=1.
+\end{equation}
+The scales were fixed before the confirmatory BO study from representative nominal closed-loop trajectories and were not tuned per vehicle family.
+
+\section{Bayesian-Optimization Implementation}
+
+\begin{table}[h]
+\centering
+\caption{BO implementation used in the held-out study.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Quantity & Setting\\
+\midrule
+Search box & $[-3,3]^3$\\
+Local initialization & 2 Sobol points\\
+Acquisition & Expected improvement, minimization\\
+EI exploration margin & $0.01$\\
+EI candidate set & 256 Sobol points\\
+Output scaling & $J_i/J_i^{\rm base}$\\
+Source weighting floor & $0.02$\\
+GP kernel & Constant $\times$ Mat\'ern-$5/2$\\
+GP length scale & $\boldsymbol{\ell}_0=0.3\mathbf{1}$, bounds $[0.05,3]^3$\\
+GP base noise $\alpha_0$ & $10^{-4}$\\
+GP optimizer restarts & 2\\
+Infeasible penalty & $3.0$ in normalized units\\
+Baseline $\boldsymbol{\xi}^{\rm base}$ & $[0,\,0.30103,\,0.30103]^\top$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At target evaluation $n$, expected improvement is maximized over the fixed 256-point Sobol candidate set. For dynamics-weighted transfer, source-record noise is scaled as
+\begin{equation}
+ \alpha_{ij}=\frac{\alpha_0}{\max(s_{ij},0.02)}.
+\end{equation}
+
+\section{Vehicle Model, Fleet Generation, and Identification}
+
+The continuous-time linear control-design model is
+\begin{equation}
+ \dot{\mathbf{x}}=\mathbf A\mathbf x+\mathbf B\delta,
+\end{equation}
+with
+\begin{equation}
+\mathbf{A}=\begin{bmatrix}
+-\dfrac{C_f+C_r}{mU} & \dfrac{-aC_f+bC_r}{mU^2}-1\\[2mm]
+\dfrac{-aC_f+bC_r}{I_z} & -\dfrac{a^2C_f+b^2C_r}{I_zU}
+\end{bmatrix},
+\qquad
+\mathbf{B}=\begin{bmatrix}\dfrac{C_f}{mU}\\[2mm]\dfrac{aC_f}{I_z}\end{bmatrix}.
+\end{equation}
+The model is discretized by zero-order hold with $T_s=0.05$\,s.
+
+Controller candidates are evaluated on a nonlinear lateral plant. The slip angles are
+\begin{equation}
+ \alpha_f=\delta-\beta-\frac{ar}{U},
+ \qquad
+ \alpha_r=-\beta+\frac{br}{U},
+\end{equation}
+and the tire forces are
+\begin{equation}
+ F_{y,q}=\mu F_{z,q}\tanh\!\left(\frac{C_q\alpha_q}{\mu F_{z,q}}\right),
+ \qquad q\in\{f,r\},
+\end{equation}
+with static axle loads $F_{z,f}=mgb/(a+b)$ and $F_{z,r}=mga/(a+b)$. The nonlinear states evolve as
+\begin{equation}
+ \dot\beta=\frac{F_{y,f}+F_{y,r}}{mU}-r,
+ \qquad
+ \dot r=\frac{aF_{y,f}-bF_{y,r}}{I_z}.
+\end{equation}
+
+\begin{table}[h]
+\centering
+\caption{Vehicle-family prototypes and common simulation parameters.}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Parameter & Nominal & Payload & Tire-degraded\\
+\midrule
+$m$ [kg] & 1500 & 1800 & 1500\\
+$I_z$ [$\mathrm{kg\,m^2}$] & 2700 & 3375 & 2700\\
+$a$ [m] & 1.25 & 1.25 & 1.25\\
+$b$ [m] & 1.35 & 1.35 & 1.35\\
+$C_f$ [$\mathrm{N/rad}$] & 80000 & 80000 & 60000\\
+$C_r$ [$\mathrm{N/rad}$] & 90000 & 90000 & 90000\\
+$U$ [m/s] & 15 & 15 & 15\\
+$T_s$ [s] & 0.05 & 0.05 & 0.05\\
+$\mu$ [-] & 1.0 & 1.0 & 1.0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For each generated system, $m$, $I_z$, $C_f$, $C_r$, and $U$ are independently multiplied by $1+\eta$, $\eta\sim\mathcal U[-0.025,0.025]$, while $a$ and $b$ remain fixed. A system is resampled if the fixed baseline controller is infeasible on the calibration task, with at most 50 attempts.
+
+The local discrete model is estimated as
+\begin{equation}
+ \boldsymbol{\Theta}_i=[\mathbf A_{d,i}\;\mathbf B_{d,i}]\in\mathbb R^{2\times3},
+ \qquad
+ \hat{\boldsymbol{\theta}}_i=\operatorname{vec}(\hat{\boldsymbol{\Theta}}_i)\in\mathbb R^6,
+\end{equation}
+using matrix RLS with regressor $[\mathbf x_k^\top,u_k]^\top$, nominal-model initialization, forgetting factor $\lambda=0.99$, and initial covariance $\mathbf P_0=\mathbf I_3$. Each system processes eight repeated 6\,s identification episodes. If $\mathbf D_i=\operatorname{diag}(\hat\sigma_{i,1}^2,\hat\sigma_{i,2}^2)$ contains the final row-wise innovation variances and $\mathbf P_i$ is the regressor covariance, the precision used for dynamics distance is
+\begin{equation}
+ \hat{\mathbf W}_i=\operatorname{pinv}\!\left(\mathbf D_i\otimes\mathbf P_i\right).
+\end{equation}
+
+\section{Calibration Task and Held-Out Protocol}
+
+Every candidate is evaluated on three stochastic episodes for each of two lane-change half-durations, $T_{\rm lc}\in\{1,2\}$\,s. For a trajectory with $T$ samples,
+\begin{equation}
+ J_i(\boldsymbol{\xi},\omega)
+ =\sqrt{\frac{1}{T}\sum_{k=1}^{T}
+ \left(r_{i,k}(\boldsymbol{\xi},\omega)-r_k^{\rm ref}\right)^2}.
+\end{equation}
+The unfiltered reference is zero until $T_0=1$\,s, follows a positive sine lobe of duration $T_{\rm lc}$ and then a negative sine lobe of equal duration, with peak $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1\,Hz cutoff smooths the waveform. Each episode lasts 6\,s. Feasibility requires successful LQI synthesis, $|\beta|\le6^\circ$, and steering-rate change no larger than $0.2618$\,rad per simulation step.
+
+\begin{figure}[h]
+\centering
+\figurepdf{0.62\textwidth}{figures/fig6_lane_change_reference.pdf}
+\caption{Yaw-rate references used for controller calibration.}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\caption{Final held-out evaluation protocol.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Quantity & Setting\\
+\midrule
+Source systems per realization & 30, 10 per family\\
+Held-out fleet realizations & 20\\
+Targets per realization & 6, 2 per family\\
+Source history per system & 25 independent-BO evaluations\\
+Warm-start history per target & 725 source observations\\
+Local Sobol initialization & 2 evaluations\\
+Maximum target budget & 12 evaluations\\
+Methods & independent / global / dynamics-weighted\\
+Primary metric & restricted mean $\Nfive$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the source-maturity sensitivity study, each source history is generated once from two Sobol initialization evaluations followed by sequential independent BO to 25 total evaluations. The nested prefixes are $M_{\rm hist}\in\{2,5,10,25\}$. The main mature-fleet comparison instead uses eight source initialization evaluations followed by 17 sequential BO evaluations, so the two 25-evaluation endpoints need not be numerically identical.
+
+\section{Additional Result Diagnostics}
+
+\begin{figure}[h]
+\centering
+\subfloat[Cumulative observed target attainment.]{\figurepdf{0.47\textwidth}{figures/fig4a_n5pct_ecdf.pdf}}
+\hfill
+\subfloat[Fixed-budget success probabilities.]{\figurepdf{0.47\textwidth}{figures/fig4b_n5pct_success_probability.pdf}}
+\caption{Additional threshold-based views of target-system sample efficiency. Unresolved independent-BO runs remain right-censored rather than being treated as successes at the final budget.}
+\end{figure}
+
+The source-coverage experiment holds the source pool at nine systems and changes the number of same-family peers. It tests whether the global-versus-weighted conclusion depends on full fleet access or on a particular source composition.
+
+\begin{figure}[h]
+\centering
+\figurepdf{0.62\textwidth}{figures/fig5b_coverage_sensitivity.pdf}
+\caption{Sensitivity to same-family source coverage in a nine-peer source pool.}
+\end{figure}
+
+The second source-maturity view reports the same paired result as experiment savings rather than absolute restricted mean.
+
+\begin{figure}[h]
+\centering
+\figurepdf{0.62\textwidth}{figures/fig7b_fleet_maturity_savings.pdf}
+\caption{Paired mean number of target evaluations saved relative to independent BO versus source maturity.}
+\end{figure}
+
+\end{document}
