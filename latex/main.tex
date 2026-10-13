@@ -2,6 +2,8 @@
 
 % The L4DC class loads amsmath, amssymb, natbib, graphicx, url, and algorithm2e.
 \usepackage{subfig}
+\usepackage{flafter}
+\usepackage{placeins}
 \usepackage{times}
 
 \newcommand{\calD}{\mathcal{D}}
@@ -56,15 +58,6 @@ The answer need not favor selective transfer. Different physical plants can indu
 
 We evaluate these alternatives on heterogeneous nonlinear vehicle lateral dynamics. Previously calibrated source systems provide normalized controller-calibration observations. A new target begins with two local initialization experiments, combines them with the source observations, and sequentially evaluates new LQI calibrations. Only experiments executed on the target count toward its incremental commissioning cost; every candidate gain is synthesized from the target's locally identified model.
 
-The final held-out protocol, including the compared methods, local experiment budget, primary metric, and statistical tests, was fixed before the 20 final fleet realizations were examined. The contributions are:
-\begin{samepage}
-\begin{itemize}
-    \item We formulate \emph{fleet-informed controller calibration} as transfer between related black-box control-optimization tasks. Source observations are normalized in a common three-dimensional controller-weight space, while model identification and feedback-gain synthesis remain system-specific. The evaluation explicitly separates historical source information from newly executed target experiments.
-    \item In 120 held-out target-calibration problems, fleet-informed BO reduces the budget-restricted mean number of local evaluations required to reach within 5\% of an independently scored offline reference from 6.72 to 3.08. A source-maturity study shows that ten historical evaluations per source recover about 93\% of the mean experiment saving obtained with 25 evaluations per source.
-    \item We characterize the mechanism behind this transfer. Despite substantial plant heterogeneity, 99.4\% of system pairs retain calibration-landscape rank correlation above 0.95 on jointly feasible points. Dynamics similarity retains a modest residual association with landscape similarity, yet dynamics-aware weighting provides no measurable improvement over unweighted pooling.
-\end{itemize}
-\end{samepage}
-
 Figure~\ref{fig:concept} summarizes the cross-system calibration workflow.
 
 \begin{figure*}[t]
@@ -73,6 +66,15 @@ Figure~\ref{fig:concept} summarizes the cross-system calibration workflow.
     \caption{Fleet-informed cross-system controller calibration. Previously calibrated source systems provide normalized observations in a common controller-weight space. These observations warm-start the BO surrogate of a newly arriving target, while model identification and LQI gain synthesis remain target-specific. Reported commissioning cost counts only closed-loop evaluations newly executed on the target; raw trajectories and source feedback gains are not required for the pooled warm start.}
     \label{fig:concept}
 \end{figure*}
+
+The final held-out protocol, including the compared methods, local experiment budget, primary metric, and statistical tests, was fixed before the 20 final fleet realizations were examined. The contributions are:
+\begin{samepage}
+\begin{itemize}
+    \item We formulate \emph{fleet-informed controller calibration} as transfer between related black-box control-optimization tasks. Source observations are normalized in a common three-dimensional controller-weight space, while model identification and feedback-gain synthesis remain system-specific. The evaluation explicitly separates historical source information from newly executed target experiments.
+    \item In 120 held-out target-calibration problems, fleet-informed BO reduces the budget-restricted mean number of local evaluations required to reach within 5\% of an independently scored offline reference from 6.72 to 3.08. A source-maturity study shows that ten historical evaluations per source recover about 93\% of the mean experiment saving obtained with 25 evaluations per source.
+    \item We characterize the mechanism behind this transfer. Despite substantial plant heterogeneity, 99.4\% of system pairs retain calibration-landscape rank correlation above 0.95 on jointly feasible points. Dynamics similarity retains a modest residual association with landscape similarity, yet dynamics-aware weighting provides no measurable improvement over unweighted pooling.
+\end{itemize}
+\end{samepage}
 
 \section{Problem Formulation}
 
@@ -221,6 +223,7 @@ Consistent with this structure, dynamics weighting provides no measurable improv
 
 A separate nine-source coverage study, reported in the supplementary material, confirms that this conclusion does not depend on access to all 29 peers or on a particular same-family source composition.
 
+\FloatBarrier
 \section{Discussion}
 The experiments support a distinction between \emph{plant heterogeneity} and \emph{task-landscape heterogeneity}. The vehicle families are physically distinguishable, yet their LQI calibration rankings remain strongly aligned. In a low-dimensional search space with little target data, broad historical coverage is therefore more valuable than selectively attenuating physically dissimilar sources. This explains why the deliberately simple pooled warm start performs as well as dynamics-aware weighting in the investigated regime.
 
