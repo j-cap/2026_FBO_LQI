@@ -151,7 +151,7 @@ using matrix RLS with regressor $[\mathbf x_k^\top,u_k]^\top$, nominal-model ini
 
 \section{Calibration Task and Held-Out Protocol}
 
-Every candidate is evaluated on three stochastic episodes for each of two lane-change half-durations, $T_{\rm lc}\in\{1,2\}$\,s. For a trajectory with $T$ samples,
+Every candidate is evaluated on three stochastic episodes for each of two lane-change half-durations, $T_{\rm lc}\in\{1,2\}$\,s. Episode seeds are generated deterministically per client and maneuver, so all systems share the same maneuver distribution but not identical noise realizations. The 128-point calibration-landscape study uses this same six-episode calibration objective at every shared Sobol coordinate. For a trajectory with $T$ samples,
 \begin{equation}
  J_i(\boldsymbol{\xi},\omega)
  =\sqrt{\frac{1}{T}\sum_{k=1}^{T}
@@ -187,6 +187,10 @@ Primary metric & restricted mean $\Nfive$\\
 
 For the source-maturity sensitivity study, each source history is generated once from two Sobol initialization evaluations followed by sequential independent BO to 25 total evaluations. The nested prefixes are $M_{\rm hist}\in\{2,5,10,25\}$. The main mature-fleet comparison instead uses eight source initialization evaluations followed by 17 sequential BO evaluations, so the two 25-evaluation endpoints need not be numerically identical.
 
+\section{Offline-Reference Convergence Audit}
+
+The offline reference is used only for reporting and never enters GP fitting, acquisition, objective normalization, or infeasibility handling. Its global-search stage uses 1024 Sobol points before eight bounded Powell refinements, and the resulting best candidate is scored on an independent reference-test bank with 20 stochastic episodes per maneuver. To check whether the 1024-point global search is sufficiently dense, we performed a nested Sobol convergence audit on one target from each vehicle family using prefixes of a common 4096-point design. The best 1024-point Sobol value differed from the corresponding 4096-point value by only 0.018\% on average. This supports numerical convergence of the search resolution used in the final reference computation, while not constituting a proof of global optimality.
+
 \section{Additional Result Diagnostics}
 
 \begin{figure}[h]
@@ -205,12 +209,12 @@ For the source-maturity sensitivity study, each source history is generated once
 \caption{Additional threshold-based views of target-system sample efficiency. Unresolved independent-BO runs remain right-censored rather than being treated as successes at the final budget.}
 \end{figure}
 
-The source-coverage experiment holds the source pool at nine systems and changes the number of same-family peers. It tests whether the global-versus-weighted conclusion depends on full fleet access or on a particular source composition.
+The source-coverage experiment holds the source pool at nine systems and changes the number of same-family sources. It tests whether the global-versus-weighted conclusion depends on full fleet access or on a particular source composition.
 
 \begin{figure}[h]
 \centering
 \figurepdf{0.62\textwidth}{figures/fig5b_coverage_sensitivity.pdf}
-\caption{Sensitivity to same-family source coverage in a nine-peer source pool.}
+\caption{Sensitivity to same-family source coverage in a nine-source pool.}
 \end{figure}
 
 The second source-maturity view reports the same paired result as experiment savings rather than absolute restricted mean.
