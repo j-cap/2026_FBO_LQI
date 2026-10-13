@@ -178,15 +178,40 @@ def main(config_path: str, campaign_tag: str, n_jobs: int, output_tag: str = "re
     print(n5_df.groupby("method")["reached"].mean().round(3))
 
     print("\n-- paired seed-level N_5pct_test deltas (negative = method_a needs FEWER evaluations) --")
-    for a, b in [("global", "independent"), ("similarity", "independent"), ("similarity", "global")]:
-        piv = n5_df[n5_df["method"].isin([a, b])].pivot_table(index=["seed", "client_id"], columns="method",
-                                                                values="N_5pct_test")
-        piv = piv.dropna()
+    available_methods = set(n5_df["method"].unique())
+    comparisons = [
+        ("global", "independent"),
+        ("similarity", "independent"),
+        ("similarity", "global"),
+    ]
+    ran_comparison = False
+    for a, b in comparisons:
+        if a not in available_methods or b not in available_methods:
+            continue
+        piv = n5_df[n5_df["method"].isin([a, b])].pivot_table(
+            index=["seed", "client_id"],
+            columns="method",
+            values="N_5pct_test",
+        )
+        piv = piv.dropna(subset=[a, b])
+        if piv.empty:
+            continue
         piv["delta"] = piv[a] - piv[b]
         per_seed_mean = piv.groupby("seed")["delta"].mean().to_dict()
         res = _seed_bootstrap_mean_ci(per_seed_mean)
-        print(f"  {a} - {b}: mean(Delta_s)={res['mean']:.3f}, 95% CI={res['bootstrap_ci_95']}, "
-              f"{res['n_negative']}/{res['n_seeds']} seeds favorable, Wilcoxon p={res['wilcoxon_p']:.4f}")
+        print(
+            f"  {a} - {b}: mean(Delta_s)={res['mean']:.3f}, "
+            f"95% CI={res['bootstrap_ci_95']}, "
+            f"{res['n_negative']}/{res['n_seeds']} seeds favorable, "
+            f"Wilcoxon p={res['wilcoxon_p']:.4f}"
+        )
+        ran_comparison = True
+    if not ran_comparison:
+        print(
+            "  skipped: this rescored directory contains only "
+            f"{sorted(available_methods)}; cross-method comparisons are performed "
+            "after combining compatible result directories."
+        )
 
 
 if __name__ == "__main__":
