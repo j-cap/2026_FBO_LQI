@@ -16,7 +16,9 @@ from src.optimization.fleet_bo import (
     METHODS,
     TRIGGERED_SIMILARITY,
     WARMSTART_METHODS,
+    RGPE_WARMSTART,
     FrozenPeerRecord,
+    fit_rgpe_source_models,
     compute_baseline_reference,
     compute_oracle_reference,
     run_fbo_method,
@@ -400,6 +402,44 @@ def test_warmstart_produces_monotone_well_formed_trace(method, frozen_peers_and_
     rmses = trace.best_calibration_rmse
     assert all(rmses[k] <= rmses[k - 1] + 1e-9 for k in range(1, len(rmses)))
     assert trace.n_infeasible >= 0
+
+
+def test_rgpe_warmstart_runs_without_changing_frozen_method_list(frozen_peers_and_target):
+    """RGPE is opt-in: it runs through the same target loop but is not inserted into
+    WARMSTART_METHODS, preserving all historical three-method campaign behavior."""
+    assert RGPE_WARMSTART not in WARMSTART_METHODS
+    target, bank, cache_evaluate, frozen_records, peer_similarity = frozen_peers_and_target
+    source_models = fit_rgpe_source_models(
+        frozen_records,
+        xi_lower=XI_LOWER,
+        xi_upper=XI_UPPER,
+        seed=3,
+    )
+    trace = run_target_warmstart(
+        target,
+        bank,
+        RGPE_WARMSTART,
+        cache_evaluate=cache_evaluate,
+        xi_lower=XI_LOWER,
+        xi_upper=XI_UPPER,
+        state_scale=STATE_SCALE,
+        fixed_R=FIXED_R,
+        eval_kwargs=EVAL_KWARGS,
+        n_init=2,
+        n_iters=1,
+        n_candidates=8,
+        frozen_peer_records=frozen_records,
+        peer_similarity=peer_similarity,
+        baseline_rmse=1.0,
+        oracle_rmse=0.5,
+        seed=0,
+        rgpe_source_models=source_models,
+        rgpe_num_posterior_samples=8,
+    )
+    assert trace.n_local_evals == [2, 3]
+    assert len(trace.rgpe_target_weight) == 1
+    assert len(trace.rgpe_active_sources) == 1
+    assert 0.0 <= trace.rgpe_target_weight[0] <= 1.0
 
 
 def test_warmstart_independent_ignores_frozen_peer_content(frozen_peers_and_target):

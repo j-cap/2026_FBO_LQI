@@ -103,7 +103,7 @@ def _rescore_one_seed(
     return rows
 
 
-def main(config_path: str, campaign_tag: str, n_jobs: int) -> None:
+def main(config_path: str, campaign_tag: str, n_jobs: int, output_tag: str = "reference_robustness") -> None:
     cfg = load_run_config(config_path)
     fleet_cfg = deep_update(load_yaml(_resolve(cfg["fleet_config"])), cfg.get("fleet_overrides", {}))
     controller_cfg = deep_update(load_yaml(_resolve(cfg["controller_config"])), cfg.get("controller_overrides", {}))
@@ -135,7 +135,7 @@ def main(config_path: str, campaign_tag: str, n_jobs: int) -> None:
     print(f"[rescore] {len(trace_df)} incumbent-trajectory rows to rescore "
           f"(seeds/targets without a feasible dense reference are dropped)")
 
-    out_dir = _ROOT / "results" / "reference_robustness"
+    out_dir = _ROOT / "results" / output_tag
     (out_dir / "processed").mkdir(parents=True, exist_ok=True)
     cache_dir = ref_dir / "cache"  # reuse the SAME cache as generate_offline_reference.py's Stage 3
 
@@ -195,5 +195,7 @@ if __name__ == "__main__":
     parser.add_argument("--campaign-tag", default="phase2_warmstart_confirmatory_c1cds02",
                          help="results/<tag> directory holding target_convergence_traces.parquet to rescore.")
     parser.add_argument("--n-jobs", type=int, default=1)
+    parser.add_argument("--output-tag", default="reference_robustness",
+                        help="results/<tag> directory for rescored outputs; default preserves the original campaign path.")
     args = parser.parse_args()
-    main(args.config, args.campaign_tag, args.n_jobs)
+    main(args.config, args.campaign_tag, args.n_jobs, args.output_tag)

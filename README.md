@@ -19,3 +19,7 @@ For the L4DC 2027 submission, `main.tex` uses the `l4dc2026.cls` class currently
 4. Regenerate figures with `python code/scripts/make_paper_figures.py` and `python code/scripts/make_maturity_figures.py` when figure code changes. The paper-figure script skips historical figures whose ignored `code/results/` archives are not present locally and preserves their tracked PDFs; use `--strict` only on a machine containing the complete archived result tree.
 5. Build the L4DC submission from `latex/main.tex`.
 6. Build optional external supplementary material from `latex/supplementary.tex`; it is deliberately not included by `main.tex`.
+## RGPE transfer-BO comparison
+
+The opt-in RGPE literature baseline is isolated from the frozen three-method confirmatory campaign. See `docs/rgpe_comparison_plan.md` for the frozen protocol, input checks, tests, smoke/full commands, dense-reference rescoring, and paired analysis workflow.
+

@@ -55,6 +55,7 @@ from src.episodes import EpisodeBank, calibration_episodes, test_episodes
 from src.ifac_bridge import Client
 from src.optimization.gate import recipient_gate
 from src.optimization.gp_surrogate import propose_next
+from src.optimization.rgpe import RGPETaskModel, fit_rgpe_task_model, propose_next_rgpe
 from src.recipient_screen import predict_recipient_margins
 
 METHODS = ["independent", "global", "similarity", "recipient_aware"]
@@ -105,6 +106,10 @@ class ClientTrace:
     baseline_rmse: Optional[float] = None
     oracle_rmse: Optional[float] = None
     evals_to_5pct_of_oracle: Optional[int] = None
+    # Populated only by the opt-in RGPE warm-start comparison.
+    rgpe_target_weight: List[float] = field(default_factory=list)
+    rgpe_active_sources: List[int] = field(default_factory=list)
+    rgpe_weight_entropy: List[float] = field(default_factory=list)
 
 
 @dataclass
@@ -450,6 +455,8 @@ def run_fbo_method(
 # 0, which could coincide with a frozen peer record's ORIGINAL index from the 30-client
 # fleet the histories came from), so this gets its own small weight function instead.
 WARMSTART_METHODS = ["independent", "global", "similarity"]
+RGPE_WARMSTART = "rgpe"
+ALL_WARMSTART_METHODS = WARMSTART_METHODS + [RGPE_WARMSTART]
 
 
 @dataclass
@@ -460,6 +467,33 @@ class FrozenPeerRecord:
     client_id: str
     xi: np.ndarray
     training_y: float
+
+
+def fit_rgpe_source_models(
+    frozen_records: List[FrozenPeerRecord],
+    *,
+    xi_lower: Sequence[float],
+    xi_upper: Sequence[float],
+    seed: int = 0,
+) -> Dict[str, RGPETaskModel]:
+    """Fit one standardized RGPE source GP per historical system."""
+    xi_lower_a = np.asarray(xi_lower, float)
+    xi_upper_a = np.asarray(xi_upper, float)
+    grouped: Dict[str, List[FrozenPeerRecord]] = {}
+    for rec in frozen_records:
+        grouped.setdefault(rec.client_id, []).append(rec)
+
+    models: Dict[str, RGPETaskModel] = {}
+    for offset, cid in enumerate(sorted(grouped)):
+        rows = grouped[cid]
+        if len(rows) < 2:
+            raise ValueError(f"RGPE source task {cid!r} has fewer than two records")
+        X = np.array([_normalize(r.xi, xi_lower_a, xi_upper_a) for r in rows])
+        y = np.array([r.training_y for r in rows], dtype=float)
+        models[cid] = fit_rgpe_task_model(
+            X, y, seed=seed + offset + 1, task_id=cid
+        )
+    return models
 
 
 def _weight_frozen_peer(method: str, *, is_own: bool, s_ij: float) -> float:
@@ -493,15 +527,25 @@ def run_target_warmstart(
     baseline_rmse: float,
     oracle_rmse: float,
     seed: int = 0,
+    rgpe_source_models: Optional[Dict[str, RGPETaskModel]] = None,
+    rgpe_num_posterior_samples: int = 256,
+    rgpe_prune_quantile: float = 0.95,
 ) -> ClientTrace:
     """`frozen_peer_records` never changes across rounds - it's the target's ENTIRE
     peer prior, available at time zero, not counted against the target's own local
     evaluation budget. Only the target's own `n_init` Sobol points + `n_iters` BO
     proposals count as `n_local_evals`. `peer_similarity` maps a peer's `client_id` to
     `s_{target,peer}` (precomputed by the caller - one row of the fleet's similarity
-    matrix); irrelevant when `method="independent"`."""
-    if method not in WARMSTART_METHODS:
-        raise ValueError(f"Unknown warm-start method {method!r}, expected one of {WARMSTART_METHODS}")
+    matrix); irrelevant when `method="independent"` or `method="rgpe"`.
+
+    RGPE is an explicitly opt-in literature baseline and is deliberately excluded
+    from `WARMSTART_METHODS`, so historical three-method campaigns do not change
+    behavior. `rgpe_source_models` may be pre-fitted once per fleet realization.
+    """
+    if method not in ALL_WARMSTART_METHODS:
+        raise ValueError(
+            f"Unknown warm-start method {method!r}, expected one of {ALL_WARMSTART_METHODS}"
+        )
 
     xi_lower_a = np.asarray(xi_lower, float)
     xi_upper_a = np.asarray(xi_upper, float)
@@ -513,11 +557,36 @@ def run_target_warmstart(
     cand_sampler = qmc.Sobol(d=3, scramble=True, seed=seed + 1)
     Xi_cand_norm = cand_sampler.random(n_candidates)
 
-    peer_weights = np.array(
-        [_weight_frozen_peer(method, is_own=False, s_ij=peer_similarity.get(rec.client_id, 0.0)) for rec in frozen_peer_records]
-    )
     peer_X_norm = np.array([_normalize(rec.xi, xi_lower_a, xi_upper_a) for rec in frozen_peer_records])
     peer_y = np.array([rec.training_y for rec in frozen_peer_records])
+    if method == RGPE_WARMSTART:
+        if rgpe_source_models is None:
+            rgpe_source_models = fit_rgpe_source_models(
+                frozen_peer_records,
+                xi_lower=xi_lower_a,
+                xi_upper=xi_upper_a,
+                seed=seed + 50_000,
+            )
+        rgpe_models = [
+            model
+            for source_id, model in sorted(rgpe_source_models.items())
+            if source_id != cid
+        ]
+        if not rgpe_models:
+            raise ValueError("RGPE warm start requires at least one source-task model")
+        peer_weights = np.empty(0, dtype=float)
+    else:
+        rgpe_models = []
+        peer_weights = np.array(
+            [
+                _weight_frozen_peer(
+                    method,
+                    is_own=False,
+                    s_ij=peer_similarity.get(rec.client_id, 0.0),
+                )
+                for rec in frozen_peer_records
+            ]
+        )
 
     own_evals: List[EvalRecord] = []
     trace = ClientTrace(client_id=cid, baseline_rmse=baseline_rmse, oracle_rmse=oracle_rmse)
@@ -564,17 +633,45 @@ def run_target_warmstart(
         own_y = np.array([rec.training_y for rec in own_evals])
         own_weights = np.ones(len(own_evals))
 
-        if len(peer_X_norm):
-            X_train_norm = np.vstack([peer_X_norm, own_X_norm])
-            y_train = np.concatenate([peer_y, own_y])
-            weights = np.concatenate([peer_weights, own_weights])
-        else:
-            X_train_norm, y_train, weights = own_X_norm, own_y, own_weights
-
         own_feasible = [rec.training_y for rec in own_evals if rec.feasible]
-        best_f = min(own_feasible) if own_feasible else float(np.min(y_train)) if len(y_train) else 1.0
 
-        cand_idx, _ = propose_next(X_train_norm, y_train, weights, Xi_cand_norm, best_f, seed=seed + r, rng=rng)
+        if method == RGPE_WARMSTART:
+            proposal = propose_next_rgpe(
+                rgpe_models,
+                own_X_norm,
+                own_y,
+                Xi_cand_norm,
+                num_samples=rgpe_num_posterior_samples,
+                prune_quantile=rgpe_prune_quantile,
+                seed=seed + 100_000 + r,
+            )
+            cand_idx = proposal.candidate_index
+            best_f = min(own_feasible) if own_feasible else float(np.min(own_y))
+            trace.rgpe_target_weight.append(proposal.weights.target_weight)
+            trace.rgpe_active_sources.append(proposal.weights.n_active_sources)
+            trace.rgpe_weight_entropy.append(proposal.weights.weight_entropy)
+        else:
+            if len(peer_X_norm):
+                X_train_norm = np.vstack([peer_X_norm, own_X_norm])
+                y_train = np.concatenate([peer_y, own_y])
+                weights = np.concatenate([peer_weights, own_weights])
+            else:
+                X_train_norm, y_train, weights = own_X_norm, own_y, own_weights
+            best_f = (
+                min(own_feasible)
+                if own_feasible
+                else float(np.min(y_train)) if len(y_train) else 1.0
+            )
+            cand_idx, _ = propose_next(
+                X_train_norm,
+                y_train,
+                weights,
+                Xi_cand_norm,
+                best_f,
+                seed=seed + r,
+                rng=rng,
+            )
+
         xi_proposed = _denormalize(Xi_cand_norm[cand_idx], xi_lower_a, xi_upper_a)
 
         ev = cache_evaluate(

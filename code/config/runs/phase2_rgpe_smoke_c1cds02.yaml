@@ -1,0 +1,34 @@
+# RGPE literature-baseline smoke run.
+# Reuses mature source histories from the frozen confirmatory campaign.
+kind: phase2_rgpe_warmstart
+run_tag: phase2_rgpe_smoke_c1cds02
+source_campaign_tag: phase2_warmstart_confirmatory_c1cds02
+expected_source_history_per_system: 25
+
+fleet_config: config/fleet_fixed_speed.yaml
+fleet_overrides:
+  clients_per_regime: 10
+  generation_version: fixed_speed_v3_common_task
+controller_config: config/controller.yaml
+controller_overrides:
+  plant_mode: nonlinear_tanh
+  tire_mu: 1.0
+
+n_calibration_episodes: 3
+n_test_episodes: 3
+episode_base_seed: 5000
+identification_seed_offset: 1000
+n_identification_episodes: 8
+
+n_candidates: 64
+n_oracle_sobol: 32
+
+target_n_init: 2
+target_slots: ["00"]
+target_n_iters: 2
+
+rgpe_num_posterior_samples: 32
+rgpe_prune_quantile: 0.95
+
+seeds: [355238]
+n_jobs: 1
