@@ -316,19 +316,12 @@ This is the same precision convention used by the confirmatory implementation.
 \subsection{Calibration task and feasibility}
 Each BO evaluation measures yaw-rate root-mean-square error over a common pair of lane-change maneuvers. Their lane-change half-durations are $T_{\mathrm{lc}}=1.0$ s and $T_{\mathrm{lc}}=2.0$ s. Every controller candidate is evaluated on three stochastic episodes of each maneuver, giving six calibration episodes per BO query. All systems use this same balanced task distribution so that differences in the calibration objective arise from the plant rather than from different assigned maneuvers.
 
-\begin{figure}[t]
-\centering
-\figurepdf{0.96\columnwidth}{figures/fig6_lane_change_reference.pdf}
-\caption{Yaw-rate references used for controller calibration. Every system is evaluated on both lane-change maneuvers, and each BO query averages three stochastic episodes per maneuver.}
-\label{fig:lane_change_reference}
-\end{figure}
-
 \rev{For a discrete trajectory with $T$ samples, the reported tracking metric is}
 \begin{equation}
  J_i(\boldsymbol\xi,\omega)=\sqrt{\frac{1}{T}\sum_{k=1}^{T}\left(r_{i,k}(\boldsymbol\xi,\omega)-r_k^{\rm ref}\right)^2}.
  \label{eq:rmse}
 \end{equation}
-The two reference waveforms differ only in $T_{\rm lc}$. Before filtering, the reference is zero until $T_0=1$ s, follows a positive sine lobe of duration $T_{\rm lc}$, then a negative sine lobe of the same duration, and is zero afterward; its peak magnitude is $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1 Hz cutoff smooths the waveform. Every episode lasts 6 s, giving $T=120$ samples at $T_s=0.05$ s. Figure~\ref{fig:lane_change_reference} shows both references.
+The two reference waveforms differ only in $T_{\rm lc}$. Before filtering, the reference is zero until $T_0=1$ s, follows a positive sine lobe of duration $T_{\rm lc}$, then a negative sine lobe of the same duration, and is zero afterward; its peak magnitude is $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1 Hz cutoff smooths the waveform. Every episode lasts 6 s, giving $T=120$ samples at $T_s=0.05$ s.
 
 Yaw-rate RMSE is the calibration metric. A candidate is marked infeasible if LQI synthesis fails or if the nonlinear closed-loop rollout violates the prescribed limits. The sideslip magnitude is limited to $6^\circ$. The steering-rate change is limited to $0.2618$ rad per simulation step. These feasibility conditions are applied consistently to the baseline controller, source histories, offline reference search, and new-system evaluations.
 
