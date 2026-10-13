@@ -81,6 +81,15 @@ At target evaluation $n$, expected improvement is maximized over the fixed 256-p
  \alpha_{ij}=\frac{\alpha_0}{\max(s_{ij},0.02)}.
 \end{equation}
 
+\paragraph{RGPE transfer baseline.}
+RGPE uses the same 25 historical evaluations per source and the same target evaluation budget, but fits one task-standardized GP per source system rather than pooling the observations. A target GP is refit after each local evaluation. At every BO round, 256 joint posterior samples are used to compute pairwise ranking loss on the observed target points; the target model is scored by leave-one-out prediction using its fitted hyperparameters. A model's ensemble weight is the fraction of posterior samples for which it attains the minimum ranking loss. Following the RGPE dilution safeguard, a source is discarded when its median sampled loss exceeds the 95th percentile of target-model loss. The ensemble moments are
+\begin{equation}
+ \mu_{\rm RGPE}(\boldsymbol\xi)=\sum_q w_q\mu_q(\boldsymbol\xi),
+ \qquad
+ \sigma_{\rm RGPE}^2(\boldsymbol\xi)=\sum_q w_q^2\sigma_q^2(\boldsymbol\xi),
+\end{equation}
+and expected improvement is evaluated on the same 256-point candidate set as the other methods.
+
 \section{Vehicle Model, Fleet Generation, and Identification}
 
 The continuous-time linear control-design model is
@@ -179,7 +188,7 @@ Source history per system & 25 independent-BO evaluations\\
 Warm-start history per target & 725 source observations\\
 Local Sobol initialization & 2 evaluations\\
 Maximum target budget & 12 evaluations\\
-Methods & independent / global / dynamics-weighted\\
+Methods & independent / global / dynamics-weighted / RGPE\\
 Primary metric & restricted mean $\Nfive$\\
 \bottomrule
 \end{tabular}
@@ -192,6 +201,9 @@ For the source-maturity sensitivity study, each source history is generated once
 The offline reference is used only for reporting and never enters GP fitting, acquisition, objective normalization, or infeasibility handling. Its global-search stage uses 1024 Sobol points before eight bounded Powell refinements, and the resulting best candidate is scored on an independent reference-test bank with 20 stochastic episodes per maneuver. To check whether the 1024-point global search is sufficiently dense, we performed a nested Sobol convergence audit on one target from each vehicle family using prefixes of a common 4096-point design. The best 1024-point Sobol value differed from the corresponding 4096-point value by only 0.018\% on average. This supports numerical convergence of the search resolution used in the final reference computation, while not constituting a proof of global optimality.
 
 \section{Additional Result Diagnostics}
+
+\paragraph{RGPE adaptation.}
+Across the 120 held-out targets, the mean target-model weight is 0.703 at $n=3$, decreases to 0.076 at $n=5$, and rises to 0.124 by $n=12$. The mean number of source models retained by the 95th-percentile dilution guard decreases from 28.9 at $n=3$ to 20.5 at $n=12$. Ensemble-weight entropy rises from 1.54 at $n=3$ to approximately 3.06 at $n=5$ before declining to 2.50 at $n=12$. Thus RGPE is not equivalent to uniform averaging: it redistributes weight strongly and becomes more selective as target evidence accumulates. Nevertheless, its dense-reference restricted mean is $N_{5\%}=4.625$, compared with 6.717 for independent BO and 3.083 for both pooled warm starts. Its paired difference relative to global pooling is $+1.542$ evaluations with 95\% CI $(0.92,2.28)$ and Wilcoxon $p=0.0009$.
 
 \begin{figure}[h]
 \centering

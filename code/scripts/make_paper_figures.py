@@ -73,8 +73,18 @@ plt.rcParams.update(
     }
 )
 
-METHOD_COLORS = {"independent": "#999999", "global": "#D55E00", "similarity": "#0072B2"}
-METHOD_LABELS = {"independent": "Independent BO", "global": "Global warm start", "similarity": "Dynamics-weighted warm start"}
+METHOD_COLORS = {
+    "independent": "#999999",
+    "global": "#D55E00",
+    "similarity": "#0072B2",
+    "rgpe": "#009E73",
+}
+METHOD_LABELS = {
+    "independent": "Independent BO",
+    "global": "Global warm start",
+    "similarity": "Dynamics-weighted warm start",
+    "rgpe": "RGPE",
+}
 FAMILY_COLORS = {"nominal": "#0072B2", "payload": "#D55E00", "tire_degraded": "#009E73"}
 FAMILY_LABELS = {"nominal": "Nominal", "payload": "Payload", "tire_degraded": "Tire-degraded"}
 
@@ -199,12 +209,18 @@ def fig3():
     reference/independent test bank. The rescored numbers reproduce the original
     (weak-reference) result to within noise (see docs/phase2_diagnostic_findings.md) -
     this swap is purely a robustness/defensibility improvement, not a changed finding."""
-    scores_df = pd.read_csv(_ROOT / "results/reference_robustness/processed/candidate_test_scores.csv")
+    scores_df = pd.concat(
+        [
+            pd.read_csv(_ROOT / "results/reference_robustness/processed/candidate_test_scores.csv"),
+            pd.read_csv(_ROOT / "results/reference_robustness_rgpe/processed/candidate_test_scores.csv"),
+        ],
+        ignore_index=True,
+    )
     scores_df = scores_df.dropna(subset=["best_test_so_far", "J_ref_test"])
     scores_df["regret_star_test"] = (scores_df["best_test_so_far"] - scores_df["J_ref_test"]) / scores_df["J_ref_test"]
 
     fig, ax = plt.subplots(figsize=DOUBLE_COL)
-    for method in ("independent", "global", "similarity"):
+    for method in ("independent", "rgpe", "global", "similarity"):
         sub = scores_df[scores_df["method"] == method]
         agg = sub.groupby("n_local_evals")["regret_star_test"].agg(
             median="median", q25=lambda s: s.quantile(0.25), q75=lambda s: s.quantile(0.75)
@@ -220,11 +236,11 @@ def fig3():
     ax.set_xlabel(r"Target-system evaluations $n$")
     ax.set_ylabel(r"Reference-relative regret $r_i^{\mathrm{ref}}(n)$")
     ax.text(
-        0.97, 0.60, "54% fewer target evaluations\non average (mean $N_{5\\%}$)", transform=ax.transAxes, fontsize=7,
+        0.97, 0.55, "54% fewer target evaluations\nwith global pooling (mean $N_{5\\%}$)", transform=ax.transAxes, fontsize=7,
         ha="right", va="top", color="#333333",
         bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="#cccccc", linewidth=0.6),
     )
-    leg = ax.legend(loc="upper right", framealpha=1.0, edgecolor="#999999", handletextpad=0.4, borderpad=0.4)
+    leg = ax.legend(loc="upper right", ncol=2, framealpha=1.0, edgecolor="#999999", handletextpad=0.4, borderpad=0.4)
     leg.get_frame().set_linewidth(0.6)
 
     fig.tight_layout()
@@ -251,11 +267,17 @@ def fig4a():
     `independent`) stays visibly below y=1.0 at x=budget, with an open marker flagging
     the unresolved fraction rather than the line silently implying 100% eventual
     success."""
-    summary_df = pd.read_csv(_ROOT / "results/reference_robustness/processed/n5pct_test.csv")
+    summary_df = pd.concat(
+        [
+            pd.read_csv(_ROOT / "results/reference_robustness/processed/n5pct_test.csv"),
+            pd.read_csv(_ROOT / "results/reference_robustness_rgpe/processed/n5pct_test.csv"),
+        ],
+        ignore_index=True,
+    )
     budget = 12
 
     fig, ax = plt.subplots(figsize=SINGLE_COL)
-    for method in ("independent", "global", "similarity"):
+    for method in ("independent", "rgpe", "global", "similarity"):
         sub = summary_df[summary_df["method"] == method]
         n_total = len(sub)
         observed = np.sort(sub["n5pct_test"].dropna().to_numpy())
@@ -292,16 +314,23 @@ def fig4a():
 def fig4b():
     """Source: results/reference_robustness/processed/n5pct_test.csv (see fig3's
     docstring - rescored against the dense/independent offline reference)."""
-    n5 = pd.read_csv(_ROOT / "results/reference_robustness/processed/n5pct_test.csv")
+    n5 = pd.concat(
+        [
+            pd.read_csv(_ROOT / "results/reference_robustness/processed/n5pct_test.csv"),
+            pd.read_csv(_ROOT / "results/reference_robustness_rgpe/processed/n5pct_test.csv"),
+        ],
+        ignore_index=True,
+    )
     n5["le3"], n5["le5"] = n5["N_5pct_test"] <= 3, n5["N_5pct_test"] <= 5
-    probs = n5.groupby("method")[["le3", "le5"]].mean().reindex(["independent", "global", "similarity"])
+    methods = ["independent", "rgpe", "global", "similarity"]
+    probs = n5.groupby("method")[["le3", "le5"]].mean().reindex(methods)
 
     fig, ax = plt.subplots(figsize=SINGLE_COL)
     x = np.arange(2)
-    width = 0.24
-    for mi, method in enumerate(["independent", "global", "similarity"]):
+    width = 0.19
+    for mi, method in enumerate(methods):
         bars = ax.bar(
-            x + (mi - 1) * width, probs.loc[method, ["le3", "le5"]].to_numpy(), width, color=METHOD_COLORS[method],
+            x + (mi - 1.5) * width, probs.loc[method, ["le3", "le5"]].to_numpy(), width, color=METHOD_COLORS[method],
             label=METHOD_LABELS[method],
         )
         for b in bars:
@@ -310,7 +339,7 @@ def fig4b():
     ax.set_xticklabels([r"$P(N_{5\%}\leq 3)$", r"$P(N_{5\%}\leq 5)$"])
     ax.set_ylabel("Probability")
     ax.set_ylim(0, 1.12)
-    leg = ax.legend(loc="upper left", framealpha=1.0, handletextpad=0.4, borderpad=0.4, fontsize=7)
+    leg = ax.legend(loc="upper left", ncol=2, framealpha=1.0, handletextpad=0.4, borderpad=0.4, fontsize=6.5)
 
     fig.tight_layout()
     _save(fig, "fig4b_n5pct_success_probability")
