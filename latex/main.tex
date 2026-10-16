@@ -45,7 +45,7 @@
 \maketitle
 
 \begin{abstract}
-Controller calibration is often repeated from scratch for every new system variant, even when previously commissioned systems have already explored the same controller-weight space. We study when such historical black-box evaluations transfer across heterogeneous dynamical systems. For LQI yaw-rate control, normalized source-system observations warm-start a Gaussian-process surrogate while model identification and gain synthesis remain target-specific. Across 120 held-out target-calibration problems, fleet-informed Bayesian optimization reduces the budget-restricted mean number of target evaluations required to reach within 5\% of an independently scored reference from 6.72 to 3.08, a reduction of 54\%. A post-hoc ranking-weighted transfer-BO baseline also benefits from source data but requires 4.63 evaluations on average. Ten historical evaluations per source recover about 93\% of the mature-fleet experiment saving. Although the underlying vehicle dynamics differ substantially, 2174 of 2175 system pairs retain calibration-landscape rank correlation $\rho_{ij}^{J}\ge0.95$ on jointly feasible points; correspondingly, dynamics-aware source weighting provides no measurable advantage over simple pooling. The results show that task-level calibration landscapes can be substantially more transferable than the underlying plant dynamics.
+Controller calibration is often repeated from scratch for every new system variant, even when previously commissioned systems have already explored the same controller-weight space. We study when such historical black-box evaluations transfer across heterogeneous dynamical systems. For LQI yaw-rate control, normalized source-system observations warm-start a Gaussian-process surrogate while model identification and gain synthesis remain target-specific. Across 120 held-out target-calibration problems, fleet-informed Bayesian optimization reduces the budget-restricted mean number of target evaluations required to reach within 5\% of an independently scored reference from 6.72 to 3.08, a reduction of 54\%. A post-hoc ranking-weighted transfer-BO baseline also benefits from source data but requires 4.63 evaluations on average. Ten historical evaluations per source recover about 93\% of the mature-fleet experiment saving. A post-hoc landscape diagnostic finds that, despite the differing vehicle dynamics, 2174 of 2175 system pairs retain calibration-landscape rank correlation $\rho_{ij}^{J}\ge0.95$ on jointly feasible points; correspondingly, dynamics-aware source weighting provides no measurable advantage over simple pooling. The results show that task-level calibration landscapes can be substantially more transferable than the underlying plant dynamics.
 \end{abstract}
 
 \begin{keywords}
@@ -82,7 +82,7 @@ The original held-out protocol---three primary methods, local experiment budget,
 \begin{itemize}
     \item We formulate \emph{fleet-informed controller calibration} as transfer between related black-box control-optimization tasks. Source observations are normalized in a common three-dimensional controller-weight space, while model identification and feedback-gain synthesis remain system-specific. The evaluation explicitly separates historical source information from newly executed target experiments.
     \item In 120 held-out target-calibration problems, global pooling reduces the budget-restricted mean target effort from 6.72 to 3.08 evaluations and, in a post-hoc comparison, outperforms the RGPE transfer-BO baseline at 4.63 evaluations. A source-maturity study shows that ten historical evaluations per source recover about 93\% of the mean experiment saving obtained with 25 evaluations per source.
-    \item We characterize the mechanism behind this transfer. Despite substantial plant heterogeneity, 2174 of 2175 system pairs satisfy $\rho_{ij}^{J}\ge0.95$ on jointly feasible calibration points. Dynamics similarity retains a modest residual association with landscape similarity, yet dynamics-aware weighting provides no measurable improvement over unweighted pooling.
+    \item We provide a post-hoc mechanistic characterization of the transfer. Despite substantial plant heterogeneity, 2174 of 2175 system pairs satisfy $\rho_{ij}^{J}\ge0.95$ on jointly feasible calibration points. Dynamics similarity retains a modest residual association with landscape similarity, yet dynamics-aware weighting provides no measurable improvement over unweighted pooling.
 \end{itemize}
 \end{samepage}
 
@@ -170,8 +170,8 @@ Every BO query averages yaw-rate RMSE over three stochastic episodes of each of 
 \paragraph{Held-out evaluation.}
 The confirmatory study uses 20 fleet realizations not used for development of the three pre-specified methods. In each realization, every system first contributes a 25-evaluation independent-BO history. Six systems, two per family, are then treated in turn as new targets; their own histories are removed, leaving $29\times25=725$ source records. Each target receives two local Sobol evaluations and at most ten BO-selected evaluations, producing 120 target-calibration problems. The post-hoc RGPE comparison reuses these exact frozen histories, targets, and budgets without altering the primary methods. Fleet realization is the statistical replication unit. Paired method differences are computed after averaging the six targets within each realization; 95\% intervals use 10,000 bootstrap resamples, with Wilcoxon signed-rank tests on the same 20 realization-level differences. A nested source-maturity study exposes $M_{\rm hist}\in\{2,5,10,25\}$ records per source while keeping the target protocol fixed.
 
-\paragraph{Calibration-landscape analysis.}
-To test whether plant heterogeneity induces task heterogeneity, all 30 systems in each of five independent fleet realizations are evaluated on one fixed 128-point Sobol design shared across all systems and realizations. Each grid point is scored with the same six-episode calibration objective used by BO: three stochastic noise realizations for each of the two lane-change maneuvers. The maneuver distribution is common across systems, while the deterministic episode seeds are client-specific. For each pair, rank correlation is computed only on jointly feasible calibration points,
+\paragraph{Post-hoc calibration-landscape analysis.}
+After observing that dynamics weighting did not improve the pre-specified comparison, we added an exploratory mechanistic diagnostic using the first five development-fleet realizations, selected by seed order rather than outcome. All 30 systems in each fleet are evaluated on one fixed 128-point Sobol design shared across systems and realizations. Each grid point is scored with the same six-episode calibration objective used by BO: three stochastic noise realizations for each of the two lane-change maneuvers. The maneuver distribution is common across systems, while the deterministic episode seeds are client-specific. For each pair, rank correlation is computed only on jointly feasible calibration points,
 \begin{equation}
  \rho_{ij}^{J}
  =\operatorname{Spearman}\!\left(
@@ -180,7 +180,7 @@ To test whether plant heterogeneity induces task heterogeneity, all 30 systems i
  \right),
  \label{eq:landscape_similarity}
 \end{equation}
-where $\mathcal F_{ij}$ is the jointly feasible index set. The study contains 2175 within-realization system pairs. These pairs are not treated as independent replicates: realization-level summaries are computed within each of the five fleets, and confidence intervals are obtained by bootstrapping across fleet realizations.
+where $\mathcal F_{ij}$ is the jointly feasible index set. The study contains 2175 within-realization system pairs. These pairs are not treated as independent replicates: realization-level summaries are computed within each of the five fleets. Because only five fleets enter this post-hoc analysis, bootstrap intervals across fleets are used only as descriptive uncertainty summaries, not as confirmatory population inference.
 
 \section{Results}
 
@@ -208,8 +208,8 @@ Figure~\ref{fig:maturity} varies the amount of historical experience available f
 
 Ten evaluations per source recover approximately 93\% of the mean experiment saving obtained with 25 evaluations while using only 40\% of the per-source historical budget. The statistically resolved gain therefore appears between five and ten evaluations per source; deeper histories mainly improve the remaining tail of slower target calibrations. The $M_{\rm hist}=25$ sensitivity endpoint differs slightly from the main mature-fleet result because the nested study uses a common two-point source initialization rather than the main eight-point mature-history initialization.
 
-\subsection{Calibration landscapes explain why simple pooling is sufficient}
-The key mechanistic result is that substantial plant heterogeneity produces only limited calibration-landscape heterogeneity. Figure~\ref{fig:landscape} compares physical variation with pairwise calibration-landscape alignment.
+\subsection{Post-hoc landscape alignment is consistent with effective pooling}
+The exploratory landscape diagnostic shows that the studied plant variation coexists with limited calibration-landscape heterogeneity. Figure~\ref{fig:landscape} compares physical variation with pairwise calibration-landscape alignment.
 
 \begin{figure}[t]
 \centering
@@ -224,11 +224,11 @@ The key mechanistic result is that substantial plant heterogeneity produces only
     \figurepdf{\linewidth}{figures/fig2b_dynamics_vs_landscape_similarity.pdf}\\[-0.5mm]
     {\small (b) Dynamics distance versus calibration-landscape similarity.}
 \end{minipage}
-\caption{Plant heterogeneity produces only limited calibration-landscape heterogeneity. Rank correlation remains high across the dynamics-distance range when evaluated only on jointly feasible calibration points; 2174 of 2175 pairs satisfy $\rho_{ij}^{J}\ge0.95$.}
+\caption{Post-hoc landscape diagnostic. The studied plant heterogeneity coexists with high calibration-landscape alignment: rank correlation remains high across the dynamics-distance range on jointly feasible calibration points, and 2174 of 2175 pairs satisfy $\rho_{ij}^{J}\ge0.95$.}
 \label{fig:landscape}
 \end{figure}
 
-Across all 2175 pairs, 2174 pairs (99.95\%) satisfy $\rho_{ij}^{J}\ge0.95$, with a minimum of 0.9496. Mean correlation is 0.992 for same-family pairs and 0.987 for cross-family pairs. Dynamics similarity still has a modest association with landscape similarity: the median within-realization Spearman correlation is 0.245 with 95\% CI $(0.162,0.288)$. The objectives are therefore not identical, but their ordering is highly conserved.
+Across all 2175 pairs, 2174 pairs (99.95\%) satisfy $\rho_{ij}^{J}\ge0.95$, with a minimum of 0.9496. Mean correlation is 0.992 for same-family pairs and 0.987 for cross-family pairs. The within-fleet Spearman association between dynamics and landscape similarity has median 0.245 across the five development fleets; its 95\% bootstrap interval $(0.162,0.288)$ is reported only as a descriptive uncertainty summary. The objectives are therefore not identical, but their ordering is highly conserved.
 
 Consistent with this structure, the tested dynamics-aware weighting in~\eqref{eq:dyn_weighting} provides no measurable improvement over global pooling. The paired realization-level difference in restricted $N_{5\%}$ is $0.000$ evaluations with 95\% CI $(-0.05,+0.04)$ and Wilcoxon $p=1.000$. This null result applies to the present precision-weighted distance and GP-noise attenuation, not to every possible task-aware transfer model.
 
@@ -243,7 +243,7 @@ A separate nine-source coverage study, reported in the supplementary material, c
 
 \FloatBarrier
 \section{Discussion}
-The experiments support a distinction between \emph{plant heterogeneity} and \emph{task-landscape heterogeneity}. The vehicle families are physically distinguishable, yet their LQI calibration rankings remain strongly aligned. In this regime, broad historical coverage is more valuable than either the tested dynamics-based attenuation or RGPE's target-adaptive source weighting. RGPE confirms useful structured transfer: it significantly outperforms independent BO but remains 1.54 evaluations slower than global pooling. Its weights redistribute strongly and prune more sources as target data accumulate, consistent with spending scarce early target information distinguishing sources whose calibration landscapes are already highly aligned. More heterogeneous task distributions may instead favor selective or multi-task transfer.
+The experiments support a distinction between \emph{plant heterogeneity} and \emph{task-landscape heterogeneity}. The vehicle families are physically distinguishable, while the post-hoc landscape diagnostic shows strongly aligned LQI calibration rankings. In this regime, broad historical coverage is more valuable than either the tested dynamics-based attenuation or RGPE's target-adaptive source weighting. RGPE confirms useful structured transfer: it significantly outperforms independent BO but remains 1.54 evaluations slower than global pooling. Its weights redistribute strongly and prune more sources as target data accumulate, consistent with spending scarce early target information distinguishing sources whose calibration landscapes are already highly aligned. More heterogeneous task distributions may instead favor selective or multi-task transfer.
 
 The source-maturity result qualifies this conclusion. Two shared initialization points provide little benefit because they repeatedly sample the same locations across the fleet. Sequential source BO diversifies the historical coverage, and the major improvement appears between five and ten evaluations per source. Thus prior fleet experience is useful only after it has explored enough of the shared calibration space; beyond that point, deeper histories mainly reduce tail risk.
 

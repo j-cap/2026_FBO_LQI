@@ -160,7 +160,7 @@ using matrix RLS with regressor $[\mathbf x_k^\top,u_k]^\top$, nominal-model ini
 
 \section{Calibration Task and Held-Out Protocol}
 
-Every candidate is evaluated on three stochastic episodes for each of two lane-change half-durations, $T_{\rm lc}\in\{1,2\}$\,s. Episode seeds are generated deterministically per client and maneuver, so all systems share the same maneuver distribution but not identical noise realizations. The 128-point calibration-landscape study uses this same six-episode calibration objective at every shared Sobol coordinate. For a trajectory with $T$ samples,
+Every candidate is evaluated on three stochastic episodes for each of two lane-change half-durations, $T_{\rm lc}\in\{1,2\}$\,s. Episode seeds are generated deterministically per client and maneuver, so all systems share the same maneuver distribution but not identical noise realizations. The 128-point calibration-landscape study was added post hoc after the dynamics-weighting null result as an exploratory mechanistic diagnostic. It uses the first five development-fleet realizations, selected by seed order rather than outcome, and the same six-episode calibration objective at every shared Sobol coordinate. Because only five fleets enter this analysis, fleet-level bootstrap intervals are treated as descriptive uncertainty summaries rather than confirmatory inference. For a trajectory with $T$ samples,
 \begin{equation}
  J_i(\boldsymbol{\xi},\omega)
  =\sqrt{\frac{1}{T}\sum_{k=1}^{T}
