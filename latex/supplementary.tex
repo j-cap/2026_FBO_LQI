@@ -166,7 +166,7 @@ Every candidate is evaluated on three stochastic episodes for each of two lane-c
  =\sqrt{\frac{1}{T}\sum_{k=1}^{T}
  \left(r_{i,k}(\boldsymbol{\xi},\omega)-r_k^{\rm ref}\right)^2}.
 \end{equation}
-The unfiltered reference is zero until $T_0=1$\,s, follows a positive sine lobe of duration $T_{\rm lc}$ and then a negative sine lobe of equal duration, with peak $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1\,Hz cutoff smooths the waveform. Each episode lasts 6\,s. Feasibility requires successful LQI synthesis, $|\beta|\le6^\circ$, and steering-rate change no larger than $0.2618$\,rad per simulation step.
+The unfiltered reference is zero until $T_0=1$\,s, follows a positive sine lobe of duration $T_{\rm lc}$ and then a negative sine lobe of equal duration, with peak $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1\,Hz cutoff smooths the waveform. Each episode lasts 6\,s. Feasibility requires successful LQI synthesis, $|\beta|\le6^\circ$, and steering-rate change no larger than $0.2618$\,rad per simulation step. These limits are checked on the completed simulated rollout and enter the BO data only afterward; they are evaluation constraints, not a safe-set certificate or pre-execution safety filter.
 
 \begin{figure}[h]
 \centering
