@@ -10,9 +10,11 @@ global Spearman rank correlation:
    space coincide, not merely whether the full feasible landscapes are monotonically
    related.
 
-2) s_ij_feas:
+2) s_ij_feas (when available):
    Jaccard overlap of the full feasible-point sets. This asks whether two systems agree
-   on which calibration points are admissible.
+   on which calibration points are admissible. The earliest frozen landscape archive
+   predates this column; in that case the script reports the omission and analyzes the
+   already-frozen near-optimum overlap without rerunning any simulation.
 
 The landscape study is post-hoc and contains only five development-fleet realizations.
 Accordingly, bootstrap intervals below are explicitly descriptive uncertainty summaries
@@ -128,10 +130,9 @@ def _fleet_summary(df: pd.DataFrame, metric: str, label: str) -> tuple[dict, pd.
 
 
 def _threshold_rows(df: pd.DataFrame) -> list[dict]:
-    specs = {
-        "overlap_10pct": [0.25, 0.50, 0.75],
-        "s_ij_feas": [0.80, 0.90, 0.95],
-    }
+    specs = {"overlap_10pct": [0.25, 0.50, 0.75]}
+    if "s_ij_feas" in df.columns:
+        specs["s_ij_feas"] = [0.80, 0.90, 0.95]
     rows: list[dict] = []
     for metric, thresholds in specs.items():
         valid = df.dropna(subset=[metric])
@@ -162,12 +163,13 @@ def main(input_path: Path, output_tag: str) -> None:
         )
 
     df = pd.read_csv(input_path)
+    print(f"[near-optimum] loaded {input_path}")
+    print(f"[near-optimum] columns: {list(df.columns)}")
     required = {
         "seed",
         "same_family",
         "rho_J",
         "overlap_10pct",
-        "s_ij_feas",
         "n_joint_feasible",
     }
     missing = required.difference(df.columns)
@@ -186,8 +188,15 @@ def main(input_path: Path, output_tag: str) -> None:
             "overlap_10pct",
             "Jaccard overlap of best 13 feasible points (10% of 128-point grid)",
         ),
-        ("s_ij_feas", "Jaccard overlap of feasible-point sets"),
     ]
+    if "s_ij_feas" in df.columns:
+        metrics.append(("s_ij_feas", "Jaccard overlap of feasible-point sets"))
+    else:
+        print(
+            "[near-optimum] NOTE: frozen pair table has no 's_ij_feas' column. "
+            "This archive predates the feasibility-Jaccard diagnostic; no simulation "
+            "will be rerun. Proceeding with the already-frozen top-10% overlap metric."
+        )
 
     rows: list[dict] = []
     fleet_frames: list[pd.DataFrame] = []
