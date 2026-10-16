@@ -145,7 +145,7 @@ $\mu$ [-] & 1.0 & 1.0 & 1.0\\
 \end{tabular}
 \end{table}
 
-For each generated system, $m$, $I_z$, $C_f$, $C_r$, and $U$ are independently multiplied by $1+\eta$, $\eta\sim\mathcal U[-0.025,0.025]$, while $a$ and $b$ remain fixed. A system is resampled if the fixed baseline controller is infeasible on the calibration task, with at most 50 attempts.
+For each generated system, $m$, $I_z$, $C_f$, $C_r$, and $U$ are independently multiplied by $1+\eta$, $\eta\sim\mathcal U[-0.025,0.025]$, while $a$ and $b$ remain fixed. Because the intended commissioning task assumes an already-deployable baseline controller, the generator permits resampling if that fixed baseline is infeasible, with at most 50 attempts. A deterministic replay of this admission check on the exact 20 confirmatory fleet seeds covered 600 system slots and required 600 candidate draws: all 600 first draws were feasible, so the observed rejection and slot-resampling fractions were both 0\%. Thus the admission rule did not condition the realized confirmatory parameter sample.
 
 The local discrete model is estimated as
 \begin{equation}
