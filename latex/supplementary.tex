@@ -222,6 +222,26 @@ Across the 120 held-out targets, the mean target-model weight is 0.703 at $n=3$,
 \caption{Additional threshold-based views of target-system sample efficiency. Unresolved independent-BO runs remain right-censored rather than being treated as successes at the final budget.}
 \end{figure}
 
+\paragraph{Near-optimum landscape overlap.}
+To check whether the high full-landscape Spearman correlations conceal disagreement where BO actually searches, we analyze the frozen \texttt{overlap\_10pct} diagnostic from the same post-hoc five-fleet study. For each system, this is the set of up to 13 best feasible points on the common 128-point Sobol grid; pairwise similarity is their Jaccard overlap. Table~\ref{tab:near_optimum_overlap} shows that the near-best regions are also strongly aligned. Across all 2175 pairs, the median overlap is 0.75 and the mean is 0.847; 94.3\% of pairs have overlap at least 0.75. The cross-family result is nearly identical, with mean 0.835, median 0.75, and 94.4\% of pairs at or above 0.75. The median pairwise overlap within each of the five development fleets is 0.75, so the descriptive bootstrap interval of the fleet-level median is also $(0.75,0.75)$.
+
+\begin{table}[h]
+\centering
+\caption{Post-hoc overlap of near-best calibration regions on the common 128-point Sobol grid. The overlap is the Jaccard index of each system's best 10\% feasible grid points.}
+\label{tab:near_optimum_overlap}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Scope & $n$ & Mean & Median & 5th pct. & $P(\mathrm{overlap}\ge0.75)$\\
+\midrule
+All pairs & 2175 & 0.847 & 0.75 & 0.556 & 0.943\\
+Same family & 675 & 0.872 & 1.00 & 0.556 & 0.941\\
+Cross family & 1500 & 0.835 & 0.75 & 0.556 & 0.944\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The frozen pair archive predates the later feasibility-set Jaccard diagnostic (\texttt{s\_ij\_feas}). To keep this post-hoc study frozen, we do not rerun the simulation solely to add that secondary metric.
+
 The source-coverage experiment holds the source pool at nine systems and changes the number of same-family sources. It tests whether the global-versus-weighted conclusion depends on full fleet access or on a particular source composition.
 
 \begin{figure}[h]
