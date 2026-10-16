@@ -206,7 +206,7 @@ Figure~\ref{fig:maturity} varies the amount of historical experience available f
 \label{fig:maturity}
 \end{figure}
 
-Ten evaluations per source recover approximately 93\% of the mean experiment saving obtained with 25 evaluations while using only 40\% of the per-source historical budget. The statistically resolved gain therefore appears between five and ten evaluations per source; deeper histories mainly improve the remaining tail of slower target calibrations. The $M_{\rm hist}=25$ sensitivity endpoint differs slightly from the main mature-fleet result because the nested study uses a common two-point source initialization rather than the main eight-point mature-history initialization.
+Ten evaluations per source recover approximately 93\% of the mean experiment saving obtained with 25 evaluations while using only 40\% of the per-source historical budget. The major gain therefore appears between five and ten evaluations per source; deeper histories mainly improve the remaining tail of slower target calibrations. The $M_{\rm hist}=25$ sensitivity endpoint differs slightly from the main mature-fleet result because the nested study uses a common two-point source initialization rather than the main eight-point mature-history initialization.
 
 \subsection{Post-hoc landscape alignment is consistent with effective pooling}
 The exploratory landscape diagnostic shows that the studied plant variation coexists with limited calibration-landscape heterogeneity. Figure~\ref{fig:landscape} compares physical variation with pairwise calibration-landscape alignment.
@@ -232,9 +232,9 @@ Across all 2175 pairs, 2174 pairs (99.95\%) satisfy $\rho_{ij}^{J}\ge0.95$, with
 
 Consistent with this structure, the tested dynamics-aware weighting in~\eqref{eq:dyn_weighting} provides no measurable improvement over global pooling. The paired realization-level difference in restricted $N_{5\%}$ is $0.000$ evaluations with 95\% CI $(-0.05,+0.04)$ and Wilcoxon $p=1.000$. This null result applies to the present precision-weighted distance and GP-noise attenuation, not to every possible task-aware transfer model.
 
-\begin{figure}[t]
+\begin{figure}[!ht]
 \centering
-\figurepdf{0.55\textwidth}{figures/fig5a_global_vs_weighted_parity.pdf}
+\figurepdf{0.50\textwidth}{figures/fig5a_global_vs_weighted_parity.pdf}
 \caption{Per-realization parity between global and dynamics-weighted warm start on the held-out fleets. Points near the identity line indicate that dynamics-aware attenuation does not improve target-system sample efficiency.}
 \label{fig:null_pairwise}
 \end{figure}
@@ -252,7 +252,7 @@ The transferable information object is the task-level record $(\boldsymbol{\xi},
 Several limitations remain. Validation is simulation based, and the study considers one three-dimensional LQI parameterization, one lateral-control task, and a narrow constant-speed operating regime. Higher-dimensional controller classes or more heterogeneous task distributions may exhibit weaker landscape alignment and may favor selective or multi-task BO models. Feasibility is assessed from completed simulated rollouts rather than guaranteed before execution; physical deployment would therefore require an external safety mechanism such as a certified safety filter, backup controller, or safe acquisition strategy. The dynamics-aware ablation uses one fixed distance-to-noise mapping (median distance bandwidth and a 0.02 weighting floor); we do not claim that its null result covers all dynamics-informed transfer schemes. The offline reference is numerically well converged but is not a proof of the global optimum. Finally, the work characterizes transferability and sample efficiency rather than privacy or communication-optimal distributed BO.
 
 \section{Conclusion}
-Fleet-informed BO reuses normalized controller-calibration observations across heterogeneous dynamical systems while retaining target-specific model identification and gain synthesis. Across 120 held-out vehicle calibration problems, this reduces the budget-restricted mean target effort from 6.72 to 3.08 evaluations. Ten historical evaluations per source recover about 93\% of the mature-fleet saving. In a post-hoc comparison, simple pooling also outperforms the RGPE transfer-BO baseline. The mechanism is unusually strong task alignment: 2174 of 2175 system pairs satisfy $\rho_{ij}^{J}\ge0.95$ despite substantial plant heterogeneity, explaining why broad pooling is effective in the studied regime.
+Fleet-informed BO reuses normalized controller-calibration observations across heterogeneous dynamical systems while retaining target-specific model identification and gain synthesis. Across 120 held-out vehicle calibration problems, this reduces the budget-restricted mean target effort from 6.72 to 3.08 evaluations. Ten historical evaluations per source recover about 93\% of the mature-fleet saving. In a post-hoc comparison, simple pooling also outperforms the RGPE transfer-BO baseline. A post-hoc diagnostic identifies unusually strong task alignment: 2174 of 2175 system pairs satisfy $\rho_{ij}^{J}\ge0.95$ despite substantial plant heterogeneity, consistent with the effectiveness of broad pooling in the studied regime.
 
 \bibliography{references}
 
