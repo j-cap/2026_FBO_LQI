@@ -52,9 +52,12 @@ The scales were fixed before the confirmatory BO study from representative nomin
 
 \section{Bayesian-Optimization Implementation}
 
+Table~\ref{tab:bo_implementation} summarizes the BO settings used throughout the held-out study.
+
 \begin{table}[h]
 \centering
 \caption{BO implementation used in the held-out study.}
+\label{tab:bo_implementation}
 \begin{tabular}{@{}ll@{}}
 \toprule
 Quantity & Setting\\
@@ -82,7 +85,7 @@ At target evaluation $n$, expected improvement is maximized over the fixed 256-p
 \end{equation}
 
 \paragraph{RGPE transfer baseline.}
-RGPE was added after the original confirmatory analysis as a literature comparator; it reuses the frozen 20 fleet realizations, mature source histories, target systems, local budget, candidate set, and dense-reference scoring protocol. It uses the same 25 historical evaluations per source and the same target evaluation budget, but fits one task-standardized GP per source system rather than pooling the observations. All RGPE task GPs use the same constant-times-Mat\'ern-$5/2$ kernel family, initial length scale, and length-scale bounds as the pooled surrogates in Table~S1. A target GP is refit after each local evaluation. At every BO round, 256 joint posterior samples are used to compute pairwise ranking loss on the observed target points; the target model is scored by leave-one-out prediction using its fitted hyperparameters. A model's ensemble weight is the fraction of posterior samples for which it attains the minimum ranking loss. Following the RGPE dilution safeguard, a source is discarded when its median sampled loss exceeds the 95th percentile of target-model loss. The ensemble moments are
+RGPE was added after the original confirmatory analysis as a literature comparator; it reuses the frozen 20 fleet realizations, mature source histories, target systems, local budget, candidate set, and dense-reference scoring protocol. It uses the same 25 historical evaluations per source and the same target evaluation budget, but fits one task-standardized GP per source system rather than pooling the observations. All RGPE task GPs use the same constant-times-Mat\'ern-$5/2$ kernel family, initial length scale, and length-scale bounds as the pooled surrogates in Table~\ref{tab:bo_implementation}. A target GP is refit after each local evaluation. At every BO round, 256 joint posterior samples are used to compute pairwise ranking loss on the observed target points; the target model is scored by leave-one-out prediction using its fitted hyperparameters. A model's ensemble weight is the fraction of posterior samples for which it attains the minimum ranking loss. Following the RGPE dilution safeguard, a source is discarded when its median sampled loss exceeds the 95th percentile of target-model loss. The ensemble moments are
 \begin{equation}
  \mu_{\rm RGPE}(\boldsymbol\xi)=\sum_q w_q\mu_q(\boldsymbol\xi),
  \qquad
@@ -125,9 +128,12 @@ with static axle loads $F_{z,f}=mgb/(a+b)$ and $F_{z,r}=mga/(a+b)$. The nonlinea
  \dot r=\frac{aF_{y,f}-bF_{y,r}}{I_z}.
 \end{equation}
 
+The vehicle-family prototypes and common simulation parameters are summarized in Table~\ref{tab:vehicle_prototypes}.
+
 \begin{table}[h]
 \centering
 \caption{Vehicle-family prototypes and common simulation parameters.}
+\label{tab:vehicle_prototypes}
 \begin{tabular}{@{}lccc@{}}
 \toprule
 Parameter & Nominal & Payload & Tire-degraded\\
@@ -168,15 +174,21 @@ Every candidate is evaluated on three stochastic episodes for each of two lane-c
 \end{equation}
 The unfiltered reference is zero until $T_0=1$\,s, follows a positive sine lobe of duration $T_{\rm lc}$ and then a negative sine lobe of equal duration, with peak $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1\,Hz cutoff smooths the waveform. Each episode lasts 6\,s. Feasibility requires successful LQI synthesis, $|\beta|\le6^\circ$, and steering-rate change no larger than $0.2618$\,rad per simulation step. These limits are checked on the completed simulated rollout and enter the BO data only afterward; they are evaluation constraints, not a safe-set certificate or pre-execution safety filter.
 
+Figure~\ref{fig:yaw_rate_references} shows the two filtered yaw-rate reference profiles used by the calibration task.
+
 \begin{figure}[h]
 \centering
 \figurepdf{0.62\textwidth}{figures/fig6_lane_change_reference.pdf}
 \caption{Yaw-rate references used for controller calibration.}
+\label{fig:yaw_rate_references}
 \end{figure}
+
+Table~\ref{tab:heldout_protocol} summarizes the final held-out evaluation protocol.
 
 \begin{table}[h]
 \centering
 \caption{Final held-out evaluation protocol.}
+\label{tab:heldout_protocol}
 \begin{tabular}{@{}ll@{}}
 \toprule
 Quantity & Setting\\
@@ -204,7 +216,7 @@ The offline reference is used only for reporting and never enters GP fitting, ac
 \section{Additional Result Diagnostics}
 
 \paragraph{RGPE adaptation.}
-Across the 120 held-out targets, the mean target-model weight is 0.703 at $n=3$, decreases to 0.076 at $n=5$, and rises to 0.124 by $n=12$. The mean number of source models retained by the 95th-percentile dilution guard decreases from 28.9 at $n=3$ to 20.5 at $n=12$. Ensemble-weight entropy rises from 1.54 at $n=3$ to approximately 3.06 at $n=5$ before declining to 2.50 at $n=12$. Thus RGPE is not equivalent to uniform averaging: it redistributes weight strongly and becomes more selective as target evidence accumulates. Its dense-reference restricted mean is $N_{5\%}=4.625$, compared with 6.717 for independent BO and 3.083 for both pooled warm starts. Because RGPE was selected after the original confirmatory analysis, its paired inferential quantities are exploratory: relative to global pooling, the mean difference is $+1.542$ evaluations with 95\% bootstrap interval $(0.92,2.28)$ and Wilcoxon $p=0.0009$.
+Across the 120 held-out targets, the mean target-model weight is 0.703 at $n=3$, decreases to 0.076 at $n=5$, and rises to 0.124 by $n=12$. The mean number of source models retained by the 95th-percentile dilution guard decreases from 28.9 at $n=3$ to 20.5 at $n=12$. Ensemble-weight entropy rises from 1.54 at $n=3$ to approximately 3.06 at $n=5$ before declining to 2.50 at $n=12$. Thus RGPE is not equivalent to uniform averaging: it redistributes weight strongly and becomes more selective as target evidence accumulates. Its dense-reference restricted mean is $N_{5\%}=4.625$, compared with 6.717 for independent BO and 3.083 for both pooled warm starts. Because RGPE was selected after the original confirmatory analysis, its paired inferential quantities are exploratory: relative to global pooling, the mean difference is $+1.542$ evaluations with 95\% bootstrap interval $(0.92,2.28)$ and Wilcoxon $p=0.0009$. Figure~\ref{fig:threshold_views} complements these mean comparisons with cumulative attainment and fixed-budget success probabilities.
 
 \begin{figure}[h]
 \centering
@@ -220,6 +232,7 @@ Across the 120 held-out targets, the mean target-model weight is 0.703 at $n=3$,
     {\small (b) Fixed-budget success probabilities.}
 \end{minipage}
 \caption{Additional threshold-based views of target-system sample efficiency. Unresolved independent-BO runs remain right-censored rather than being treated as successes at the final budget.}
+\label{fig:threshold_views}
 \end{figure}
 
 \paragraph{Near-optimum landscape overlap.}
@@ -242,20 +255,22 @@ Cross family & 1500 & 0.835 & 0.75 & 0.556 & 0.944\\
 
 The frozen pair archive predates the later feasibility-set Jaccard diagnostic (\texttt{s\_ij\_feas}). To keep this post-hoc study frozen, we do not rerun the simulation solely to add that secondary metric.
 
-The source-coverage experiment holds the source pool at nine systems and changes the number of same-family sources. It tests whether the global-versus-weighted conclusion depends on full fleet access or on a particular source composition.
+The source-coverage experiment holds the source pool at nine systems and changes the number of same-family sources. It tests whether the global-versus-weighted conclusion depends on full fleet access or on a particular source composition. Figure~\ref{fig:coverage_sensitivity} summarizes this sensitivity.
 
 \begin{figure}[h]
 \centering
 \figurepdf{0.62\textwidth}{figures/fig5b_coverage_sensitivity.pdf}
 \caption{Sensitivity to same-family source coverage in a nine-source pool.}
+\label{fig:coverage_sensitivity}
 \end{figure}
 
-The second source-maturity view reports the same paired result as experiment savings rather than absolute restricted mean.
+Figure~\ref{fig:maturity_savings} reports the second source-maturity view as paired experiment savings rather than absolute restricted mean.
 
 \begin{figure}[h]
 \centering
 \figurepdf{0.62\textwidth}{figures/fig7b_fleet_maturity_savings.pdf}
 \caption{Paired mean number of target evaluations saved relative to independent BO versus source maturity.}
+\label{fig:maturity_savings}
 \end{figure}
 
 \end{document}
