@@ -1,0 +1,11 @@
+top_n = max(1, math.ceil(TOP_FRACTION * N_GRID_POINTS))
+
+top_sets = []
+
+for ci in range(len(fleet)):
+            feas_idx = np.where(feasible_mask[ci])[0]
+            if len(feas_idx) == 0:
+                top_sets.append(set())
+                continue
+            order = feas_idx[np.argsort(J[ci, feas_idx])]
+            top_sets.append(set(order[:top_n].tolist()))

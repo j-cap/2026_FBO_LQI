@@ -1,0 +1,116 @@
+{
+  "timestamp_utc": "2026-11-03T08:44:42.047092+00:00",
+  "git_commit": "98011ae0f301baf5801c549edbb349beea637ba3",
+  "git_status_before": "?? code/scripts/audit_review_implementation.py\n?? code/tests/test_review_implementation_audit.py\n?? docs/markus_implementation_checks.md\n?? markus-implementation-audit.patch",
+  "python": "3.11.16",
+  "platform": "Windows-10-10.0.26100-SP0",
+  "packages": {
+    "numpy": "2.3.2",
+    "scipy": "1.16.1",
+    "pandas": "2.3.1",
+    "PyYAML": "6.0.3"
+  },
+  "source_sha256": {
+    "code\\src\\candidate_eval.py": "2ed2e79e68271fd970afcd059cdb04e66a0d4c5fd447148307519a03289aafa1",
+    "code\\src\\interfaces\\plant_client.py": "2b41766b907a05870c66767dc5d0489a338842fa2d1462bd28fb20b9cd7088be",
+    "code\\src\\nonlinear_plant.py": "cafd5d3d417549227cb007c9bc212f2b41686a498ce3a356452a0b0fa00489b6",
+    "code\\scripts\\calibration_landscape_similarity.py": "793696b25ab25eda6a18a9f049f06b18b1b51a7a220d822cb2e660aa5617427c",
+    "code\\scripts\\audit_review_implementation.py": "7e8e4a7d44e9bd99cc275102a0756ffc1e35c442e1ab86b4a7ea87047744ec7f",
+    "code\\config\\runs\\phase2_warmstart_confirmatory_c1cds02.yaml": "0ff6bafced80310584bbe4d01b4d970f5cfa47086b2b649af095214ac8d34f93",
+    "code\\config\\fleet_fixed_speed.yaml": "8085c93355c20eebaa5a3231b82ce4c1ff82553b1a41a09294944f521870e0be",
+    "code\\config\\controller.yaml": "631eb8f419906d28962a76b27505dac6ca197de9171dab9df9e142f49e0249ed",
+    "code\\config\\runs\\phase2_warmstart_dev_c1cds02.yaml": "d81d2f8033278a06e698cce66559f09388625ba3d134d3f7243b8701afe34afa"
+  },
+  "resolved_steering_config": {
+    "fleet": {
+      "fleet_kind": "fixed_speed_families",
+      "clients_per_regime": 10,
+      "seed": 42,
+      "variability": 0.025,
+      "Ts": 0.05,
+      "lambda_f": 0.99,
+      "delta": 1.0,
+      "lane_change_time": [
+        1.0,
+        2.0
+      ],
+      "generation_version": "fixed_speed_v3_common_task"
+    },
+    "controller": {
+      "xi_lower": [
+        -3.0,
+        -3.0,
+        -3.0
+      ],
+      "xi_upper": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "fixed_R": 1.0,
+      "state_scale": [
+        0.053229,
+        0.575573,
+        0.139862
+      ],
+      "u_min": -0.34906585,
+      "u_max": 0.34906585,
+      "u_rate_max": 0.2618,
+      "beta_max_deg": 6.0,
+      "noise_std": 0.01,
+      "process_noise": [
+        0.0,
+        0.0
+      ],
+      "T_total": 6.0,
+      "T0": 1.0,
+      "r_max": 0.6108652381980153,
+      "tfilter": 0.1,
+      "hand_tuned_reference_xi": [
+        0.0,
+        0.30103,
+        0.30103
+      ],
+      "plant_mode": "nonlinear_tanh",
+      "tire_mu": 1.0
+    }
+  },
+  "landscape_constants": {
+    "N_GRID_POINTS": 128,
+    "N_STUDY_SEEDS": 5,
+    "GRID_SEED": 0,
+    "TOP_FRACTION": 0.1
+  },
+  "steering": {
+    "configured_increment_rad": 0.2618,
+    "time_step_s": 0.05,
+    "equivalent_rate_rad_s": 5.235999999999999,
+    "equivalent_rate_deg_s": 300.000701530499,
+    "difference_from_exact_300_deg_s": 0.000701530498986358,
+    "interpretation": "max(abs(diff(applied steering))) in rad/step; strict > comparison",
+    "scope": "All supplied rollouts complete before final feasibility decision. No initial jump from an assumed pre-rollout input is included by np.diff.",
+    "tested_time_step_invariance": "Doubling bank time spacing does not rescale the checked increment.",
+    "limitation": "Controlled rollout probes establish evaluator semantics, not physical safety or historical rollout reproduction."
+  },
+  "selection_rule": "Select up to 13 lowest-cost feasible grid points per system; the cap is based on the full grid, not the feasible count.",
+  "selection_limitation": "Synthetic cases execute the actual selection statements. No historical per-system selected sets are reconstructed.",
+  "archive": {
+    "status": "PASS",
+    "path": "C:\\Users\\WeberJ\\2026_FBO_LQI\\code\\results\\calibration_landscape_similarity\\processed\\landscape_similarity_pairs.csv",
+    "sha256": "3fb9a98578418fb19de585bd77d1111f914b1bf00b72fc706d3b2bf9629794fc",
+    "expected_seeds": [
+      71063,
+      45424,
+      30434,
+      94266,
+      40624
+    ],
+    "n_pairs": 2175,
+    "rho_ge_095": 2174,
+    "overlap_mean": 0.8466590038314177,
+    "overlap_median": 0.75,
+    "overlap_ge_075_fraction": 0.9429885057471264,
+    "limitation": "Aggregated pair rows cannot reconstruct selected grid indices or prove which source revision generated them. This validates structure and summaries, not historical membership or simulation replay."
+  },
+  "status": "PASS"
+}

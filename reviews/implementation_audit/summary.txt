@@ -1,0 +1,16 @@
+Status: PASS
+Commit: 98011ae0f301baf5801c549edbb349beea637ba3
+
+Steering probes: 14/14 passed.
+Configured increment: 0.2618 rad/step.
+At Ts=0.05 s: 300.000701530 deg/s.
+Keep the existing numeric threshold; 300 deg/s is rounded manuscript wording.
+
+Selection probes: 7/7 passed.
+Select up to 13 lowest-cost feasible grid points per system; the cap is based on the full grid, not the feasible count.
+
+Archive: PASS
+Aggregated pair rows cannot reconstruct selected grid indices or prove which source revision generated them. This validates structure and summaries, not historical membership or simulation replay.
+
+No simulation, historical cache, manuscript, figure, or production algorithm was changed.
+A PASS verifies current implementation semantics and available pair-table checks; it does not certify historical selected-set membership or safe deployment.
