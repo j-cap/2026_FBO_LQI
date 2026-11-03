@@ -51,3 +51,24 @@ Add this sentence to the S3 caption when integrating:
 - The remaining historical source packages were absent, so their existing PDFs
   were preserved. Final data-specific overlap and page-layout checks remain for
   the local regeneration and subsequent Overleaf integration.
+
+## Final layout polish
+
+The landscape count annotation and two-column family legend now occupy separate
+bands above the axes. The main-paper filename remains unchanged.
+
+`make_paper_figures.py` additionally writes `fig4_threshold_summary.pdf` and PNG.
+This combines S2(a/b) at full text width with one two-row legend, showing both
+line styles and bar hatches. Bar labels are now 8 pt. Existing standalone S2
+files are still generated for compatibility. The combined figure calls the same
+renderers, preserving all calculations and censoring conventions.
+
+When integrating in Overleaf, replace the two S2 minipages with
+`\figurepdf{\textwidth}{figures/fig4_threshold_summary.pdf}` inside the existing
+figure environment. Retain the caption and label, and remove the old external
+(a)/(b) labels because the combined graphic includes them. No LaTeX source has
+been changed in this commit.
+
+Validation: compilation and whitespace checks passed. Both modified layouts
+were rendered and visually inspected with synthetic fixtures outside the repo.
+The final experimental outputs must be regenerated on the experiment machine.

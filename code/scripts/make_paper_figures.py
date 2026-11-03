@@ -153,16 +153,15 @@ def fig2b():
     above_threshold = pairs_df["rho_J"] >= 0.95
     n_high = int(above_threshold.sum())
     n_total = int(len(pairs_df))
+    # Separate header bands keep both annotations clear of all observations.
     ax.text(
-        0.98, 0.92,
-        f"{n_high} / {n_total} pairs\n$\\rho^J_{{ij}}\\geq0.95$",
-        transform=ax.transAxes, ha="right", va="top", fontsize=7,
-        bbox=dict(boxstyle="round,pad=0.25", facecolor="white", edgecolor="#cccccc", linewidth=0.6),
+        0.0, 1.22, f"{n_high} / {n_total} pairs with " + r"$\rho^J_{ij}\geq0.95$",
+        transform=ax.transAxes, ha="left", va="bottom", fontsize=8,
     )
     ax.set_ylim(0.94, 1.002)
     ax.set_xlabel(r"Dynamics distance $d_{ij}^{\mathrm{dyn}}$")
     ax.set_ylabel(r"Landscape rank correlation $\rho_{ij}^{J}$")
-    leg = ax.legend(loc="lower left", framealpha=1.0, handletextpad=0.3, borderpad=0.4)
+    leg = outside_legend(ax, ncol=2)
     for handle in leg.legend_handles:
         handle.set_alpha(1.0)
 
@@ -227,7 +226,7 @@ def fig3():
 # ============================================================================
 # Figure 4a - ECDF of N_5%
 # ============================================================================
-def fig4a():
+def fig4a(ax=None):
     """Source: results/reference_robustness/processed/n5pct_test.csv - `N_5pct`
     recomputed against the dense/independent offline reference (see fig3's docstring;
     reproduces the original target_summary.parquet-based numbers to within noise).
@@ -252,7 +251,11 @@ def fig4a():
     )
     budget = 12
 
-    fig, ax = plt.subplots(figsize=SINGLE_COL)
+    standalone = ax is None
+    if standalone:
+        fig, ax = plt.subplots(figsize=SINGLE_COL)
+    else:
+        fig = ax.figure
     for method in ("independent", "rgpe", "global", "similarity"):
         sub = summary_df[summary_df["method"] == method]
         n_total = len(sub)
@@ -277,17 +280,20 @@ def fig4a():
     ax.set_xticks([2, 4, 6, 8, 10, 12])
     ax.set_yticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
     ax.set_ylim(0, 1.05)
-    outside_legend(ax)
+    if standalone:
+        outside_legend(ax)
 
-    fig.tight_layout()
-    _save(fig, "fig4a_n5pct_ecdf")
-    plt.close(fig)
+    if standalone:
+        fig.tight_layout()
+        _save(fig, "fig4a_n5pct_ecdf")
+        plt.close(fig)
+    return ax
 
 
 # ============================================================================
 # Figure 4b - fixed-budget success probability
 # ============================================================================
-def fig4b():
+def fig4b(ax=None):
     """Source: results/reference_robustness/processed/n5pct_test.csv (see fig3's
     docstring - rescored against the dense/independent offline reference)."""
     n5 = pd.concat(
@@ -301,7 +307,11 @@ def fig4b():
     methods = ["independent", "rgpe", "global", "similarity"]
     probs = n5.groupby("method")[["le3", "le5"]].mean().reindex(methods)
 
-    fig, ax = plt.subplots(figsize=SINGLE_COL)
+    standalone = ax is None
+    if standalone:
+        fig, ax = plt.subplots(figsize=SINGLE_COL)
+    else:
+        fig = ax.figure
     x = np.arange(2)
     width = 0.19
     for mi, method in enumerate(methods):
@@ -311,23 +321,55 @@ def fig4b():
             hatch={"independent": "", "rgpe": "..", "global": "//", "similarity": "\\\\"}[method],
         )
         for b in bars:
-            ax.text(b.get_x() + b.get_width() / 2, b.get_height() + 0.02, f"{b.get_height():.2f}", ha="center", va="bottom", fontsize=6.5)
+            ax.text(b.get_x() + b.get_width() / 2, b.get_height() + 0.02, f"{b.get_height():.2f}", ha="center", va="bottom", fontsize=8)
     ax.set_xticks(x)
     ax.set_xticklabels([r"$P(N_{5\%}\leq 3)$", r"$P(N_{5\%}\leq 5)$"])
     ax.set_ylabel("Probability")
     ax.set_ylim(0, 1.12)
-    outside_legend(ax)
+    if standalone:
+        outside_legend(ax)
     ax.set_yticks(np.linspace(0, 1, 6))
     ax.grid(axis="x", visible=False)
 
-    fig.tight_layout()
-    _save(fig, "fig4b_n5pct_success_probability")
-    plt.close(fig)
+    if standalone:
+        fig.tight_layout()
+        _save(fig, "fig4b_n5pct_success_probability")
+        plt.close(fig)
+    return ax
 
 
 # ============================================================================
 # Figure 5a - held-out comparison: global vs. dynamics-weighted (seed-level means)
 # ============================================================================
+def fig4_combined():
+    """S2 at full manuscript width, with one legend for both panels.
+
+    Reuse the standalone renderers so data handling and censoring are identical.
+    Tuple handles show both line style and bar hatch for each method.
+    """
+    from matplotlib.lines import Line2D
+    from matplotlib.patches import Patch
+    from matplotlib.legend_handler import HandlerTuple
+
+    fig, axes = plt.subplots(1, 2, figsize=(6.5, 3.0))
+    fig4a(ax=axes[0])
+    fig4b(ax=axes[1])
+    methods = ("independent", "rgpe", "global", "similarity")
+    hatches = {"independent": "", "rgpe": "..", "global": "//", "similarity": "\\\\"}
+    handles = [(Line2D([], [], color=METHOD_COLORS[m], linestyle=METHOD_STYLES[m][1]),
+                Patch(facecolor=METHOD_COLORS[m], edgecolor="white", hatch=hatches[m]))
+               for m in methods]
+    fig.legend(handles, [METHOD_LABELS[m] for m in methods],
+               handler_map={tuple: HandlerTuple(ndivide=None)},
+               loc="upper center", bbox_to_anchor=(0.5, 1.0), ncol=2,
+               frameon=False, handlelength=3.2, columnspacing=1.8, fontsize=8)
+    axes[0].set_xlabel(r"(a) Target evaluations to reach 5% of reference")
+    axes[1].set_xlabel("(b) Success within the evaluation budget")
+    fig.tight_layout(rect=(0, 0, 1, 0.83), w_pad=2.0)
+    _save(fig, "fig4_threshold_summary")
+    plt.close(fig)
+
+
 def fig5a():
     """Source: results/reference_robustness/processed/n5pct_test.csv (see fig3's
     docstring - rescored against the dense/independent offline reference). Points are
@@ -446,6 +488,7 @@ def _run_available(*, strict: bool = False) -> None:
         ("Fig. 3 confirmatory convergence", fig3),
         ("Supplement Fig. threshold ECDF", fig4a),
         ("Supplement Fig. fixed-budget success", fig4b),
+        ("Supplement Fig. S2 shared-legend summary", fig4_combined),
         ("Fig. global-vs-weighted parity", fig5a),
         ("Supplement Fig. source coverage", fig5b),
         ("Supplement Fig. lane-change references", fig6),
