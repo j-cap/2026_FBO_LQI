@@ -4,7 +4,7 @@
 \usepackage{amsmath,amssymb,bm}
 \usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage{times}
+\usepackage{times}\usepackage{xcolor}\newcommand{\MGrev}[1]{\textcolor{blue}{#1}}\definecolor{MGpurple}{RGB}{125,35,155}\newcommand{\MGnew}[1]{\textcolor{MGpurple}{#1}}
 \usepackage{url}
 
 \newcommand{\calD}{\mathcal{D}}
@@ -31,7 +31,7 @@ This document contains implementation and robustness details that are intentiona
 
 \section{Detailed LQI Parameterization}
 
-For yaw-rate tracking, the identified two-state model uses $\mathbf{x}=[\beta,r]^\top$ and is augmented by the integral tracking error
+\MGnew{For linear-quadratic integral (LQI) yaw-rate tracking, the identified two-state model} uses $\mathbf{x}=[\beta,r]^\top$ and is augmented by the integral tracking error
 \begin{equation}
  z_{k+1}=z_k+T_s(r_k^{\rm ref}-r_k).
 \end{equation}
@@ -48,7 +48,7 @@ and the LQI penalties are
  \frac{10^{\xi_3}}{s_3^2}\right),
  \qquad \mathbf R=1.
 \end{equation}
-The scales were fixed before the confirmatory BO study from representative nominal closed-loop trajectories and were not tuned per vehicle family.
+The scales were fixed \MGnew{before the confirmatory Bayesian optimization (BO) study} from representative nominal closed-loop trajectories and were not tuned per vehicle family.
 
 \section{Bayesian-Optimization Implementation}
 
@@ -64,12 +64,12 @@ Quantity & Setting\\
 \midrule
 Search box & $[-3,3]^3$\\
 Local initialization & 2 Sobol points\\
-Acquisition & Expected improvement, minimization\\
+Acquisition & \MGnew{Expected improvement (EI), minimization}\\
 EI exploration margin & $0.01$\\
 EI candidate set & 256 Sobol points\\
 Output scaling & $J_i/J_i^{\rm base}$\\
 Source weighting floor & $0.02$\\
-GP kernel & Constant $\times$ Mat\'ern-$5/2$\\
+\MGnew{Gaussian process (GP) kernel} & Constant $\times$ Mat\'ern-$5/2$\\
 GP length scale & $\boldsymbol{\ell}_0=0.3\mathbf{1}$, bounds $[0.05,3]^3$\\
 GP base noise $\alpha_0$ & $10^{-4}$\\
 GP optimizer restarts & 2\\
@@ -85,7 +85,7 @@ At target evaluation $n$, expected improvement is maximized over the fixed 256-p
 \end{equation}
 
 \paragraph{RGPE transfer baseline.}
-RGPE was added after the original confirmatory analysis as a literature comparator; it reuses the frozen 20 fleet realizations, mature source histories, target systems, local budget, candidate set, and dense-reference scoring protocol. It uses the same 25 historical evaluations per source and the same target evaluation budget, but fits one task-standardized GP per source system rather than pooling the observations. All RGPE task GPs use the same constant-times-Mat\'ern-$5/2$ kernel family, initial length scale, and length-scale bounds as the pooled surrogates in Table~\ref{tab:bo_implementation}. A target GP is refit after each local evaluation. At every BO round, 256 joint posterior samples are used to compute pairwise ranking loss on the observed target points; the target model is scored by leave-one-out prediction using its fitted hyperparameters. A model's ensemble weight is the fraction of posterior samples for which it attains the minimum ranking loss. Following the RGPE dilution safeguard, a source is discarded when its median sampled loss exceeds the 95th percentile of target-model loss. The ensemble moments are
+\MGnew{The ranking-weighted Gaussian process ensemble (RGPE) was added after the original confirmatory analysis as a literature comparator. It reuses} the frozen 20 fleet realizations, mature source histories, target systems, local budget, candidate set, and dense-reference scoring protocol. It uses the same 25 historical evaluations per source and the same target evaluation budget, but fits one task-standardized GP per source system rather than pooling the observations. All RGPE task GPs use the same constant-times-Mat\'ern-$5/2$ kernel family, initial length scale, and length-scale bounds as the pooled surrogates in Table~\ref{tab:bo_implementation}. A target GP is refit after each local evaluation. At every BO round, 256 joint posterior samples are used to compute pairwise ranking loss \MGnew{on the observed target points. The target model is scored} by leave-one-out prediction using its fitted hyperparameters. A model's ensemble weight is the fraction of posterior samples for which it attains the minimum ranking loss. Following the RGPE dilution safeguard, a source is discarded when its median sampled loss exceeds the 95th percentile of target-model loss. The ensemble moments are
 \begin{equation}
  \mu_{\rm RGPE}(\boldsymbol\xi)=\sum_q w_q\mu_q(\boldsymbol\xi),
  \qquad
@@ -118,8 +118,8 @@ Controller candidates are evaluated on a nonlinear lateral plant. The slip angle
 \end{equation}
 and the tire forces are
 \begin{equation}
- F_{y,q}=\mu F_{z,q}\tanh\!\left(\frac{C_q\alpha_q}{\mu F_{z,q}}\right),
- \qquad q\in\{f,r\},
+ \MGnew{F_{y,\chi}=\mu F_{z,\chi}\tanh\!\left(\frac{C_\chi\alpha_\chi}{\mu F_{z,\chi}}\right),}
+ \qquad \MGnew{\chi\in\{f,r\},}
 \end{equation}
 with static axle loads $F_{z,f}=mgb/(a+b)$ and $F_{z,r}=mga/(a+b)$. The nonlinear states evolve as
 \begin{equation}
@@ -129,7 +129,6 @@ with static axle loads $F_{z,f}=mgb/(a+b)$ and $F_{z,r}=mga/(a+b)$. The nonlinea
 \end{equation}
 
 The vehicle-family prototypes and common simulation parameters are summarized in Table~\ref{tab:vehicle_prototypes}.
-
 \begin{table}[h]
 \centering
 \caption{Vehicle-family prototypes and common simulation parameters.}
@@ -151,15 +150,15 @@ $\mu$ [-] & 1.0 & 1.0 & 1.0\\
 \end{tabular}
 \end{table}
 
-For each generated system, $m$, $I_z$, $C_f$, $C_r$, and $U$ are independently multiplied by $1+\eta$, $\eta\sim\mathcal U[-0.025,0.025]$, while $a$ and $b$ remain fixed. Because the intended commissioning task assumes an already-deployable baseline controller, the generator permits resampling if that fixed baseline is infeasible, with at most 50 attempts. A deterministic replay of this admission check on the exact 20 confirmatory fleet seeds covered 600 system slots and required 600 candidate draws: all 600 first draws were feasible, so the observed rejection and slot-resampling fractions were both 0\%. Thus the admission rule did not condition the realized confirmatory parameter sample.
+\MGrev{For each system, $m$, $I_z$, $C_f$, $C_r$, and $U$ receive independent uniform perturbations of up to $\pm2.5\%$. The geometric parameters $a$ and $b$ remain fixed.} Because the intended commissioning task assumes an already-deployable baseline controller, the generator permits resampling if that fixed baseline is infeasible, with at most 50 attempts. A deterministic replay of this admission check on the exact 20 confirmatory fleet seeds covered 600 system slots and required 600 candidate draws: all 600 first draws were feasible, so the observed rejection and slot-resampling fractions were both 0\%. Thus the admission rule did not condition the realized confirmatory parameter sample.
 
-The local discrete model is estimated as
+\MGnew{The system-specific discrete model is estimated as}
 \begin{equation}
  \boldsymbol{\Theta}_i=[\mathbf A_{d,i}\;\mathbf B_{d,i}]\in\mathbb R^{2\times3},
  \qquad
  \hat{\boldsymbol{\theta}}_i=\operatorname{vec}(\hat{\boldsymbol{\Theta}}_i)\in\mathbb R^6,
 \end{equation}
-using matrix RLS with regressor $[\mathbf x_k^\top,u_k]^\top$, nominal-model initialization, forgetting factor $\lambda=0.99$, and initial covariance $\mathbf P_0=\mathbf I_3$. Each system processes eight repeated 6\,s identification episodes. If $\mathbf D_i=\operatorname{diag}(\hat\sigma_{i,1}^2,\hat\sigma_{i,2}^2)$ contains the final row-wise innovation variances and $\mathbf P_i$ is the regressor covariance, the precision used for dynamics distance is
+\MGnew{using matrix recursive least squares (RLS) with regressor} $[\mathbf x_k^\top,u_k]^\top$, nominal-model initialization, forgetting factor $\lambda=0.99$, and initial covariance $\mathbf P_0=\mathbf I_3$. \MGrev{The eight 6\,s identification episodes use fixed gains synthesized from the common nominal model at $\boldsymbol{\xi}^{\mathrm{base}}$, with the shared scales and $R=1$. These episodes precede BO and are excluded from its evaluation budget.} If $\mathbf D_i=\operatorname{diag}(\hat\sigma_{i,1}^2,\hat\sigma_{i,2}^2)$ contains the final row-wise innovation variances and $\mathbf P_i$ is the regressor covariance, the precision used for dynamics distance is
 \begin{equation}
  \hat{\mathbf W}_i=\operatorname{pinv}\!\left(\mathbf D_i\otimes\mathbf P_i\right).
 \end{equation}
@@ -172,7 +171,7 @@ Every candidate is evaluated on three stochastic episodes for each of two lane-c
  =\sqrt{\frac{1}{T}\sum_{k=1}^{T}
  \left(r_{i,k}(\boldsymbol{\xi},\omega)-r_k^{\rm ref}\right)^2}.
 \end{equation}
-The unfiltered reference is zero until $T_0=1$\,s, follows a positive sine lobe of duration $T_{\rm lc}$ and then a negative sine lobe of equal duration, with peak $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1\,Hz cutoff smooths the waveform. Each episode lasts 6\,s. Feasibility requires successful LQI synthesis, $|\beta|\le6^\circ$, and steering-rate change no larger than $0.2618$\,rad per simulation step. These limits are checked on the completed simulated rollout and enter the BO data only afterward; they are evaluation constraints, not a safe-set certificate or pre-execution safety filter.
+The unfiltered reference is zero until $T_0=1$\,s, follows a positive sine lobe of duration $T_{\rm lc}$ and then a negative sine lobe of equal duration, with peak $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1\,Hz cutoff smooths the waveform. Each episode lasts 6\,s. Feasibility requires successful LQI synthesis, $|\beta|\le6^\circ$, and \MGnew{steering-angle increments no larger than $0.2618$\,rad per simulation step, equivalent to approximately $300^\circ$/s.} \MGnew{These limits are checked after each simulated rollout. They do not provide a pre-execution safety guarantee.}
 
 Figure~\ref{fig:yaw_rate_references} shows the two filtered yaw-rate reference profiles used by the calibration task.
 
@@ -236,11 +235,11 @@ Across the 120 held-out targets, the mean target-model weight is 0.703 at $n=3$,
 \end{figure}
 
 \paragraph{Near-optimum landscape overlap.}
-To check whether the high full-landscape Spearman correlations conceal disagreement where BO actually searches, we analyze the frozen \texttt{overlap\_10pct} diagnostic from the same post-hoc five-fleet study. For each system, this is the set of up to 13 best feasible points on the common 128-point Sobol grid; pairwise similarity is their Jaccard overlap. Table~\ref{tab:near_optimum_overlap} shows that the near-best regions are also strongly aligned. Across all 2175 pairs, the median overlap is 0.75 and the mean is 0.847; 94.3\% of pairs have overlap at least 0.75. The cross-family result is nearly identical, with mean 0.835, median 0.75, and 94.4\% of pairs at or above 0.75. The median pairwise overlap within each of the five development fleets is 0.75, so the descriptive bootstrap interval of the fleet-level median is also $(0.75,0.75)$.
+\MGnew{To assess near-best agreement in the same five-fleet study, we compute the Jaccard overlap of each system's 13 lowest-cost feasible points on the shared 128-point Sobol grid, using all feasible points when fewer than 13 exist.} Table~\ref{tab:near_optimum_overlap} shows that the near-best regions are also strongly aligned. \MGnew{Across all 2175 pairs, the median overlap is 0.75 and the mean is 0.847. An overlap of at least 0.75 occurs in 94.3\% of pairs.} The cross-family result is nearly identical, with mean 0.835, median 0.75, and 94.4\% of pairs at or above 0.75. The median pairwise overlap within each of the five development fleets is 0.75, so the descriptive bootstrap interval of the fleet-level median is also $(0.75,0.75)$.
 
 \begin{table}[h]
 \centering
-\caption{Post-hoc overlap of near-best calibration regions on the common 128-point Sobol grid. The overlap is the Jaccard index of each system's best 10\% feasible grid points.}
+\caption{Post-hoc overlap of near-best calibration regions on the common 128-point Sobol grid. \MGnew{The overlap is the Jaccard index of each system's up to 13 lowest-cost feasible grid points.}}
 \label{tab:near_optimum_overlap}
 \begin{tabular}{@{}lrrrrr@{}}
 \toprule
@@ -253,7 +252,7 @@ Cross family & 1500 & 0.835 & 0.75 & 0.556 & 0.944\\
 \end{tabular}
 \end{table}
 
-The frozen pair archive predates the later feasibility-set Jaccard diagnostic (\texttt{s\_ij\_feas}). To keep this post-hoc study frozen, we do not rerun the simulation solely to add that secondary metric.
+% Removed in purple revision pass: implementation-history note on the unavailable secondary metric.
 
 The source-coverage experiment holds the source pool at nine systems and changes the number of same-family sources. It tests whether the global-versus-weighted conclusion depends on full fleet access or on a particular source composition. Figure~\ref{fig:coverage_sensitivity} summarizes this sensitivity.
 
