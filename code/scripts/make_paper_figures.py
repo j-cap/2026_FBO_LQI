@@ -50,35 +50,14 @@ REPO_ROOT = _ROOT.parent
 FIG_DIR = REPO_ROOT / "latex" / "figures"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-# ---- global style (user's Section 1) -----------------------------------------------
-SINGLE_COL = (3.45, 2.55)
-DOUBLE_COL = (7.1, 3.1)
-
-plt.rcParams.update(
-    {
-        "font.family": "serif",
-        "mathtext.fontset": "stix",
-        "font.size": 8,
-        "axes.labelsize": 9,
-        "xtick.labelsize": 8,
-        "ytick.labelsize": 8,
-        "legend.fontsize": 8,
-        "figure.dpi": 150,
-        "axes.grid": True,
-        "grid.alpha": 0.25,
-        "grid.linewidth": 0.5,
-        "axes.spines.top": False,
-        "axes.spines.right": False,
-        "axes.titlesize": 9,
-    }
+# Sizes are physical inches before LaTeX scaling. Supplement S3/S4 use
+# 0.62 textwidth, so a wider canvas prevents oversized final typography.
+from paper_figure_style import (
+    apply_style, save_figure, outside_legend, METHOD_COLORS, METHOD_STYLES,
+    SINGLE_COL, DOUBLE_COL, SUPPLEMENT_WIDE,
 )
+apply_style()
 
-METHOD_COLORS = {
-    "independent": "#999999",
-    "global": "#D55E00",
-    "similarity": "#0072B2",
-    "rgpe": "#009E73",
-}
 METHOD_LABELS = {
     "independent": "Independent BO",
     "global": "Global warm start",
@@ -89,16 +68,13 @@ FAMILY_COLORS = {"nominal": "#0072B2", "payload": "#D55E00", "tire_degraded": "#
 FAMILY_LABELS = {"nominal": "Nominal", "payload": "Payload", "tire_degraded": "Tire-degraded"}
 
 LANDSCAPE_STUDY_SEEDS = [71063, 45424, 30434, 94266, 40624]
-MAIN_LW = 2.2
+MAIN_LW = 1.6
 REF_LW = 1.3
 BAND_ALPHA = 0.15
 
 
 def _save(fig, stem: str) -> None:
-    for ext in ("pdf", "png"):
-        path = FIG_DIR / f"{stem}.{ext}"
-        fig.savefig(path, bbox_inches="tight", pad_inches=0.03, transparent=False, dpi=600 if ext == "png" else None)
-        print(f"wrote {path}")
+    save_figure(fig, FIG_DIR, stem)
 
 
 def _seed_bootstrap_ci(vals: np.ndarray, *, n_boot: int = 10000, seed: int = 0) -> tuple[float, float, float]:
@@ -227,7 +203,7 @@ def fig3():
         )
         ax.plot(
             agg.index, agg["median"], label=METHOD_LABELS[method], color=METHOD_COLORS[method], linewidth=MAIN_LW,
-            marker="o", markersize=3,
+            marker=METHOD_STYLES[method][0], linestyle=METHOD_STYLES[method][1], markersize=3.5,
         )
         ax.fill_between(agg.index, agg["q25"], agg["q75"], color=METHOD_COLORS[method], alpha=BAND_ALPHA, linewidth=0)
     ax.axhline(0.0, color="black", linewidth=0.6, linestyle=":", alpha=0.6)
@@ -236,8 +212,8 @@ def fig3():
     ax.set_xlabel(r"Target-system evaluations $n$")
     ax.set_ylabel(r"Reference-relative regret $r_i^{\mathrm{ref}}(n)$")
     ax.text(
-        0.97, 0.55, "54% fewer target evaluations\nwith global pooling (mean $N_{5\\%}$)", transform=ax.transAxes, fontsize=7,
-        ha="right", va="top", color="#333333",
+        0.97, 0.55, "54% fewer target evaluations\nGlobal pooling, capped mean $N_{5\\%}$", transform=ax.transAxes, fontsize=9,
+        ha="right", va="top", color="#202020",
         bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="#cccccc", linewidth=0.6),
     )
     leg = ax.legend(loc="upper right", ncol=2, framealpha=1.0, edgecolor="#999999", handletextpad=0.4, borderpad=0.4)
@@ -285,7 +261,7 @@ def fig4a():
         y = np.arange(1, len(observed) + 1) / n_total
         if len(observed):
             ax.step(observed, y, where="post", label=METHOD_LABELS[method], color=METHOD_COLORS[method],
-                     linewidth=MAIN_LW)
+                     linewidth=MAIN_LW, linestyle=METHOD_STYLES[method][1])
             # Dotted closure out to the budget at the last OBSERVED height - never
             # implies a success occurred between the last observed success and budget.
             ax.plot([observed[-1], budget], [frac_reached, frac_reached], color=METHOD_COLORS[method],
@@ -300,8 +276,8 @@ def fig4a():
     ax.set_xlim(2, budget)
     ax.set_xticks([2, 4, 6, 8, 10, 12])
     ax.set_yticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
-    ax.set_ylim(0, 1.18)
-    leg = ax.legend(loc="upper left", framealpha=1.0, handletextpad=0.4, borderpad=0.4, fontsize=7)
+    ax.set_ylim(0, 1.05)
+    outside_legend(ax)
 
     fig.tight_layout()
     _save(fig, "fig4a_n5pct_ecdf")
@@ -331,7 +307,8 @@ def fig4b():
     for mi, method in enumerate(methods):
         bars = ax.bar(
             x + (mi - 1.5) * width, probs.loc[method, ["le3", "le5"]].to_numpy(), width, color=METHOD_COLORS[method],
-            label=METHOD_LABELS[method],
+            label=METHOD_LABELS[method], edgecolor="white", linewidth=0.5,
+            hatch={"independent": "", "rgpe": "..", "global": "//", "similarity": "\\\\"}[method],
         )
         for b in bars:
             ax.text(b.get_x() + b.get_width() / 2, b.get_height() + 0.02, f"{b.get_height():.2f}", ha="center", va="bottom", fontsize=6.5)
@@ -339,7 +316,9 @@ def fig4b():
     ax.set_xticklabels([r"$P(N_{5\%}\leq 3)$", r"$P(N_{5\%}\leq 5)$"])
     ax.set_ylabel("Probability")
     ax.set_ylim(0, 1.12)
-    leg = ax.legend(loc="upper left", ncol=2, framealpha=1.0, handletextpad=0.4, borderpad=0.4, fontsize=6.5)
+    outside_legend(ax)
+    ax.set_yticks(np.linspace(0, 1, 6))
+    ax.grid(axis="x", visible=False)
 
     fig.tight_layout()
     _save(fig, "fig4b_n5pct_success_probability")
@@ -381,20 +360,23 @@ def fig5b():
     """Source: phase2_coverage_dev_c1cds02/processed/coverage_summary.parquet (Part 18).
     Error bars: 95% bootstrap CI of the mean, over the 20 development seeds (per-seed
     mean N_5% across its targets/replicates for that q_same/method cell)."""
-    coverage_df = pd.read_parquet(_ROOT / "results/phase2_coverage_dev_c1cds02/processed/coverage_summary.parquet")
+    coverage_path = _ROOT / "results/phase2_coverage_dev_c1cds02/processed/coverage_summary.parquet"
+    if not coverage_path.is_file():
+        raise FileNotFoundError(coverage_path)
+    coverage_df = pd.read_parquet(coverage_path)
     cov_budget = 12
     cov = coverage_df.copy()
     cov["N_5pct"] = cov["evals_to_5pct_of_oracle"].fillna(cov_budget)
 
     q_values = sorted(q for q in cov["q_same"].unique() if q >= 0)
 
-    fig, ax = plt.subplots(figsize=SINGLE_COL)
+    fig, ax = plt.subplots(figsize=SUPPLEMENT_WIDE)
     series = [
         ("global", METHOD_COLORS["global"], "-", "o", "Global warm start"),
-        ("similarity", METHOD_COLORS["similarity"], "-", "o", "Dynamics-weighted warm start"),
+        ("similarity", METHOD_COLORS["similarity"], "--", "D", "Dynamics-weighted warm start"),
         ("same_family_reference", "#999999", ":", "s", "Same-family-only reference"),
     ]
-    for method, color, ls, marker, label in series:
+    for offset, (method, color, ls, marker, label) in zip((-0.10, 0.0, 0.10), series):
         means, los, his = [], [], []
         for q in q_values:
             if method == "same_family_reference" and q == 0:
@@ -406,13 +388,15 @@ def fig5b():
         means, los, his = np.array(means), np.array(los), np.array(his)
         yerr = np.vstack([means - los, his - means])
         ax.errorbar(
-            q_values, means, yerr=yerr, color=color, linestyle=ls, marker=marker, markersize=4.5, linewidth=2.0,
+            np.asarray(q_values, dtype=float) + offset, means, yerr=yerr, color=color, linestyle=ls, marker=marker, markersize=4.5, linewidth=1.4,
             capsize=2.5, elinewidth=1.0, label=label,
         )
     ax.set_xticks(q_values)
     ax.set_xlabel(r"$q_{\mathrm{same}}$ (same-family sources in 9-source pool)")
     ax.set_ylabel(r"Mean $N_{5\%}$")
-    leg = ax.legend(loc="upper right", framealpha=1.0, fontsize=6.5, handletextpad=0.4, borderpad=0.4)
+    outside_legend(ax, ncol=1)
+    ax.margins(x=0.06)
+    # Display offsets separate CIs only. All aggregation uses the original q_same.
 
     fig.tight_layout()
     _save(fig, "fig5b_coverage_sensitivity")

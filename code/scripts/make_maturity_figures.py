@@ -30,40 +30,17 @@ REPO_ROOT = _ROOT.parent
 FIG_DIR = REPO_ROOT / "latex" / "figures"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-SINGLE_COL = (3.45, 2.55)
-MAIN_LW = 2.0
+from paper_figure_style import (
+    apply_style, save_figure, SINGLE_COL, SUPPLEMENT_WIDE, METHOD_COLORS,
+)
+apply_style()
+MAIN_LW = 1.6
 N_BOOT = 10_000
 BOOTSTRAP_SEED = 0
 
-plt.rcParams.update(
-    {
-        "font.family": "serif",
-        "mathtext.fontset": "stix",
-        "font.size": 8,
-        "axes.labelsize": 9,
-        "xtick.labelsize": 8,
-        "ytick.labelsize": 8,
-        "legend.fontsize": 8,
-        "axes.grid": True,
-        "grid.alpha": 0.25,
-        "grid.linewidth": 0.5,
-        "axes.spines.top": False,
-        "axes.spines.right": False,
-    }
-)
-
 
 def _save(fig, stem: str):
-    for ext in ("pdf", "png"):
-        path = FIG_DIR / f"{stem}.{ext}"
-        fig.savefig(
-            path,
-            bbox_inches="tight",
-            pad_inches=0.03,
-            transparent=False,
-            dpi=600 if ext == "png" else None,
-        )
-        print(f"wrote {path}")
+    save_figure(fig, FIG_DIR, stem)
 
 
 def _load(analysis_tag: str) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -134,7 +111,8 @@ def fig_maturity_absolute(summary: pd.DataFrame, n5: pd.DataFrame):
         marker="o",
         linewidth=MAIN_LW,
         capsize=3,
-        label="Fleet warm start",
+        label="Global warm start",
+        color=METHOD_COLORS["global"],
     )
     ax.axhline(
         independent,
@@ -184,7 +162,7 @@ def fig_maturity_absolute(summary: pd.DataFrame, n5: pd.DataFrame):
 
 
 def fig_maturity_savings(summary: pd.DataFrame):
-    fig, ax = plt.subplots(figsize=SINGLE_COL)
+    fig, ax = plt.subplots(figsize=SUPPLEMENT_WIDE)
     x = summary["maturity"].to_numpy(dtype=float)
 
     # Store paired deltas in the analysis as global - independent. Plot the sign-flipped
@@ -195,7 +173,8 @@ def fig_maturity_savings(summary: pd.DataFrame):
     yerr = np.vstack([savings - savings_lo, savings_hi - savings])
 
     ax.axhline(0.0, color="0.25", linestyle="--", linewidth=1.0)
-    ax.errorbar(x, savings, yerr=yerr, marker="o", linewidth=MAIN_LW, capsize=3)
+    ax.errorbar(x, savings, yerr=yerr, marker="o", linewidth=MAIN_LW, capsize=3,
+                color=METHOD_COLORS["global"], markersize=4, elinewidth=1.0)
     ax.set_xticks(x)
     ax.set_xlabel(r"Historical evaluations per source system $M_{\mathrm{hist}}$")
     ax.set_ylabel(r"Mean target evaluations saved")
@@ -210,7 +189,7 @@ def fig_maturity_early_success(summary: pd.DataFrame):
     fleet = summary["p_reach_5_global"].to_numpy(dtype=float)
     independent = float(summary["p_reach_5_independent"].iloc[0])
 
-    ax.plot(x, fleet, marker="o", linewidth=MAIN_LW, label="Fleet warm start")
+    ax.plot(x, fleet, marker="o", linewidth=MAIN_LW, label="Global warm start", color=METHOD_COLORS["global"])
     ax.axhline(
         independent,
         color="0.45",
