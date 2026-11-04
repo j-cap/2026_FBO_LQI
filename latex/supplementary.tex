@@ -7,6 +7,8 @@
 \usepackage{times}\usepackage{xcolor}\newcommand{\MGrev}[1]{\textcolor{blue}{#1}}\definecolor{MGpurple}{RGB}{125,35,155}\newcommand{\MGnew}[1]{\textcolor{MGpurple}{#1}}
 \usepackage{url}
 
+\definecolor{JWgreen}{RGB}{0,125,60}\newcommand{\JWrev}[1]{\textcolor{JWgreen}{#1}}
+
 \newcommand{\calD}{\mathcal{D}}
 \newcommand{\Nfive}{N_{5\%}}
 \newcommand{\distdyn}{d^{\mathrm{dyn}}}
@@ -20,7 +22,7 @@
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\theequation}{S\arabic{equation}}
 
-\title{Supplementary Material: Fleet-Informed Bayesian Optimization for Data-Efficient Controller Calibration}
+\title{Supplementary Material: \JWrev{Fleet-Informed Bayesian Optimization for Controller Calibration across Heterogeneous Systems}}
 \author{Jakob Weber \and Markus Gurtner \and Adrian Trachte \and Andreas Kugi}
 \date{}
 
@@ -70,7 +72,7 @@ EI candidate set & 256 Sobol points\\
 Output scaling & $J_i/J_i^{\rm base}$\\
 Source weighting floor & $0.02$\\
 \MGnew{Gaussian process (GP) kernel} & Constant $\times$ Mat\'ern-$5/2$\\
-GP length scale & $\boldsymbol{\ell}_0=0.3\mathbf{1}$, bounds $[0.05,3]^3$\\
+GP length scale & \JWrev{$\boldsymbol{\ell}_0=[0.3,\,0.3,\,0.3]^\top$}, bounds $[0.05,3]^3$\\
 GP base noise $\alpha_0$ & $10^{-4}$\\
 GP optimizer restarts & 2\\
 Infeasible penalty & $3.0$ in normalized units\\
@@ -85,7 +87,7 @@ At target evaluation $n$, expected improvement is maximized over the fixed 256-p
 \end{equation}
 
 \paragraph{RGPE transfer baseline.}
-\MGnew{The ranking-weighted Gaussian process ensemble (RGPE) was added after the original confirmatory analysis as a literature comparator. It reuses} the frozen 20 fleet realizations, mature source histories, target systems, local budget, candidate set, and dense-reference scoring protocol. It uses the same 25 historical evaluations per source and the same target evaluation budget, but fits one task-standardized GP per source system rather than pooling the observations. All RGPE task GPs use the same constant-times-Mat\'ern-$5/2$ kernel family, initial length scale, and length-scale bounds as the pooled surrogates in Table~\ref{tab:bo_implementation}. A target GP is refit after each local evaluation. At every BO round, 256 joint posterior samples are used to compute pairwise ranking loss \MGnew{on the observed target points. The target model is scored} by leave-one-out prediction using its fitted hyperparameters. A model's ensemble weight is the fraction of posterior samples for which it attains the minimum ranking loss. Following the RGPE dilution safeguard, a source is discarded when its median sampled loss exceeds the 95th percentile of target-model loss. The ensemble moments are
+\MGnew{The ranking-weighted Gaussian process ensemble (RGPE) was added after the original confirmatory analysis as a literature comparator. It reuses} the frozen 20 fleet realizations, mature source histories, target systems, local budget, candidate set, and \JWrev{evaluation protocol}. It uses the same 25 historical evaluations per source and the same target evaluation budget, but fits one task-standardized GP per source system rather than pooling the observations. All RGPE task GPs use the same constant-times-Mat\'ern-$5/2$ kernel family, initial length scale, and length-scale bounds as the pooled surrogates in Table~\ref{tab:bo_implementation}. A target GP is refit after each local evaluation. At every BO round, 256 joint posterior samples are used to compute pairwise ranking loss \MGnew{on the observed target points. The target model is scored} by leave-one-out prediction using its fitted hyperparameters. A model's ensemble weight is the fraction of posterior samples for which it attains the minimum ranking loss. Following the RGPE dilution safeguard, a source is discarded when its median sampled loss exceeds the 95th percentile of target-model loss. The ensemble moments are
 \begin{equation}
  \mu_{\rm RGPE}(\boldsymbol\xi)=\sum_q w_q\mu_q(\boldsymbol\xi),
  \qquad
@@ -156,7 +158,7 @@ $\mu$ [-] & 1.0 & 1.0 & 1.0\\
 \begin{equation}
  \boldsymbol{\Theta}_i=[\mathbf A_{d,i}\;\mathbf B_{d,i}]\in\mathbb R^{2\times3},
  \qquad
- \hat{\boldsymbol{\theta}}_i=\operatorname{vec}(\hat{\boldsymbol{\Theta}}_i)\in\mathbb R^6,
+ \textcolor{JWgreen}{\hat{\boldsymbol{\theta}}_i=\operatorname{vec}(\hat{\boldsymbol{\Theta}}_i^\top)\in\mathbb R^6},
 \end{equation}
 \MGnew{using matrix recursive least squares (RLS) with regressor} $[\mathbf x_k^\top,u_k]^\top$, nominal-model initialization, forgetting factor $\lambda=0.99$, and initial covariance $\mathbf P_0=\mathbf I_3$. \MGrev{The eight 6\,s identification episodes use fixed gains synthesized from the common nominal model at $\boldsymbol{\xi}^{\mathrm{base}}$, with the shared scales and $R=1$. These episodes precede BO and are excluded from its evaluation budget.} If $\mathbf D_i=\operatorname{diag}(\hat\sigma_{i,1}^2,\hat\sigma_{i,2}^2)$ contains the final row-wise innovation variances and $\mathbf P_i$ is the regressor covariance, the precision used for dynamics distance is
 \begin{equation}
@@ -165,13 +167,7 @@ $\mu$ [-] & 1.0 & 1.0 & 1.0\\
 
 \section{Calibration Task and Held-Out Protocol}
 
-Every candidate is evaluated on three stochastic episodes for each of two lane-change half-durations, $T_{\rm lc}\in\{1,2\}$\,s. Episode seeds are generated deterministically per client and maneuver, so all systems share the same maneuver distribution but not identical noise realizations. The 128-point calibration-landscape study was added post hoc after the dynamics-weighting null result as an exploratory mechanistic diagnostic. It uses the first five development-fleet realizations, selected by seed order rather than outcome, and the same six-episode calibration objective at every shared Sobol coordinate. Because only five fleets enter this analysis, fleet-level bootstrap intervals are treated as descriptive uncertainty summaries rather than confirmatory inference. For a trajectory with $T$ samples,
-\begin{equation}
- J_i(\boldsymbol{\xi},\omega)
- =\sqrt{\frac{1}{T}\sum_{k=1}^{T}
- \left(r_{i,k}(\boldsymbol{\xi},\omega)-r_k^{\rm ref}\right)^2}.
-\end{equation}
-The unfiltered reference is zero until $T_0=1$\,s, follows a positive sine lobe of duration $T_{\rm lc}$ and then a negative sine lobe of equal duration, with peak $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1\,Hz cutoff smooths the waveform. Each episode lasts 6\,s. Feasibility requires successful LQI synthesis, $|\beta|\le6^\circ$, and \MGnew{steering-angle increments no larger than $0.2618$\,rad per simulation step, equivalent to approximately $300^\circ$/s.} \MGnew{These limits are checked after each simulated rollout. They do not provide a pre-execution safety guarantee.}
+Every candidate is evaluated on three stochastic episodes for each of two lane-change half-durations, $T_{\rm lc}\in\{1,2\}$\,s. \JWrev{Simulations use no process noise. Measurements of sideslip and yaw rate contain independent zero-mean Gaussian noise with standard deviations $0.01$\,rad and $0.01$\,rad/s, respectively. Episode seeds are fixed per client and maneuver and reused across controller candidates and methods. Separate seeds are used for performance testing.} The 128-point calibration-landscape study was added post hoc after the dynamics-weighting null result as an exploratory mechanistic diagnostic. It uses the first five development-fleet realizations, selected by seed order rather than outcome, and the same six-episode calibration objective at every shared Sobol coordinate. Because only five fleets enter this analysis, fleet-level bootstrap intervals are treated as descriptive uncertainty summaries rather than confirmatory inference. \MGnew{The episode-averaged tracking cost is defined in Section 2.2 of the main paper.} The unfiltered reference is zero until $T_0=1$\,s, follows a positive sine lobe of duration $T_{\rm lc}$ and then a negative sine lobe of equal duration, with peak $r_{\max}=35^\circ/$s. A zero-phase first-order Butterworth filter with 1\,Hz cutoff smooths the waveform. Each episode lasts 6\,s. Feasibility requires successful LQI synthesis, $|\beta|\le6^\circ$, and \MGnew{steering-angle increments no larger than $0.2618$\,rad per simulation step, equivalent to approximately $300^\circ$/s.} \MGnew{These limits are checked after each simulated rollout. They do not provide a pre-execution safety guarantee.}
 
 Figure~\ref{fig:yaw_rate_references} shows the two filtered yaw-rate reference profiles used by the calibration task.
 
@@ -208,14 +204,14 @@ Primary metric & restricted mean $\Nfive$\\
 
 For the source-maturity sensitivity study, each source history is generated once from two Sobol initialization evaluations followed by sequential independent BO to 25 total evaluations. The nested prefixes are $M_{\rm hist}\in\{2,5,10,25\}$. The main mature-fleet comparison instead uses eight source initialization evaluations followed by 17 sequential BO evaluations, so the two 25-evaluation endpoints need not be numerically identical.
 
-\section{Offline-Reference Convergence Audit}
+\section{\JWrev{Reference-Controller Optimization and Convergence Check}}
 
-The offline reference is used only for reporting and never enters GP fitting, acquisition, objective normalization, or infeasibility handling. Its global-search stage uses 1024 Sobol points before eight bounded Powell refinements, and the resulting best candidate is scored on an independent reference-test bank with 20 stochastic episodes per maneuver. To check whether the 1024-point global search is sufficiently dense, we performed a nested Sobol convergence audit on one target from each vehicle family using prefixes of a common 4096-point design. The best 1024-point Sobol value differed from the corresponding 4096-point value by only 0.018\% on average. This supports numerical convergence of the search resolution used in the final reference computation, while not constituting a proof of global optimality.
+\JWrev{For each target system, a reference controller is computed separately for performance evaluation. Its cost is never used for GP fitting, acquisition, objective normalization, or infeasibility handling.} Its global-search stage uses 1024 Sobol points before eight bounded Powell refinements, and the resulting best candidate is scored on an independent reference-test bank with 20 stochastic episodes per maneuver. To check whether the 1024-point global search is sufficiently dense, we performed a nested Sobol convergence audit on one target from each vehicle family using prefixes of a common 4096-point design. The best 1024-point Sobol value differed from the corresponding 4096-point value by only 0.018\% on average. This supports numerical convergence of the search resolution used in the final reference computation, while not constituting a proof of global optimality.
 
 \section{Additional Result Diagnostics}
 
 \paragraph{RGPE adaptation.}
-Across the 120 held-out targets, the mean target-model weight is 0.703 at $n=3$, decreases to 0.076 at $n=5$, and rises to 0.124 by $n=12$. The mean number of source models retained by the 95th-percentile dilution guard decreases from 28.9 at $n=3$ to 20.5 at $n=12$. Ensemble-weight entropy rises from 1.54 at $n=3$ to approximately 3.06 at $n=5$ before declining to 2.50 at $n=12$. Thus RGPE is not equivalent to uniform averaging: it redistributes weight strongly and becomes more selective as target evidence accumulates. Its dense-reference restricted mean is $N_{5\%}=4.625$, compared with 6.717 for independent BO and 3.083 for both pooled warm starts. Because RGPE was selected after the original confirmatory analysis, its paired inferential quantities are exploratory: relative to global pooling, the mean difference is $+1.542$ evaluations with 95\% bootstrap interval $(0.92,2.28)$ and Wilcoxon $p=0.0009$. Figure~\ref{fig:threshold_views} complements these mean comparisons with cumulative attainment and fixed-budget success probabilities.
+Across the 120 held-out targets, the mean target-model weight is 0.703 at $n=3$, decreases to 0.076 at $n=5$, and rises to 0.124 by $n=12$. The mean number of source models retained by the 95th-percentile dilution guard decreases from 28.9 at $n=3$ to 20.5 at $n=12$. Ensemble-weight entropy rises from 1.54 at $n=3$ to approximately 3.06 at $n=5$ before declining to 2.50 at $n=12$. Thus RGPE is not equivalent to uniform averaging: it redistributes weight strongly and becomes more selective as target evidence accumulates. \JWrev{Its restricted mean} is $N_{5\%}=4.625$, compared with 6.717 for independent BO and 3.083 for both pooled warm starts. Because RGPE was selected after the original confirmatory analysis, its paired inferential quantities are exploratory: relative to global pooling, the mean difference is $+1.542$ evaluations with 95\% bootstrap interval $(0.92,2.28)$ and Wilcoxon $p=0.0009$. Figure~\ref{fig:threshold_views} complements these mean comparisons with cumulative attainment and fixed-budget success probabilities.
 
 \begin{figure}[h]
 \centering
