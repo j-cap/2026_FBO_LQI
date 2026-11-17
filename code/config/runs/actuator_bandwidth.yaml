@@ -1,0 +1,17 @@
+# Exploratory bandwidth diagnostic. No values were chosen using transfer outcomes.
+kind: actuator_bandwidth
+base_config: config/runs/fleet_maturity_sweep_c1cds02.yaml
+run_tag: actuator_bandwidth_v1
+source_tau: 0.2
+# Illustrative factor-of-two stress range, not a validated fleet distribution.
+target_taus: [0.1, 0.15, 0.2, 0.3, 0.4]
+source_budget: 25
+target_budget: 12
+n_candidates: 256
+landscape_sizes: [128, 256, 512]
+reference_starts: 4
+reference_maxfev: 200
+reference_tolerance: 0.01
+substeps: 5
+pilot_seed_count: 2
+pilot_target_slots: ['00']
