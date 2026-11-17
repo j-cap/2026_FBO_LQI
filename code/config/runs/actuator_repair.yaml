@@ -1,0 +1,19 @@
+previous_results: results/actuator_diagnostics_v2
+run_tag: actuator_repair_v3
+budgets: [25, 50, 75]
+optimizer_seeds: [101, 202, 303]
+# Same initial pair, fixed candidate pool and physical vehicles as v2.
+methods:
+  sobol: {kind: sobol}
+  bo_unique: {kind: bo, penalty: 10.0, margin: 0.01}
+  bo_zero_margin: {kind: bo, penalty: 10.0, margin: 0.0}
+  bo_lower_penalty: {kind: bo, penalty: 1.0, margin: 0.01}
+  bo_both: {kind: bo, penalty: 1.0, margin: 0.0}
+# Reuse v2 calibration episodes; all final selection uses new validation.
+reference_grid: 256
+reference_shortlist: 32
+validation_per_maneuver: 40
+validation_seed: 1500000
+test_per_maneuver: 40
+test_seed: 1600000
+progress_seconds: 30
