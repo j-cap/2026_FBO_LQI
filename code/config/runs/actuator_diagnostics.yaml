@@ -1,0 +1,23 @@
+base_config: config/runs/actuator_bandwidth.yaml
+run_tag: actuator_diagnostics_v2
+fleet_seeds: [355238, 987946]
+target_slots: ['00']
+optimizer_seeds: [101, 202, 303]
+budgets: [25, 50, 75]
+source_banks: [legacy, calibration]
+episodes_per_maneuver:
+  legacy: 3
+  calibration: 10
+  validation: 20
+  test: 40
+episode_seeds:
+  legacy: 5000
+  calibration: 1200000
+  validation: 1300000
+  test: 1400000
+reference_grid_sizes: [512, 1024]
+reference_starts: 6
+reference_maxfev: 300
+validation_shortlist: 16
+reference_tolerance: 0.01
+integration_tolerance: 0.001
