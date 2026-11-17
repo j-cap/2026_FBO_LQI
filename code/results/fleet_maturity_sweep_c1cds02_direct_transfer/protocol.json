@@ -1,0 +1,160 @@
+{
+  "config": {
+    "kind": "phase2_fbo_comparison",
+    "run_tag": "fleet_maturity_sweep_c1cds02",
+    "fleet_config": "config/fleet_fixed_speed.yaml",
+    "fleet_overrides": {
+      "clients_per_regime": 10,
+      "generation_version": "fixed_speed_v3_common_task"
+    },
+    "controller_config": "config/controller.yaml",
+    "controller_overrides": {
+      "plant_mode": "nonlinear_tanh",
+      "tire_mu": 1.0
+    },
+    "n_calibration_episodes": 3,
+    "n_test_episodes": 3,
+    "episode_base_seed": 5000,
+    "identification_seed_offset": 1000,
+    "n_identification_episodes": 8,
+    "n_candidates": 256,
+    "n_oracle_sobol": 32,
+    "maturity_levels": [
+      2,
+      5,
+      10,
+      25
+    ],
+    "source_n_init": 2,
+    "source_n_total": 25,
+    "target_slots": [
+      "00",
+      "01"
+    ],
+    "target_n_init": 2,
+    "target_n_iters": 10,
+    "seeds": [
+      355238,
+      987946,
+      299843,
+      469345,
+      232036,
+      298953,
+      756101,
+      589478,
+      467950,
+      362266,
+      112439,
+      294494,
+      607761,
+      217184,
+      629215,
+      321788,
+      531686,
+      554774,
+      731884,
+      304990
+    ],
+    "n_jobs": 4,
+    "offline_reference_tag": "offline_reference"
+  },
+  "fleet": {
+    "fleet_kind": "fixed_speed_families",
+    "clients_per_regime": 10,
+    "seed": 42,
+    "variability": 0.025,
+    "Ts": 0.05,
+    "lambda_f": 0.99,
+    "delta": 1.0,
+    "lane_change_time": [
+      1.0,
+      2.0
+    ],
+    "generation_version": "fixed_speed_v3_common_task"
+  },
+  "controller": {
+    "xi_lower": [
+      -3.0,
+      -3.0,
+      -3.0
+    ],
+    "xi_upper": [
+      3.0,
+      3.0,
+      3.0
+    ],
+    "fixed_R": 1.0,
+    "state_scale": [
+      0.053229,
+      0.575573,
+      0.139862
+    ],
+    "u_min": -0.34906585,
+    "u_max": 0.34906585,
+    "u_rate_max": 0.2618,
+    "beta_max_deg": 6.0,
+    "noise_std": 0.01,
+    "process_noise": [
+      0.0,
+      0.0
+    ],
+    "T_total": 6.0,
+    "T0": 1.0,
+    "r_max": 0.6108652381980153,
+    "tfilter": 0.1,
+    "hand_tuned_reference_xi": [
+      0.0,
+      0.30103,
+      0.30103
+    ],
+    "plant_mode": "nonlinear_tanh",
+    "tire_mu": 1.0
+  },
+  "files": {
+    "results\\fleet_maturity_sweep_c1cds02\\processed\\nested_source_histories.parquet": "b22fbac68563d274c1a16cb0f93cf345f4f4100282d0f2624fdcda6f1ccc8c4a",
+    "results\\fleet_maturity_sweep_c1cds02\\processed\\maturity_target_traces.parquet": "739a21f2597cccd97d97d4fd33af8d094464ae6515564af70d0559ab42e3824f",
+    "results\\offline_reference\\processed\\dense_reference.csv": "e5e6e6b8446a568deb8e9429ec9571ca6e77873f867ed74487a48b969da9e136",
+    "results\\offline_reference\\run_manifest.yaml": "d429f449e3035120054de0c17eef799e26d60cd7b9af0208707d21417e5ef7c3"
+  },
+  "code_hashes": {
+    "scripts\\direct_transfer_baselines.py": "1a55fbd34e7c24f61e5fc667caee2d3be6a283bb2c2fefa2ce77ef6a0d111210",
+    "scripts\\phase2_fbo_comparison.py": "7a1f1c188b85c1ceb75c757bee990680a39db4bfb2773003486360400273f564",
+    "src\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src\\caching.py": "be4cf53c338b7b33151230ce31e0cdac46ca094551f1c42c6147e8f30732b445",
+    "src\\candidate_eval.py": "2ed2e79e68271fd970afcd059cdb04e66a0d4c5fd447148307519a03289aafa1",
+    "src\\dynamics_distance.py": "cb87ae76d5c14776e632106d248d1ba285237f5f019dd2a6fe6fa24b4cc18fe2",
+    "src\\episodes.py": "db2ab94c5f031ab887625ee3777b5e3a9733b3f44fcff058a1d565fce01184c6",
+    "src\\federation\\__init__.py": "d480317c862dcaff0896187e929b0dac65cbbdb437d29b946abf702399032f9f",
+    "src\\fleet_families.py": "f7610ce5eeafa1dfdbce1920a095f74102fd3619b81b63ccb5c062b80735c0e8",
+    "src\\ifac\\__init__.py": "1647cc38ac8041ff0052c9bca2acce505613fd52f12b70473612e5370af22b54",
+    "src\\ifac\\client.py": "6bfbd64604c97c008948db815cecb4944a84d69c6c58b9929a30c298fe6401bb",
+    "src\\ifac\\clustering.py": "a748f5f556805317049d17a6e5a505f34c5704d9664daf0ef1c178edfdc8fb6d",
+    "src\\ifac\\rls.py": "399265debe0e14a60c1898d9d4f3c07d9ccfaa1676984ac5445b724514df0f57",
+    "src\\ifac\\run.py": "72ee8505e0fa5bbc4ffa4ea6bb889906c24c82f95f83ac63feffa5705f4e666e",
+    "src\\ifac\\server.py": "462da07102873373f7e678c9611557e1eb050b43b9d12a1d59bad98d859960b8",
+    "src\\ifac\\utils.py": "e969f4964251baa62ba4fb0f37490d8dd861e7aec8df6451e9c584aa73d39607",
+    "src\\ifac_bridge.py": "1ea785b840dc96dbab23012ae2a7089d08cffec7d3aeff36abf70e677b648bce",
+    "src\\interfaces\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src\\interfaces\\clusterer.py": "12ad44729a1c5fdab56d8d635a61125cbeea2d6779d231721b0b517adb386958",
+    "src\\interfaces\\identifier.py": "7d617b3b133932c5a85f13886b2314d13a2ea96bb905ea086bed7dd2c439f5db",
+    "src\\interfaces\\lqi_synthesizer.py": "2eba6e1db4ee8d678475b93a8c024979eec46b1eea9fd2abb2afc0abe714d775",
+    "src\\interfaces\\plant_client.py": "2b41766b907a05870c66767dc5d0489a338842fa2d1462bd28fb20b9cd7088be",
+    "src\\io_utils.py": "7cc51e1d6f27b97fe19967668b55f5adbb5abef84678dc04d6c3dad8d456a27d",
+    "src\\landscape_metrics.py": "d9f18c344d72259722f195079e10f1c149721e639614f89c62227cecde4e2b71",
+    "src\\nonlinear_plant.py": "cafd5d3d417549227cb007c9bc212f2b41686a498ce3a356452a0b0fa00489b6",
+    "src\\optimization\\__init__.py": "b181e3fa310cc955069b24c61b617d84014c0ca231b7ee015fc96592a8d48670",
+    "src\\optimization\\decision.py": "f2e047aef355802a864cc9027bf6c8b1f34ca97b10c26fade6b6ba15f04f762d",
+    "src\\optimization\\fleet_bo.py": "472e323f42110856e39d67779cb8f6fe5ebf43d03ae939a90f2c755bc247dec2",
+    "src\\optimization\\gate.py": "e96b0f71263d618ba91f76713c62c11afe3df34ecfaccebeba2e52106cafda9b",
+    "src\\optimization\\gp_surrogate.py": "1a4313b6b0bf3afe85df668c08a4b1f17f706c03eccd4a9f7dfbe82cf1b5821b",
+    "src\\optimization\\regret.py": "f3fb30be7b1f2bc6bb494c1462a50836b33c0b4f1e5d7260c35f72c7cbfb4032",
+    "src\\optimization\\rgpe.py": "6888bc38aa4a87e6e73fe1a5462a991cdcd71cd9bda4fba218effb205839d572",
+    "src\\oracle_analysis.py": "9c6e9d98440a556196c184af94c86f436f41dcd233ac63d11a394af72706adac",
+    "src\\recipient_screen.py": "eb49bda960968425a3326c5990678a384361bea8c19e29431993a86512cbac1c",
+    "src\\safety\\__init__.py": "f7e19890df248e61ae835796ba84057b4ec0f1bfdf6a2e6c3af451256b905dce",
+    "src\\similarity.py": "1731f8a4bf6f67f4fee8854755c80f19ea187448ba2b408d7d86e647b7c55476",
+    "src\\transfer_analysis.py": "d26b66477f0910aac008c6b1a5f982fa746e8eeee85ed478f205dc94e9315596"
+  },
+  "smoke": false,
+  "reference_test_seed": 900000
+}
