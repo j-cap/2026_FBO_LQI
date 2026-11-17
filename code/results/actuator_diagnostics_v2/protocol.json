@@ -1,0 +1,229 @@
+{
+  "config": {
+    "base_config": "config/runs/actuator_bandwidth.yaml",
+    "run_tag": "actuator_diagnostics_v2",
+    "fleet_seeds": [
+      355238,
+      987946
+    ],
+    "target_slots": [
+      "00"
+    ],
+    "optimizer_seeds": [
+      101,
+      202,
+      303
+    ],
+    "budgets": [
+      25,
+      50,
+      75
+    ],
+    "source_banks": [
+      "legacy",
+      "calibration"
+    ],
+    "episodes_per_maneuver": {
+      "legacy": 3,
+      "calibration": 10,
+      "validation": 20,
+      "test": 40
+    },
+    "episode_seeds": {
+      "legacy": 5000,
+      "calibration": 1200000,
+      "validation": 1300000,
+      "test": 1400000
+    },
+    "reference_grid_sizes": [
+      512,
+      1024
+    ],
+    "reference_starts": 6,
+    "reference_maxfev": 300,
+    "validation_shortlist": 16,
+    "reference_tolerance": 0.01,
+    "integration_tolerance": 0.001
+  },
+  "actuator": {
+    "kind": "actuator_bandwidth",
+    "base_config": "config/runs/fleet_maturity_sweep_c1cds02.yaml",
+    "run_tag": "actuator_bandwidth_v1",
+    "source_tau": 0.2,
+    "target_taus": [
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "source_budget": 25,
+    "target_budget": 12,
+    "n_candidates": 256,
+    "landscape_sizes": [
+      128,
+      256,
+      512
+    ],
+    "reference_starts": 4,
+    "reference_maxfev": 200,
+    "reference_tolerance": 0.01,
+    "substeps": 5,
+    "pilot_seed_count": 2,
+    "pilot_target_slots": [
+      "00"
+    ]
+  },
+  "base": {
+    "kind": "phase2_fbo_comparison",
+    "run_tag": "fleet_maturity_sweep_c1cds02",
+    "fleet_config": "config/fleet_fixed_speed.yaml",
+    "fleet_overrides": {
+      "clients_per_regime": 10,
+      "generation_version": "fixed_speed_v3_common_task"
+    },
+    "controller_config": "config/controller.yaml",
+    "controller_overrides": {
+      "plant_mode": "nonlinear_tanh",
+      "tire_mu": 1.0
+    },
+    "n_calibration_episodes": 3,
+    "n_test_episodes": 3,
+    "episode_base_seed": 5000,
+    "identification_seed_offset": 1000,
+    "n_identification_episodes": 8,
+    "n_candidates": 256,
+    "n_oracle_sobol": 32,
+    "maturity_levels": [
+      2,
+      5,
+      10,
+      25
+    ],
+    "source_n_init": 2,
+    "source_n_total": 25,
+    "target_slots": [
+      "00",
+      "01"
+    ],
+    "target_n_init": 2,
+    "target_n_iters": 10,
+    "seeds": [
+      355238,
+      987946,
+      299843,
+      469345,
+      232036,
+      298953,
+      756101,
+      589478,
+      467950,
+      362266,
+      112439,
+      294494,
+      607761,
+      217184,
+      629215,
+      321788,
+      531686,
+      554774,
+      731884,
+      304990
+    ],
+    "n_jobs": 4,
+    "offline_reference_tag": "offline_reference"
+  },
+  "fleet": {
+    "fleet_kind": "fixed_speed_families",
+    "clients_per_regime": 10,
+    "seed": 42,
+    "variability": 0.025,
+    "Ts": 0.05,
+    "lambda_f": 0.99,
+    "delta": 1.0,
+    "lane_change_time": [
+      1.0,
+      2.0
+    ],
+    "generation_version": "fixed_speed_v3_common_task"
+  },
+  "controller": {
+    "xi_lower": [
+      -3.0,
+      -3.0,
+      -3.0
+    ],
+    "xi_upper": [
+      3.0,
+      3.0,
+      3.0
+    ],
+    "fixed_R": 1.0,
+    "state_scale": [
+      0.053229,
+      0.575573,
+      0.139862
+    ],
+    "u_min": -0.34906585,
+    "u_max": 0.34906585,
+    "u_rate_max": 0.2618,
+    "beta_max_deg": 6.0,
+    "noise_std": 0.01,
+    "process_noise": [
+      0.0,
+      0.0
+    ],
+    "T_total": 6.0,
+    "T0": 1.0,
+    "r_max": 0.6108652381980153,
+    "tfilter": 0.1,
+    "hand_tuned_reference_xi": [
+      0.0,
+      0.30103,
+      0.30103
+    ],
+    "plant_mode": "nonlinear_tanh",
+    "tire_mu": 1.0
+  },
+  "code": {
+    "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/actuator_bandwidth.py": "4c6e64fceae6ac576837ca76b30bb3ca43b91aea6705cbeaf9dc289ec782cf94",
+    "src/caching.py": "7d9139ac7bfc37c517f41cf64bbee0e39ab8533aaa8ff331eb701d538b65a807",
+    "src/candidate_eval.py": "9896440b39f2951ce65d73a9f0b8f70c997c26f335a36cb5d9ab1291a3e7e298",
+    "src/dynamics_distance.py": "232123259521643c5e60e6bab6a1229eed58839d86b277cfeb3abb14d55a27a1",
+    "src/episodes.py": "d2e4ac6f5c566fbdf54ee0564715decdbe2426a9ecce6031e3bc2883795a2bee",
+    "src/federation/__init__.py": "37650be56834038164802ad9780ada5a7d6453880f4619d854371009fe633c86",
+    "src/fleet_families.py": "7a969011633690494a669024f67d2a064c74d3526f2ffb1e64401d7668b6676d",
+    "src/ifac/__init__.py": "62151115c7805c4bebda412712818262d4cdfebc9d8caa510958361cf01a4889",
+    "src/ifac/client.py": "fea465d601f6814fedde2179d5c82f051055900b6d8e1613b0b052a7c72b8c8b",
+    "src/ifac/clustering.py": "fe5001a766acceb185cf630aa6cacb0a334d9343823438cab36ca5785015808a",
+    "src/ifac/rls.py": "da4d8de0a3c488f3f977e7e235220e7c6ce34451561e506314e2760b6b5eb00b",
+    "src/ifac/run.py": "e600ee8e09d54246f0db3d8b3d636befd477fbc6ed4e812db77dfb4b6ac03b7a",
+    "src/ifac/server.py": "3df21b3f9e11f8e3c44432d17314c6799935b0f63448879526e006f85b5f8aa0",
+    "src/ifac/utils.py": "94c42439e02591b78d1f570a842718c67306f4d7b6e0658148d6e5f821b9186f",
+    "src/ifac_bridge.py": "f6ed1a7cd5b6a05df25dde420723301421fff87fa3474d98e9e72a4e4ae2e632",
+    "src/interfaces/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/interfaces/clusterer.py": "3c597b119a093d4bf3f19b542cba416f087345a9d5598de78b701f1fbfc78d7a",
+    "src/interfaces/identifier.py": "c968c0ba9da088dc39e3b9ab6bd21b4d4c15404b548dd0525f412c125ede257d",
+    "src/interfaces/lqi_synthesizer.py": "2ac9280b0913c255949f8456c70597f0acc079f6e68a9c9f439e09457794d033",
+    "src/interfaces/plant_client.py": "91ec2ab310a12d6325c0589e35ce262a619f1a9ccb5a79b410b5ad3d14ba11d6",
+    "src/io_utils.py": "5011df3cb1411a07096d5ba34a9018c009bfbf282930676922890c069582c695",
+    "src/landscape_metrics.py": "7ff72c741eebc99fa09753efb179e73da51482090bdc2b267bc02a7069a705d5",
+    "src/nonlinear_plant.py": "0d1c123bd0033c3ad3cebc36115a439d0a1fdca15e408be340863bacff440a5b",
+    "src/optimization/__init__.py": "047821e35ca6df0eb3eac3ea6912ad9f2624871482295c95680795130d84ddf3",
+    "src/optimization/decision.py": "227afcb9e0213e393b2456e1d792c79b8549bdf97456330a45e10b20f06dd276",
+    "src/optimization/fleet_bo.py": "d4175e670fcd1ab45e13afdf1564012b1f2c2954045354f35272d143ec4c0e3b",
+    "src/optimization/gate.py": "7f132ccfda1aa7463fa186ad7ecf32a4b97f57a205abca2c16fa8a997c9cfdba",
+    "src/optimization/gp_surrogate.py": "1f5bc0a227728bf364c879267408177a4805a3e23c0e6c67e3ab7c56bbc1c297",
+    "src/optimization/regret.py": "7cf219339bb48fc463e56f7b1ab024c5ea60b36afe95e709a1e7d422e5b105d8",
+    "src/optimization/rgpe.py": "b6f8a54e80ae4e11188b2a52f835533bf19f505518f6edb6ad69fbaa7feceed3",
+    "src/oracle_analysis.py": "c20fc437a9201d12dcd5e4d826cb9e3b7b624fa09058d45082183c629d30dca4",
+    "src/recipient_screen.py": "05e07b442c7b6f801e566b03df189ac8f53d3c0d3135c73542af61ba7184f42a",
+    "src/safety/__init__.py": "47ca25f9f8bb5f4cbe0f9d93290dfce3ff827e49fbffd97b6a5995a6d059e53d",
+    "src/similarity.py": "18610b122d0c8643f74a9f1b3b1ec166aebb3d4c107c96f1863cf4110e461d93",
+    "src/transfer_analysis.py": "79c5318a761ff4e5003efd96c45024904803d3a38030759df0781c42cd306921",
+    "scripts/actuator_diagnostics.py": "057ed20512d9738adb5846ddab396a01f10451072d7c041e07758ed765701411",
+    "scripts/actuator_bandwidth_experiment.py": "f7bd6199a71a93ced1d4407bd59155ef3b8680aa3fbae655686eb190a9953c54",
+    "scripts/phase2_fbo_comparison.py": "3e3a43b71326a6e3c5cbe2f21dadfe84140867f77fac1ffc0cf82b076f309e85"
+  }
+}
