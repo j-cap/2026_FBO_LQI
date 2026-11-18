@@ -1,0 +1,16 @@
+previous_results: results/actuator_diagnostics_v2
+repair_results: results/actuator_repair_v3
+run_tag: actuator_corrected_v5
+budgets: [25, 50, 75]
+optimizer_seeds: [101, 202, 303]
+methods:
+  sobol: {kind: sobol}
+  bo_lower_penalty: {kind: bo, penalty: 1.0, margin: 0.01}
+reference_grid: 256
+reference_shortlist: 32
+# Calibration retains the original 20 episodes; selection/evaluation use new banks.
+validation_per_maneuver: 40
+validation_seed: 1700000
+test_per_maneuver: 40
+test_seed: 1800000
+progress_seconds: 30
