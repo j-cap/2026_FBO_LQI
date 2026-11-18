@@ -1,0 +1,154 @@
+{
+  "config": {
+    "previous_results": "results/actuator_diagnostics_v2",
+    "run_tag": "actuator_repair_v3",
+    "budgets": [
+      25,
+      50,
+      75
+    ],
+    "optimizer_seeds": [
+      101,
+      202,
+      303
+    ],
+    "methods": {
+      "sobol": {
+        "kind": "sobol"
+      },
+      "bo_unique": {
+        "kind": "bo",
+        "penalty": 10.0,
+        "margin": 0.01
+      },
+      "bo_zero_margin": {
+        "kind": "bo",
+        "penalty": 10.0,
+        "margin": 0.0
+      },
+      "bo_lower_penalty": {
+        "kind": "bo",
+        "penalty": 1.0,
+        "margin": 0.01
+      },
+      "bo_both": {
+        "kind": "bo",
+        "penalty": 1.0,
+        "margin": 0.0
+      }
+    },
+    "reference_grid": 256,
+    "reference_shortlist": 32,
+    "validation_per_maneuver": 40,
+    "validation_seed": 1500000,
+    "test_per_maneuver": 40,
+    "test_seed": 1600000,
+    "progress_seconds": 30
+  },
+  "targets": [
+    [
+      355238,
+      "nominal_00"
+    ],
+    [
+      355238,
+      "payload_00"
+    ],
+    [
+      355238,
+      "tire_degraded_00"
+    ],
+    [
+      987946,
+      "nominal_00"
+    ],
+    [
+      987946,
+      "payload_00"
+    ],
+    [
+      987946,
+      "tire_degraded_00"
+    ]
+  ],
+  "smoke": false,
+  "prior_files": {
+    "results/actuator_diagnostics_v2/protocol.json": "79f60fc47282f020dbd439c87bc4e62954a02414da9b4043a5018477756fa042",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/nominal_00_calibration_101.json": "ba7997d0556ff531886360fd46fc64128f653fb7eae47a2f08dee732092e5e8d",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/nominal_00_calibration_202.json": "6c4e3d97f83da95f93cab507297ba33cf3441f43f24ecd240f0dbe04259e6ec1",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/nominal_00_calibration_303.json": "af6c58f72c2519f5b5eaa705173b37795864b911e3e4d8ab11637b57f244eec9",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/nominal_00_legacy_101.json": "bd244b9285ec9364b8a4a3bb6503dc326294739ec1aea3185ff2342d5093238a",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/nominal_00_legacy_202.json": "233c3fcd694ec7e0cc763bab17def84c9b998682d06de752d0e840ed71c6f1be",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/nominal_00_legacy_303.json": "7eb0bc799acdcb1a566165aa6ada9c1b157cec331a3cc2c62ff723f902f7a0ae",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/payload_00_calibration_101.json": "b4d9b47592e004624465641291b8a876fcd8ea5504a721dc417a0b87b0802b04",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/payload_00_calibration_202.json": "a81bf744e9c209bbf5525fd23022c9267877eeeea0be951f1839058e9fc25e10",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/payload_00_calibration_303.json": "e3ebf2aee62d9e0cf16f559df0cda28536ca3ceb46792ac0427ece8dab7a08f1",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/payload_00_legacy_101.json": "fe4fe4d99586b90e827480adcf1de2b626ea6fc51dbbcc390998626338336cf7",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/payload_00_legacy_202.json": "e5b48e7ae88a2ed632c4108ff8bb22c264c4cb07bb315deae74f6c0bb634e772",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/payload_00_legacy_303.json": "0a3a41399b17f4658ebbfe8047183b3cd281c175d632365a79e82e8c228af24e",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/tire_degraded_00_calibration_101.json": "9727e9f0055d55fe71e2b211f74548595c3014d57a4e651494912032f39410b0",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/tire_degraded_00_calibration_202.json": "33cdfc86a2a2e96585b398d92db97f29276b198f19dae19cb1309257c0acd36d",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/tire_degraded_00_calibration_303.json": "0495e0b14d37930c312050364ae4a645a56ae50325b9fbe0bf5b26c06a607df9",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/tire_degraded_00_legacy_101.json": "4443b833b837a999575deeedea489e8798c414d4647192ee4b7b711ad5db2fed",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/tire_degraded_00_legacy_202.json": "8e62a9a4f5367dfc3fe2ef8f45f3237168d2e33ffbcadbb4ad7e0dfe0907d3b7",
+    "results/actuator_diagnostics_v2/seeds/355238/sources/tire_degraded_00_legacy_303.json": "8e57fe68e0d74cd37831205f1b75667f5cea928572ca1e67207984aedd66aa7b",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/nominal_00_calibration_101.json": "81fd470adff095639ac83dbb57247f05ad4f5452df22d8f5779e2c7f6b6ae96c",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/nominal_00_calibration_202.json": "7775bfff3e1119a52a7a949f2f355062b7682182f9c8b4c4f74de8cd0cfb7cac",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/nominal_00_calibration_303.json": "faff56b75851bc22d144504a85d780e716d0266509e1cd9dd883d8d7f85a42e5",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/nominal_00_legacy_101.json": "fc9e71ea19b57230f42af912d9042da74e079ffe94129939bd0e7a3a8e029f23",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/nominal_00_legacy_202.json": "21656617c0801f4c9fead5d4cc341a7e9b3744965d6eaba9eef0ae9a2282a95c",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/nominal_00_legacy_303.json": "ffe8be287a39feb7807acde68d0bcbbf2a2a2d1d3479838e4166f0b87ef10919",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/payload_00_calibration_101.json": "fb24d4e21fcd895f09805cbe0ac371bb6f7041e4305e7e79d78a0cec2a2f5653",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/payload_00_calibration_202.json": "b436610fc865caa38b07138385ddcb161b410dec2bd0748b76289a6292a8d307",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/payload_00_calibration_303.json": "aa3fc04c576d0450c5069c7e4bf386c3aae8984f45cb27447569ce08fdea0bf9",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/payload_00_legacy_101.json": "e212ff2d5848d505ee74303076e8b963e40eaa3b2d5902052efdacf54e58a566",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/payload_00_legacy_202.json": "49964c4d49b8b3b5cde9b311b580d7966d30264ecf8b9ffdd4c5abf08c7842e0",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/payload_00_legacy_303.json": "542e99b611ebe5fa40b8784d989d59a18b10f07d139a7af9137dee97a284a54c",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/tire_degraded_00_calibration_101.json": "6ac532a50f60bb5352f02bd38896a29ceaa8cb4b8a377cc7a9afde185670a097",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/tire_degraded_00_calibration_202.json": "848c35f3442c07cda0db0074374f266a468d77d5bfe115e804ba1bd80240dbd1",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/tire_degraded_00_calibration_303.json": "f1a6220965fbf11ed2df6ac9b1d6ddc364bae60e84aaf4973caf1be126b5b9bb",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/tire_degraded_00_legacy_101.json": "17a1eaaaeb789849d6507dc109bdf9a41fba8ecb0d20e10afde33392dc317b5e",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/tire_degraded_00_legacy_202.json": "07ead44c2657cc26fb086a9e3f4b7fd4468963b27edccf1f4b3ad345b93797aa",
+    "results/actuator_diagnostics_v2/seeds/987946/sources/tire_degraded_00_legacy_303.json": "9f6219e1cc52dcf4c4fe7e13bf50e7e86ea90e2c7a347f889aca83117eb7ca4a",
+    "results/actuator_diagnostics_v2/seeds/355238/references/nominal_00_0.1.json": "af5c17b4ed53db98938702d92929da72c1c80196eac1d5c89d9afc22ebccba8d",
+    "results/actuator_diagnostics_v2/seeds/355238/references/nominal_00_0.15.json": "7de278ebc2fc95471e61e722f8fd57b6e9a09630bbdf5e9c73bacdfe19bb536a",
+    "results/actuator_diagnostics_v2/seeds/355238/references/nominal_00_0.2.json": "1e2e1517a614f271dff65b093b2f51dec973a1ee86cf765a58766d8b88e3d3f0",
+    "results/actuator_diagnostics_v2/seeds/355238/references/nominal_00_0.3.json": "f0d2b6febaf964aee4640626b2252f79e37f56d4c2b0e7db08e45d402696e6ca",
+    "results/actuator_diagnostics_v2/seeds/355238/references/nominal_00_0.4.json": "838b1e467b12f939125e9f624b9bbbc9ca2de0a54e0957f5b985cd5c1b79875e",
+    "results/actuator_diagnostics_v2/seeds/355238/references/payload_00_0.1.json": "68adaf5f9c8c1603fe5e0be30a3a83444f3d3828cb122abd6fee26c682540bda",
+    "results/actuator_diagnostics_v2/seeds/355238/references/payload_00_0.15.json": "1c042ea541e7cbd67dd4048685367f06970a0df20d06d0bdfa5853f583431a43",
+    "results/actuator_diagnostics_v2/seeds/355238/references/payload_00_0.2.json": "9a2ffed1e4147f221e5fb96978f5546023d321effd23e1edd7c015ab662138da",
+    "results/actuator_diagnostics_v2/seeds/355238/references/payload_00_0.3.json": "fd89ef06023b1166894bfca9eb845679a09e3d963c1b0c443703e4f0bf191d4a",
+    "results/actuator_diagnostics_v2/seeds/355238/references/payload_00_0.4.json": "6c5ce667d1ae17a5c464bddfa62587e7433480f2963b16e8041a2dedd20ffcd7",
+    "results/actuator_diagnostics_v2/seeds/355238/references/tire_degraded_00_0.1.json": "8dcfa71f252f932175bc4cba851617e8c8e653a7bdd38bf42c9684f340331751",
+    "results/actuator_diagnostics_v2/seeds/355238/references/tire_degraded_00_0.15.json": "cc23cfea972ce17618c54a3a18e6bf4a01b69a08796a040f4d2da6db63fce3e5",
+    "results/actuator_diagnostics_v2/seeds/355238/references/tire_degraded_00_0.2.json": "c7c388c08a83121a1189746bbacff1ca55115ab5014ec9f9f9d1d2a737b73a4f",
+    "results/actuator_diagnostics_v2/seeds/355238/references/tire_degraded_00_0.3.json": "f29eda740d8129e3154b5b6310e4b7958ffdf3bc9d1cf5154d296b067c6a4bda",
+    "results/actuator_diagnostics_v2/seeds/355238/references/tire_degraded_00_0.4.json": "ec930de36434571e91550766162b152158593e42c7a75844e2169bb6958fb3aa",
+    "results/actuator_diagnostics_v2/seeds/987946/references/nominal_00_0.1.json": "d40868663591ebe174b05a75f1dbb4380abb6cd544cb5033a8a9f29e58cfc55b",
+    "results/actuator_diagnostics_v2/seeds/987946/references/nominal_00_0.15.json": "5baed3c510d41266ef09db34b20dd332d890c1e7de6e0d020648ab2e19369a6a",
+    "results/actuator_diagnostics_v2/seeds/987946/references/nominal_00_0.2.json": "dd2b0ca2f673ded52b628560c37a89713d29ad7abb7a61efcddb115fe3bf6e62",
+    "results/actuator_diagnostics_v2/seeds/987946/references/nominal_00_0.3.json": "72850185e6a57733a3ba20adf125d6fec9372fb152ab19d4b3a7a95b2debc56e",
+    "results/actuator_diagnostics_v2/seeds/987946/references/nominal_00_0.4.json": "23c3e7c7f00f629eb8a40c1c1108165d856a92f7fc5ad1af2ed2cfed6f28dbbb",
+    "results/actuator_diagnostics_v2/seeds/987946/references/payload_00_0.1.json": "64235794782d3e2303c025d4ed67f6a248db69d2c3309cc0133ff06e428ee71c",
+    "results/actuator_diagnostics_v2/seeds/987946/references/payload_00_0.15.json": "09ea020a22462bcd218e79b299004e45a295e1a7667a7c47fc79bdd2a36cfc81",
+    "results/actuator_diagnostics_v2/seeds/987946/references/payload_00_0.2.json": "78c433bbdc71c872fca7fc6738dd0b6d16e06d8fa83e89cb8f7949b7369e2ed0",
+    "results/actuator_diagnostics_v2/seeds/987946/references/payload_00_0.3.json": "e6f424c909c2d51640b0256174a2d48cd0e16dd3f0e9331d8ea7be325ea52b9f",
+    "results/actuator_diagnostics_v2/seeds/987946/references/payload_00_0.4.json": "cf6bed7a41081be557bdf89ab9d7416669cac92c6358f2b068a3bf3ffbd7164e",
+    "results/actuator_diagnostics_v2/seeds/987946/references/tire_degraded_00_0.1.json": "e340b1ce6026f0627b129bee674ce5d93a57219df904c8b36ab1a7f980900014",
+    "results/actuator_diagnostics_v2/seeds/987946/references/tire_degraded_00_0.15.json": "2b59c46af680e3d2ae1999c9cb618015bbc5dd4eb276941b162b0d75b6070ff6",
+    "results/actuator_diagnostics_v2/seeds/987946/references/tire_degraded_00_0.2.json": "dba793943d77ae35ed032b2e07f72041c268670c9ea7071edd7715f3d4061d47",
+    "results/actuator_diagnostics_v2/seeds/987946/references/tire_degraded_00_0.3.json": "2a317c74e91e35a2b38c9946d4ef1fa4d3af3818e07d9bf6a8e29b933925f766",
+    "results/actuator_diagnostics_v2/seeds/987946/references/tire_degraded_00_0.4.json": "cb9dc0169bfdaf01ea7649a4be694dd2e2b7697ea3d2fa771c31ab97aac94ce0",
+    "results/actuator_diagnostics_v2/seeds/355238/tests/nominal_00.json": "eb6f20baca90f5c649fa6c1ebc3bd0718decc6d3dea44a3e8863d10fa34d94e7",
+    "results/actuator_diagnostics_v2/seeds/355238/tests/payload_00.json": "7573f06c01e30e45db19de5b0f0ffa505f9c9c2afef0e891dbbab6599066880a",
+    "results/actuator_diagnostics_v2/seeds/355238/tests/tire_degraded_00.json": "d1270da3e9b135c5e884012976f430a6444945dabf494a21e1a7bcf3a6c0da92",
+    "results/actuator_diagnostics_v2/seeds/987946/tests/nominal_00.json": "e817db10bb094e30e2edfa9189baec75abad3c1619bbb42a5c729767f5497a8c",
+    "results/actuator_diagnostics_v2/seeds/987946/tests/payload_00.json": "2f99ff41a07be6d1ba19a5e2ca91de4ff70875e34835e9905f936022f29701f4",
+    "results/actuator_diagnostics_v2/seeds/987946/tests/tire_degraded_00.json": "54dc433432608eb10eddb279c7db1287d4bafd46b11360e57b35bd25ac3a819e"
+  },
+  "code": {
+    "scripts/actuator_repair.py": "56c1e77926c228f8715dff2068ac754ba0e27a386b4b24ad06693eeb387d60e6",
+    "scripts/actuator_diagnostics.py": "057ed20512d9738adb5846ddab396a01f10451072d7c041e07758ed765701411"
+  }
+}

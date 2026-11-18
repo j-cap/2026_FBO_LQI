@@ -1,0 +1,88 @@
+{
+  "kind": "optimizer",
+  "method": "bo_zero_margin",
+  "optimizer_seed": 303,
+  "rows": [
+    {
+      "budget": 25,
+      "xi": [
+        -2.322902759537101,
+        -2.61725408770144,
+        -1.3436858877539635
+      ],
+      "test": {
+        "cost": 0.0252652925810831,
+        "feasible": true,
+        "reason": "",
+        "max_beta": 0.05091386962716582,
+        "max_delta": 0.17842017516009318,
+        "max_rate": 0.705981088632099,
+        "saturation_fraction": 0.0,
+        "spectral_radius": 0.678107586202448
+      },
+      "integration": {
+        "feasibility_agrees": true,
+        "relative_cost_error": 1.4703310462022682e-07,
+        "cost_check_pass": true,
+        "status": "pass"
+      },
+      "calibration_best": 0.025219055209207274,
+      "unique_evaluations": 25,
+      "infeasible_evaluations": 1
+    },
+    {
+      "budget": 50,
+      "xi": [
+        -0.5750568173825741,
+        -2.7156755793839693,
+        -0.571059538051486
+      ],
+      "test": {
+        "cost": 0.018371763487768766,
+        "feasible": true,
+        "reason": "",
+        "max_beta": 0.04870612514250082,
+        "max_delta": 0.1826962375526958,
+        "max_rate": 0.7620435334268758,
+        "saturation_fraction": 0.0,
+        "spectral_radius": 0.6489515864595569
+      },
+      "integration": {
+        "feasibility_agrees": true,
+        "relative_cost_error": 1.0599641203297628e-07,
+        "cost_check_pass": true,
+        "status": "pass"
+      },
+      "calibration_best": 0.018315846219373887,
+      "unique_evaluations": 50,
+      "infeasible_evaluations": 1
+    },
+    {
+      "budget": 75,
+      "xi": [
+        -2.4222993571311235,
+        -2.0681110974401236,
+        0.19233840890228748
+      ],
+      "test": {
+        "cost": 0.015222706329841401,
+        "feasible": true,
+        "reason": "",
+        "max_beta": 0.04700668250831717,
+        "max_delta": 0.18969025808191106,
+        "max_rate": 1.1350798120194,
+        "saturation_fraction": 0.0,
+        "spectral_radius": 0.651707614253192
+      },
+      "integration": {
+        "feasibility_agrees": true,
+        "relative_cost_error": 8.047042609939347e-08,
+        "cost_check_pass": true,
+        "status": "pass"
+      },
+      "calibration_best": 0.015227501078827338,
+      "unique_evaluations": 75,
+      "infeasible_evaluations": 1
+    }
+  ]
+}
