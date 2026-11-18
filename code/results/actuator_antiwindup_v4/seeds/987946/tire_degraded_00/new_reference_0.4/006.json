@@ -1,0 +1,101 @@
+{
+  "seed": 987946,
+  "client": "tire_degraded_00",
+  "label": "new_reference_0.4",
+  "role": "test_new",
+  "tau": 0.4,
+  "xi": [
+    -0.8190565723925829,
+    0.3019597716629505,
+    0.7319721411913633
+  ],
+  "index": 6,
+  "noise_seed": 712100016,
+  "maneuver": 1.0,
+  "scores": {
+    "legacy": {
+      "coarse": {
+        "cost": 0.016107058966707322,
+        "feasible": true,
+        "reason": "",
+        "max_beta": 0.032048805893110745,
+        "max_delta": 0.1590900275754899,
+        "max_rate": 0.804877195531091,
+        "saturation_fraction": 0.01680672268907563,
+        "spectral_radius": 0.6516010829634304
+      },
+      "fine": {
+        "cost": 0.016107059293543897,
+        "feasible": true,
+        "reason": "",
+        "max_beta": 0.032050866052697156,
+        "max_delta": 0.159090038086692,
+        "max_rate": 0.8048772510780161,
+        "saturation_fraction": 0.01680672268907563,
+        "spectral_radius": 0.6516010829634304
+      },
+      "integration": {
+        "feasibility_agrees": true,
+        "relative_cost_error": 2.0291511268987155e-08,
+        "cost_check_pass": true,
+        "status": "pass"
+      }
+    },
+    "sign_only": {
+      "coarse": {
+        "cost": 0.01610046972007197,
+        "feasible": true,
+        "reason": "",
+        "max_beta": 0.032048464539879126,
+        "max_delta": 0.15899435797722913,
+        "max_rate": 0.8048219574240828,
+        "saturation_fraction": 0.01680672268907563,
+        "spectral_radius": 0.6516010829634304
+      },
+      "fine": {
+        "cost": 0.016100470044794743,
+        "feasible": true,
+        "reason": "",
+        "max_beta": 0.03205053336679511,
+        "max_delta": 0.15899436746295537,
+        "max_rate": 0.8048220184874658,
+        "saturation_fraction": 0.01680672268907563,
+        "spectral_radius": 0.6516010829634304
+      },
+      "integration": {
+        "feasibility_agrees": true,
+        "relative_cost_error": 2.0168527507141414e-08,
+        "cost_check_pass": true,
+        "status": "pass"
+      }
+    },
+    "tracking": {
+      "coarse": {
+        "cost": 0.016102918546426533,
+        "feasible": true,
+        "reason": "",
+        "max_beta": 0.03204859316539691,
+        "max_delta": 0.1590302622951942,
+        "max_rate": 0.804842778970559,
+        "saturation_fraction": 0.01680672268907563,
+        "spectral_radius": 0.6516010829634304
+      },
+      "fine": {
+        "cost": 0.01610291887104296,
+        "feasible": true,
+        "reason": "",
+        "max_beta": 0.03205065872613447,
+        "max_delta": 0.1590302721633747,
+        "max_rate": 0.8048428379499192,
+        "saturation_fraction": 0.01680672268907563,
+        "spectral_radius": 0.6516010829634304
+      },
+      "integration": {
+        "feasibility_agrees": true,
+        "relative_cost_error": 2.0158856297296424e-08,
+        "cost_check_pass": true,
+        "status": "pass"
+      }
+    }
+  }
+}
