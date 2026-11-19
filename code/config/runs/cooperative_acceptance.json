@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "status": "provisional_exploratory_benchmark",
+  "selected_on": "2026-11-19",
+  "selection_origin": "User choice after Stage A development sensitivity analysis",
+  "metric": "expectation_of_episode_measured_yaw_rate_rmse",
+  "threshold_deg_per_s": 0.92,
+  "threshold_rad_per_s": 0.016057029118347832,
+  "aggregation": "separate_for_every_vehicle_bandwidth_and_maneuver",
+  "maneuver_lane_change_times_s": [
+    1,
+    2
+  ],
+  "physical_constraints": "retain_existing_controller_configuration",
+  "numerical_checks": "retain_coarse_fine_integration_checks",
+  "true_state_error": "secondary_diagnostic_only",
+  "external_engineering_requirement": false,
+  "fresh_validation": {
+    "controllers": "frozen_common_and_frozen_target_references",
+    "vehicles": 6,
+    "bandwidths_s": [
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "new_noise_required": true,
+    "retuning": false,
+    "status": "sample_size_and_statistical_rule_to_be_specified_before_execution"
+  },
+  "existing_sample_mean_pass_is_certificate": false
+}

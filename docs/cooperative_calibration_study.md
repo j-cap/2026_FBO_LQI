@@ -1,6 +1,6 @@
 # Cooperative controller calibration: feasibility-study protocol
 
-Version: 0.1, 19 November 2026.
+Version: 0.2, 19 November 2026.
 Status: study design; not a frozen confirmation protocol or executable experiment.
 Base: analysis/transfer-explanation at 84fad6e49b53e01a31245243ca3e4c8c5132442f.
 Preserve all previous experiments and their limitations.
@@ -52,27 +52,43 @@ Finite test-horizon feasibility is not a stability guarantee.
 Do not import the retrospective common weights, dense references, or historical
 optimized samples into the from-scratch algorithms. They are diagnostic comparators.
 
-## Requirement specification: unresolved input, explicit boundary
+## Provisional exploratory requirement: selected 19 November 2026
 
-Physical constraints and the current task are already available in the repository.
-An externally justified absolute yaw-rate RMSE threshold is not established.
+The user selected 0.92 deg/s for the next exploratory study after reviewing Stage A.
+This is a benchmark assumption selected using development evidence, not an external
+engineering specification or a preregistered threshold for the existing data.
 
-Before an engineering acceptance comparison, record for each maneuver:
-- allowed RMSE in rad/s (display also in deg/s);
-- evaluation horizon and scenario;
-- whether the requirement concerns a mean or a failure probability;
-- permitted violations and the evidence needed to accept a candidate;
-- requirement origin: partner specification, controller acceptance practice,
-  or a clearly labelled illustrative benchmark assumption.
+For every vehicle, bandwidth and maneuver separately, require:
 
-Do not convert the previous 5% gap to a reference optimizer into a deployment
-requirement. Relative-reference gaps remain secondary descriptive diagnostics.
-Do not add comfort or effort objectives unless their practical requirement and
-measurement are specified.
+    E_noise[episode measured yaw-rate RMSE] <= 0.92 deg/s
+                                           = 0.016057029118347832 rad/s.
 
-Stage A can proceed without this input by reporting full absolute-threshold curves.
-Such curves describe opportunity; they do not establish practical usefulness.
-Any threshold chosen after viewing them is exploratory and needs fresh confirmation.
+The expectation is over repeated episodes under the fixed noise/task convention.
+This is mean episode RMSE, not the square root of mean pooled squared error.
+Do not average maneuvers, vehicles or bandwidths to obtain acceptance.
+Continue to enforce existing physical constraints and numerical validity checks.
+Observed constraint satisfaction is not a probabilistic safety guarantee.
+
+Machine-readable specification: code/config/runs/cooperative_acceptance.json.
+The same threshold applies to both current maneuvers. True-state error remains a
+secondary diagnostic; it does not replace measured error for this benchmark.
+
+The selected threshold is provisional for exploration and must remain unchanged
+within the next validation/comparison. Any later revision creates a new protocol
+version and is reported transparently. Existing threshold sensitivity results remain
+retrospective. No claim of industrial relevance follows from choosing this value.
+
+Immediate next step: validate the FROZEN common-weight and reference controllers
+on fresh noise episodes across all six vehicles, five bandwidths and two maneuvers.
+No retuning or new optimization in that validation. The retrospective common
+weights are a feasibility probe, not free prior information for from-scratch methods.
+
+A sample mean below 0.92 deg/s is descriptive acceptance only. Before running fresh
+validation, fix its sample size and uncertainty rule (including simultaneous scope),
+or a sequentially valid procedure. Do not repeatedly sample until an ordinary
+confidence interval passes. An interval spanning the threshold means unresolved,
+not accepted and not established infeasibility. The fresh-validation runner and
+statistical protocol are not yet implemented by this requirement-setting update.
 
 ## Stage A: opportunity audit using corrected evidence
 
