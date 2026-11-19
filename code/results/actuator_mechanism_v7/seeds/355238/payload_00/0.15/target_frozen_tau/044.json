@@ -1,0 +1,54 @@
+{
+  "seed": 355238,
+  "client": "payload_00",
+  "tau": 0.15,
+  "arm": "target_frozen_tau",
+  "noise_seed": 635060015,
+  "maneuver": 2.0,
+  "coarse": {
+    "cost": 0.018273675056512628,
+    "feasible": true,
+    "reason": "",
+    "max_beta": 0.06431380107160709,
+    "max_delta": 0.1872261412461039,
+    "max_rate": 3.333186530280585,
+    "saturation_fraction": 0.42016806722689076,
+    "spectral_radius": 1.836235285184347,
+    "true_cost": 0.015058728754417655,
+    "measured_mse": 0.0003339272000710118,
+    "true_mse": 0.0002267653116991251,
+    "noise_mse": 9.139883029542156e-05,
+    "cross_mse": 1.5763058076465317e-05,
+    "samples": 119,
+    "complete": true
+  },
+  "fine": {
+    "cost": 0.018698810640043084,
+    "feasible": true,
+    "reason": "",
+    "max_beta": 0.06552165577583371,
+    "max_delta": 0.18666416587542994,
+    "max_rate": 3.2746222218294916,
+    "saturation_fraction": 0.40336134453781514,
+    "spectral_radius": 1.836235285184347,
+    "true_cost": 0.015951553548403295,
+    "measured_mse": 0.0003496455193521884,
+    "true_mse": 0.0002544520606075777,
+    "noise_mse": 9.139883029542156e-05,
+    "cross_mse": 3.794628449189179e-06,
+    "samples": 119,
+    "complete": true
+  },
+  "integration": {
+    "feasibility_agrees": true,
+    "relative_cost_error": 0.022735969239671232,
+    "cost_check_pass": false,
+    "status": "unresolved"
+  },
+  "true_integration": {
+    "feasibility_agrees": true,
+    "relative_cost_error": 0.05597102446958898,
+    "cost_check_pass": false,
+    "status": "unresolved"
+  }
+}
