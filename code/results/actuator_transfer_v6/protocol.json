@@ -1,0 +1,4528 @@
+{
+  "targets": [
+    [
+      355238,
+      "nominal_00"
+    ],
+    [
+      355238,
+      "payload_00"
+    ],
+    [
+      355238,
+      "tire_degraded_00"
+    ],
+    [
+      987946,
+      "nominal_00"
+    ],
+    [
+      987946,
+      "payload_00"
+    ],
+    [
+      987946,
+      "tire_degraded_00"
+    ]
+  ],
+  "taus": [
+    0.1,
+    0.15,
+    0.2,
+    0.3,
+    0.4
+  ],
+  "plans": [
+    {
+      "target": [
+        355238,
+        "nominal_00"
+      ],
+      "transfers": [
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            1.614610768854618,
+            2.5753334295004606,
+            1.5256670527160168
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.35633048042655,
+            -1.6049794927239418,
+            1.3339781742542982
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.5393709093332291,
+            1.0702443961054087,
+            1.0635061953216791
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            0.7963325567543507,
+            0.2557176221162081,
+            1.1806044727563858
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            2.003216989338398,
+            -1.5264265649020672,
+            1.5009326487779617
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.7738117408007383,
+            -2.6683340314775705,
+            1.2281438391655684
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        }
+      ]
+    },
+    {
+      "target": [
+        355238,
+        "payload_00"
+      ],
+      "transfers": [
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -2.5105963200330734,
+            -2.234215546399355,
+            1.1514340583235025
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.35633048042655,
+            -1.6049794927239418,
+            1.3339781742542982
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.5393709093332291,
+            1.0702443961054087,
+            1.0635061953216791
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            0.7963325567543507,
+            0.2557176221162081,
+            1.1806044727563858
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            2.003216989338398,
+            -1.5264265649020672,
+            1.5009326487779617
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.7738117408007383,
+            -2.6683340314775705,
+            1.2281438391655684
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        }
+      ]
+    },
+    {
+      "target": [
+        355238,
+        "tire_degraded_00"
+      ],
+      "transfers": [
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -2.5105963200330734,
+            -2.234215546399355,
+            1.1514340583235025
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            1.614610768854618,
+            2.5753334295004606,
+            1.5256670527160168
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.5393709093332291,
+            1.0702443961054087,
+            1.0635061953216791
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            0.7963325567543507,
+            0.2557176221162081,
+            1.1806044727563858
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            2.003216989338398,
+            -1.5264265649020672,
+            1.5009326487779617
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.7738117408007383,
+            -2.6683340314775705,
+            1.2281438391655684
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        }
+      ]
+    },
+    {
+      "target": [
+        987946,
+        "nominal_00"
+      ],
+      "transfers": [
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -2.5105963200330734,
+            -2.234215546399355,
+            1.1514340583235025
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            1.614610768854618,
+            2.5753334295004606,
+            1.5256670527160168
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.35633048042655,
+            -1.6049794927239418,
+            1.3339781742542982
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            0.7963325567543507,
+            0.2557176221162081,
+            1.1806044727563858
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            2.003216989338398,
+            -1.5264265649020672,
+            1.5009326487779617
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.7738117408007383,
+            -2.6683340314775705,
+            1.2281438391655684
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        }
+      ]
+    },
+    {
+      "target": [
+        987946,
+        "payload_00"
+      ],
+      "transfers": [
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -2.5105963200330734,
+            -2.234215546399355,
+            1.1514340583235025
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            1.614610768854618,
+            2.5753334295004606,
+            1.5256670527160168
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.35633048042655,
+            -1.6049794927239418,
+            1.3339781742542982
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.5393709093332291,
+            1.0702443961054087,
+            1.0635061953216791
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.3664822969585657,
+            2.455295216292143,
+            1.6426955703645945
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.7738117408007383,
+            -2.6683340314775705,
+            1.2281438391655684
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        }
+      ]
+    },
+    {
+      "target": [
+        987946,
+        "tire_degraded_00"
+      ],
+      "transfers": [
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -2.5105963200330734,
+            -2.234215546399355,
+            1.1514340583235025
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            -0.25170110911130905,
+            1.7422053012996912,
+            1.2044815979897976
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            1.614610768854618,
+            2.5753334295004606,
+            1.5256670527160168
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.7786446437239647,
+            -2.4096723943948746,
+            1.3115690052509308
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.9980231411755085,
+            2.0545718874782324,
+            1.6731825526803732
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.35633048042655,
+            -1.6049794927239418,
+            1.3339781742542982
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 355238,
+          "donor_client": "tire_degraded_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            -0.5393709093332291,
+            1.0702443961054087,
+            1.0635061953216791
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -2.722542816773057,
+            2.55102383159101,
+            1.4167485460639
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "nominal_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.214944813400507,
+            1.4445753190666437,
+            1.0940103605389595
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            1.2804574817419052,
+            1.597868012264371,
+            1.3453507237136364
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            1.2388171702623367,
+            1.9722942430526018,
+            1.554080380126834
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "sobol",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            0.2741799093782902,
+            1.8006591014564037,
+            1.301539421081543
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 25,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 101,
+          "budget": 75,
+          "xi": [
+            -2.196941312402487,
+            2.972435535863042,
+            1.8815552853047848
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 25,
+          "xi": [
+            0.7963325567543507,
+            0.2557176221162081,
+            1.1806044727563858
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 202,
+          "budget": 75,
+          "xi": [
+            2.003216989338398,
+            -1.5264265649020672,
+            1.5009326487779617
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 25,
+          "xi": [
+            -0.6181316804140806,
+            2.030192954465747,
+            1.3602375481277704
+          ]
+        },
+        {
+          "donor_seed": 987946,
+          "donor_client": "payload_00",
+          "method": "bo_lower_penalty",
+          "optimizer_seed": 303,
+          "budget": 75,
+          "xi": [
+            -1.9935354385524988,
+            2.8049365393817425,
+            1.7953010480850935
+          ]
+        }
+      ]
+    }
+  ],
+  "primary": "sobol, budget 25; all five donors and three optimizer repeats retained",
+  "exploratory_common": [
+    -2.196941312402487,
+    2.972435535863042,
+    1.8815552853047848
+  ],
+  "test_seed": 1900000,
+  "episodes_per_maneuver": 40,
+  "smoke": false,
+  "code": {
+    "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/actuator_antiwindup.py": "b98a5d826a59d38def786a5960ceeb0b60a59da87240fe890a39f9ec10db500c",
+    "src/actuator_bandwidth.py": "4c6e64fceae6ac576837ca76b30bb3ca43b91aea6705cbeaf9dc289ec782cf94",
+    "src/caching.py": "7d9139ac7bfc37c517f41cf64bbee0e39ab8533aaa8ff331eb701d538b65a807",
+    "src/candidate_eval.py": "9896440b39f2951ce65d73a9f0b8f70c997c26f335a36cb5d9ab1291a3e7e298",
+    "src/dynamics_distance.py": "232123259521643c5e60e6bab6a1229eed58839d86b277cfeb3abb14d55a27a1",
+    "src/episodes.py": "d2e4ac6f5c566fbdf54ee0564715decdbe2426a9ecce6031e3bc2883795a2bee",
+    "src/federation/__init__.py": "37650be56834038164802ad9780ada5a7d6453880f4619d854371009fe633c86",
+    "src/fleet_families.py": "7a969011633690494a669024f67d2a064c74d3526f2ffb1e64401d7668b6676d",
+    "src/ifac/__init__.py": "62151115c7805c4bebda412712818262d4cdfebc9d8caa510958361cf01a4889",
+    "src/ifac/client.py": "fea465d601f6814fedde2179d5c82f051055900b6d8e1613b0b052a7c72b8c8b",
+    "src/ifac/clustering.py": "fe5001a766acceb185cf630aa6cacb0a334d9343823438cab36ca5785015808a",
+    "src/ifac/rls.py": "da4d8de0a3c488f3f977e7e235220e7c6ce34451561e506314e2760b6b5eb00b",
+    "src/ifac/run.py": "e600ee8e09d54246f0db3d8b3d636befd477fbc6ed4e812db77dfb4b6ac03b7a",
+    "src/ifac/server.py": "3df21b3f9e11f8e3c44432d17314c6799935b0f63448879526e006f85b5f8aa0",
+    "src/ifac/utils.py": "94c42439e02591b78d1f570a842718c67306f4d7b6e0658148d6e5f821b9186f",
+    "src/ifac_bridge.py": "f6ed1a7cd5b6a05df25dde420723301421fff87fa3474d98e9e72a4e4ae2e632",
+    "src/interfaces/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/interfaces/clusterer.py": "3c597b119a093d4bf3f19b542cba416f087345a9d5598de78b701f1fbfc78d7a",
+    "src/interfaces/identifier.py": "c968c0ba9da088dc39e3b9ab6bd21b4d4c15404b548dd0525f412c125ede257d",
+    "src/interfaces/lqi_synthesizer.py": "2ac9280b0913c255949f8456c70597f0acc079f6e68a9c9f439e09457794d033",
+    "src/interfaces/plant_client.py": "91ec2ab310a12d6325c0589e35ce262a619f1a9ccb5a79b410b5ad3d14ba11d6",
+    "src/io_utils.py": "5011df3cb1411a07096d5ba34a9018c009bfbf282930676922890c069582c695",
+    "src/landscape_metrics.py": "7ff72c741eebc99fa09753efb179e73da51482090bdc2b267bc02a7069a705d5",
+    "src/nonlinear_plant.py": "0d1c123bd0033c3ad3cebc36115a439d0a1fdca15e408be340863bacff440a5b",
+    "src/optimization/__init__.py": "047821e35ca6df0eb3eac3ea6912ad9f2624871482295c95680795130d84ddf3",
+    "src/optimization/decision.py": "227afcb9e0213e393b2456e1d792c79b8549bdf97456330a45e10b20f06dd276",
+    "src/optimization/fleet_bo.py": "d4175e670fcd1ab45e13afdf1564012b1f2c2954045354f35272d143ec4c0e3b",
+    "src/optimization/gate.py": "7f132ccfda1aa7463fa186ad7ecf32a4b97f57a205abca2c16fa8a997c9cfdba",
+    "src/optimization/gp_surrogate.py": "1f5bc0a227728bf364c879267408177a4805a3e23c0e6c67e3ab7c56bbc1c297",
+    "src/optimization/regret.py": "7cf219339bb48fc463e56f7b1ab024c5ea60b36afe95e709a1e7d422e5b105d8",
+    "src/optimization/rgpe.py": "b6f8a54e80ae4e11188b2a52f835533bf19f505518f6edb6ad69fbaa7feceed3",
+    "src/oracle_analysis.py": "c20fc437a9201d12dcd5e4d826cb9e3b7b624fa09058d45082183c629d30dca4",
+    "src/recipient_screen.py": "05e07b442c7b6f801e566b03df189ac8f53d3c0d3135c73542af61ba7184f42a",
+    "src/safety/__init__.py": "47ca25f9f8bb5f4cbe0f9d93290dfce3ff827e49fbffd97b6a5995a6d059e53d",
+    "src/similarity.py": "18610b122d0c8643f74a9f1b3b1ec166aebb3d4c107c96f1863cf4110e461d93",
+    "src/transfer_analysis.py": "79c5318a761ff4e5003efd96c45024904803d3a38030759df0781c42cd306921",
+    "scripts/actuator_direct_transfer.py": "47c74a376b4a785586314d9f50b1800adcd85d5cf3f740c131e04d3e834ab510",
+    "scripts/actuator_corrected.py": "10a517b1ac54e1b72acae1d86744214dfd05bd09c3f37dbaff1966787d263693",
+    "scripts/actuator_diagnostics.py": "057ed20512d9738adb5846ddab396a01f10451072d7c041e07758ed765701411",
+    "scripts/actuator_bandwidth_experiment.py": "f7bd6199a71a93ced1d4407bd59155ef3b8680aa3fbae655686eb190a9953c54",
+    "scripts/phase2_fbo_comparison.py": "3e3a43b71326a6e3c5cbe2f21dadfe84140867f77fac1ffc0cf82b076f309e85"
+  },
+  "inputs": {
+    "results/actuator_corrected_v5/protocol.json": "7a086f03911a1e8a35df034aa3b6e56832a95b390228235c5c73e029db379fc5",
+    "results/actuator_diagnostics_v2/protocol.json": "79f60fc47282f020dbd439c87bc4e62954a02414da9b4043a5018477756fa042",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/audit/sobol_101.json": "e3f23dbe258d729fd675d4ce08533aad9bc13194d9aa4c4d9dbe0aa066d99eaf",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/audit/sobol_202.json": "36776fd579554f8e64c3ae2dce94dfecb5ccd8f95bb5630439e202d6ae206906",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/audit/sobol_303.json": "64d7de2139d3072b5f38a29d28f992640294352a9e5668e0f94b28f1b644e5f0",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/audit/bo_lower_penalty_101.json": "088b7d63f557b005499d0a4dafcbba7a4a016cb7c3d4e4d5457a20edbd906e85",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/audit/bo_lower_penalty_202.json": "c23cae2a1dc2555fd10960f58e088358ffd6c7b8f5f83167f1253134f35fed8c",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/audit/bo_lower_penalty_303.json": "03ee10c311ed9987316768995226a39f92cf82cf56c304b0f70ee5a75794134e",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/audit/sobol_101.json": "bb7df69f46337f671705d5426f03f5a0cfe4dea3eca7a07a3a3cde0a124a7513",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/audit/sobol_202.json": "a134d018fd7aaaace4d3fc5616509f0b8c26b5de172284e3177f175cf23b5a66",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/audit/sobol_303.json": "f9ebf9e71cabe293e81dd866c453ffcd5fe43016e0d71b444580eb276f73ead2",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/audit/bo_lower_penalty_101.json": "5a674c0f4c006db972777b3d8749101e707d8d0313ef98b1b5efb5b272453839",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/audit/bo_lower_penalty_202.json": "838a57ecf500310b33270dba433edca1281d1f664854db614673ee53f56dff55",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/audit/bo_lower_penalty_303.json": "2ae6228cebc8646cb8063c03715992f4c85dd78d281fb7c678e91184d5fe46ff",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/audit/sobol_101.json": "aa9807c0b07dcb0cbf5fadfe5a93dfeb200b19838042665ebf4122bd946626a0",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/audit/sobol_202.json": "2a5859d6b8b3cc79d7daec1049a8bd2106a80b5888a76ad2be5f203b55b7ff4c",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/audit/sobol_303.json": "b0fadc6f230ffe17baec770aea64ea4c6c8ff7a80e5c5bb769f4e8e6bf61d3f5",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/audit/bo_lower_penalty_101.json": "51a96fb014edde2cb5267303d6c729ee863a3580e68438e063b2398737defb38",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/audit/bo_lower_penalty_202.json": "1f7c72a10d5fea1aaa8b14f06b37b109d02464b87f9500814f11ca60fb588326",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/audit/bo_lower_penalty_303.json": "0b128e8e4803bd24f487b042fca58ccc61383268b5b042c46d2b5db25703a649",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/audit/sobol_101.json": "42625cf3a09cdb320014794477b40762a6a8ba1a1873c75fefb1afe50ef8f355",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/audit/sobol_202.json": "dc62c85fa01c01bc5c6b0ef4899fedc3b9e8341d4430c9a8cd0c10d989400900",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/audit/sobol_303.json": "52e3d06119cf3693b5ed80610d95daf86fcc75b3ca36cb428d27b34b981c2107",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/audit/bo_lower_penalty_101.json": "e6273f0fc19e7648e90973829dd0f574d17e375d56a27dcf6cde577257f6f8b4",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/audit/bo_lower_penalty_202.json": "e226907c0dbdb3ec21e692ba09238cb20d6f057d9ce487c9197c60d1ef6aa0a2",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/audit/bo_lower_penalty_303.json": "1e1b8b2ce5bd4f617f0a8212a55934003eae870e407b12cbb813593c421b494e",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/audit/sobol_101.json": "b3e42166e490a85aed353892121d28bbe99f52da04a38b09247cf32430fd61c4",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/audit/sobol_202.json": "92239c9d1fa6cb23f24a1e8bad1d180c60c1b6e588ce2295f82e483485f3ff1c",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/audit/sobol_303.json": "1548918f343f74c00fa8fd66a637e5a7decea61b869719a3cdd68e38d50086a6",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/audit/bo_lower_penalty_101.json": "f57cb67e74120a668118f93d488c83bf08fbf7f2edebb5c686efdb2dd14bf215",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/audit/bo_lower_penalty_202.json": "f6312a2a2434bd95e501478db306c5bc3ba96bb67a688f03a89b2a125ea37550",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/audit/bo_lower_penalty_303.json": "d79d5ba86d31da41c9268701d85f85059cc78507c839bd615ddd225e794e18b1",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/audit/sobol_101.json": "3c3d44df299c543cd9719c2943a2f8e6eef25e81cd5ad4bb353fe05fe5257fd9",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/audit/sobol_202.json": "edcb351da4f2c2471327c3528cbd85ff08ef9a10be882c12801a2c059490ec83",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/audit/sobol_303.json": "54b5c73a9aa3fea0795b3b5f41a3c05f9cb4b7dfe183a9f36914ba943214a2cb",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/audit/bo_lower_penalty_101.json": "cec9bd4575eb9d79bb1983504ca26992982b97734223d6241f8279ee157e01ed",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/audit/bo_lower_penalty_202.json": "7f1741e9a16da35e1eb1566f16410159fc61585905290d6caf2ac7052c185274",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/audit/bo_lower_penalty_303.json": "def95f337dbf8c0d00cf3c5a216aaeba14a1e41313d38d466e8d8964bcf1ef92",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/references/0.1.json": "6a24a7ff9b6c98047c34cac0467514c7160f325262e7c3429da071ea6e6651d6",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/references/0.15.json": "aa7f7959b97f753163e6df7543be5e747ef9152a927afff34f517ff55727a3e5",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/references/0.2.json": "f301289b30ebd00c7e7d66e4c941de771bebf44b7e26aabdde9710282039c82e",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/references/0.3.json": "4d6349c8213c033193d5055767e35901cfe372ce1cca68ec78fb9d92cea87946",
+    "results/actuator_corrected_v5/seeds/355238/nominal_00/references/0.4.json": "6f01df6289a8a8ee3c7ce8e8441b1fda54c494ba32389155a69b0396bc0dec77",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/references/0.1.json": "f6d3d6e09c46a0f620944dee23dfd36391003f6891b88825b46257a22419cbed",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/references/0.15.json": "d56d52b160fbc2e9f48b3db311cac4b0dbfef587b272974e87cbb5a9251aed9f",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/references/0.2.json": "28dffafedb262d64c002a0a0eed65a275bf8f7b035de713201dca9d68280bd0d",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/references/0.3.json": "7b222b9d6aa5e759949b0565e502b45215f0c95dc0f0c6779ec96021019f8833",
+    "results/actuator_corrected_v5/seeds/355238/payload_00/references/0.4.json": "bc472f1fb19975296bafd2e6863d0b20265ef1dd4a8ed2a58baf2b7c30ad2288",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/references/0.1.json": "35a0c477795c3cf5051603f6cad541fd31291295b82859dc15ebdd6dc0a47fab",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/references/0.15.json": "e6e9e66e6c871509a3a5c4119ce4e6e2512284845c9133fcd71b7ea83088c060",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/references/0.2.json": "ecab9b7ffa24edf87069d2a15b171c05ff7126d9e3746d9cfe1d99dc066f6a0a",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/references/0.3.json": "b5b44a9f4dd0e4ad74c4397b6caa4d6c908f3536846f5b351c49a5246ba47efb",
+    "results/actuator_corrected_v5/seeds/355238/tire_degraded_00/references/0.4.json": "aeaecf411d8b8b87f0847e2d68282f3b70521bf9e95f0ff071b1c16ad4623fe1",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/references/0.1.json": "bcf653c38daa1a16b1915bc7917cc0b2ac13d20aaba2c2fcb97b94fd05fae01e",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/references/0.15.json": "859dca3d2e8447a0e28e36b3b66afac83562548c014d70e8a367a5da4c918ad3",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/references/0.2.json": "7ad4b36836d73610426ea7ea44fffb579c6f8d38a68d4b8fb2de1c3ef664e31b",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/references/0.3.json": "ae4ea82a5a6e8a139e720b2d5912d4feda26a8306737fa7e598c00a374aa8c83",
+    "results/actuator_corrected_v5/seeds/987946/nominal_00/references/0.4.json": "3eda3cf9537378dc5c16ec5ff933e4e28ecb3f21f002930a45eb649080639510",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/references/0.1.json": "11c05dea2f3abec6066927ded8a4f94bad4202c053c2ec07b774c156879098c1",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/references/0.15.json": "e7abbb2bd6f0aaefe798f68c99a64f828ce6c355495006c380104947f5aea447",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/references/0.2.json": "d708d6fb5b935d35841620405423fbe3277aecf9561f660d8c4eaa56e1e222f7",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/references/0.3.json": "c88da8fd4ccedbc0dc3cf98ec5d07e1599c37790f5964706c32d3b7a81b121d1",
+    "results/actuator_corrected_v5/seeds/987946/payload_00/references/0.4.json": "a92a63773f08684bed3e780b50622d71d4a527ef9fa89bb4f1763c6ac1320e85",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/references/0.1.json": "3ee0b2c91c197591a1b308e4d946e72fa4c67a8d9a25db7bb9074c445ad09436",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/references/0.15.json": "536b594cda96651b1f9b5c72f5a591cea9e1d23a9a75ab5237d1569a7a46811e",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/references/0.2.json": "824c79c91ab0fab9f25259bd889c4512dc53a86282c4faebc60ce25e75489afc",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/references/0.3.json": "fc1f079cc485263f4a281307b9a035c20b58b8f9450e19d3738df156a4e42403",
+    "results/actuator_corrected_v5/seeds/987946/tire_degraded_00/references/0.4.json": "6dcba8633b31be4d21bf2c97572e22b373e85d0311a8bac80ceec5e52262c6d3"
+  }
+}
