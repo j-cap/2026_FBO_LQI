@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "tag": "cooperative_stage_b_v1",
+  "optimizer_seeds": [
+    701,
+    702,
+    703
+  ],
+  "candidate_count": 256,
+  "search_query_cap": 150,
+  "source_query_budget": 25,
+  "repair_query_budget": 10,
+  "search_episodes_per_maneuver": 20,
+  "audit_episodes_per_maneuver": 256,
+  "threshold_deg_per_s": 0.92,
+  "alpha_per_trial": 0.05,
+  "source_tau": 0.2,
+  "taus": [
+    0.1,
+    0.15,
+    0.2,
+    0.3,
+    0.4
+  ],
+  "fleet_seeds": [
+    355238,
+    987946
+  ],
+  "clients": [
+    "nominal_00",
+    "payload_00",
+    "tire_degraded_00"
+  ],
+  "gp_length_scale": 0.3,
+  "gp_prior_std": 0.5,
+  "lcb_multiplier": 2.0,
+  "note": "Development pilot. Common/reference weights and historical calibration outputs are excluded. GP-LCB minimax allocation is a heuristic prototype, not a SOTA reproduction.",
+  "audit_planning": "Fixed 256 per cell, using prior development SD and margin; unresolved outcomes retained. Same bank and rule for all methods."
+}

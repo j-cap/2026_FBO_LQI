@@ -1,7 +1,11 @@
 # Cooperative controller calibration: feasibility-study protocol
 
-Version: 0.2, 19 November 2026.
-Status: study design; not a frozen confirmation protocol or executable experiment.
+Version: 0.3, 19 November 2026.
+Status: development protocol; Stage A and frozen-candidate validation completed.
+Stage B pilot implemented; execution details in docs/cooperative_stage_b.md supersede
+the draft Stage B choices below. It uses a fixed 256-episode final audit per cell
+and a clearly labelled selective GP-LCB heuristic, not a published-SOTA reproduction.
+A claim of SOTA improvement still requires that later comparison.
 Base: analysis/transfer-explanation at 84fad6e49b53e01a31245243ca3e4c8c5132442f.
 Preserve all previous experiments and their limitations.
 
