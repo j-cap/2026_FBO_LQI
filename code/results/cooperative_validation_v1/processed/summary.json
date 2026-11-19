@@ -1,0 +1,21 @@
+{
+  "arms": {
+    "reference": {
+      "status": "unresolved",
+      "condition_counts": {
+        "supported": 59,
+        "numerically_unresolved": 1
+      }
+    },
+    "target_redesign": {
+      "status": "supported",
+      "condition_counts": {
+        "supported": 60
+      }
+    }
+  },
+  "smoke": false,
+  "episode_pairs": 120000,
+  "numerical_rollouts": 240000,
+  "note": "Approximate simultaneous mean inference on fixed simulated systems. No distribution-free safety certificate or new-vehicle guarantee. No adaptive sample extension."
+}
