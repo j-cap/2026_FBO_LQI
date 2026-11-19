@@ -1,0 +1,23 @@
+{
+  "grid_rows": 7680,
+  "grid_feasible": 7680,
+  "grid_numerically_checked_on_validation": 525,
+  "unique_transfer_evaluations": 530,
+  "unique_transfer_episodes": 42400,
+  "transfer_physical_failures": 0,
+  "transfer_unresolved": 0,
+  "source_runs": 72,
+  "required_threshold_deg_range": [
+    0.9040062525401708,
+    0.9444590491219703
+  ],
+  "decision": "No new cooperative optimization campaign justified yet: quantify thresholds, obtain engineering requirement; current grids are screening-only.",
+  "limitations": [
+    "Grid costs combine maneuvers; no grid true-state scores.",
+    "Most grid candidates have no saved coarse/fine validation check.",
+    "No common grid points across the two fleet realizations.",
+    "Direct transfers cover five OTHER vehicles; donor at all bandwidths was not tested.",
+    "Bandwidth variants and optimizer repetitions are not independent fleets.",
+    "Threshold curves are retrospective descriptions, not a policy or sample-efficiency experiment."
+  ]
+}
