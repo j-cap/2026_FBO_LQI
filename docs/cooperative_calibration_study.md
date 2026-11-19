@@ -87,8 +87,11 @@ A sample mean below 0.92 deg/s is descriptive acceptance only. Before running fr
 validation, fix its sample size and uncertainty rule (including simultaneous scope),
 or a sequentially valid procedure. Do not repeatedly sample until an ordinary
 confidence interval passes. An interval spanning the threshold means unresolved,
-not accepted and not established infeasibility. The fresh-validation runner and
-statistical protocol are not yet implemented by this requirement-setting update.
+not accepted and not established infeasibility. The fresh-validation runner is now implemented as
+code/scripts/cooperative_validation.py. It uses 1,000 fresh episodes per cell and
+approximate two-sided Bonferroni Student-t intervals across 120 means, with no
+adaptive extension. See docs/cooperative_validation.md for the frozen execution
+and interpretation rules.
 
 ## Stage A: opportunity audit using corrected evidence
 

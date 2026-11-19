@@ -27,7 +27,11 @@
     ],
     "new_noise_required": true,
     "retuning": false,
-    "status": "sample_size_and_statistical_rule_to_be_specified_before_execution"
+    "status": "implemented_fixed_sample_validation_v1",
+    "episodes_per_maneuver": 1000,
+    "interval_rule": "two-sided Bonferroni Student-t across 120 means; approximate large-sample",
+    "alpha": 0.05,
+    "adaptive_extension": false
   },
   "existing_sample_mean_pass_is_certificate": false
 }
