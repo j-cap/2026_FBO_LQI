@@ -1,0 +1,280 @@
+{
+  "cfg": {
+    "version": 1,
+    "tag": "cooperative_stage_b_v1",
+    "optimizer_seeds": [
+      701,
+      702,
+      703
+    ],
+    "candidate_count": 256,
+    "search_query_cap": 150,
+    "source_query_budget": 25,
+    "repair_query_budget": 10,
+    "search_episodes_per_maneuver": 20,
+    "audit_episodes_per_maneuver": 256,
+    "threshold_deg_per_s": 0.92,
+    "alpha_per_trial": 0.05,
+    "source_tau": 0.2,
+    "taus": [
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "fleet_seeds": [
+      355238,
+      987946
+    ],
+    "clients": [
+      "nominal_00",
+      "payload_00",
+      "tire_degraded_00"
+    ],
+    "gp_length_scale": 0.3,
+    "gp_prior_std": 0.5,
+    "lcb_multiplier": 2.0,
+    "note": "Development pilot. Common/reference weights and historical calibration outputs are excluded. GP-LCB minimax allocation is a heuristic prototype, not a SOTA reproduction.",
+    "audit_planning": "Fixed 256 per cell, using prior development SD and margin; unresolved outcomes retained. Same bank and rule for all methods."
+  },
+  "smoke": false,
+  "conditions": [
+    [
+      355238,
+      "nominal_00",
+      0.1
+    ],
+    [
+      355238,
+      "nominal_00",
+      0.15
+    ],
+    [
+      355238,
+      "nominal_00",
+      0.2
+    ],
+    [
+      355238,
+      "nominal_00",
+      0.3
+    ],
+    [
+      355238,
+      "nominal_00",
+      0.4
+    ],
+    [
+      355238,
+      "payload_00",
+      0.1
+    ],
+    [
+      355238,
+      "payload_00",
+      0.15
+    ],
+    [
+      355238,
+      "payload_00",
+      0.2
+    ],
+    [
+      355238,
+      "payload_00",
+      0.3
+    ],
+    [
+      355238,
+      "payload_00",
+      0.4
+    ],
+    [
+      355238,
+      "tire_degraded_00",
+      0.1
+    ],
+    [
+      355238,
+      "tire_degraded_00",
+      0.15
+    ],
+    [
+      355238,
+      "tire_degraded_00",
+      0.2
+    ],
+    [
+      355238,
+      "tire_degraded_00",
+      0.3
+    ],
+    [
+      355238,
+      "tire_degraded_00",
+      0.4
+    ],
+    [
+      987946,
+      "nominal_00",
+      0.1
+    ],
+    [
+      987946,
+      "nominal_00",
+      0.15
+    ],
+    [
+      987946,
+      "nominal_00",
+      0.2
+    ],
+    [
+      987946,
+      "nominal_00",
+      0.3
+    ],
+    [
+      987946,
+      "nominal_00",
+      0.4
+    ],
+    [
+      987946,
+      "payload_00",
+      0.1
+    ],
+    [
+      987946,
+      "payload_00",
+      0.15
+    ],
+    [
+      987946,
+      "payload_00",
+      0.2
+    ],
+    [
+      987946,
+      "payload_00",
+      0.3
+    ],
+    [
+      987946,
+      "payload_00",
+      0.4
+    ],
+    [
+      987946,
+      "tire_degraded_00",
+      0.1
+    ],
+    [
+      987946,
+      "tire_degraded_00",
+      0.15
+    ],
+    [
+      987946,
+      "tire_degraded_00",
+      0.2
+    ],
+    [
+      987946,
+      "tire_degraded_00",
+      0.3
+    ],
+    [
+      987946,
+      "tire_degraded_00",
+      0.4
+    ]
+  ],
+  "files": {
+    "config/controller.yaml": "ad76a91a99f9c6ca061a47d3d5e81659d5553e2507102e8a529ada1a0068fad7",
+    "config/fleet.yaml": "440dbf2da3e3a53d185c6f0a81e7ff9eb837ab0d1faf034b8faf87693f1eed60",
+    "config/fleet_fixed_speed.yaml": "4c8d5dc8746132e0ca660c03f6e19d37fc795031c0c40248909c1098493a89cd",
+    "config/runs/actuator_bandwidth.yaml": "a8a8d563658aff1826f3c215d4ddf1531c4a2849cb51eaba57d699908d822c33",
+    "config/runs/actuator_corrected.yaml": "a25ecc5483388b3999b4b54c83c8349272c722f0cf45a0875f7f8d26b8199999",
+    "config/runs/actuator_diagnostics.yaml": "e23b83ca5bc4d63280cf437144546885be3fd26f3647381f70075f79f3904a72",
+    "config/runs/actuator_repair.yaml": "f34db649cd6313d49683ad5328faf880457012a75f13b35cca1fa00fa7417245",
+    "config/runs/cooperative_acceptance.json": "b4cda2844a9c150571e06a88558629b30cf09fdbe27a63a2bf497d7bfe4f20dd",
+    "config/runs/cooperative_stage_b.json": "80fb318a18331de7c61b9d3f75c77e381441182683ce05ae8d42f70a752615a3",
+    "config/runs/fleet_maturity_sweep_c1cds02.yaml": "f37ea3b6c40d3790233fba034b6ea84434410487f1816656d040398552f6ce87",
+    "config/runs/fleet_maturity_sweep_smoke.yaml": "d5a80ff804875993ecb6e2c6d52db383f95a2b805e3010dd24df494e2512cb28",
+    "config/runs/phase1_oracle_landscape_full.yaml": "1ca01236bfcd197fd3745679e1c195419ea97631c8ff042635008891083800ca",
+    "config/runs/phase1_oracle_landscape_full_converged.yaml": "1a1e75d35e76798c1d06044759ef4cbbf95ebbcc533721cf86b467cae10c1479",
+    "config/runs/phase1_oracle_landscape_smoke.yaml": "2c9fbae50432a45e6ea28f0ec21023a761f1fc21790f87f305c5c2f12c8990c4",
+    "config/runs/phase1a_matched_model_full.yaml": "dd13ee00e1b4c95ffbc7d143c88f97ff79b80ce559a888e27de8c197de848424",
+    "config/runs/phase1a_matched_model_full_v2.yaml": "c59f6321b0a4cc95f58a77151bf23936263ccaef4d8880ae09f0e8233fb7d4be",
+    "config/runs/phase1b_nonlinear_mismatch_full.yaml": "51de59e3a3b01b560271872dcfcc0adfad84a38169b1471d657c55ef66bc1f25",
+    "config/runs/phase1c_fixed_speed_n60.yaml": "ed1767bcf9c8c6d0c712fe585bd70cfc9fc8d09016f4a90a3f1804cd4dd46396",
+    "config/runs/phase2_coverage_dev_c1cds02.yaml": "03103fdb1e79a84d176a82a8b1ade29bf759fe4827606762dea5c0e0ca501594",
+    "config/runs/phase2_coverage_dev_c1cds05.yaml": "36895d8a0c0d19bf32ea455ffe13abef7cf370c35bd6756e53d2d9072905db28",
+    "config/runs/phase2_fbo_comparison_campaign_c1cds02.yaml": "e9cf020213ae4102ddeabcba9395de7f11b87f44b4b47808e5afb0e03a66903a",
+    "config/runs/phase2_fbo_comparison_campaign_c1cds05.yaml": "93e1c21969a80f780909a1b84d0d9d1ea6300dedd527de378efdb56d8f81361b",
+    "config/runs/phase2_fbo_comparison_campaign_v3_c1cds02.yaml": "3895e8aece5012e4a8ba4ae3174a11faf83b22d348c7a3265fabb90c99f7e64f",
+    "config/runs/phase2_fbo_comparison_campaign_v3_c1cds05.yaml": "d5a08246e71423dec90ad236e98c02f1f035c460dff05e2e7879395758fd0f2f",
+    "config/runs/phase2_fbo_comparison_medium.yaml": "dc1719a7561f86d944af659ae4393f47f58f9f17e5170df43d6857b80b9fb185",
+    "config/runs/phase2_fbo_comparison_medium_c1cds02.yaml": "b8206ce55b80e87aa0af49d9d634f6d62ef59796667c9ab96d413d5ca2721f23",
+    "config/runs/phase2_fbo_comparison_medium_c1cds05.yaml": "bcd09b361dfc48a49c14e294018946d3c6e834a73103b67aeace669513475435",
+    "config/runs/phase2_fbo_comparison_smoke.yaml": "ebb9d1333776198c48e2a39767b360a52e9cc4978d99cf8300cdf309ee68c546",
+    "config/runs/phase2_fbo_comparison_v2fleet_validation_c1cds02.yaml": "44906217557d7f0d360e4561a0f03a3ac03e691a9ec71189a6726be6374c569f",
+    "config/runs/phase2_fbo_comparison_v3_provenance_check.yaml": "56984b5edb2c36b5e08913178dc2c5865a24953592cfab8a0ac1f8bb2a09b7fc",
+    "config/runs/phase2_rgpe_confirmatory_c1cds02.yaml": "98e869d028fa4b4cbff7294e4f9fa0de303f3607a46c2a2ba64b35e493dae6d5",
+    "config/runs/phase2_rgpe_smoke_c1cds02.yaml": "de7e38cbbbe82b48fb25fcc85d786fb0e80c913850b4dc58ab9b83ba54e52e2f",
+    "config/runs/phase2_triggered_dev_c1cds05.yaml": "c202d4bab3f9e04ee9d36e92633f59e4183605d9e5cd0ce9e38efbc92b0149b0",
+    "config/runs/phase2_warmstart_confirmatory_c1cds02.yaml": "a7f52eab12e2eee9930500056fc2b399a0a3dae6e7b18202e1a24d5dc6f7ec0f",
+    "config/runs/phase2_warmstart_confirmatory_c1cds05.yaml": "89bfee7a17e633249faa0fe8f16b28e898837cbb61ecc994a07ab004a1de65bf",
+    "config/runs/phase2_warmstart_dev_c1cds02.yaml": "c0cff2897e3ed5cdb34e0fad21293a56c115b4506d1ffc34de0f9bfcd25e03d8",
+    "config/runs/phase2_warmstart_dev_c1cds05.yaml": "b59522761652aa8ed366dea4fb0790c98695e51e795c66db6fd6d9a371372797",
+    "results/actuator_bandwidth_v1_pilot/seeds/355238/sources.json": "4e6fd0b1c5fc3f64acbf0b5176f84db408d6e88a44118493cc0e79ca37ac8d1f",
+    "results/actuator_bandwidth_v1_pilot/seeds/987946/sources.json": "b369e506ed935830b4a3c3406ea8aab53ced0081501ea7dd693a90dcafc2aa71",
+    "results/actuator_diagnostics_v2/protocol.json": "79f60fc47282f020dbd439c87bc4e62954a02414da9b4043a5018477756fa042",
+    "results/cooperative_validation_v1/protocol.json": "90645acdf3f382ceed6dbb5550413d3dd08db44e8fbc1b0303bf48b7e3d1c838",
+    "scripts/actuator_bandwidth_experiment.py": "f7bd6199a71a93ced1d4407bd59155ef3b8680aa3fbae655686eb190a9953c54",
+    "scripts/actuator_corrected.py": "10a517b1ac54e1b72acae1d86744214dfd05bd09c3f37dbaff1966787d263693",
+    "scripts/actuator_diagnostics.py": "057ed20512d9738adb5846ddab396a01f10451072d7c041e07758ed765701411",
+    "scripts/cooperative_stage_b.py": "b13d669594c9c3d076b782e9da9b24da2e3b1bfc96eeef0fcbee575aebe191e6",
+    "scripts/phase2_fbo_comparison.py": "3e3a43b71326a6e3c5cbe2f21dadfe84140867f77fac1ffc0cf82b076f309e85",
+    "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/actuator_antiwindup.py": "b98a5d826a59d38def786a5960ceeb0b60a59da87240fe890a39f9ec10db500c",
+    "src/actuator_bandwidth.py": "4c6e64fceae6ac576837ca76b30bb3ca43b91aea6705cbeaf9dc289ec782cf94",
+    "src/actuator_mechanism.py": "2d7c8d5a12465ceadf0e8bb7c19fbcef474ee126260d8fb4d8aa3c2ea2c4c871",
+    "src/caching.py": "7d9139ac7bfc37c517f41cf64bbee0e39ab8533aaa8ff331eb701d538b65a807",
+    "src/candidate_eval.py": "9896440b39f2951ce65d73a9f0b8f70c997c26f335a36cb5d9ab1291a3e7e298",
+    "src/dynamics_distance.py": "232123259521643c5e60e6bab6a1229eed58839d86b277cfeb3abb14d55a27a1",
+    "src/episodes.py": "d2e4ac6f5c566fbdf54ee0564715decdbe2426a9ecce6031e3bc2883795a2bee",
+    "src/federation/__init__.py": "37650be56834038164802ad9780ada5a7d6453880f4619d854371009fe633c86",
+    "src/fleet_families.py": "7a969011633690494a669024f67d2a064c74d3526f2ffb1e64401d7668b6676d",
+    "src/ifac/__init__.py": "62151115c7805c4bebda412712818262d4cdfebc9d8caa510958361cf01a4889",
+    "src/ifac/client.py": "fea465d601f6814fedde2179d5c82f051055900b6d8e1613b0b052a7c72b8c8b",
+    "src/ifac/clustering.py": "fe5001a766acceb185cf630aa6cacb0a334d9343823438cab36ca5785015808a",
+    "src/ifac/rls.py": "da4d8de0a3c488f3f977e7e235220e7c6ce34451561e506314e2760b6b5eb00b",
+    "src/ifac/run.py": "e600ee8e09d54246f0db3d8b3d636befd477fbc6ed4e812db77dfb4b6ac03b7a",
+    "src/ifac/server.py": "3df21b3f9e11f8e3c44432d17314c6799935b0f63448879526e006f85b5f8aa0",
+    "src/ifac/utils.py": "94c42439e02591b78d1f570a842718c67306f4d7b6e0658148d6e5f821b9186f",
+    "src/ifac_bridge.py": "f6ed1a7cd5b6a05df25dde420723301421fff87fa3474d98e9e72a4e4ae2e632",
+    "src/interfaces/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/interfaces/clusterer.py": "3c597b119a093d4bf3f19b542cba416f087345a9d5598de78b701f1fbfc78d7a",
+    "src/interfaces/identifier.py": "c968c0ba9da088dc39e3b9ab6bd21b4d4c15404b548dd0525f412c125ede257d",
+    "src/interfaces/lqi_synthesizer.py": "2ac9280b0913c255949f8456c70597f0acc079f6e68a9c9f439e09457794d033",
+    "src/interfaces/plant_client.py": "91ec2ab310a12d6325c0589e35ce262a619f1a9ccb5a79b410b5ad3d14ba11d6",
+    "src/io_utils.py": "5011df3cb1411a07096d5ba34a9018c009bfbf282930676922890c069582c695",
+    "src/landscape_metrics.py": "7ff72c741eebc99fa09753efb179e73da51482090bdc2b267bc02a7069a705d5",
+    "src/nonlinear_plant.py": "0d1c123bd0033c3ad3cebc36115a439d0a1fdca15e408be340863bacff440a5b",
+    "src/optimization/__init__.py": "047821e35ca6df0eb3eac3ea6912ad9f2624871482295c95680795130d84ddf3",
+    "src/optimization/decision.py": "227afcb9e0213e393b2456e1d792c79b8549bdf97456330a45e10b20f06dd276",
+    "src/optimization/fleet_bo.py": "d4175e670fcd1ab45e13afdf1564012b1f2c2954045354f35272d143ec4c0e3b",
+    "src/optimization/gate.py": "7f132ccfda1aa7463fa186ad7ecf32a4b97f57a205abca2c16fa8a997c9cfdba",
+    "src/optimization/gp_surrogate.py": "1f5bc0a227728bf364c879267408177a4805a3e23c0e6c67e3ab7c56bbc1c297",
+    "src/optimization/regret.py": "7cf219339bb48fc463e56f7b1ab024c5ea60b36afe95e709a1e7d422e5b105d8",
+    "src/optimization/rgpe.py": "b6f8a54e80ae4e11188b2a52f835533bf19f505518f6edb6ad69fbaa7feceed3",
+    "src/oracle_analysis.py": "c20fc437a9201d12dcd5e4d826cb9e3b7b624fa09058d45082183c629d30dca4",
+    "src/recipient_screen.py": "05e07b442c7b6f801e566b03df189ac8f53d3c0d3135c73542af61ba7184f42a",
+    "src/safety/__init__.py": "47ca25f9f8bb5f4cbe0f9d93290dfce3ff827e49fbffd97b6a5995a6d059e53d",
+    "src/similarity.py": "18610b122d0c8643f74a9f1b3b1ec166aebb3d4c107c96f1863cf4110e461d93",
+    "src/transfer_analysis.py": "79c5318a761ff4e5003efd96c45024904803d3a38030759df0781c42cd306921"
+  }
+}
