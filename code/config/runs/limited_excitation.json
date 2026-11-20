@@ -1,0 +1,19 @@
+{
+  "tag": "limited_excitation_v1", "candidate_count": 32, "sobol_seed": 8901,
+  "ts": 0.05, "tau_true": 0.2, "duration": 6.0,
+  "maneuver_half_duration": 1.0, "demands_m_s2": [3.0, 5.0, 7.0],
+  "tracking_fractions": [0.1, 0.2, 0.3], "diagnostic_fraction_step": 0.01,
+  "acceptable_excess_percent": 10.0,
+  "mu_variants": [0.8, 1.0, 1.2],
+  "excitation_caps_m_s2": [1.0, 2.0, 3.0],
+  "excitation_duration": 20.0, "excitation_headroom": 0.8,
+  "excitation_wheel_angle_cap_deg": 3.0, "excitation_wheel_rate_cap_deg_s": 20.0,
+  "measurement_sigma": {"yaw_deg_s": 0.1, "ay_m_s2": 0.1, "wheel_deg": 0.05},
+  "measurement_ar1_rho": 0.9,
+  "substeps": [10, 20, 40], "relative_tolerance": 0.001,
+  "xi_lower": [-3, -3, -3], "xi_upper": [3, 3, 3],
+  "fixed_weights": {
+    "historical_common": [-2.196941312402487, 2.972435535863042, 1.8815552853047848],
+    "hand_tuned": [0.0, 0.30103, 0.30103]
+  }
+}
