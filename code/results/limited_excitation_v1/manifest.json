@@ -1,0 +1,94 @@
+{
+  "signature": "63ff5b066af1a7a57fc38a4f681e8bc12fb56c8b372728b5ffea3408abf5ea1c",
+  "config": {
+    "tag": "limited_excitation_v1",
+    "candidate_count": 32,
+    "sobol_seed": 8901,
+    "ts": 0.05,
+    "tau_true": 0.2,
+    "duration": 6.0,
+    "maneuver_half_duration": 1.0,
+    "demands_m_s2": [
+      3.0,
+      5.0,
+      7.0
+    ],
+    "tracking_fractions": [
+      0.1,
+      0.2,
+      0.3
+    ],
+    "diagnostic_fraction_step": 0.01,
+    "acceptable_excess_percent": 10.0,
+    "mu_variants": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "excitation_caps_m_s2": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "excitation_duration": 20.0,
+    "excitation_headroom": 0.8,
+    "excitation_wheel_angle_cap_deg": 3.0,
+    "excitation_wheel_rate_cap_deg_s": 20.0,
+    "measurement_sigma": {
+      "yaw_deg_s": 0.1,
+      "ay_m_s2": 0.1,
+      "wheel_deg": 0.05
+    },
+    "measurement_ar1_rho": 0.9,
+    "substeps": [
+      10,
+      20,
+      40
+    ],
+    "relative_tolerance": 0.001,
+    "xi_lower": [
+      -3,
+      -3,
+      -3
+    ],
+    "xi_upper": [
+      3,
+      3,
+      3
+    ],
+    "fixed_weights": {
+      "historical_common": [
+        -2.196941312402487,
+        2.972435535863042,
+        1.8815552853047848
+      ],
+      "hand_tuned": [
+        0.0,
+        0.30103,
+        0.30103
+      ]
+    }
+  },
+  "files": {
+    "scripts\\limited_excitation.py": "8668928e7e8c21584ffd0fafd1744428362900a77eb61376695fc60f13355775",
+    "scripts\\mismatch_pilot.py": "f5199b272dd3299c36868265c94a7d6e7735ea1f5383958ac0bc961c7277d3a3",
+    "config\\runs\\limited_excitation.json": "5c500efa5675331f8bea0c0aa29275a8bf09a5122a533b39bc868d793b6f1440",
+    "config\\controller.yaml": "ad76a91a99f9c6ca061a47d3d5e81659d5553e2507102e8a529ada1a0068fad7",
+    "src\\actuator_bandwidth.py": "4c6e64fceae6ac576837ca76b30bb3ca43b91aea6705cbeaf9dc289ec782cf94",
+    "src\\actuator_antiwindup.py": "b98a5d826a59d38def786a5960ceeb0b60a59da87240fe890a39f9ec10db500c",
+    "src\\nonlinear_plant.py": "0d1c123bd0033c3ad3cebc36115a439d0a1fdca15e408be340863bacff440a5b",
+    "src\\ifac_bridge.py": "f6ed1a7cd5b6a05df25dde420723301421fff87fa3474d98e9e72a4e4ae2e632",
+    "src\\ifac\\utils.py": "94c42439e02591b78d1f570a842718c67306f4d7b6e0658148d6e5f821b9186f"
+  },
+  "plant": {
+    "m": 1500.0,
+    "Iz": 2700.0,
+    "a": 1.25,
+    "b": 1.35,
+    "Cf": 80000.0,
+    "Cr": 90000.0,
+    "U": 15.0
+  },
+  "tangent_model": "known exactly; no identification claim",
+  "protocol": "limited-excitation simulation; no standard compliance"
+}
