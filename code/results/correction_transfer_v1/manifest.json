@@ -1,0 +1,103 @@
+{
+  "signature": "9d1da35d24e65ea9b7304f81623b18fd6845f121593d01984c3c7f6e3ec7c45f",
+  "config": {
+    "tag": "correction_transfer_v1",
+    "calibration_count": 8,
+    "calibration_seed": 1901,
+    "candidate_count": 64,
+    "candidate_seed": 901,
+    "target_mass_factor": 1.2,
+    "target_inertia_factor": 1.25,
+    "fractions": [
+      0.01,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.1,
+      0.11,
+      0.12,
+      0.13,
+      0.14,
+      0.15,
+      0.16,
+      0.17,
+      0.18,
+      0.19,
+      0.2,
+      0.21,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.27,
+      0.28,
+      0.29,
+      0.3
+    ],
+    "fixed_margin": 1.25
+  },
+  "base": {
+    "version": 1,
+    "tag": "mismatch_pilot_v1",
+    "candidate_count": 64,
+    "sobol_seed": 901,
+    "ts": 0.05,
+    "tau_true": 0.2,
+    "demands_m_s2": [
+      1.5,
+      4.0,
+      7.0
+    ],
+    "tracking_fractions": [
+      0.03,
+      0.06,
+      0.12
+    ],
+    "duration": 6.0,
+    "maneuver_half_duration": 1.0,
+    "identification_duration": 20.0,
+    "identification_amplitude_deg": 0.4,
+    "substeps": [
+      10,
+      20,
+      40
+    ],
+    "relative_tolerance": 0.001,
+    "xi_lower": [
+      -3,
+      -3,
+      -3
+    ],
+    "xi_upper": [
+      3,
+      3,
+      3
+    ]
+  },
+  "vehicles": {
+    "source": {
+      "m": 1500.0,
+      "Iz": 2700.0,
+      "a": 1.25,
+      "b": 1.35,
+      "Cf": 80000.0,
+      "Cr": 90000.0,
+      "U": 15.0
+    },
+    "target": {
+      "m": 1800.0,
+      "Iz": 3375.0,
+      "a": 1.25,
+      "b": 1.35,
+      "Cf": 80000.0,
+      "Cr": 90000.0,
+      "U": 15.0
+    }
+  }
+}
