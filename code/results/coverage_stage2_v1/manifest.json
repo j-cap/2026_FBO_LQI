@@ -1,0 +1,133 @@
+{
+  "signature": "91d50d2d86fe256f96abeeec0aa3620d50219f489a674e6d161cd7b6576b460b",
+  "config": {
+    "tag": "coverage_stage2_v1",
+    "calibration_count": 16,
+    "evaluation_count": 32,
+    "calibration_seed": 4901,
+    "evaluation_seed": 5901,
+    "training_demands": [
+      1.5,
+      4.0,
+      7.0
+    ],
+    "evaluation_demands": [
+      1.5,
+      2.75,
+      4.0,
+      5.5,
+      7.0
+    ],
+    "patterns": {
+      "complementary_overlap": [
+        [
+          8,
+          4,
+          0
+        ],
+        [
+          0,
+          4,
+          8
+        ]
+      ],
+      "redundant_narrow": [
+        [
+          8,
+          4,
+          0
+        ],
+        [
+          8,
+          4,
+          0
+        ]
+      ],
+      "one_full_source": [
+        [
+          4,
+          4,
+          4
+        ],
+        [
+          8,
+          4,
+          0
+        ]
+      ]
+    },
+    "single_full_allocation": [
+      8,
+      8,
+      8
+    ],
+    "fixed_margin": 1.25
+  },
+  "base": {
+    "version": 1,
+    "tag": "mismatch_pilot_v1",
+    "candidate_count": 64,
+    "sobol_seed": 901,
+    "ts": 0.05,
+    "tau_true": 0.2,
+    "demands_m_s2": [
+      1.5,
+      4.0,
+      7.0
+    ],
+    "tracking_fractions": [
+      0.03,
+      0.06,
+      0.12
+    ],
+    "duration": 6.0,
+    "maneuver_half_duration": 1.0,
+    "identification_duration": 20.0,
+    "identification_amplitude_deg": 0.4,
+    "substeps": [
+      10,
+      20,
+      40
+    ],
+    "relative_tolerance": 0.001,
+    "xi_lower": [
+      -3,
+      -3,
+      -3
+    ],
+    "xi_upper": [
+      3,
+      3,
+      3
+    ]
+  },
+  "vehicles": {
+    "nominal": {
+      "m": 1500.0,
+      "Iz": 2700.0,
+      "a": 1.25,
+      "b": 1.35,
+      "Cf": 80000.0,
+      "Cr": 90000.0,
+      "U": 15.0
+    },
+    "payload": {
+      "m": 1800.0,
+      "Iz": 3375.0,
+      "a": 1.25,
+      "b": 1.35,
+      "Cf": 80000.0,
+      "Cr": 90000.0,
+      "U": 15.0
+    },
+    "tire": {
+      "m": 1500.0,
+      "Iz": 2700.0,
+      "a": 1.25,
+      "b": 1.35,
+      "Cf": 60000.0,
+      "Cr": 90000.0,
+      "U": 15.0
+    }
+  }
+}
