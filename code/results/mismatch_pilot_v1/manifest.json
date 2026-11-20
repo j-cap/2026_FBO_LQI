@@ -1,0 +1,76 @@
+{
+  "signature": "87d2307ed3a31a04cdbfa6b7c4c9dca41ae468a06f42c44d38e9f6a5167b8d6f",
+  "config": {
+    "version": 1,
+    "tag": "mismatch_pilot_v1",
+    "candidate_count": 64,
+    "sobol_seed": 901,
+    "ts": 0.05,
+    "tau_true": 0.2,
+    "demands_m_s2": [
+      1.5,
+      4.0,
+      7.0
+    ],
+    "tracking_fractions": [
+      0.03,
+      0.06,
+      0.12
+    ],
+    "duration": 6.0,
+    "maneuver_half_duration": 1.0,
+    "identification_duration": 20.0,
+    "identification_amplitude_deg": 0.4,
+    "substeps": [
+      10,
+      20,
+      40
+    ],
+    "relative_tolerance": 0.001,
+    "xi_lower": [
+      -3,
+      -3,
+      -3
+    ],
+    "xi_upper": [
+      3,
+      3,
+      3
+    ]
+  },
+  "plant": {
+    "m": 1500.0,
+    "Iz": 2700.0,
+    "a": 1.25,
+    "b": 1.35,
+    "Cf": 80000.0,
+    "Cr": 90000.0,
+    "U": 15.0
+  },
+  "identification": {
+    "Cf": 79984.2138130953,
+    "Cr": 89978.39071406439,
+    "tau": 0.19999667685926065,
+    "normalized_fit_rmse": 0.00016112999498588254,
+    "observed_peak_yaw_equivalent_ay": 0.40733627569850006,
+    "integration_max_difference": 1.2303522783918552e-11
+  },
+  "A": [
+    [
+      -7.55389353454043,
+      -0.9363242660811324
+    ],
+    [
+      7.95946673985845,
+      -7.13483830023071
+    ]
+  ],
+  "B": [
+    [
+      3.55485394724868
+    ],
+    [
+      37.029728617173745
+    ]
+  ]
+}
