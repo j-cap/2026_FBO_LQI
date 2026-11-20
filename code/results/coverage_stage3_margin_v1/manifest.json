@@ -1,0 +1,53 @@
+{
+  "signature": "f7e24cf199858166c0e2dc85dc838b15fd34221510fcdbdce956c72185218a9f",
+  "input_hashes": {
+    "stage2": "eade4ca2e3c1de46bac862fbed56b10d1a9607d449f7b0b106030f458c48852c",
+    "stage3": "a8283f760aec6d87389705d778c84215b33b3ad7168c563ee441a14758526107"
+  },
+  "config": {
+    "tag": "coverage_stage3_v1",
+    "stage2_tag": "coverage_stage2_v1",
+    "budgets": [
+      0,
+      4,
+      8,
+      16
+    ],
+    "calibration_count": 6,
+    "evaluation_count": 32,
+    "calibration_seed": 6901,
+    "evaluation_seed": 7901,
+    "training_demands": [
+      1.5,
+      4.0,
+      7.0
+    ],
+    "evaluation_demands": [
+      1.5,
+      2.75,
+      4.0,
+      5.5,
+      7.0
+    ],
+    "ridge": 1.0,
+    "fixed_margin": 1.25,
+    "quality_gate": {
+      "max_violations": 0,
+      "min_feasible_coverage": 0.95,
+      "mean_steering_excess_max": 2.0,
+      "max_steering_excess_max": 10.0
+    }
+  },
+  "targets": [
+    "nominal",
+    "payload",
+    "tire"
+  ],
+  "budgets": [
+    0,
+    4,
+    8,
+    16
+  ],
+  "rule": "leave-one-weight-out maximum upper actual/predicted ratio, minimum1"
+}
