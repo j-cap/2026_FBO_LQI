@@ -1,0 +1,29 @@
+{
+  "tag": "tracking_budget_v1",
+  "input_tag": "tracking_diagnostic_v1",
+  "budgets": [6, 12, 24],
+  "optimizer_seeds": [1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019],
+  "protocols": ["leave_vehicle_out", "leave_family_out"],
+  "methods": ["random", "independent_bo", "catalogue", "catalogue_warmstart_bo", "pooled_bo"],
+  "relative_tolerance": 0.05,
+  "tie_tolerance": 1e-12,
+  "gp": {
+    "length_scales": [0.3, 0.3, 0.3, 1.0, 0.5],
+    "amplitude": 1.0,
+    "constant_variance": 0.25,
+    "noise_std_log_J": 0.05,
+    "source_noise_std_log_J": 0.1,
+    "length_bounds": [0.08, 2.0],
+    "amplitude_bounds": [0.1, 3.0],
+    "optimize_every": 4,
+    "optimizer_maxiter": 35,
+    "optimizer_restarts": 1,
+    "feasibility_prior_strength": 2.0,
+    "feasibility_prior_clip": [0.05, 0.95]
+  },
+  "smoke": {
+    "target_ids": ["compact_nominal", "sport_payload", "suv_front_tire"],
+    "optimizer_seeds": [1000, 1001],
+    "budgets": [6, 12]
+  }
+}
