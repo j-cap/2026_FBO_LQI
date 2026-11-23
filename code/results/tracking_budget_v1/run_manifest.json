@@ -1,0 +1,204 @@
+{
+  "signature": "9189fe22459b4df9b1d68d4dd57e23e09e61c44d34a8e408bc72e11b11e33c78",
+  "configuration": {
+    "tag": "tracking_budget_v1",
+    "input_tag": "tracking_diagnostic_v1",
+    "budgets": [
+      6,
+      12,
+      24
+    ],
+    "optimizer_seeds": [
+      1000,
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010,
+      1011,
+      1012,
+      1013,
+      1014,
+      1015,
+      1016,
+      1017,
+      1018,
+      1019
+    ],
+    "protocols": [
+      "leave_vehicle_out",
+      "leave_family_out"
+    ],
+    "methods": [
+      "random",
+      "independent_bo",
+      "catalogue",
+      "catalogue_warmstart_bo",
+      "pooled_bo"
+    ],
+    "relative_tolerance": 0.05,
+    "tie_tolerance": 1e-12,
+    "gp": {
+      "length_scales": [
+        0.3,
+        0.3,
+        0.3,
+        1.0,
+        0.5
+      ],
+      "amplitude": 1.0,
+      "constant_variance": 0.25,
+      "noise_std_log_J": 0.05,
+      "source_noise_std_log_J": 0.1,
+      "length_bounds": [
+        0.08,
+        2.0
+      ],
+      "amplitude_bounds": [
+        0.1,
+        3.0
+      ],
+      "optimize_every": 4,
+      "optimizer_maxiter": 35,
+      "optimizer_restarts": 1,
+      "feasibility_prior_strength": 2.0,
+      "feasibility_prior_clip": [
+        0.05,
+        0.95
+      ]
+    },
+    "smoke": {
+      "target_ids": [
+        "compact_nominal",
+        "sport_payload",
+        "suv_front_tire"
+      ],
+      "optimizer_seeds": [
+        1000,
+        1001
+      ],
+      "budgets": [
+        6,
+        12
+      ]
+    }
+  },
+  "mode": "full",
+  "targets": [
+    "compact_front_tire",
+    "compact_nominal",
+    "compact_payload",
+    "sport_front_tire",
+    "sport_nominal",
+    "sport_payload",
+    "suv_front_tire",
+    "suv_nominal",
+    "suv_payload"
+  ],
+  "source_hashes": {
+    "code/scripts/tracking_budget.py": "d5d92c41aab28b7b59c78d6aec8ece463510441673f52f66ba5ffd6b5e2da08d",
+    "code/src/tracking_budget.py": "6ff3b96eb4ee3066756b2e65ca834eb2517b588d9b95341c4c093bf4ffb4e1bc",
+    "code/src/tracking_context.py": "efb18608a8fac898703507a064dc1e50dbf55b0f3f4801bf72edb52a76e095b4"
+  },
+  "input_hashes": {
+    "run_manifest.json": "3b875b9db6199e5450f894a29c03d99535a5051fccda94b0c436bd7a3def4cc3",
+    "completion.json": "60a82368058dc36951b8b127a6333ca2fd1538c6004bb2a8163c56a19271a742",
+    "controlled_evaluations.csv": "6999814862bf175d3641b2eed43895dcd98422c904efae158813d9fcd30a9773"
+  },
+  "git_head": "1f10404f6af17554716e98deca8cabf58e8e3215",
+  "runtime": {
+    "python": "3.11.16",
+    "numpy": "2.3.2",
+    "scipy": "1.16.1",
+    "pandas": "2.3.1"
+  },
+  "input_signature": "e68957f438f3f6d578ab79ceceb82d97f1dc01bf50ce579e458035a54e5b9e4d",
+  "expected_jobs": 360,
+  "contexts": [
+    "s20_f0.1",
+    "s20_f0.3",
+    "s20_f0.6",
+    "s30_f0.1",
+    "s30_f0.3",
+    "s30_f0.6"
+  ],
+  "candidates": [
+    "g000",
+    "g001",
+    "g002",
+    "g003",
+    "g004",
+    "g005",
+    "g006",
+    "g007",
+    "g008",
+    "g009",
+    "g010",
+    "g011",
+    "g012",
+    "g013",
+    "g014",
+    "g015",
+    "g016",
+    "g017",
+    "g018",
+    "g019",
+    "g020",
+    "g021",
+    "g022",
+    "g023",
+    "g024",
+    "g025",
+    "g026",
+    "g027",
+    "g028",
+    "g029",
+    "g030",
+    "g031",
+    "g032",
+    "g033",
+    "g034",
+    "g035",
+    "g036",
+    "g037",
+    "g038",
+    "g039",
+    "g040",
+    "g041",
+    "g042",
+    "g043",
+    "g044",
+    "g045",
+    "g046",
+    "g047",
+    "g048",
+    "g049",
+    "g050",
+    "g051",
+    "g052",
+    "g053",
+    "g054",
+    "g055",
+    "g056",
+    "g057",
+    "g058",
+    "g059",
+    "g060",
+    "g061",
+    "g062",
+    "g063",
+    "g064",
+    "g065",
+    "g066",
+    "g067",
+    "g068",
+    "g069",
+    "g070"
+  ],
+  "source_history": "All archived calibration rollouts from permitted vehicles; data-rich benchmark."
+}

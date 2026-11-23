@@ -1,0 +1,2126 @@
+{
+  "target": "compact_payload",
+  "protocol": "leave_vehicle_out",
+  "seed": 1018,
+  "noise_seed": 101,
+  "fold": "leave_vehicle_out__compact_payload",
+  "signature": "9189fe22459b4df9b1d68d4dd57e23e09e61c44d34a8e408bc72e11b11e33c78",
+  "methods": {
+    "random": {
+      "steps": [
+        {
+          "evaluation": 1,
+          "action": 213,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g000",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 2,
+          "action": 77,
+          "eligible": true,
+          "J": 10.821422640599204,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g006",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            null,
+            "g006",
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 3,
+          "action": 405,
+          "eligible": true,
+          "J": 10.229913370677146,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g050",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            null,
+            "g006",
+            null,
+            null,
+            null,
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 4,
+          "action": 154,
+          "eligible": true,
+          "J": 0.7417664110876013,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g012",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            null,
+            "g006",
+            "g012",
+            null,
+            null,
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 5,
+          "action": 67,
+          "eligible": true,
+          "J": 3.1997466145573847,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g067",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g012",
+            null,
+            null,
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 6,
+          "action": 301,
+          "eligible": false,
+          "J": null,
+          "complete": false,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g017",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g012",
+            null,
+            null,
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 7,
+          "action": 379,
+          "eligible": true,
+          "J": 0.4983735786932712,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g024",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g012",
+            null,
+            null,
+            "g024"
+          ]
+        },
+        {
+          "evaluation": 8,
+          "action": 210,
+          "eligible": true,
+          "J": 0.6139431288454555,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g068",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g068",
+            null,
+            null,
+            "g024"
+          ]
+        },
+        {
+          "evaluation": 9,
+          "action": 36,
+          "eligible": true,
+          "J": 1.8454784098900658,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g036",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g006",
+            "g068",
+            null,
+            null,
+            "g024"
+          ]
+        },
+        {
+          "evaluation": 10,
+          "action": 239,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g026",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g006",
+            "g068",
+            null,
+            null,
+            "g024"
+          ]
+        },
+        {
+          "evaluation": 11,
+          "action": 342,
+          "eligible": true,
+          "J": 0.9315764415516502,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g058",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g006",
+            "g068",
+            null,
+            "g058",
+            "g024"
+          ]
+        },
+        {
+          "evaluation": 12,
+          "action": 133,
+          "eligible": true,
+          "J": 0.7163553100370246,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g062",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g068",
+            null,
+            "g058",
+            "g024"
+          ]
+        },
+        {
+          "evaluation": 13,
+          "action": 325,
+          "eligible": false,
+          "J": null,
+          "complete": false,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g041",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g068",
+            null,
+            "g058",
+            "g024"
+          ]
+        },
+        {
+          "evaluation": 14,
+          "action": 359,
+          "eligible": true,
+          "J": 0.46902711117383783,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g004",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g068",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 15,
+          "action": 278,
+          "eligible": false,
+          "J": null,
+          "complete": false,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g065",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g068",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 16,
+          "action": 112,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g041",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g068",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 17,
+          "action": 169,
+          "eligible": true,
+          "J": 0.5382948622423993,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g027",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g027",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 18,
+          "action": 47,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g047",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g027",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 19,
+          "action": 369,
+          "eligible": true,
+          "J": 0.5209341622324795,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g014",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g027",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 20,
+          "action": 102,
+          "eligible": true,
+          "J": 14.495095680066678,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g031",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g027",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 21,
+          "action": 314,
+          "eligible": true,
+          "J": 0.9393998618147705,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g030",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g027",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 22,
+          "action": 198,
+          "eligible": true,
+          "J": 0.5061917798056741,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g056",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g056",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 23,
+          "action": 215,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g002",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g056",
+            null,
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 24,
+          "action": 32,
+          "eligible": true,
+          "J": 1.9310364737194892,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g032",
+          "mode": "balanced_random",
+          "recommendations": [
+            "g036",
+            "g062",
+            "g056",
+            null,
+            "g058",
+            "g004"
+          ]
+        }
+      ],
+      "actual_rollouts": 24,
+      "final_gp_parameters": [
+        -1.2039728043259361,
+        -1.2039728043259361,
+        -1.2039728043259361,
+        0.0,
+        -0.6931471805599453,
+        0.0
+      ]
+    },
+    "independent_bo": {
+      "steps": [
+        {
+          "evaluation": 1,
+          "action": 213,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g000",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 2,
+          "action": 77,
+          "eligible": true,
+          "J": 10.821422640599204,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g006",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            null,
+            "g006",
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 3,
+          "action": 405,
+          "eligible": true,
+          "J": 10.229913370677146,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g050",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            null,
+            "g006",
+            null,
+            null,
+            null,
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 4,
+          "action": 154,
+          "eligible": true,
+          "J": 0.7417664110876013,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g012",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            null,
+            "g006",
+            "g012",
+            null,
+            null,
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 5,
+          "action": 67,
+          "eligible": true,
+          "J": 3.1997466145573847,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g067",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g012",
+            null,
+            null,
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 6,
+          "action": 301,
+          "eligible": false,
+          "J": null,
+          "complete": false,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g017",
+          "mode": "space_filling_initialization",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g012",
+            null,
+            null,
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 7,
+          "action": 334,
+          "eligible": true,
+          "J": 10.112567270421257,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g050",
+          "mode": "feasibility_search",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g012",
+            null,
+            "g050",
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 8,
+          "action": 263,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g050",
+          "mode": "feasibility_search",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g012",
+            null,
+            "g050",
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 9,
+          "action": 280,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g067",
+          "mode": "feasibility_search",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g012",
+            null,
+            "g050",
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 10,
+          "action": 219,
+          "eligible": true,
+          "J": 11.117785103883545,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g006",
+          "mode": "feasibility_search",
+          "recommendations": [
+            "g067",
+            "g006",
+            "g012",
+            "g006",
+            "g050",
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 11,
+          "action": 83,
+          "eligible": true,
+          "J": 1.1508245348729187,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g012",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g067",
+            "g012",
+            "g012",
+            "g006",
+            "g050",
+            "g050"
+          ]
+        },
+        {
+          "evaluation": 12,
+          "action": 367,
+          "eligible": true,
+          "J": 0.9781086112751378,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g012",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g067",
+            "g012",
+            "g012",
+            "g006",
+            "g050",
+            "g012"
+          ]
+        },
+        {
+          "evaluation": 13,
+          "action": 296,
+          "eligible": true,
+          "J": 1.4402192835745578,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g012",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g067",
+            "g012",
+            "g012",
+            "g006",
+            "g012",
+            "g012"
+          ]
+        },
+        {
+          "evaluation": 14,
+          "action": 225,
+          "eligible": true,
+          "J": 0.8235257391005646,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g012",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g067",
+            "g012",
+            "g012",
+            "g012",
+            "g012",
+            "g012"
+          ]
+        },
+        {
+          "evaluation": 15,
+          "action": 12,
+          "eligible": true,
+          "J": 0.7175124076318071,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g012",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g012",
+            "g012",
+            "g012",
+            "g012",
+            "g012"
+          ]
+        },
+        {
+          "evaluation": 16,
+          "action": 336,
+          "eligible": true,
+          "J": 1.310114290501703,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g052",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g012",
+            "g012",
+            "g012",
+            "g052",
+            "g012"
+          ]
+        },
+        {
+          "evaluation": 17,
+          "action": 309,
+          "eligible": false,
+          "J": null,
+          "complete": false,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g025",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g012",
+            "g012",
+            "g012",
+            "g052",
+            "g012"
+          ]
+        },
+        {
+          "evaluation": 18,
+          "action": 291,
+          "eligible": true,
+          "J": 1.618058820955659,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g007",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g012",
+            "g012",
+            "g012",
+            "g052",
+            "g012"
+          ]
+        },
+        {
+          "evaluation": 19,
+          "action": 101,
+          "eligible": true,
+          "J": 0.6538794148534033,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g030",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g012",
+            "g012",
+            "g052",
+            "g012"
+          ]
+        },
+        {
+          "evaluation": 20,
+          "action": 314,
+          "eligible": true,
+          "J": 0.9393998618147705,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g030",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g012",
+            "g012",
+            "g030",
+            "g012"
+          ]
+        },
+        {
+          "evaluation": 21,
+          "action": 385,
+          "eligible": true,
+          "J": 0.5235841961397251,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g030",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g012",
+            "g012",
+            "g030",
+            "g030"
+          ]
+        },
+        {
+          "evaluation": 22,
+          "action": 172,
+          "eligible": true,
+          "J": 0.5491722221437301,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g030",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g030",
+            "g012",
+            "g030",
+            "g030"
+          ]
+        },
+        {
+          "evaluation": 23,
+          "action": 30,
+          "eligible": true,
+          "J": 1.8159547482687823,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g030",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g030",
+            "g012",
+            "g030",
+            "g030"
+          ]
+        },
+        {
+          "evaluation": 24,
+          "action": 238,
+          "eligible": false,
+          "J": null,
+          "complete": false,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g025",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g030",
+            "g012",
+            "g030",
+            "g030"
+          ]
+        }
+      ],
+      "actual_rollouts": 24,
+      "final_gp_parameters": [
+        0.6931471805599453,
+        0.16330654322139862,
+        -1.0594922343607491,
+        0.6931471805599453,
+        0.047778870766301,
+        0.001127468042169419
+      ]
+    },
+    "catalogue": {
+      "steps": [
+        {
+          "evaluation": 1,
+          "action": 225,
+          "eligible": true,
+          "J": 0.8235257391005646,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g012",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            null,
+            null,
+            "g012",
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 2,
+          "action": 101,
+          "eligible": true,
+          "J": 0.6538794148534033,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g030",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            "g030",
+            null,
+            "g012",
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 3,
+          "action": 359,
+          "eligible": true,
+          "J": 0.46902711117383783,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g004",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            "g030",
+            null,
+            "g012",
+            null,
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 4,
+          "action": 146,
+          "eligible": true,
+          "J": 0.4781529412510839,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g004",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            "g030",
+            "g004",
+            "g012",
+            null,
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 5,
+          "action": 12,
+          "eligible": true,
+          "J": 0.7175124076318071,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g012",
+          "mode": "source_initialization",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            null,
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 6,
+          "action": 314,
+          "eligible": true,
+          "J": 0.9393998618147705,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g030",
+          "mode": "source_initialization",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        }
+      ],
+      "actual_rollouts": 6,
+      "final_gp_parameters": [
+        -1.2039728043259361,
+        -1.2039728043259361,
+        -1.2039728043259361,
+        0.0,
+        -0.6931471805599453,
+        0.0
+      ]
+    },
+    "catalogue_warmstart_bo": {
+      "steps": [
+        {
+          "evaluation": 1,
+          "action": 225,
+          "eligible": true,
+          "J": 0.8235257391005646,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g012",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            null,
+            null,
+            "g012",
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 2,
+          "action": 101,
+          "eligible": true,
+          "J": 0.6538794148534033,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g030",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            "g030",
+            null,
+            "g012",
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 3,
+          "action": 359,
+          "eligible": true,
+          "J": 0.46902711117383783,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g004",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            "g030",
+            null,
+            "g012",
+            null,
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 4,
+          "action": 146,
+          "eligible": true,
+          "J": 0.4781529412510839,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g004",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            "g030",
+            "g004",
+            "g012",
+            null,
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 5,
+          "action": 12,
+          "eligible": true,
+          "J": 0.7175124076318071,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g012",
+          "mode": "source_initialization",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            null,
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 6,
+          "action": 314,
+          "eligible": true,
+          "J": 0.9393998618147705,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g030",
+          "mode": "source_initialization",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 7,
+          "action": 288,
+          "eligible": true,
+          "J": 1.2015896504256554,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g004",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 8,
+          "action": 292,
+          "eligible": true,
+          "J": 13.04650044310962,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g008",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 9,
+          "action": 287,
+          "eligible": true,
+          "J": 1.1969812923592462,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g003",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 10,
+          "action": 296,
+          "eligible": true,
+          "J": 1.4402192835745578,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g012",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 11,
+          "action": 336,
+          "eligible": true,
+          "J": 1.310114290501703,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g052",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 12,
+          "action": 265,
+          "eligible": true,
+          "J": 1.9003526337409513,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g052",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 13,
+          "action": 276,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g063",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 14,
+          "action": 253,
+          "eligible": true,
+          "J": 3.1463136483345213,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g040",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 15,
+          "action": 281,
+          "eligible": true,
+          "J": 1.039911900318025,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g068",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 16,
+          "action": 302,
+          "eligible": true,
+          "J": 1.158022251288312,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g018",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 17,
+          "action": 344,
+          "eligible": true,
+          "J": 1.2621058300817778,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g060",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 18,
+          "action": 326,
+          "eligible": true,
+          "J": 1.012843345205465,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g042",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 19,
+          "action": 298,
+          "eligible": true,
+          "J": 1.261636240660505,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g014",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 20,
+          "action": 335,
+          "eligible": true,
+          "J": 1.0061434101066762,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g051",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 21,
+          "action": 221,
+          "eligible": false,
+          "J": null,
+          "complete": true,
+          "feasible": false,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g008",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 22,
+          "action": 342,
+          "eligible": true,
+          "J": 0.9315764415516502,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g058",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 23,
+          "action": 249,
+          "eligible": true,
+          "J": 2.332238836183608,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g036",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g058",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 24,
+          "action": 129,
+          "eligible": true,
+          "J": 0.6841079483247501,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g058",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g058",
+            "g004"
+          ]
+        }
+      ],
+      "actual_rollouts": 24,
+      "final_gp_parameters": [
+        -0.34632083775382044,
+        0.6931471805599453,
+        -1.424970940481175,
+        0.6931471805599453,
+        -2.5257286443082556,
+        -0.10675380006914795
+      ]
+    },
+    "pooled_bo": {
+      "steps": [
+        {
+          "evaluation": 1,
+          "action": 225,
+          "eligible": true,
+          "J": 0.8235257391005646,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g012",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            null,
+            null,
+            "g012",
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 2,
+          "action": 101,
+          "eligible": true,
+          "J": 0.6538794148534033,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g030",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            "g030",
+            null,
+            "g012",
+            null,
+            null
+          ]
+        },
+        {
+          "evaluation": 3,
+          "action": 359,
+          "eligible": true,
+          "J": 0.46902711117383783,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g004",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            "g030",
+            null,
+            "g012",
+            null,
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 4,
+          "action": 146,
+          "eligible": true,
+          "J": 0.4781529412510839,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g004",
+          "mode": "source_initialization",
+          "recommendations": [
+            null,
+            "g030",
+            "g004",
+            "g012",
+            null,
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 5,
+          "action": 12,
+          "eligible": true,
+          "J": 0.7175124076318071,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.1",
+          "candidate": "g012",
+          "mode": "source_initialization",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            null,
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 6,
+          "action": 314,
+          "eligible": true,
+          "J": 0.9393998618147705,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g030",
+          "mode": "source_initialization",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 7,
+          "action": 190,
+          "eligible": true,
+          "J": 0.48308506385952527,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g048",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 8,
+          "action": 294,
+          "eligible": true,
+          "J": 0.9419774803999127,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g010",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 9,
+          "action": 324,
+          "eligible": true,
+          "J": 0.9484128027931891,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g040",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 10,
+          "action": 354,
+          "eligible": true,
+          "J": 0.9444447347513548,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g070",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g004"
+          ]
+        },
+        {
+          "evaluation": 11,
+          "action": 370,
+          "eligible": true,
+          "J": 0.46569000076280714,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g015",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g030",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 12,
+          "action": 310,
+          "eligible": true,
+          "J": 0.9161218021328085,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g026",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g004",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 13,
+          "action": 197,
+          "eligible": true,
+          "J": 0.47467545393439725,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g055",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 14,
+          "action": 111,
+          "eligible": true,
+          "J": 0.6598792261020695,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g040",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 15,
+          "action": 157,
+          "eligible": true,
+          "J": 0.480485364111908,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.6",
+          "candidate": "g015",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 16,
+          "action": 241,
+          "eligible": true,
+          "J": 1.0350091161716328,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.1",
+          "candidate": "g028",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 17,
+          "action": 81,
+          "eligible": true,
+          "J": 0.6778845533038986,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g010",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 18,
+          "action": 342,
+          "eligible": true,
+          "J": 0.9315764415516502,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g058",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 19,
+          "action": 330,
+          "eligible": true,
+          "J": 0.959521363496215,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.3",
+          "candidate": "g046",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 20,
+          "action": 421,
+          "eligible": true,
+          "J": 0.46580351385527835,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g066",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 21,
+          "action": 97,
+          "eligible": true,
+          "J": 0.6899295155161282,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g026",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 22,
+          "action": 141,
+          "eligible": true,
+          "J": 0.6726256042987184,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s20_f0.3",
+          "candidate": "g070",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 23,
+          "action": 358,
+          "eligible": true,
+          "J": 0.4743306792229204,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g003",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        },
+        {
+          "evaluation": 24,
+          "action": 403,
+          "eligible": true,
+          "J": 0.485221233462111,
+          "complete": true,
+          "feasible": true,
+          "integration_resolved": true,
+          "context": "s30_f0.6",
+          "candidate": "g048",
+          "mode": "feasibility_weighted_EI",
+          "recommendations": [
+            "g012",
+            "g030",
+            "g055",
+            "g012",
+            "g026",
+            "g015"
+          ]
+        }
+      ],
+      "actual_rollouts": 24,
+      "final_gp_parameters": [
+        0.6931471805599453,
+        0.6931471805599453,
+        0.6931471805599453,
+        0.6931471805599453,
+        0.6931471805599453,
+        -2.3025850929940455
+      ]
+    }
+  },
+  "elapsed_seconds": 0.26076910039409995,
+  "source_ids": [
+    "compact_front_tire",
+    "compact_nominal",
+    "sport_front_tire",
+    "sport_nominal",
+    "sport_payload",
+    "suv_front_tire",
+    "suv_nominal",
+    "suv_payload"
+  ]
+}
