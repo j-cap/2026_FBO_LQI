@@ -2,6 +2,11 @@
 
 Research repository for fleet-informed Bayesian optimization of LQI controller calibration.
 
+Current online calibration experiment: [one factory test and immediate contextual
+LCB BO](docs/tracking_online_lcb.md). Run it with
+`python code/scripts/tracking_online_lcb.py run --workers 4`. The completed
+six-test pilot and its analysis remain frozen on their existing branches.
+
 ## Repository structure
 
 - `code/` — simulation, optimization, experiment drivers, configurations, tests, and generated analysis outputs.

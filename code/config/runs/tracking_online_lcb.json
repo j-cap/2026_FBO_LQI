@@ -1,0 +1,108 @@
+{
+  "tag": "tracking_online_lcb_v1",
+  "physics_config": "config/runs/tracking_diagnostic.json",
+  "evaluation_tag": "tracking_diagnostic_v1",
+  "conditions": [
+    "homogeneous",
+    "heterogeneous"
+  ],
+  "seeds": [
+    1100,
+    1101,
+    1102
+  ],
+  "queries_per_client": 24,
+  "fleet_budgets": [
+    9,
+    18,
+    27,
+    54,
+    108,
+    216
+  ],
+  "scout_search_queries": 12,
+  "scout_plant_ids": [
+    "compact_nominal",
+    "sport_nominal",
+    "suv_nominal"
+  ],
+  "homogeneous_plant_id": "compact_nominal",
+  "methods": [
+    "independent_bo",
+    "local_cost_bo",
+    "online_gain_sharing",
+    "single_scout",
+    "federated_cost_bo",
+    "centralized_cost_bo"
+  ],
+  "relative_tolerance": 0.05,
+  "gp": {
+    "length_scales": [
+      0.3,
+      0.3,
+      0.3,
+      1.0,
+      0.5
+    ],
+    "amplitude": 1.0,
+    "constant_variance": 0.25,
+    "noise_std_log_J": 0.05,
+    "source_noise_std_log_J": 0.1,
+    "length_bounds": [
+      0.08,
+      2.0
+    ],
+    "amplitude_bounds": [
+      0.1,
+      3.0
+    ],
+    "optimize_every": 4,
+    "optimizer_maxiter": 35,
+    "optimizer_restarts": 1,
+    "feasibility_prior_strength": 2.0,
+    "feasibility_prior_clip": [
+      0.05,
+      0.95
+    ]
+  },
+  "model": {
+    "features": 64,
+    "feature_seed": 314159,
+    "length_scales": [
+      0.3,
+      0.3,
+      0.3,
+      1.0,
+      0.5
+    ],
+    "ridge": 0.02,
+    "learning_rate": 0.2,
+    "local_steps": 1,
+    "server_rounds": 200
+  },
+  "smoke": {
+    "client_plant_ids": [
+      "compact_nominal",
+      "sport_nominal",
+      "suv_nominal"
+    ],
+    "seeds": [
+      1100
+    ],
+    "queries_per_client": 8,
+    "fleet_budgets": [
+      3,
+      6,
+      9,
+      18,
+      24
+    ],
+    "scout_search_queries": 6
+  },
+  "initialization_tests": 1,
+  "acquisition": {
+    "confidence_multiplier": 2.0,
+    "feasibility_penalty": 1.0,
+    "probability_floor": 1e-06
+  }
+}
