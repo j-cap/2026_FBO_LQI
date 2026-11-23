@@ -1,0 +1,39 @@
+{
+  "archive": "CFL_FF_AK_audit_minimal.zip",
+  "archive_sha256": "b14ff8d4791b71857d23a9e96f0b7afceece0a8471491acf5a0bd221a5cfc1c6",
+  "files": {
+    "src/dynamics.py": {
+      "original_sha256": "3027ed7f3fd69c75a8dbd9b670f979bbcddf53f6524a9efd8a799439e0afbf1d",
+      "local_file": "cfl_dynamics.py"
+    },
+    "src/trajectories.py": {
+      "original_sha256": "9bc312d876e104123b327b50251294424fb894c09eac0e7a7887e3ffc5fea77a",
+      "local_file": "cfl_trajectories.py"
+    },
+    "src/controller.py": {
+      "original_sha256": "d0d2fece9d4c819f59b520b222aa62790865d60497159eadf0204cf5a49bf287",
+      "local_file": "cfl_controller.py"
+    },
+    "config/vehicles.yaml": {
+      "original_sha256": "56fdffc2fa5f012bac6f74bf055538c22b06ad98db5b32c34c8ea723a79d91fa",
+      "role": "Parameter/default/procedure reference; not copied as executable code."
+    },
+    "config/base_common.yaml": {
+      "original_sha256": "95429ab94c22448237ae1f315fbc6c64475b05f44a278d4ea680be4ba13a9c47",
+      "role": "Parameter/default/procedure reference; not copied as executable code."
+    },
+    "config/trajectory_configs.yaml": {
+      "original_sha256": "2b1b4d09150e5cc05bfd62d9050525daaaabb670aa334b14d50ab213a82629fc",
+      "role": "Parameter/default/procedure reference; not copied as executable code."
+    },
+    "src/hierarchical_fleet.py": {
+      "original_sha256": "413dbad07c46585aa81812cce86a4fc862302696ed750da91fc86b452c1bfafc",
+      "role": "Parameter/default/procedure reference; not copied as executable code."
+    }
+  },
+  "changes": [
+    "CRLF normalized to LF and trailing whitespace removed.",
+    "Removed unused dynamics utils import; controller wrap_angle supplied locally.",
+    "Reference dynamics and trajectory algorithms otherwise unchanged."
+  ]
+}
