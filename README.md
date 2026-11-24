@@ -7,6 +7,9 @@ LCB BO](docs/tracking_online_lcb.md). Run it with
 `python code/scripts/tracking_online_lcb.py run --workers 4`. The completed
 six-test pilot and its analysis remain frozen on their existing branches.
 
+The [consolidated findings](docs/fedbo_consolidation.md) motivate a
+[proposed comparison under a common peer-gain verification rule](docs/tracking_peer_assisted_cost_model.md).
+
 ## Repository structure
 
 - `code/` — simulation, optimization, experiment drivers, configurations, tests, and generated analysis outputs.
