@@ -1,4 +1,4 @@
-# FedBO: consolidated findings and the remaining question
+# FedBO: frozen condition-dependent findings
 
 24 November 2026. Latest completed experiment:
 `fb9e7763b8863d5cdb52c03943650ce2299ac07c`.
@@ -9,6 +9,12 @@ cooperation. The matched peer-verification comparison now finds a homogeneous
 benefit of federating the additional cost mean relative to fitting it locally,
 and heterogeneous deterioration in every tested seed. A reliable calibration
 advantage over simple gain sharing with a local GP remains unestablished.
+
+The frozen conclusion is: **under common peer verification, federating this
+cost-mean model improves on fitting it locally for homogeneous vehicles and
+degrades the declared final-budget result for the tested heterogeneous fleet**.
+Both directions occur in all three seeds. This is a statement about the current
+model, protocol and fixed plants, not a general law about federated BO.
 
 ## Task being studied
 
@@ -29,8 +35,10 @@ does not tune LQI Q/R weights despite the legacy repository name.
 | Source-data availability matters | The historical archive is treated as already available; the online studies charge every newly generated rollout | Historical transfer results do not establish the sample efficiency of generating fleet knowledge online |
 | Online cooperation works without pre-existing histories | Gain sharing establishes useful controllers from newly generated fleet observations and pays for target verification | A pre-existing archive is not necessary for useful fleet cooperation |
 | The revised initialization is online from query 2 | Federated and independent BO choose different second gains in 25/27 homogeneous and 27/27 heterogeneous trials | The six-blind-test objection has been resolved |
-| Current shared-model benefits depend on the metric and physical condition | Homogeneous gain sharing is stronger on commissioning speed and near-reference coverage; heterogeneous federation improves conditional quality but leaves incomplete policies | No consistent end-to-end superiority of the federated cost model is established |
-| FedAvg training is close to the exact same-data ridge fit | Prediction differences are small, and exact centralized fitting also struggles with homogeneous near-reference coverage | More FedAvg iterations alone are not a persuasive next experiment |
+| The earlier cost-only sharing strategy had condition-dependent benefits | Without mandatory peer verification in the model arms, heterogeneous federation improved conditional tracking quality but left incomplete policies | These results compare different information-use strategies and do not isolate model sharing under the same peer rule |
+| The matched peer-first comparison isolates the added model-sharing channel | C beats B in homogeneous context success and mean J in every seed; C loses to B in heterogeneous context success in every seed | The sign depends on the tested physical condition; the result is now scientifically narrower and clearer |
+| The practical gain-sharing reference remains strong | C's homogeneous aggregate mean J is below A's, but A has higher near-reference success and wins on both metrics in two seeds | Improving on B does not establish consistent superiority to A |
+| FedAvg training is close to the exact same-data ridge fit | Mean-fit prediction differences are small in the completed model arms | A training-iteration sweep is not presently motivated as the main explanation; exact pooled fitting is not a tested full peer-assisted policy |
 
 Detailed sources:
 
@@ -64,7 +72,7 @@ cost-only channel does not reliably replace direct gain reuse.
 
 The old and new online pilots change initialization and acquisition together.
 Their numerical differences cannot identify either change's separate effect.
-The one-test/LCB protocol remains the basis for the next comparison because it
+The one-test/LCB protocol was retained for the matched comparison because it
 implements the intended online process, irrespective of the old pilot's larger
 scores in some cases.
 
@@ -74,8 +82,9 @@ These are finite-pool simulation studies on fixed physical configurations, with
 limited independent noise/programme realizations. Near-reference success uses a
 declared 5% research threshold. Conditional J comparisons retain their jointly
 eligible denominator. Missing recommendations and failed experiments consume
-budget and remain in success metrics. The online pilot's one unresolved
-local-cost query is charged and excluded from eligible cost training.
+budget and remain in success metrics. The cost-only one-test pilot's one
+unresolved local-cost query is charged and excluded from eligible cost training.
+All 3,888 queries in the matched peer-assisted study are numerically resolved.
 
 The evidence does not establish a population-level fleet benefit, certified
 safety, generalization to unseen trajectory shapes, a communication advantage,
@@ -114,9 +123,35 @@ worse one-step proposals from the shared mean; it does not reproduce complete
 adaptive policies. Surrogate mismatch, GP adaptation and catalogue feedback
 remain possible explanations rather than a uniquely identified cause.
 
+## Claims to retain and claims to withhold
+
+| Claim | Status and reason |
+|---|---|
+| The tested task has substantial context-dependent controller-tuning headroom | Supported by the dense tracking diagnostic |
+| Eligible controller gains can be reused across vehicles with paid local verification | Supported by historical and online catalogue studies |
+| A shared learned mean adds value over the same mean fitted locally on identical plants | Supported within the matched three-seed homogeneous condition |
+| The current shared mean improves heterogeneous calibration over the matched local mean | Rejected by this experiment's declared final-budget comparison |
+| C consistently improves on the stronger simple peer-sharing method A | Unestablished across metrics and seeds |
+| The heterogeneous failure is caused by FedAvg convergence, a missing family label, or a particular uncertainty defect | Unidentified; these mechanisms have not been causally separated |
+| More local correction is absent from C | Incorrect: C already has a target-only residual GP |
+| A hierarchical, descriptor-conditioned, or clustered replacement will improve online calibration | Untested modeling hypotheses |
+
+The machine-readable contrasts, paired-cost denominators and seed directions
+are in [condition_dependent_claims.csv](analysis/heterogeneous_cost_model_review/condition_dependent_claims.csv).
+
+## Freeze and modeling handoff
+
+Keep one factory test, the common peer-first rule, the existing LCB,
+24 queries/client, six contexts, the 71-gain pool, eligibility rules and
+declared 5% reference threshold fixed. Preserve the completed source/result
+signatures. Do not reinterpret a conditional cost improvement as complete-fleet
+superiority, or substitute a favorable budget/seed for the declared primary
+comparison.
+
 The experiment and rule are documented in
 [tracking_peer_assisted_cost_model.md](tracking_peer_assisted_cost_model.md).
-Freeze the present protocol. Any further heterogeneous model work should first
-resolve the representation and sequential decision-design question, without
-presuming that a new FL solver or clustering will solve it. Completed results
-remain frozen; the latest analysis prepares no additional physical campaign.
+The modeling handoff is [heterogeneous_cost_model_review.md](heterogeneous_cost_model_review.md).
+It audits the shared/local assumptions, statistical uncertainty, actual input
+coverage and vehicle-dependent cost shapes using existing data only. It
+separates code facts, retrospective diagnostics and proposed model classes.
+No additional physical campaign is prepared by this consolidation or review.

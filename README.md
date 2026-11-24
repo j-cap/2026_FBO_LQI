@@ -10,6 +10,9 @@ verification](docs/tracking_peer_assisted_cost_model.md). Run it with
 The [consolidated findings](docs/fedbo_consolidation.md) motivate the common-rule
 comparison of a zero, locally learned, or federatively learned BO mean.
 
+The [heterogeneous cost-model review](docs/heterogeneous_cost_model_review.md)
+records the current modeling assumptions and diagnostics before another variant.
+
 ## Repository structure
 
 - `code/` — simulation, optimization, experiment drivers, configurations, tests, and generated analysis outputs.
