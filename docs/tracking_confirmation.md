@@ -1,5 +1,9 @@
 # Frozen D256 confirmation on fresh seeds and physical fleets
 
+Completed results and the independent audit are in the
+[confirmation analysis](analysis/spectral_confirmation/report.md). The protocol
+below was fixed before those results; its criteria and outcomes are retained.
+
 24 November 2026. This protocol follows the completed
 [matched spectral campaign](analysis/spectral_online_cost_model/report.md) and
 the [seed-1102 discovery-chain inspection](analysis/spectral_discovery_chains/report.md).
