@@ -2,15 +2,20 @@
 
 Research repository for fleet-informed Bayesian optimization of LQI controller calibration.
 
-Current online calibration experiment: [joint shared/local Bayesian cost
+Latest completed online calibration experiment: [joint shared/local Bayesian cost
 learning](docs/tracking_hierarchical.md), with A as the primary benchmark and B
 as the secondary benchmark. Run it with
 `python code/scripts/tracking_hierarchical.py run --workers 6`. It reuses the
 completed [common peer-verification comparison](docs/tracking_peer_assisted_cost_model.md)
 for evaluation. The previous experiments remain frozen.
 
+The [audited joint-model results](docs/analysis/joint_shared_local_cost_model/report.md)
+show a heterogeneous final-budget improvement over A, a homogeneous loss to A,
+and a heterogeneous context-success tradeoff against B.
+
 The [consolidated findings](docs/fedbo_consolidation.md) freeze the completed
-A/B/C comparison. The [heterogeneous cost-model review](docs/heterogeneous_cost_model_review.md)
+A/B/C comparison and record the joint-model follow-up.
+The [heterogeneous cost-model review](docs/heterogeneous_cost_model_review.md)
 motivates joint shared/local inference with the same tracking task and budget.
 
 ## Repository structure

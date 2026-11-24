@@ -1,20 +1,26 @@
-# FedBO: frozen condition-dependent findings
+# FedBO: consolidated condition-dependent findings
 
 24 November 2026. Latest completed experiment:
-`fb9e7763b8863d5cdb52c03943650ce2299ac07c`.
-Latest analysis: [common peer-verification comparison](analysis/peer_assisted_cost_model/report.md).
+`47e8ee396eddf7379ddb463c5c318c7ae9d2f8e2`.
+Latest analysis: [joint shared/local cost model](analysis/joint_shared_local_cost_model/report.md).
 
 The evidence supports reusable controller-tuning experience and online fleet
-cooperation. The matched peer-verification comparison now finds a homogeneous
-benefit of federating the additional cost mean relative to fitting it locally,
-and heterogeneous deterioration in every tested seed. A reliable calibration
-advantage over simple gain sharing with a local GP remains unestablished.
+cooperation, with conclusions that depend on the cost-model architecture and
+physical condition. The previous C/B comparison finds a homogeneous benefit of
+federating an additional fitted cost mean and heterogeneous deterioration in
+every tested seed. The joint shared/local Bayesian model D now improves on A
+for the tested heterogeneous fleet at the declared final budget: +8.02 pp
+context success, 18.81% lower mean J, and 27/27 eligible policies for both.
+D loses to A in the homogeneous condition and remains below B on heterogeneous
+context success. Consistent superiority to A and then B remains unestablished.
 
-The frozen conclusion is: **under common peer verification, federating this
-cost-mean model improves on fitting it locally for homogeneous vehicles and
+The frozen C/B conclusion remains: **under common peer verification, federating
+that cost-mean model improves on fitting it locally for homogeneous vehicles and
 degrades the declared final-budget result for the tested heterogeneous fleet**.
 Both directions occur in all three seeds. This is a statement about the current
-model, protocol and fixed plants, not a general law about federated BO.
+model, protocol and fixed plants, not a general law about federated BO. The D/E
+comparison adds aggregate evidence for cost-model sharing in both conditions;
+it does not imply that every shared model improves on the stronger method A.
 
 ## Task being studied
 
@@ -39,6 +45,8 @@ does not tune LQI Q/R weights despite the legacy repository name.
 | The matched peer-first comparison isolates the added model-sharing channel | C beats B in homogeneous context success and mean J in every seed; C loses to B in heterogeneous context success in every seed | The sign depends on the tested physical condition; the result is now scientifically narrower and clearer |
 | The practical gain-sharing reference remains strong | C's homogeneous aggregate mean J is below A's, but A has higher near-reference success and wins on both metrics in two seeds | Improving on B does not establish consistent superiority to A |
 | FedAvg training is close to the exact same-data ridge fit | Mean-fit prediction differences are small in the completed model arms | A training-iteration sweep is not presently motivated as the main explanation; exact pooled fitting is not a tested full peer-assisted policy |
+| Joint shared/local inference can improve the heterogeneous practical benchmark | D exceeds A's final context success by 8.02 pp and lowers mean J by 18.81%, with 27/27 eligible policies for both | The negative heterogeneous C/B result does not generalize to every shared cost model |
+| Cost sharing helps within the Bayesian model class | D/E gains 9.88 pp homogeneous and 12.96 pp heterogeneous success in aggregate | Sharing adds value relative to its matched local control, while A remains stronger in the homogeneous case |
 
 Detailed sources:
 
@@ -46,6 +54,7 @@ Detailed sources:
 - [First online pilot](analysis/online_calibration_pilot/report.md).
 - [One-test online pilot](analysis/online_calibration_lcb/report.md).
 - [Matched peer-assisted cost-model comparison](analysis/peer_assisted_cost_model/report.md).
+- [Joint shared/local cost-model comparison](analysis/joint_shared_local_cost_model/report.md).
 
 ## Previous one-test result in context
 
@@ -85,6 +94,8 @@ eligible denominator. Missing recommendations and failed experiments consume
 budget and remain in success metrics. The cost-only one-test pilot's one
 unresolved local-cost query is charged and excluded from eligible cost training.
 All 3,888 queries in the matched peer-assisted study are numerically resolved.
+The subsequent joint-model comparison adds 2,592 resolved D/E requests and reuses
+those A/B/C traces for evaluation only, for 6,480 total compared requests.
 
 The evidence does not establish a population-level fleet benefit, certified
 safety, generalization to unseen trajectory shapes, a communication advantage,
@@ -134,10 +145,15 @@ remain possible explanations rather than a uniquely identified cause.
 | C consistently improves on the stronger simple peer-sharing method A | Unestablished across metrics and seeds |
 | The heterogeneous failure is caused by FedAvg convergence, a missing family label, or a particular uncertainty defect | Unidentified; these mechanisms have not been causally separated |
 | More local correction is absent from C | Incorrect: C already has a target-only residual GP |
-| A hierarchical, descriptor-conditioned, or clustered replacement will improve online calibration | Untested modeling hypotheses |
+| The joint shared/local Bayesian D improves A in the heterogeneous condition at 216 fleet queries | Supported on the fixed fleet: positive success changes in two seeds, a tie in one, and lower mean J in all three |
+| D improves A in homogeneous calibration and B in heterogeneous context success | Rejected by this experiment's declared final-budget comparison |
+| Cost-model sharing adds value in the joint Bayesian model | Supported in aggregate by D/E in both conditions; heterogeneous seed 1100 deteriorates |
+| The current D result generalizes to independent fleets, descriptor-conditioned models or clustering | Untested |
 
-The machine-readable contrasts, paired-cost denominators and seed directions
-are in [condition_dependent_claims.csv](analysis/heterogeneous_cost_model_review/condition_dependent_claims.csv).
+The frozen C/B contrasts, paired-cost denominators and seed directions are in
+[condition_dependent_claims.csv](analysis/heterogeneous_cost_model_review/condition_dependent_claims.csv).
+The D follow-up is recorded separately in
+[final_contrasts.csv](analysis/joint_shared_local_cost_model/final_contrasts.csv).
 
 ## Freeze and modeling handoff
 
@@ -155,3 +171,30 @@ It audits the shared/local assumptions, statistical uncertainty, actual input
 coverage and vehicle-dependent cost shapes using existing data only. It
 separates code facts, retrospective diagnostics and proposed model classes.
 No additional physical campaign is prepared by this consolidation or review.
+
+## Joint-model follow-up: goal partly met
+
+D's heterogeneous final success is 45.06%, versus A's 37.04%, B's 46.91%,
+C's 30.25% and E's 32.10%. D retains 27/27 complete eligible policies, versus
+26/27 for B, 24/27 for C and 25/27 for E. Its mean J is 18.81% below A's over
+all 27 pairs and 15.92% below B's over the 26 common eligible policies. The
+slightly lower success than B remains a metric tradeoff, not a clean B win.
+
+Homogeneous D reaches 53.09% success versus A's 72.22%, and its mean J is 6.00%
+higher. About 96.8% of that aggregate cost loss comes from `s30_f0.1`. D/E still
+improves aggregate success and cost, so the failure against A cannot be reduced
+to a claim that federation provides no information for homogeneous plants.
+
+D learns essentially full sharing for identical plants and partial sharing
+for the heterogeneous fleet. This is a useful response to task variation,
+but it does not establish sufficient model quality or reliable BO decisions.
+D also has more ineligible tests than A, and does not dominate conditional J
+at every earlier budget. The scope is the declared final-budget finding.
+
+D uses exact Gaussian information messages and a different joint statistical
+model. D/C does not isolate a repair to FedAvg, a particular uncertainty term,
+or the effect of adding a local model. Keep A/B, the D/E control, fixed
+evaluation rules and the context-specific failures visible in any next step.
+See the [audited analysis](analysis/joint_shared_local_cost_model/report.md) for
+seed, context, budget and recorded-forecast details. No new variant is
+prepared by this analysis.

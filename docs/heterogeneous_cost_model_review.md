@@ -5,6 +5,13 @@ and the [matched peer-assisted analysis](analysis/peer_assisted_cost_model/repor
 It uses completed archives and code inspection. No controller rollout, BO
 proposal, new online model or experimental campaign is run by this review.
 
+Follow-up: the reference was subsequently implemented and tested. The
+[joint shared/local analysis](analysis/joint_shared_local_cost_model/report.md)
+finds a heterogeneous final-budget improvement over A, a homogeneous loss to A,
+and a heterogeneous context-success tradeoff against B. The structural review
+below retains its original scope; those results do not isolate a causal repair
+to the previous C model.
+
 ## 1. Consolidated conclusion and scope of this review
 
 With the same peer-first rule, the additional federated mean improves on the

@@ -4,6 +4,10 @@
 [heterogeneous modeling review](heterogeneous_cost_model_review.md). The
 [condition-dependent findings](fedbo_consolidation.md) remain frozen.
 
+Completed results and verification are in the
+[joint-model analysis](analysis/joint_shared_local_cost_model/report.md).
+The protocol below was fixed before those results.
+
 ## Question and comparison order
 
 Can a jointly inferred shared/local cost surface improve the existing practical
