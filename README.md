@@ -2,14 +2,14 @@
 
 Research repository for fleet-informed Bayesian optimization of LQI controller calibration.
 
-Current prepared experiment: [matched online spectral BO](docs/tracking_spectral.md).
-It retains D's shared/local formulation and tests 256 spectral terms as the
-primary candidate, with 384 as an accuracy control and a matched local model at
-each size. A remains the primary benchmark and B the secondary benchmark.
-Run `python code/scripts/tracking_spectral.py run --workers 6`. Completed
-A/B and original D/E traces are reused only for evaluation.
+Latest completed experiment: [matched online spectral BO](docs/tracking_spectral.md).
+The [audited spectral results](docs/analysis/spectral_online_cost_model/report.md)
+show aggregate D256 improvements over A and B in both tested physical conditions,
+with a loss to A in seed 1102 in each condition. Matched local and D384 controls
+limit the claim of sharing benefit and monotonic representation accuracy.
+Reproduce the audit with `python code/scripts/analyze_tracking_spectral.py`.
 
-Latest completed online calibration experiment: [joint shared/local Bayesian cost
+Previous completed online calibration experiment: [joint shared/local Bayesian cost
 learning](docs/tracking_hierarchical.md), with A as the primary benchmark and B
 as the secondary benchmark. It reuses the
 completed [common peer-verification comparison](docs/tracking_peer_assisted_cost_model.md)

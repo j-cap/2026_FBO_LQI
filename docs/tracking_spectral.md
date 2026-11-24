@@ -1,5 +1,9 @@
 # Matched online spectral BO: A first, then B
 
+Completed results are audited in the
+[spectral online analysis](analysis/spectral_online_cost_model/report.md).
+The protocol below was fixed before those results.
+
 24 November 2026. This experiment follows the completed
 [kernel representation assessment](analysis/kernel_representation_assessment/report.md).
 That assessment identified spectral 256 as the smallest tested representation
