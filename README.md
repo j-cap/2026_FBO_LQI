@@ -2,6 +2,14 @@
 
 Research repository for fleet-informed Bayesian optimization of LQI controller calibration.
 
+Current prepared experiment: [frozen D256 confirmation](docs/tracking_confirmation.md).
+It reruns A/B/D256/E256 on ten fresh homogeneous seeds and ten independently
+perturbed heterogeneous fleets with three fresh runs each. Run
+`python code/scripts/tracking_confirmation.py run --workers 6`; the command
+includes fresh offline reference/validation evaluation and resumes all phases.
+The [seed-1102 discovery inspection](docs/analysis/spectral_discovery_chains/report.md)
+locates missed useful gains before peer transfer, retaining the existing method.
+
 Latest completed experiment: [matched online spectral BO](docs/tracking_spectral.md).
 The [audited spectral results](docs/analysis/spectral_online_cost_model/report.md)
 show aggregate D256 improvements over A and B in both tested physical conditions,

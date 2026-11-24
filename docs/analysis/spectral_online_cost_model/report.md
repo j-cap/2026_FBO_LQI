@@ -5,6 +5,12 @@
 Protocol: [tracking_spectral.md](../../tracking_spectral.md).
 Numerical motivation: [kernel assessment](../kernel_representation_assessment/report.md).
 
+Follow-up: the [seed-1102 discovery inspection](../spectral_discovery_chains/report.md)
+locates missed useful gains before peer transfer. The
+[frozen confirmation protocol](../../tracking_confirmation.md) prepares fresh
+programme/noise seeds and independent physical fleet draws. The results below
+remain unchanged.
+
 ## Decision against the declared goal
 
 **D256 meets the aggregate final-budget objective against A and B in both

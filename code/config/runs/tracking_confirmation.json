@@ -1,0 +1,21 @@
+{
+  "tag": "tracking_confirmation_v1",
+  "reference_config": "config/runs/tracking_spectral.json",
+  "homogeneous_seeds": [2100,2101,2102,2103,2104,2105,2106,2107,2108,2109],
+  "fleet_seeds": [3100,3101,3102,3103,3104,3105,3106,3107,3108,3109],
+  "heterogeneous_seed_start": 4100,
+  "runs_per_fleet": 3,
+  "scatter": {
+    "log_mass_bound": 0.05,
+    "log_wheelbase_bound": 0.03,
+    "cg_fraction_bound": 0.02,
+    "log_inertia_shape_bound": 0.05,
+    "log_front_B_bound": 0.05,
+    "log_rear_B_bound": 0.05
+  },
+  "calibration_repeats": 2,
+  "validation_repeats": 2,
+  "bootstrap_repeats": 10000,
+  "bootstrap_seed": 271828,
+  "smoke": {"clients": 3,"queries_per_client": 8,"fleet_budgets": [3,6,9,18,24]}
+}
