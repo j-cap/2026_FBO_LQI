@@ -1,8 +1,10 @@
 # Learned cost models under a common peer-gain verification rule
 
-Proposed protocol, 24 November 2026. Branch: `plan/peer-assisted-cost-model`.
-This document defines the next comparison. No new optimizer or physical
-experiment is implemented by this plan.
+Protocol and implementation, 24 November 2026.
+Branch: `study/peer-assisted-cost-model`.
+Configuration: `code/config/runs/tracking_peer_cost.json`.
+Runner: `code/scripts/tracking_peer_cost.py`.
+Results: `code/results/tracking_peer_cost_v1/`.
 
 ## Question and hypotheses
 
@@ -186,3 +188,120 @@ controller candidates for local verification, while learning a shared cost
 landscape to guide the remaining experiments. If it is negative, consolidate
 that direct reuse already captures the useful fleet information under the
 current task and budget, before expanding the task or changing the mechanism.
+
+## Run efficiently on the local machine
+
+Use the existing `paper_FBO_LQI` environment. After fetching this branch, all
+simulation, learning, verification and reporting run offline. No package download,
+remote API or network service is used during execution. The completed tracking
+diagnostic and one-test result archives are already tracked on this branch.
+
+From the repository root in an Anaconda/Windows command prompt:
+
+```bat
+git fetch origin
+git switch study/peer-assisted-cost-model
+git pull --ff-only origin study/peer-assisted-cost-model
+conda activate paper_FBO_LQI
+python code/scripts/tracking_peer_cost.py smoke --workers 2
+python code/scripts/tracking_peer_cost.py run --workers 6
+start code\results\tracking_peer_cost_v1\report.html
+```
+
+There are six independent condition/seed jobs. Six workers can run all six
+concurrently; use two or four workers on a smaller machine. The default is the
+smaller of six and the detected CPU count. Each process uses one BLAS/OpenMP
+thread. Process pools use Windows-compatible `spawn` on every platform.
+
+Within a job, only the requested gains are simulated. Counterfactual requests
+with the same client, local-query index and noise are batched and cached.
+Per-candidate integration refinement remains unchanged. These savings reduce
+computation; every method still pays for each of its logical rollout queries.
+No dense action table is simulated for a live query.
+
+Smoke uses three nominal clients, both conditions, seed 1100, eight queries per
+client and snapshots 3/6/9/18/24: **144 charged queries**. It retains all 71
+candidates, the full 25-second trajectories and numerical checks. Its report
+is marked as software verification. The reduced fleet has no exact full-pilot
+reference counterpart.
+
+Optional checks:
+
+```bat
+python -m unittest discover -s code/tests -p "test_tracking*.py" -v
+python code/scripts/tracking_peer_cost.py check-reference
+python code/scripts/tracking_peer_cost.py preflight
+```
+
+`check-reference` replays arm A on the six completed old gain-sharing traces,
+checking every query and observation without new physical simulation. It does
+not write those observations into the new campaign. The full campaign checks
+the independently generated arm-A trace again after execution.
+
+## Checkpoints, outputs and collection
+
+Checkpoints are atomic after every completed round. They contain observed
+outcomes, method-specific histories, model and GP states, donor provenance,
+budget snapshots, and the simulation cache. Repeating `run` validates and resumes
+them; completed jobs are skipped. Optimizer/configuration/archive fingerprints
+reject mixed runs. Source hashes normalize CRLF for Windows checkouts.
+
+```bat
+python code/scripts/tracking_peer_cost.py status
+python code/scripts/tracking_peer_cost.py run --workers 6
+```
+
+The self-contained HTML report opens offline. `primary_comparison.csv` contains
+C minus B at the final budget; `primary_per_seed.csv` retains each seed. Budget
+curves and A/B/C contrasts are in `online_summary.csv`, `paired_comparisons.csv`
+and `per_seed_comparisons.csv`. Eligibility-time and family/context tables retain
+missing/censored cases and conditional-cost denominators.
+
+`query_observations.csv` and `peer_verifications.csv` record the actual donor,
+donor query, published cost and source action mode for every transfer. These
+extra fields are offline provenance, excluded from the declared message-payload
+estimate. `bo_origin_transfers.csv` shows which donor BO selections subsequently
+become peer verification trials. Each event also records whether it became the
+recipient's local incumbent. These logs do not claim global novelty of a gain.
+
+The report separates incumbent-pair publication payload from federated model
+payload. Snapshot payloads include communication completed before the final
+query of that snapshot. Training/publications after the query appear separately
+in `learning_diagnostics.csv` and cannot be credited to that query's decision.
+All three methods transmit peer pairs; C additionally transmits model updates.
+
+Only after every query trace is complete does the evaluator open the dense
+validation archive and old reference checkpoints. Worker payloads omit those
+tables and archive paths. `reference_control.json` records full-campaign arm-A
+agreement; report-source provenance is recorded separately from optimizer hashes.
+
+When the full campaign finishes:
+
+```bat
+python code/scripts/tracking_peer_cost.py collect
+git status --short
+git commit -m "Add peer-assisted cost-model comparison results"
+git push origin study/peer-assisted-cost-model
+```
+
+Collection rejects smoke and incomplete campaigns, checks all local/fleet
+counts, prior-round peer priority, donor records, observed recommendations,
+payload components and simulator outcomes, and requires arm-A agreement with
+the frozen control. It stages only `code/results/tracking_peer_cost_v1/`.
+
+## Preparation verification
+
+On 24 November 2026, all **88 tracking tests** passed, including 12 checks for
+this comparison. The reference replay reproduced all six completed gain-sharing
+traces: 1,296 query choices, observations and their budget snapshots. Both
+nonlinear smoke jobs completed using two spawned workers: 144 charged queries,
+112 unique counterfactual simulations and zero unresolved integrations. A
+second invocation found both jobs complete and generated no further rollouts.
+The report and curves were checked.
+
+A synthetic-oracle canary using the full nine-client, 24-query configuration
+verified every method's 216 queries, 24 rounds, all six budget snapshots, local
+counts, peer provenance and payload components. Smoke/incomplete CLI collection
+guards rejected staging. Full preflight passed; all six full physical jobs
+remain for local execution. These checks establish software/protocol behavior,
+not a scientific outcome of the proposed model comparison.

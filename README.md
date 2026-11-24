@@ -2,13 +2,13 @@
 
 Research repository for fleet-informed Bayesian optimization of LQI controller calibration.
 
-Current online calibration experiment: [one factory test and immediate contextual
-LCB BO](docs/tracking_online_lcb.md). Run it with
-`python code/scripts/tracking_online_lcb.py run --workers 4`. The completed
-six-test pilot and its analysis remain frozen on their existing branches.
+Current online calibration experiment: [cost-model learning under common peer-gain
+verification](docs/tracking_peer_assisted_cost_model.md). Run it with
+`python code/scripts/tracking_peer_cost.py run --workers 6`. The completed
+[one-test LCB pilot](docs/tracking_online_lcb.md) and six-test pilot remain frozen.
 
-The [consolidated findings](docs/fedbo_consolidation.md) motivate a
-[proposed comparison under a common peer-gain verification rule](docs/tracking_peer_assisted_cost_model.md).
+The [consolidated findings](docs/fedbo_consolidation.md) motivate the common-rule
+comparison of a zero, locally learned, or federatively learned BO mean.
 
 ## Repository structure
 

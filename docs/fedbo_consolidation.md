@@ -98,4 +98,6 @@ effect of the model. Each method uses its own online fleet observations.
 
 The proposed experiment and the precise meaning of peer verification are in
 [tracking_peer_assisted_cost_model.md](tracking_peer_assisted_cost_model.md).
-This consolidation prepares the design; it does not implement or run it.
+The three-arm implementation is prepared on `study/peer-assisted-cost-model`;
+its full nonlinear campaign is intended for local execution. Completed pilot
+results remain frozen.
