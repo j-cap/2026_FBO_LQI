@@ -216,3 +216,22 @@ ranking on those histories, not a demonstrated full-policy improvement.
 The next representation should be assessed against that exact reference before
 another campaign. The positive heterogeneous result, A/B comparisons and all
 existing experimental settings remain frozen.
+
+## Kernel-representation assessment
+
+The [saved-history assessment](analysis/kernel_representation_assessment/report.md)
+retains D's shared/local statistical model and compares 12 kernel
+representations across both conditions, all contexts and A/D source histories.
+Public spectral features use no rollout label in their construction.
+
+The 256-term spectral map plus intercept is the smallest tested factor meeting
+all predeclared approximation targets. Its worst context mean/std RMSEs against
+the exact reference are .0297/.0407 log-cost units; first-choice agreement is
+79.37%. A 384-term factor reaches 95.19% agreement. No 65-coefficient map passes
+all targets, and 512 random features remain less accurate than 256 spectral
+features.
+
+The improvement is numerical fidelity on fixed histories, not a new controller
+result. Under the unchanged dense message format the 257-coefficient map costs
+about 658 MB/fleet versus 43.6 MB for the original model. A new full A/B
+comparison remains necessary; the existing successes and failures are frozen.

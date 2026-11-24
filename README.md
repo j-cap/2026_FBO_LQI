@@ -17,6 +17,11 @@ The [low-frequency ranking diagnostic](docs/analysis/low_frequency_rankings/repo
 uses saved histories to locate a contribution from the finite kernel
 approximation, with an exact-kernel analytical reference and no new rollouts.
 
+The [kernel representation assessment](docs/analysis/kernel_representation_assessment/report.md)
+retains D's model and identifies public spectral features as a more accurate
+representation. Reproduce it with `python code/scripts/assess_tracking_kernels.py --workers 6`;
+it does not launch a controller experiment.
+
 The [consolidated findings](docs/fedbo_consolidation.md) freeze the completed
 A/B/C comparison and record the joint-model follow-up.
 The [heterogeneous cost-model review](docs/heterogeneous_cost_model_review.md)

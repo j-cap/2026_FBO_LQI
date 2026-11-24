@@ -1,0 +1,115 @@
+{
+  "signature": "e0955885f9827d8326c619e43ef99b84dae5e677ef3817a6b9c5d650b0358fab",
+  "configuration": {
+    "tag": "kernel_representation_assessment",
+    "history_sources": [
+      "A",
+      "D"
+    ],
+    "candidates": [
+      {
+        "family": "rff",
+        "rank": 64
+      },
+      {
+        "family": "rff",
+        "rank": 256
+      },
+      {
+        "family": "rff",
+        "rank": 512
+      },
+      {
+        "family": "spectral",
+        "rank": 64
+      },
+      {
+        "family": "spectral",
+        "rank": 128
+      },
+      {
+        "family": "spectral",
+        "rank": 256
+      },
+      {
+        "family": "spectral",
+        "rank": 384
+      },
+      {
+        "family": "spectral",
+        "rank": 426
+      },
+      {
+        "family": "pivoted_cholesky",
+        "rank": 64
+      },
+      {
+        "family": "pivoted_cholesky",
+        "rank": 128
+      },
+      {
+        "family": "pivoted_cholesky",
+        "rank": 256
+      },
+      {
+        "family": "pivoted_cholesky",
+        "rank": 384
+      }
+    ],
+    "accuracy_targets": {
+      "relative_kernel_Frobenius_error": 0.02,
+      "max_relative_diagonal_error": 0.05,
+      "worst_context_mean_RMSE": 0.05,
+      "worst_context_std_RMSE": 0.05,
+      "mean_exact_score_regret": 0.05,
+      "p95_exact_score_regret": 0.1
+    }
+  },
+  "campaign_signature": "b91d24a15ce6e51b40ae7904b608c7e59f3f3c037fd7f8f6ead0d7d19ba3bce0",
+  "hashes": {
+    "code/config/runs/tracking_kernel_assessment.json": "7768d50bb16a94c2544bedca8e2f4dc8ebd69e88380fc7372237392209282869",
+    "code/results/tracking_hierarchical_v1/run_manifest.json": "1d610c249d4df604f465a5f988ee02334fe5c77e43553d21a4082f3db728fc08",
+    "code/results/tracking_hierarchical_v1/completion.json": "5b2f39c62c8b34030df7b7ab5198314044680e02dcc768768ddb0c7bc1e21cea",
+    "code/results/tracking_hierarchical_v1/runs/homogeneous__1100.json": "f9f1a4d27ba9a205bdd9e2b80468cbae7ab036fa7fe3f715428ad9b05568d626",
+    "code/results/tracking_peer_cost_v1/runs/homogeneous__1100.json": "0d55c8342ae96631372560234f47d69518f0b19a04503bddd148bb84205a59ef",
+    "code/results/tracking_hierarchical_v1/runs/homogeneous__1101.json": "fa85d65d7507828e70ff20cfd9c9f6a64b5ef9859afcb707b02ddd722d874c2d",
+    "code/results/tracking_peer_cost_v1/runs/homogeneous__1101.json": "270854f6c77988640bd9a5c273766543b50ace318995ddc800e6cd2b4733f363",
+    "code/results/tracking_hierarchical_v1/runs/homogeneous__1102.json": "87bc00cbae2311d205bb75d79d484b20fdbf4a83db39e7834da2d5ea7792799d",
+    "code/results/tracking_peer_cost_v1/runs/homogeneous__1102.json": "fc55aa1cc9e3d252be29e053d0a93e6799496359bd2155b56003a6e913e1602e",
+    "code/results/tracking_hierarchical_v1/runs/heterogeneous__1100.json": "f4c682808be4b4133384765be4dd818ffcfaff0f64222e77a45389faf5aa76d5",
+    "code/results/tracking_peer_cost_v1/runs/heterogeneous__1100.json": "66e79db352a50094a61c8b4cf364597217ffa925c24d52b429ed06f5757b5dcc",
+    "code/results/tracking_hierarchical_v1/runs/heterogeneous__1101.json": "1d6b19e1a57fad5c2e511b121d6c032a3577c0a5ff8ccdbbab0451d93167e679",
+    "code/results/tracking_peer_cost_v1/runs/heterogeneous__1101.json": "ad84f8e8363a947c26e2ff3332bc4279f1ce70b67accc96e5f21c2ee16a13071",
+    "code/results/tracking_hierarchical_v1/runs/heterogeneous__1102.json": "e0b1c0eb866395156c488d508a0c778dd5e7bc9b9ab64a064255b923e5841d94",
+    "code/results/tracking_peer_cost_v1/runs/heterogeneous__1102.json": "7016aba0d5de1df068a6c3ffc35c8f46d3949a86b6ace72c5053901aab958b81",
+    "code/scripts/assess_tracking_kernels.py": "68da63256dc1159bdf32e5ca6641ac3f0c0f4c0052070cd8ce0529c08145c787",
+    "code/src/tracking_kernel_features.py": "39dfd0f29b640d5b133b5e3de9ab1a6e3e74adf54160804191ef9e6a008673f4"
+  },
+  "selected_representation": "spectral_256",
+  "accuracy_targets_fixed_before_conditioning": true,
+  "public_grid_size": 426,
+  "saved_history_jobs": 12,
+  "actual_BO_decision_cases": 1018,
+  "representation_cases": 12216,
+  "original_D_choices_checked": 537,
+  "max_original_D_numerical_score_gap": 0.0,
+  "new_physical_rollouts": 0,
+  "new_full_policy_variants": 0,
+  "validation_cost_labels_used": false,
+  "equivalent_observation_space_inference_used_for_assessment": true,
+  "feature_message_algebra_checked_at_round_23": true,
+  "basis_hashes": {
+    "rff_64": "c6556269e98e42b33d552a3760f2267322f5ffbbf6b79af1cce4020e4b83743b",
+    "rff_256": "421a991e19b8dc3d1222523a4b456739dbfe9e7208ff4a800102b2f43634b343",
+    "rff_512": "ca86c6c97ceb6d4597f56213ea77ee4c0d271d585d246b6a85826b889bf975b5",
+    "spectral_64": "688386eebbd9e878f4d752b505c45c6a98f10a9529939a0221cba82b1ae35254",
+    "spectral_128": "0689f7b2f8d8479e8f2cee0797af5116ef654075d90a928832b69e71bb96e82c",
+    "spectral_256": "f64ca6eb27a0b8156aabc031c18edcbdab356e006323883685a60d79e0b581a1",
+    "spectral_384": "33b3bf1bd4c1bff147ad95438cb5b1ccae1cf59ec79cf6d9452de8afdab6b83c",
+    "spectral_426": "904f3c8074a5d9f264eefcc368f0005e646d14dce23509981803bc90074f50df",
+    "pivoted_cholesky_64": "8babcbdea1a2244457926e7c48060082955c8c9c348ddc784232ab55834247a5",
+    "pivoted_cholesky_128": "76ea0d8c49eeeb8ed7aa7c4065e59ea993665275731d4fdc58ac9d4602e9d27b",
+    "pivoted_cholesky_256": "47301454036f76033ea927616073c61237bbe15d5025551d3345fc338df7496d",
+    "pivoted_cholesky_384": "a6a024d53b2df38c221229e1dc158d27fa64ca1613f28a83ccecab2aa2a59c65"
+  }
+}

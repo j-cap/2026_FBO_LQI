@@ -7,6 +7,12 @@ The focus is the homogeneous fleet at 30 m/s and .1 Hz. No controller rollout
 or alternative full BO policy is run. The heterogeneous D/A result and all
 previous primary metrics remain unchanged.
 
+Follow-up: the [kernel assessment](../kernel_representation_assessment/report.md)
+compares public spectral, pivoted-Cholesky and larger Fourier maps on both
+conditions and A/D histories. It selects a 256-term spectral map under fixed
+accuracy targets and quantifies its additional message cost. No new online
+controller result is implied.
+
 ## Main finding
 
 **On D's saved histories, its predicted cost ranking suppresses the useful gain.

@@ -1,0 +1,26 @@
+{
+  "tag": "kernel_representation_assessment",
+  "history_sources": ["A", "D"],
+  "candidates": [
+    {"family": "rff", "rank": 64},
+    {"family": "rff", "rank": 256},
+    {"family": "rff", "rank": 512},
+    {"family": "spectral", "rank": 64},
+    {"family": "spectral", "rank": 128},
+    {"family": "spectral", "rank": 256},
+    {"family": "spectral", "rank": 384},
+    {"family": "spectral", "rank": 426},
+    {"family": "pivoted_cholesky", "rank": 64},
+    {"family": "pivoted_cholesky", "rank": 128},
+    {"family": "pivoted_cholesky", "rank": 256},
+    {"family": "pivoted_cholesky", "rank": 384}
+  ],
+  "accuracy_targets": {
+    "relative_kernel_Frobenius_error": 0.02,
+    "max_relative_diagonal_error": 0.05,
+    "worst_context_mean_RMSE": 0.05,
+    "worst_context_std_RMSE": 0.05,
+    "mean_exact_score_regret": 0.05,
+    "p95_exact_score_regret": 0.10
+  }
+}
