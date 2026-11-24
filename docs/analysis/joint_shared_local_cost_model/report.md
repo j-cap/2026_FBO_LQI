@@ -5,6 +5,11 @@
 Protocol: [tracking_hierarchical.md](../../tracking_hierarchical.md).
 Previous frozen result: [matched C/B analysis](../peer_assisted_cost_model/report.md).
 
+Follow-up: the [low-frequency ranking diagnostic](../low_frequency_rankings/report.md)
+replays A/D rankings on identical saved histories and identifies a contribution
+from D's finite kernel approximation. It changes none of the outcomes below
+and runs no alternative full BO policy.
+
 ## Decision against the stated goal
 
 **D improves on A in the tested heterogeneous condition at the declared final

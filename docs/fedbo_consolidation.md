@@ -198,3 +198,21 @@ evaluation rules and the context-specific failures visible in any next step.
 See the [audited analysis](analysis/joint_shared_local_cost_model/report.md) for
 seed, context, budget and recorded-forecast details. No new variant is
 prepared by this analysis.
+
+## Recorded-ranking diagnosis
+
+The [low-frequency diagnostic](analysis/low_frequency_rankings/report.md) finds
+that the homogeneous `s30_f0.1` threshold has only one qualifying gain, `g012`.
+A's three BO discoveries and 13 peer verifications produce its 16 successes;
+D never tests that gain in this context.
+
+On the 56 saved D fallback histories, D's predicted-cost term suppresses g012
+despite favorable average exploration and eligibility terms. Its median score
+rank is 39. An exact-kernel reference with the same data, sharing prior, noise
+and fixed hyperparameters improves that median rank to 9, with five first-place
+cases versus D's zero. This identifies a kernel-approximation contribution to
+ranking on those histories, not a demonstrated full-policy improvement.
+
+The next representation should be assessed against that exact reference before
+another campaign. The positive heterogeneous result, A/B comparisons and all
+existing experimental settings remain frozen.

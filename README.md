@@ -13,6 +13,10 @@ The [audited joint-model results](docs/analysis/joint_shared_local_cost_model/re
 show a heterogeneous final-budget improvement over A, a homogeneous loss to A,
 and a heterogeneous context-success tradeoff against B.
 
+The [low-frequency ranking diagnostic](docs/analysis/low_frequency_rankings/report.md)
+uses saved histories to locate a contribution from the finite kernel
+approximation, with an exact-kernel analytical reference and no new rollouts.
+
 The [consolidated findings](docs/fedbo_consolidation.md) freeze the completed
 A/B/C comparison and record the joint-model follow-up.
 The [heterogeneous cost-model review](docs/heterogeneous_cost_model_review.md)
