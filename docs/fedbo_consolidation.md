@@ -1,14 +1,14 @@
 # FedBO: consolidated findings and the remaining question
 
 24 November 2026. Latest completed experiment:
-`4c00e82d677f2d9669121bf4f00c8e9f9082f78c`.
-Latest analysis: `3f42af8c8ca2ea99b2b211d77faedbdcc2c9418c`.
+`fb9e7763b8863d5cdb52c03943650ce2299ac07c`.
+Latest analysis: [common peer-verification comparison](analysis/peer_assisted_cost_model/report.md).
 
 The evidence supports reusable controller-tuning experience and online fleet
-cooperation. It has not yet established a reliable calibration advantage for
-learning a federated cost model beyond directly sharing useful tested gains.
-The remaining comparison should give every method the same peer-verification
-procedure and vary the cost mean used by its BO fallback.
+cooperation. The matched peer-verification comparison now finds a homogeneous
+benefit of federating the additional cost mean relative to fitting it locally,
+and heterogeneous deterioration in every tested seed. A reliable calibration
+advantage over simple gain sharing with a local GP remains unestablished.
 
 ## Task being studied
 
@@ -37,8 +37,9 @@ Detailed sources:
 - [Historical tracking evidence](analysis/tracking_consolidation/report.md).
 - [First online pilot](analysis/online_calibration_pilot/report.md).
 - [One-test online pilot](analysis/online_calibration_lcb/report.md).
+- [Matched peer-assisted cost-model comparison](analysis/peer_assisted_cost_model/report.md).
 
-## Latest result in context
+## Previous one-test result in context
 
 At 216 fleet tests, homogeneous gain sharing reaches 72.22% near-reference
 contexts versus 37.65% for federated-cost BO. Both eventually have 27/27 complete
@@ -82,22 +83,40 @@ formal privacy, or a need for clustering. Sharing a mean plus a local residual
 GP is one cost-model architecture; its limitations are not a general result
 about all federated BO methods.
 
-## The unanswered question
+## The matched comparison answers the incremental-value question
 
-Does sharing the learned cost mean improve the remaining experiment choices
-when every method already reuses eligible peer gains through the same rule?
+Every method now uses the same peer-first rule. Arm A uses a zero additional
+mean with its local GP, B fits the added mean locally, and C fits it through
+FedAvg. Every rollout, including verification and failure, is charged. All
+three arms use 216 fleet tests, with one factory test and 24 total local tests.
 
-The main comparison is between the same cost model trained locally and trained
-federatively, with identical peer priority, local GP, eligibility surrogate,
-acquisition, budgets and initial observations. The existing peer-sharing plus
-zero-additional-mean GP method is retained as an architecture control.
+| Condition | A context success | B context success | C context success | Complete eligible policies A/B/C |
+|---|---:|---:|---:|---|
+| Homogeneous | 72.22% | 39.51% | 61.11% | 27/27, 27/27, 27/27 |
+| Heterogeneous | 37.04% | 46.91% | 30.25% | 27/27, 26/27, 24/27 |
 
-This holds the direct-gain-reuse mechanism fixed. A different BO fallback can
-still generate different later fleet catalogues; that is an intended downstream
-effect of the model. Each method uses its own online fleet observations.
+For homogeneous plants, C improves over B by 21.60 points and lowers mean J by
+24.97%; both effects have the same positive direction in every seed. C also
+lowers aggregate mean J by 10.70% versus A, but has lower near-reference context
+success and loses on both cost and context success in two of three seeds.
+Improving on a locally trained mean does not establish a consistent advantage
+over the stronger simple-sharing reference.
 
-The proposed experiment and the precise meaning of peer verification are in
+For heterogeneous plants, C loses to B on context success in every seed and all
+three families. On 24 jointly eligible pairs, C's mean J is 30.45% higher than
+B's. B improves context success over A in every heterogeneous seed. Global
+cost-model sharing can therefore be detrimental even while direct controller
+gain sharing remains useful in the same fleet.
+
+Model fitting remains close to the exact same-data ridge optimum. A limited
+fixed-kernel diagnostic on common saved histories does not find uniformly
+worse one-step proposals from the shared mean; it does not reproduce complete
+adaptive policies. Surrogate mismatch, GP adaptation and catalogue feedback
+remain possible explanations rather than a uniquely identified cause.
+
+The experiment and rule are documented in
 [tracking_peer_assisted_cost_model.md](tracking_peer_assisted_cost_model.md).
-The three-arm implementation is prepared on `study/peer-assisted-cost-model`;
-its full nonlinear campaign is intended for local execution. Completed pilot
-results remain frozen.
+Freeze the present protocol. Any further heterogeneous model work should first
+resolve the representation and sequential decision-design question, without
+presuming that a new FL solver or clustering will solve it. Completed results
+remain frozen; the latest analysis prepares no additional physical campaign.
