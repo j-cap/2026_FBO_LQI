@@ -1,0 +1,22 @@
+{
+  "signature": "324056c71c0961ef1e1c19cb34544b5deb50aeaea6d35a9263d2597a77b75ff2",
+  "live_jobs": 40,
+  "new_charged_online_requests": 34560,
+  "reused_online_requests": 0,
+  "dense_calibration_batches": 1092,
+  "dense_calibration_rollouts": 77532,
+  "validation_rollout_upper_bound": 77532,
+  "heterogeneous_fleets": 10,
+  "homogeneous_runs": 10,
+  "physical_reference_contexts": 546,
+  "methods": [
+    "peer_gp_bo",
+    "peer_local_cost_bo",
+    "peer_spectral_shared_256_bo",
+    "peer_spectral_local_256_bo"
+  ],
+  "historical_training_records": 0,
+  "worker_reference_access": false,
+  "worker_evaluation_access": false,
+  "evaluator_selection": "Union of calibration-only winners and all frozen budget recommendations; same held-out noise for all arms."
+}

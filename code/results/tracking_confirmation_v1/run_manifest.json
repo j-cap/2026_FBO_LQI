@@ -1,0 +1,6826 @@
+{
+  "signature": "324056c71c0961ef1e1c19cb34544b5deb50aeaea6d35a9263d2597a77b75ff2",
+  "configuration": {
+    "tag": "tracking_confirmation_v1",
+    "reference_config": "config/runs/tracking_spectral.json",
+    "reference_tag": "tracking_spectral_v1",
+    "methods": [
+      "peer_gp_bo",
+      "peer_local_cost_bo",
+      "peer_spectral_shared_256_bo",
+      "peer_spectral_local_256_bo"
+    ],
+    "physics_config": "config/runs/tracking_diagnostic.json",
+    "evaluation_tag": "tracking_diagnostic_v1",
+    "conditions": [
+      "homogeneous",
+      "heterogeneous"
+    ],
+    "seeds": [
+      2100,
+      2101,
+      2102,
+      2103,
+      2104,
+      2105,
+      2106,
+      2107,
+      2108,
+      2109,
+      4100,
+      4101,
+      4102,
+      4103,
+      4104,
+      4105,
+      4106,
+      4107,
+      4108,
+      4109,
+      4110,
+      4111,
+      4112,
+      4113,
+      4114,
+      4115,
+      4116,
+      4117,
+      4118,
+      4119,
+      4120,
+      4121,
+      4122,
+      4123,
+      4124,
+      4125,
+      4126,
+      4127,
+      4128,
+      4129
+    ],
+    "queries_per_client": 24,
+    "fleet_budgets": [
+      9,
+      18,
+      27,
+      54,
+      108,
+      216
+    ],
+    "homogeneous_plant_id": "compact_nominal",
+    "relative_tolerance": 0.05,
+    "gp": {
+      "length_scales": [
+        0.3,
+        0.3,
+        0.3,
+        1.0,
+        0.5
+      ],
+      "amplitude": 1.0,
+      "constant_variance": 0.25,
+      "noise_std_log_J": 0.05,
+      "source_noise_std_log_J": 0.1,
+      "length_bounds": [
+        0.08,
+        2.0
+      ],
+      "amplitude_bounds": [
+        0.1,
+        3.0
+      ],
+      "optimize_every": 4,
+      "optimizer_maxiter": 35,
+      "optimizer_restarts": 1,
+      "feasibility_prior_strength": 2.0,
+      "feasibility_prior_clip": [
+        0.05,
+        0.95
+      ]
+    },
+    "model": {
+      "features": 64,
+      "feature_seed": 314159,
+      "length_scales": [
+        0.3,
+        0.3,
+        0.3,
+        1.0,
+        0.5
+      ],
+      "ridge": 0.02,
+      "learning_rate": 0.2,
+      "local_steps": 1,
+      "server_rounds": 200
+    },
+    "initialization_tests": 1,
+    "acquisition": {
+      "confidence_multiplier": 2.0,
+      "feasibility_penalty": 1.0,
+      "probability_floor": 1e-06
+    },
+    "smoke": {
+      "client_plant_ids": [
+        "compact_nominal",
+        "sport_nominal",
+        "suv_nominal"
+      ],
+      "seeds": [
+        1100
+      ],
+      "queries_per_client": 8,
+      "fleet_budgets": [
+        3,
+        6,
+        9,
+        18,
+        24
+      ]
+    },
+    "hierarchical": {
+      "sharing_fractions": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        0.95,
+        1.0
+      ],
+      "prior_weights": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "comparison_methods": [
+      "peer_gp_bo",
+      "peer_local_cost_bo",
+      "peer_spectral_shared_256_bo",
+      "peer_spectral_local_256_bo"
+    ],
+    "spectral_ranks": [
+      256
+    ],
+    "primary_rank": 256,
+    "basis_family": "spectral"
+  },
+  "confirmation_design": {
+    "tag": "tracking_confirmation_v1",
+    "reference_config": "config/runs/tracking_spectral.json",
+    "homogeneous_seeds": [
+      2100,
+      2101,
+      2102,
+      2103,
+      2104,
+      2105,
+      2106,
+      2107,
+      2108,
+      2109
+    ],
+    "fleet_seeds": [
+      3100,
+      3101,
+      3102,
+      3103,
+      3104,
+      3105,
+      3106,
+      3107,
+      3108,
+      3109
+    ],
+    "heterogeneous_seed_start": 4100,
+    "runs_per_fleet": 3,
+    "scatter": {
+      "log_mass_bound": 0.05,
+      "log_wheelbase_bound": 0.03,
+      "cg_fraction_bound": 0.02,
+      "log_inertia_shape_bound": 0.05,
+      "log_front_B_bound": 0.05,
+      "log_rear_B_bound": 0.05
+    },
+    "calibration_repeats": 2,
+    "validation_repeats": 2,
+    "bootstrap_repeats": 10000,
+    "bootstrap_seed": 271828,
+    "smoke": {
+      "clients": 3,
+      "queries_per_client": 8,
+      "fleet_budgets": [
+        3,
+        6,
+        9,
+        18,
+        24
+      ]
+    }
+  },
+  "mode": "full",
+  "source_hashes": {
+    "code/scripts/tracking_online_lcb.py": "bd8b1315b1cf47417df0b5b3e30d2ae2c80a2a7b2b830c71375f81b7ab9a93bf",
+    "code/src/tracking_online_lcb.py": "c5f59f99dce1a63646d94593448212ea355630bc3e9cc97302ba2b974312582b",
+    "code/src/tracking_online.py": "c5655d9f92bc325045506d5abfcc909c8525625bb59d5af6812f9150fc48d256",
+    "code/src/tracking_budget.py": "6ff3b96eb4ee3066756b2e65ca834eb2517b588d9b95341c4c093bf4ffb4e1bc",
+    "code/src/tracking_context.py": "efb18608a8fac898703507a064dc1e50dbf55b0f3f4801bf72edb52a76e095b4",
+    "code/src/tracking_task.py": "8d2fe944db07e295be78e326578108d8062d2aeddc42c099f46fc00a42ecb555",
+    "code/config/runs/tracking_diagnostic.json": "9d276a278eb42cb4f08e377f67e81df3c6d308a6d0cb8f9f5dddcbc4a2718cbe",
+    "code/src/tracking_reference/__init__.py": "853f21f84cb76228ccebbd57a5ba911b0a9da52c6c63fa6f562c8c7a853ffffa",
+    "code/src/tracking_reference/cfl_controller.py": "0bd2eafdb5e628a2a854acad7ddababffd99fd5ddcdf425a9b76a515c3bf820e",
+    "code/src/tracking_reference/cfl_dynamics.py": "48b97a04a503d30016b0eb37799bfbf7c668dff116c7a093e12b21c822ee67df",
+    "code/src/tracking_reference/cfl_trajectories.py": "fc0e67ff5d6e5c089ce7ecd2ee1fa30f9c261d3a4691c735609316b4ffc62a56",
+    "code/src/tracking_reference/provenance.json": "c92751c27414375ba1457aa21dc324b2129c74220a8476505b640341eff24d2f",
+    "code/scripts/tracking_peer_cost.py": "04e9ef60635c26f314bd1a97ad4ab12a35227f8ab9f1f5c96b281446c150e1db",
+    "code/src/tracking_peer_cost.py": "de0929d915e3b0862117d1d5b7f1257ea1bd724ba2e54c053ffe4cdcceee12ac",
+    "code/scripts/tracking_hierarchical.py": "280e105f6d6dcb702c63853417e8df5ad5f0f40609b61545668d76bfada1b6dc",
+    "code/src/tracking_hierarchical.py": "055055aaafab488e93a9a0a6d5e98ac854bc73fd39d312014dd3bc399a7526d8",
+    "code/src/tracking_hierarchical_report.py": "e1d943dd05bc25de7a22dc5bf3c68e300efe2233d2bcfd42eafcd0135cb89374",
+    "code/src/tracking_peer_cost_report.py": "c28eb5dbfd92f69c52c3faeed8296506e4dd4f6c03e8e31267d4003573bbe80a",
+    "code/src/tracking_online_lcb_report.py": "8cde653459af52bd86920f9f7bb251d7a88766368e8d715f069a9b46b82ad1bd",
+    "code/scripts/tracking_spectral.py": "a07510a8233083938c0b473a93859fc280531afaafd30c685c9f740b98a60de8",
+    "code/src/tracking_spectral.py": "3f7e8e7ec0b3c009ecf6c48b6eb920fcf1bbe60b9011d7f47a5e4550eb25371d",
+    "code/src/tracking_spectral_report.py": "97915a9f907db1d6945f0a86bc5e6c3a99e65d6d29fea60fdd48ddb995e1a822",
+    "code/src/tracking_kernel_features.py": "39dfd0f29b640d5b133b5e3de9ab1a6e3e74adf54160804191ef9e6a008673f4",
+    "code/scripts/tracking_confirmation.py": "f316de58465a64f59725b21a06a89ebbe1a37ba4e166660d9df1f45d1affc9ee",
+    "code/src/tracking_confirmation.py": "1e264eca1f7db7ccef88448ae4b58421229eb29938b5ba7cc1e520e9fe777552",
+    "code/src/tracking_confirmation_report.py": "8710530e5d73860b6501736d47287cafc64b69d0aeb3914b0d17b9b78c69081e"
+  },
+  "public_bases": {
+    "256": {
+      "rows": 426,
+      "coefficients": 257,
+      "sha256": "ad693915bc6295a35c4940f504fa70c4ed16336e8fc1aec19373e7aefc2769b2"
+    }
+  },
+  "groups": {
+    "homogeneous": [
+      {
+        "id": "client_00",
+        "plant_id": "hom_compact",
+        "family": "compact",
+        "params": {
+          "m": 1220.0,
+          "I_z": 1500.0,
+          "l_f": 1.05,
+          "l_r": 1.45,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.0,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.0,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "hom_compact",
+        "family": "compact",
+        "params": {
+          "m": 1220.0,
+          "I_z": 1500.0,
+          "l_f": 1.05,
+          "l_r": 1.45,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.0,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.0,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "hom_compact",
+        "family": "compact",
+        "params": {
+          "m": 1220.0,
+          "I_z": 1500.0,
+          "l_f": 1.05,
+          "l_r": 1.45,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.0,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.0,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "hom_compact",
+        "family": "compact",
+        "params": {
+          "m": 1220.0,
+          "I_z": 1500.0,
+          "l_f": 1.05,
+          "l_r": 1.45,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.0,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.0,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "hom_compact",
+        "family": "compact",
+        "params": {
+          "m": 1220.0,
+          "I_z": 1500.0,
+          "l_f": 1.05,
+          "l_r": 1.45,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.0,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.0,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "hom_compact",
+        "family": "compact",
+        "params": {
+          "m": 1220.0,
+          "I_z": 1500.0,
+          "l_f": 1.05,
+          "l_r": 1.45,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.0,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.0,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "hom_compact",
+        "family": "compact",
+        "params": {
+          "m": 1220.0,
+          "I_z": 1500.0,
+          "l_f": 1.05,
+          "l_r": 1.45,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.0,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.0,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "hom_compact",
+        "family": "compact",
+        "params": {
+          "m": 1220.0,
+          "I_z": 1500.0,
+          "l_f": 1.05,
+          "l_r": 1.45,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.0,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.0,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "hom_compact",
+        "family": "compact",
+        "params": {
+          "m": 1220.0,
+          "I_z": 1500.0,
+          "l_f": 1.05,
+          "l_r": 1.45,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.0,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.0,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      }
+    ],
+    "fleet_00": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_00_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1265.8232210729066,
+          "I_z": 1591.0191200653346,
+          "l_f": 1.0530406754721633,
+          "l_r": 1.425294509133289,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.123798084819677,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.536704461613649,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_00_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1465.2685056022826,
+          "I_z": 1421.4623363349642,
+          "l_f": 1.12948706340146,
+          "l_r": 1.314006819160111,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.852440116711053,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.568970321551763,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_00_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1182.0871442988323,
+          "I_z": 1407.3766326084694,
+          "l_f": 1.0327692794185719,
+          "l_r": 1.441624139872073,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.419153580262296,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.370286520047976,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_00_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1483.3073469750284,
+          "I_z": 1908.0981700846355,
+          "l_f": 1.2239211172542082,
+          "l_r": 1.3485858690654322,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.113827034536431,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.012176926073117,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_00_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1831.360291328292,
+          "I_z": 1999.6801076611027,
+          "l_f": 1.2778922138411875,
+          "l_r": 1.2819740369194372,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.183274571279664,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.05102883532803,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_00_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1577.205329733077,
+          "I_z": 1865.4126746515099,
+          "l_f": 1.0779138270410964,
+          "l_r": 1.3667771933051127,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 11.712119119317176,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.716637055836268,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_00_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2506.365127358702,
+          "I_z": 5408.99826281794,
+          "l_f": 1.341931077942866,
+          "l_r": 1.527945486168302,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.471294988194771,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.715075606896196,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_00_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3030.268489955417,
+          "I_z": 5158.711872422103,
+          "l_f": 1.3518309622065117,
+          "l_r": 1.4747971157664972,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.206350251931891,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.387719865531134,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_00_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2528.9285485173777,
+          "I_z": 4716.384452327787,
+          "l_f": 1.2771429381887496,
+          "l_r": 1.4897274118991568,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.241825542650604,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.647722808062167,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ],
+    "fleet_01": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_01_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1237.474668952054,
+          "I_z": 1408.7946000096633,
+          "l_f": 1.0154147089826733,
+          "l_r": 1.4497111036909476,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.832810958039865,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.457810747817328,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_01_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1417.2818656624283,
+          "I_z": 1602.3608094217484,
+          "l_f": 1.1853408162865253,
+          "l_r": 1.3780533043931082,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.891634773754207,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.23463726240294,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_01_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1161.9319886854776,
+          "I_z": 1430.9179154884987,
+          "l_f": 1.0217057537805359,
+          "l_r": 1.4755857450861074,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.495575769709028,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.12730083031397,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_01_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1587.6924638652172,
+          "I_z": 1755.8223921754106,
+          "l_f": 1.1172060984031569,
+          "l_r": 1.3338071329204253,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.656765234706622,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.386290941010955,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_01_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1890.7017758281033,
+          "I_z": 1794.4453113756779,
+          "l_f": 1.1992242886395663,
+          "l_r": 1.2721907896784252,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.960342515578743,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.57349266869271,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_01_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1518.1001851503352,
+          "I_z": 1843.7293857402744,
+          "l_f": 1.1200057872436981,
+          "l_r": 1.399200576118847,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 11.124338533444789,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.963504049001461,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_01_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2492.3472988961034,
+          "I_z": 5244.314098622118,
+          "l_f": 1.2664097414935178,
+          "l_r": 1.6309396367441236,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.696099043334971,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.00847597886966,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_01_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3200.620009476106,
+          "I_z": 5802.577891396215,
+          "l_f": 1.4325471518328405,
+          "l_r": 1.4351245824743408,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.384116367145269,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.6567471683287724,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_01_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2432.3989791324425,
+          "I_z": 4989.1891306692805,
+          "l_f": 1.3657674317562325,
+          "l_r": 1.5094583925863443,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.168971627155792,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.251751805755415,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ],
+    "fleet_02": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_02_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1260.0637419398317,
+          "I_z": 1556.1061744492292,
+          "l_f": 1.0698392512413546,
+          "l_r": 1.4698669129239128,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.671042541860164,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.05118613416621,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_02_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1402.1128541110675,
+          "I_z": 1447.8952225065104,
+          "l_f": 1.1472415765150923,
+          "l_r": 1.3875267082091147,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.222214204337487,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.12347167951779,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_02_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1175.6244654261372,
+          "I_z": 1341.8219906572592,
+          "l_f": 1.0044247478615438,
+          "l_r": 1.4239747349743375,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.766445874066661,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.749237694939126,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_02_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1580.47072689517,
+          "I_z": 1871.9592083781026,
+          "l_f": 1.0861325473559804,
+          "l_r": 1.3585026808106406,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.357107248021673,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.359001976317185,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_02_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1736.6010227995991,
+          "I_z": 1860.475687331948,
+          "l_f": 1.2939888559516037,
+          "l_r": 1.2707709296724359,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.486376442571084,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.363528526199174,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_02_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1498.0787791552675,
+          "I_z": 1870.1240428274218,
+          "l_f": 1.1484583769554404,
+          "l_r": 1.379819242525111,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 10.985801408669465,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.590398161908064,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_02_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2456.0650559122273,
+          "I_z": 5095.421631674655,
+          "l_f": 1.3321349141245806,
+          "l_r": 1.5573566833799701,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.76231948211197,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.206595425285121,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_02_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3009.58215563888,
+          "I_z": 5064.494578652113,
+          "l_f": 1.337199377225508,
+          "l_r": 1.4717318280302358,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.631406522223573,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.006983223561658,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_02_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2506.885972720033,
+          "I_z": 5025.848818601805,
+          "l_f": 1.29985233426609,
+          "l_r": 1.5058567728133525,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.326332189741021,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.870280277327325,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ],
+    "fleet_03": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_03_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1189.6237716717508,
+          "I_z": 1461.3203935348024,
+          "l_f": 1.0124803380698988,
+          "l_r": 1.5153309300142308,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.85932411232611,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.462930186870958,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_03_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1412.4837228907693,
+          "I_z": 1463.6327066433068,
+          "l_f": 1.159789913339511,
+          "l_r": 1.3578488850794157,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.601288727536527,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.30399783899221,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_03_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1250.820627400643,
+          "I_z": 1610.1724385987438,
+          "l_f": 1.1081675833643814,
+          "l_r": 1.4275404766955229,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.514134098848938,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.590144015869026,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_03_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1500.0746694405236,
+          "I_z": 1708.637102650558,
+          "l_f": 1.106853435004121,
+          "l_r": 1.327563760453797,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.407922374647104,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.857507349449854,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_03_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1857.8675518124269,
+          "I_z": 1888.8658622005614,
+          "l_f": 1.1775396066013302,
+          "l_r": 1.3393024053261569,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.478373709393816,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.674213233569187,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_03_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1519.9182814499422,
+          "I_z": 1957.4913875863574,
+          "l_f": 1.1915149709861326,
+          "l_r": 1.3591467201672676,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 11.652745189926495,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.534288958049714,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_03_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2438.570896110218,
+          "I_z": 5064.544668492994,
+          "l_f": 1.2629964918504049,
+          "l_r": 1.6136515884676268,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.8423791757939485,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.358652417998382,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_03_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3029.1080218941765,
+          "I_z": 5076.028014392351,
+          "l_f": 1.3661177549016896,
+          "l_r": 1.4123504382814982,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.145651567268043,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.754188709845249,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_03_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2566.395077761295,
+          "I_z": 5471.451221121557,
+          "l_f": 1.371075805607714,
+          "l_r": 1.5166560457980565,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.199389534089194,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.35360927571374,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ],
+    "fleet_04": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_04_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1216.873578850764,
+          "I_z": 1595.1769008640624,
+          "l_f": 1.1095282542745124,
+          "l_r": 1.4498789248088741,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.753023932522327,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.359627382287847,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_04_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1441.351658164904,
+          "I_z": 1405.0320316058505,
+          "l_f": 1.0765829934152582,
+          "l_r": 1.3886388330330484,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.91137269768817,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.34347976113742,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_04_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1164.2406984144916,
+          "I_z": 1338.6919357759648,
+          "l_f": 0.9928156949078873,
+          "l_r": 1.4617189966478417,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.408768494591211,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.496249737810388,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_04_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1585.0376433728509,
+          "I_z": 1863.8611618739023,
+          "l_f": 1.1216857018289912,
+          "l_r": 1.3838110254652494,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.136987224808399,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.38815808273987,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_04_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1846.9156467161954,
+          "I_z": 1749.648847069134,
+          "l_f": 1.2218532486812412,
+          "l_r": 1.2399839113614344,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.040531079905486,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.052109715024026,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_04_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1458.455835771118,
+          "I_z": 1626.2626613766017,
+          "l_f": 1.1177618447458748,
+          "l_r": 1.3145016673653147,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 11.318519598719595,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.516948496013947,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_04_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2624.204027981793,
+          "I_z": 5537.916867760892,
+          "l_f": 1.2595809920583352,
+          "l_r": 1.5880214264013892,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.775913714744269,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.161027376938774,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_04_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3128.726001312236,
+          "I_z": 5348.615990104826,
+          "l_f": 1.3893131199025246,
+          "l_r": 1.441914905476181,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.792184934390719,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.094004945879659,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_04_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2455.9713945127714,
+          "I_z": 5056.966745715264,
+          "l_f": 1.314610774633846,
+          "l_r": 1.4931906479411508,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.19303717928939,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.107436879155104,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ],
+    "fleet_05": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_05_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1221.3469142114639,
+          "I_z": 1453.234673225418,
+          "l_f": 1.0882457699138386,
+          "l_r": 1.3957387402620762,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.891866381629178,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.703361133725988,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_05_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1474.9200074950888,
+          "I_z": 1596.378856633352,
+          "l_f": 1.083111119169155,
+          "l_r": 1.4321069664663526,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.710733880583557,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.942721324496127,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_05_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1218.632923805945,
+          "I_z": 1498.435835233614,
+          "l_f": 1.1100502737524351,
+          "l_r": 1.4374188019631218,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.454104135220282,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.328132159614887,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_05_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1520.7067547458303,
+          "I_z": 1791.2527010137103,
+          "l_f": 1.1593797122660416,
+          "l_r": 1.3630283158136616,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 14.044810458191284,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.700720980706405,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_05_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1799.0427618673548,
+          "I_z": 1730.145214887296,
+          "l_f": 1.1541815084244813,
+          "l_r": 1.2863597489319853,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.200451731192997,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.177508924343815,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_05_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1548.3482764245118,
+          "I_z": 1885.4617885418522,
+          "l_f": 1.1482875435536035,
+          "l_r": 1.4111779154782784,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 11.135957910417533,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.848205286435787,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_05_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2467.325940798075,
+          "I_z": 5039.805299135856,
+          "l_f": 1.3675770871127775,
+          "l_r": 1.5334260360201513,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.486357936899318,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.0663491753795,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_05_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3064.8219335317335,
+          "I_z": 5456.156193383497,
+          "l_f": 1.3849524730617082,
+          "l_r": 1.542643629492919,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.24934164990628,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.070906049582788,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_05_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2604.5527853687327,
+          "I_z": 5807.881575680741,
+          "l_f": 1.3589647415416686,
+          "l_r": 1.5677417579405855,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.198862356875408,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.35068061695007,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ],
+    "fleet_06": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_06_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1193.87949909385,
+          "I_z": 1486.0289137382695,
+          "l_f": 1.0456103320065582,
+          "l_r": 1.4470614210954758,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.591773800368925,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.55016521162822,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_06_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1525.7162625308945,
+          "I_z": 1604.7314752693003,
+          "l_f": 1.123016085493808,
+          "l_r": 1.4244834773729773,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.881182710156862,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.921069164919711,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_06_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1168.3584238761473,
+          "I_z": 1523.563877565343,
+          "l_f": 1.0294569297467602,
+          "l_r": 1.537145666700074,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.014845253242571,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.44689041118157,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_06_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1497.1651851133754,
+          "I_z": 1811.0569067854885,
+          "l_f": 1.1604722512173076,
+          "l_r": 1.360922867632847,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.871934236901103,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.581704888030533,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_06_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1753.5189408247898,
+          "I_z": 1831.385373644774,
+          "l_f": 1.2231624252035842,
+          "l_r": 1.3231373938920232,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.815842110643848,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.84811857337,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_06_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1593.1096822321679,
+          "I_z": 1897.5018845032714,
+          "l_f": 1.115725135922363,
+          "l_r": 1.3560647619503847,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 11.670664139620873,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.781674579988145,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_06_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2598.2154560178074,
+          "I_z": 5181.256646884043,
+          "l_f": 1.2734132915846788,
+          "l_r": 1.5819104113994997,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.851131700535302,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.160900620019854,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_06_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3096.962167961705,
+          "I_z": 5321.729098812476,
+          "l_f": 1.3886934531056052,
+          "l_r": 1.3981699627960915,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.624413694495736,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.682462261446297,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_06_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2582.3127902033993,
+          "I_z": 5214.124623080128,
+          "l_f": 1.2838882557103963,
+          "l_r": 1.5850829873933572,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.133890634630354,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.803991892414278,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ],
+    "fleet_07": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_07_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1210.9554010297618,
+          "I_z": 1449.8855668085093,
+          "l_f": 1.0231894938878743,
+          "l_r": 1.4598637020147864,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.245810006017997,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.352791219609255,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_07_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1458.717843005845,
+          "I_z": 1510.9573888033528,
+          "l_f": 1.1510849128099836,
+          "l_r": 1.3910808335383806,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.851049429299515,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.61701421200039,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_07_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1220.578170282947,
+          "I_z": 1454.856749082603,
+          "l_f": 1.0239045231620765,
+          "l_r": 1.4826965767096076,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.880024583559036,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.175074358281593,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_07_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1504.1657532912793,
+          "I_z": 1781.789340558177,
+          "l_f": 1.1379544135157675,
+          "l_r": 1.3675169773602764,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 14.123631857328535,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.610044989137386,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_07_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1888.412844557092,
+          "I_z": 1847.8011612771033,
+          "l_f": 1.2092658304496728,
+          "l_r": 1.2289787151656868,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.18041265991946,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.498769829789762,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_07_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1579.8292200992637,
+          "I_z": 1825.4311830684292,
+          "l_f": 1.1630973805620715,
+          "l_r": 1.3134189548151982,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 12.018545823741153,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.808731992901585,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_07_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2645.2204752145167,
+          "I_z": 5454.150661656008,
+          "l_f": 1.354092817160958,
+          "l_r": 1.534667807329685,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.681007418695755,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.837801157434668,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_07_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3164.5099111721615,
+          "I_z": 5501.656243177884,
+          "l_f": 1.399300191139244,
+          "l_r": 1.4869138761420087,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.585093255631003,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.757195115577635,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_07_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2641.538580311853,
+          "I_z": 5429.693976773411,
+          "l_f": 1.3520431532707016,
+          "l_r": 1.5226376189398871,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.446306142292574,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.088590277695301,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ],
+    "fleet_08": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_08_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1241.185696229049,
+          "I_z": 1469.8809795185048,
+          "l_f": 1.065412018923185,
+          "l_r": 1.4007106271673444,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.617205487404977,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.274148724127276,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_08_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1433.2418645023852,
+          "I_z": 1425.1309279585303,
+          "l_f": 1.0907697896170068,
+          "l_r": 1.3526302452536103,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.687473429261729,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.002402533145972,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_08_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1168.8790252405336,
+          "I_z": 1416.895011646886,
+          "l_f": 1.0514182731980275,
+          "l_r": 1.4601787384607994,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.930127817271024,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.482149976095418,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_08_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1497.3076542958381,
+          "I_z": 1702.4840928918788,
+          "l_f": 1.195550019117538,
+          "l_r": 1.295271941901873,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 12.888226900929038,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.1641376409389,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_08_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1806.377909798443,
+          "I_z": 1756.224237409461,
+          "l_f": 1.2011769668154286,
+          "l_r": 1.2299276216232056,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 14.048370778469074,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.908478332564568,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_08_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1559.373373833395,
+          "I_z": 1887.2226955923363,
+          "l_f": 1.118221369270623,
+          "l_r": 1.4073580481123156,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 11.678863732161725,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.219429696535062,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_08_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2605.4499908813145,
+          "I_z": 5338.488671186939,
+          "l_f": 1.2555720505596757,
+          "l_r": 1.5588570936129262,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.422689076359988,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.062641621101976,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_08_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3169.2670516308604,
+          "I_z": 5500.398241697186,
+          "l_f": 1.3963265751927478,
+          "l_r": 1.5313165148554246,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.469082136221893,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.635376035753151,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_08_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2623.5002058618693,
+          "I_z": 5503.8106445876065,
+          "l_f": 1.2889149482921436,
+          "l_r": 1.6194813641884336,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.262772904934823,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.695119955289785,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ],
+    "fleet_09": [
+      {
+        "id": "client_00",
+        "plant_id": "fleet_09_compact_nominal",
+        "family": "compact",
+        "params": {
+          "m": 1233.1427484732867,
+          "I_z": 1586.6887354635528,
+          "l_f": 1.0591496842253425,
+          "l_r": 1.5118266204241262,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 8.619928347192403,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 9.967252503869862,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_01",
+        "plant_id": "fleet_09_compact_payload",
+        "family": "compact",
+        "params": {
+          "m": 1481.8781754000893,
+          "I_z": 1622.8856901609865,
+          "l_f": 1.0837510916324193,
+          "l_r": 1.4547606736942218,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 9.00285283245935,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.236884483171856,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_02",
+        "plant_id": "fleet_09_compact_front_tire",
+        "family": "compact",
+        "params": {
+          "m": 1232.011895835889,
+          "I_z": 1524.718004995593,
+          "l_f": 1.0201026487995013,
+          "l_r": 1.4543090940298777,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.411525631368043,
+            "C": 1.27,
+            "E": 0.93
+          },
+          "pacejka_r_lat": {
+            "B": 10.065541553922877,
+            "C": 1.27,
+            "E": 0.93
+          }
+        }
+      },
+      {
+        "id": "client_03",
+        "plant_id": "fleet_09_sport_nominal",
+        "family": "sport",
+        "params": {
+          "m": 1447.9383860713008,
+          "I_z": 1905.1269035052296,
+          "l_f": 1.1555733004504503,
+          "l_r": 1.4150379562992113,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.616847583305539,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 13.99935748283683,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_04",
+        "plant_id": "fleet_09_sport_payload",
+        "family": "sport",
+        "params": {
+          "m": 1763.7310692606052,
+          "I_z": 1906.2184002012802,
+          "l_f": 1.282975375444993,
+          "l_r": 1.2782679003340183,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 13.066895472295494,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.261464082327684,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_05",
+        "plant_id": "fleet_09_sport_front_tire",
+        "family": "sport",
+        "params": {
+          "m": 1555.5181502510804,
+          "I_z": 1747.9069829991145,
+          "l_f": 1.1096827601932382,
+          "l_r": 1.3793647751957123,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 10.96186381042994,
+            "C": 1.38,
+            "E": 0.86
+          },
+          "pacejka_r_lat": {
+            "B": 14.111482590734717,
+            "C": 1.38,
+            "E": 0.86
+          }
+        }
+      },
+      {
+        "id": "client_06",
+        "plant_id": "fleet_09_suv_nominal",
+        "family": "suv",
+        "params": {
+          "m": 2444.9062489162056,
+          "I_z": 4858.875505725492,
+          "l_f": 1.3016932402250099,
+          "l_r": 1.4707618640279652,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.810116219223867,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.026870321466053,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_07",
+        "plant_id": "fleet_09_suv_payload",
+        "family": "suv",
+        "params": {
+          "m": 3094.7310455079632,
+          "I_z": 5538.950511469137,
+          "l_f": 1.3229502864756888,
+          "l_r": 1.5429407953086585,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 7.336560578945005,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 8.394881965713871,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      },
+      {
+        "id": "client_08",
+        "plant_id": "fleet_09_suv_front_tire",
+        "family": "suv",
+        "params": {
+          "m": 2525.026751164995,
+          "I_z": 5118.140281967524,
+          "l_f": 1.2901403506449918,
+          "l_r": 1.5288461662573822,
+          "mu": 0.9,
+          "g": 9.81,
+          "delta_r_offset": 0.0,
+          "eps_vx": 1.0,
+          "alpha_max": 0.4363323129985824,
+          "ax_clip_min": -8.829,
+          "ax_clip_max": 6.0,
+          "pacejka_f_lat": {
+            "B": 6.431060924296826,
+            "C": 1.22,
+            "E": 0.95
+          },
+          "pacejka_r_lat": {
+            "B": 7.87297734017962,
+            "C": 1.22,
+            "E": 0.95
+          }
+        }
+      }
+    ]
+  },
+  "jobs": [
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 0,
+      "seed": 2100
+    },
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 1,
+      "seed": 2101
+    },
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 2,
+      "seed": 2102
+    },
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 3,
+      "seed": 2103
+    },
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 4,
+      "seed": 2104
+    },
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 5,
+      "seed": 2105
+    },
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 6,
+      "seed": 2106
+    },
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 7,
+      "seed": 2107
+    },
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 8,
+      "seed": 2108
+    },
+    {
+      "condition": "homogeneous",
+      "fleet_id": "homogeneous",
+      "replicate": 9,
+      "seed": 2109
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_00",
+      "replicate": 0,
+      "seed": 4100
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_00",
+      "replicate": 1,
+      "seed": 4101
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_00",
+      "replicate": 2,
+      "seed": 4102
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_01",
+      "replicate": 0,
+      "seed": 4103
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_01",
+      "replicate": 1,
+      "seed": 4104
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_01",
+      "replicate": 2,
+      "seed": 4105
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_02",
+      "replicate": 0,
+      "seed": 4106
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_02",
+      "replicate": 1,
+      "seed": 4107
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_02",
+      "replicate": 2,
+      "seed": 4108
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_03",
+      "replicate": 0,
+      "seed": 4109
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_03",
+      "replicate": 1,
+      "seed": 4110
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_03",
+      "replicate": 2,
+      "seed": 4111
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_04",
+      "replicate": 0,
+      "seed": 4112
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_04",
+      "replicate": 1,
+      "seed": 4113
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_04",
+      "replicate": 2,
+      "seed": 4114
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_05",
+      "replicate": 0,
+      "seed": 4115
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_05",
+      "replicate": 1,
+      "seed": 4116
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_05",
+      "replicate": 2,
+      "seed": 4117
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_06",
+      "replicate": 0,
+      "seed": 4118
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_06",
+      "replicate": 1,
+      "seed": 4119
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_06",
+      "replicate": 2,
+      "seed": 4120
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_07",
+      "replicate": 0,
+      "seed": 4121
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_07",
+      "replicate": 1,
+      "seed": 4122
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_07",
+      "replicate": 2,
+      "seed": 4123
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_08",
+      "replicate": 0,
+      "seed": 4124
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_08",
+      "replicate": 1,
+      "seed": 4125
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_08",
+      "replicate": 2,
+      "seed": 4126
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_09",
+      "replicate": 0,
+      "seed": 4127
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_09",
+      "replicate": 1,
+      "seed": 4128
+    },
+    {
+      "condition": "heterogeneous",
+      "fleet_id": "fleet_09",
+      "replicate": 2,
+      "seed": 4129
+    }
+  ],
+  "physical_draws": [
+    {
+      "fleet_id": "fleet_00",
+      "fleet_seed": 3100,
+      "client": "client_00",
+      "plant_id": "fleet_00_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.036871819423441476,
+        "log_wheelbase_bound": -0.00870369364772763,
+        "cg_fraction_bound": 0.004898408420814886,
+        "log_inertia_shape_bound": 0.039445226687347554,
+        "log_front_B_bound": 0.013661596724834996,
+        "log_rear_B_bound": -0.04743711148876744
+      },
+      "params": {
+        "m": 1265.8232210729066,
+        "I_z": 1591.0191200653346,
+        "l_f": 1.0530406754721633,
+        "l_r": 1.425294509133289,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 9.123798084819677,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.536704461613649,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_00",
+      "fleet_seed": 3100,
+      "client": "client_01",
+      "plant_id": "fleet_00_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.000866090410728812,
+        "log_wheelbase_bound": -0.022861797704947683,
+        "cg_fraction_bound": 0.017242640123736577,
+        "log_inertia_shape_bound": -0.027804534071935186,
+        "log_front_B_bound": -0.01653143691761131,
+        "log_rear_B_bound": -0.044059487722080376
+      },
+      "params": {
+        "m": 1465.2685056022826,
+        "I_z": 1421.4623363349642,
+        "l_f": 1.12948706340146,
+        "l_r": 1.314006819160111,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.852440116711053,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.568970321551763,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_00",
+      "fleet_seed": 3100,
+      "client": "client_02",
+      "plant_id": "fleet_00_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.031569216337753,
+        "log_wheelbase_bound": -0.010295449006167037,
+        "cg_fraction_bound": -0.0026171895839246333,
+        "log_inertia_shape_bound": -0.011577566579600351,
+        "log_front_B_bound": -0.03064066990687575,
+        "log_rear_B_bound": 0.036359558571384135
+      },
+      "params": {
+        "m": 1182.0871442988323,
+        "I_z": 1407.3766326084694,
+        "l_f": 1.0327692794185719,
+        "l_r": 1.441624139872073,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.419153580262296,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.370286520047976,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_00",
+      "fleet_seed": 3100,
+      "client": "client_03",
+      "plant_id": "fleet_00_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.024436046394842783,
+        "log_wheelbase_bound": 0.02859017261873626,
+        "cg_fraction_bound": 0.015769793342801475,
+        "log_inertia_shape_bound": 0.02557605978407544,
+        "log_front_B_bound": -0.029022513064922907,
+        "log_rear_B_bound": 0.0008694023939843643
+      },
+      "params": {
+        "m": 1483.3073469750284,
+        "I_z": 1908.0981700846355,
+        "l_f": 1.2239211172542082,
+        "l_r": 1.3485858690654322,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.113827034536431,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.012176926073117,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_00",
+      "fleet_seed": 3100,
+      "client": "client_04",
+      "plant_id": "fleet_00_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.0040271276640146195,
+        "log_wheelbase_bound": 0.02366427945582579,
+        "cg_fraction_bound": 0.014202727275880771,
+        "log_inertia_shape_bound": 0.03424651205133038,
+        "log_front_B_bound": -0.023740737207399165,
+        "log_rear_B_bound": 0.0036382901972899853
+      },
+      "params": {
+        "m": 1831.360291328292,
+        "I_z": 1999.6801076611027,
+        "l_f": 1.2778922138411875,
+        "l_r": 1.2819740369194372,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.183274571279664,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.05102883532803,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_00",
+      "fleet_seed": 3100,
+      "client": "client_05",
+      "plant_id": "fleet_00_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.03694416739474528,
+        "log_wheelbase_bound": -0.02237198897947997,
+        "cg_fraction_bound": -0.019079729065947168,
+        "log_inertia_shape_bound": 0.04349544755214199,
+        "log_front_B_bound": 0.02045337192735161,
+        "log_rear_B_bound": -0.020447849910886797
+      },
+      "params": {
+        "m": 1577.205329733077,
+        "I_z": 1865.4126746515099,
+        "l_f": 1.0779138270410964,
+        "l_r": 1.3667771933051127,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 11.712119119317176,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.716637055836268,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_00",
+      "fleet_seed": 3100,
+      "client": "client_06",
+      "plant_id": "fleet_00_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.017259812049400282,
+        "log_wheelbase_bound": 0.006950025545557126,
+        "cg_fraction_bound": 0.011451563954334516,
+        "log_inertia_shape_bound": 0.04276504709503631,
+        "log_front_B_bound": -0.0038346778956486888,
+        "log_rear_B_bound": -0.03626525592618612
+      },
+      "params": {
+        "m": 2506.365127358702,
+        "I_z": 5408.99826281794,
+        "l_f": 1.341931077942866,
+        "l_r": 1.527945486168302,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.471294988194771,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.715075606896196,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_00",
+      "fleet_seed": 3100,
+      "client": "client_07",
+      "plant_id": "fleet_00_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.009763689822352054,
+        "log_wheelbase_bound": -0.008234484898534199,
+        "cg_fraction_bound": -0.0028917363032100497,
+        "log_inertia_shape_bound": 0.003434591924851682,
+        "log_front_B_bound": -0.03994040380058972,
+        "log_rear_B_bound": 0.04732717375053819
+      },
+      "params": {
+        "m": 3030.268489955417,
+        "I_z": 5158.711872422103,
+        "l_f": 1.3518309622065117,
+        "l_r": 1.4747971157664972,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.206350251931891,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.387719865531134,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_00",
+      "fleet_seed": 3100,
+      "client": "client_08",
+      "plant_id": "fleet_00_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.008297644741500652,
+        "log_wheelbase_bound": -0.029602150342272714,
+        "cg_fraction_bound": 0.005443596541295052,
+        "log_inertia_shape_bound": -0.030114179959027446,
+        "log_front_B_bound": -0.02111139653704134,
+        "log_rear_B_bound": -0.04503361030327585
+      },
+      "params": {
+        "m": 2528.9285485173777,
+        "I_z": 4716.384452327787,
+        "l_f": 1.2771429381887496,
+        "l_r": 1.4897274118991568,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.241825542650604,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.647722808062167,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_01",
+      "fleet_seed": 3101,
+      "client": "client_00",
+      "plant_id": "fleet_01_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.014221886972345457,
+        "log_wheelbase_bound": -0.014047886057791982,
+        "cg_fraction_bound": -0.008088079009088504,
+        "log_inertia_shape_bound": -0.0488567778149571,
+        "log_front_B_bound": -0.01875127158647928,
+        "log_rear_B_bound": 0.04476404620514207
+      },
+      "params": {
+        "m": 1237.474668952054,
+        "I_z": 1408.7946000096633,
+        "l_f": 1.0154147089826733,
+        "l_r": 1.4497111036909476,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.832810958039865,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.457810747817328,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_01",
+      "fleet_seed": 3101,
+      "client": "client_01",
+      "plant_id": "fleet_01_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.0324315574190152,
+        "log_wheelbase_bound": 0.025041476873422036,
+        "cg_fraction_bound": 0.0174106791554377,
+        "log_inertia_shape_bound": 0.029478456207619894,
+        "log_front_B_bound": -0.012113655654711432,
+        "log_rear_B_bound": 0.023192684592574467
+      },
+      "params": {
+        "m": 1417.2818656624283,
+        "I_z": 1602.3608094217484,
+        "l_f": 1.1853408162865253,
+        "l_r": 1.3780533043931082,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.891634773754207,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.23463726240294,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_01",
+      "fleet_seed": 3101,
+      "client": "client_02",
+      "plant_id": "fleet_01_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.04876673155893557,
+        "log_wheelbase_bound": -0.0010839877558414326,
+        "cg_fraction_bound": -0.010874451683265259,
+        "log_inertia_shape_bound": 0.003785736248268702,
+        "log_front_B_bound": -0.02039269872621842,
+        "log_rear_B_bound": 0.012649736683036344
+      },
+      "params": {
+        "m": 1161.9319886854776,
+        "I_z": 1430.9179154884987,
+        "l_f": 1.0217057537805359,
+        "l_r": 1.4755857450861074,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.495575769709028,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.12730083031397,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_01",
+      "fleet_seed": 3101,
+      "client": "client_03",
+      "plant_id": "fleet_01_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.043571346658355464,
+        "log_wheelbase_bound": -0.019789229005915718,
+        "cg_fraction_bound": -0.004186019020448243,
+        "log_inertia_shape_bound": -0.028842206859138287,
+        "log_front_B_bound": 0.011545334996999876,
+        "log_rear_B_bound": -0.04482621044934065
+      },
+      "params": {
+        "m": 1587.6924638652172,
+        "I_z": 1755.8223921754106,
+        "l_f": 1.1172060984031569,
+        "l_r": 1.3338071329204253,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.656765234706622,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.386290941010955,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_01",
+      "fleet_seed": 3101,
+      "client": "client_04",
+      "plant_id": "fleet_01_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.0359161784628865,
+        "log_wheelbase_bound": -0.011499839080757926,
+        "cg_fraction_bound": 0.00023791052361010756,
+        "log_inertia_shape_bound": -0.035605567820215824,
+        "log_front_B_bound": 0.03353094708876202,
+        "log_rear_B_bound": -0.030938507257394478
+      },
+      "params": {
+        "m": 1890.7017758281033,
+        "I_z": 1794.4453113756779,
+        "l_f": 1.1992242886395663,
+        "l_r": 1.2721907896784252,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.960342515578743,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.57349266869271,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_01",
+      "fleet_seed": 3101,
+      "client": "client_05",
+      "plant_id": "fleet_01_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.0012506599397767298,
+        "log_wheelbase_bound": 0.007653184873087082,
+        "cg_fraction_bound": -0.015413243022792626,
+        "log_inertia_shape_bound": 0.009947985719528173,
+        "log_front_B_bound": -0.03103538732986636,
+        "log_rear_B_bound": -0.0026102574023991534
+      },
+      "params": {
+        "m": 1518.1001851503352,
+        "I_z": 1843.7293857402744,
+        "l_f": 1.1200057872436981,
+        "l_r": 1.399200576118847,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 11.124338533444789,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.963504049001461,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_01",
+      "fleet_seed": 3101,
+      "client": "client_06",
+      "plant_id": "fleet_01_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.02286840242746964,
+        "log_wheelbase_bound": 0.016477317248050405,
+        "cg_fraction_bound": -0.019047830725608193,
+        "log_inertia_shape_bound": -0.0016003967858814194,
+        "log_front_B_bound": 0.025810562194537243,
+        "log_rear_B_bound": 0.0010589364875070659
+      },
+      "params": {
+        "m": 2492.3472988961034,
+        "I_z": 5244.314098622118,
+        "l_f": 1.2664097414935178,
+        "l_r": 1.6309396367441236,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.696099043334971,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.00847597886966,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_01",
+      "fleet_seed": 3101,
+      "client": "client_07",
+      "plant_id": "fleet_01_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.044929628034993715,
+        "log_wheelbase_bound": 0.0061814638541028005,
+        "cg_fraction_bound": 0.018410254826614517,
+        "log_inertia_shape_bound": 0.03752474820211778,
+        "log_front_B_bound": -0.015571764101688979,
+        "log_rear_B_bound": -0.043854299771590735
+      },
+      "params": {
+        "m": 3200.620009476106,
+        "I_z": 5802.577891396215,
+        "l_f": 1.4325471518328405,
+        "l_r": 1.4351245824743408,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.384116367145269,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.6567471683287724,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_01",
+      "fleet_seed": 3101,
+      "client": "client_08",
+      "plant_id": "fleet_01_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.04721535460219715,
+        "log_wheelbase_bound": 0.00881222448147153,
+        "cg_fraction_bound": 0.018871879533792758,
+        "log_inertia_shape_bound": -0.011794322252942947,
+        "log_front_B_bound": -0.03285194008906725,
+        "log_rear_B_bound": 0.030983976217352813
+      },
+      "params": {
+        "m": 2432.3989791324425,
+        "I_z": 4989.1891306692805,
+        "l_f": 1.3657674317562325,
+        "l_r": 1.5094583925863443,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.168971627155792,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.251751805755415,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_02",
+      "fleet_seed": 3102,
+      "client": "client_00",
+      "plant_id": "fleet_02_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.032311449779785464,
+        "log_wheelbase_bound": 0.015757659064948505,
+        "cg_fraction_bound": 0.0012452866936210095,
+        "log_inertia_shape_bound": -0.027105217082366653,
+        "log_front_B_bound": -0.0372355467301702,
+        "log_rear_B_bound": 0.0051055578469577645
+      },
+      "params": {
+        "m": 1260.0637419398317,
+        "I_z": 1556.1061744492292,
+        "l_f": 1.0698392512413546,
+        "l_r": 1.4698669129239128,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.671042541860164,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.05118613416621,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_02",
+      "fleet_seed": 3102,
+      "client": "client_01",
+      "plant_id": "fleet_02_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.04319213507992362,
+        "log_wheelbase_bound": 0.013811494570738797,
+        "cg_fraction_bound": 0.007602150432822238,
+        "log_inertia_shape_bound": -0.03866811797325444,
+        "log_front_B_bound": 0.024390583714593156,
+        "log_rear_B_bound": 0.012271563372368191
+      },
+      "params": {
+        "m": 1402.1128541110675,
+        "I_z": 1447.8952225065104,
+        "l_f": 1.1472415765150923,
+        "l_r": 1.3875267082091147,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 9.222214204337487,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.12347167951779,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_02",
+      "fleet_seed": 3102,
+      "client": "client_02",
+      "plant_id": "fleet_02_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.03705139238672033,
+        "log_wheelbase_bound": -0.02905834056499983,
+        "cg_fraction_bound": -0.006384054616673716,
+        "log_inertia_shape_bound": -0.01626864965580909,
+        "log_front_B_bound": 0.015106995429250397,
+        "log_rear_B_bound": -0.025395996175355474
+      },
+      "params": {
+        "m": 1175.6244654261372,
+        "I_z": 1341.8219906572592,
+        "l_f": 1.0044247478615438,
+        "l_r": 1.4239747349743375,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.766445874066661,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.749237694939126,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_02",
+      "fleet_seed": 3102,
+      "client": "client_03",
+      "plant_id": "fleet_02_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.03901239622349771,
+        "log_wheelbase_bound": -0.022394811011291527,
+        "cg_fraction_bound": -0.015707724881909413,
+        "log_inertia_shape_bound": 0.04497614831863979,
+        "log_front_B_bound": -0.010641064132120438,
+        "log_rear_B_bound": 0.025319731333101295
+      },
+      "params": {
+        "m": 1580.47072689517,
+        "I_z": 1871.9592083781026,
+        "l_f": 1.0861325473559804,
+        "l_r": 1.3585026808106406,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.357107248021673,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.359001976317185,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_02",
+      "fleet_seed": 3102,
+      "client": "client_04",
+      "plant_id": "fleet_02_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.04910212404118929,
+        "log_wheelbase_bound": 0.025574091534230632,
+        "cg_fraction_bound": 0.019526335450459908,
+        "log_inertia_shape_bound": 0.011401118907079476,
+        "log_front_B_bound": -0.0010096619392565773,
+        "log_rear_B_bound": 0.025634922915477115
+      },
+      "params": {
+        "m": 1736.6010227995991,
+        "I_z": 1860.475687331948,
+        "l_f": 1.2939888559516037,
+        "l_r": 1.2707709296724359,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.486376442571084,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.363528526199174,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_02",
+      "fleet_seed": 3102,
+      "client": "client_05",
+      "plant_id": "fleet_02_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.01452686158968617,
+        "log_wheelbase_bound": 0.01124755621341568,
+        "cg_fraction_bound": -0.005754640192006466,
+        "log_inertia_shape_bound": 0.03024984599008318,
+        "log_front_B_bound": -0.04356709795367894,
+        "log_rear_B_bound": 0.04130632260245372
+      },
+      "params": {
+        "m": 1498.0787791552675,
+        "I_z": 1870.1240428274218,
+        "l_f": 1.1484583769554404,
+        "l_r": 1.379819242525111,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 10.985801408669465,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.590398161908064,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_02",
+      "fleet_seed": 3102,
+      "client": "client_06",
+      "plant_id": "fleet_02_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.03753286067264399,
+        "log_wheelbase_bound": 0.013761574549932619,
+        "cg_fraction_bound": 0.004887089131648405,
+        "log_inertia_shape_bound": -0.01030649675507471,
+        "log_front_B_bound": 0.034378171324476375,
+        "log_rear_B_bound": 0.025496609454978336
+      },
+      "params": {
+        "m": 2456.0650559122273,
+        "I_z": 5095.421631674655,
+        "l_f": 1.3321349141245806,
+        "l_r": 1.5573566833799701,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.76231948211197,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.206595425285121,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_02",
+      "fleet_seed": 3102,
+      "client": "client_07",
+      "plant_id": "fleet_02_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.016613665564340553,
+        "log_wheelbase_bound": -0.014514937289349767,
+        "cg_fraction_bound": -0.005087617822180226,
+        "log_inertia_shape_bound": 0.004412906930540514,
+        "log_front_B_bound": 0.017369148816959196,
+        "log_rear_B_bound": 0.0008725221869919642
+      },
+      "params": {
+        "m": 3009.58215563888,
+        "I_z": 5064.494578652113,
+        "l_f": 1.337199377225508,
+        "l_r": 1.4717318280302358,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.631406522223573,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.006983223561658,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_02",
+      "fleet_seed": 3102,
+      "client": "client_08",
+      "plant_id": "fleet_02_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.01705202458661126,
+        "log_wheelbase_bound": -0.01566268615687226,
+        "cg_fraction_bound": 0.007147996081608533,
+        "log_inertia_shape_bound": 0.014313130117621697,
+        "log_front_B_bound": -0.007663455724835601,
+        "log_rear_B_bound": -0.016347866501269737
+      },
+      "params": {
+        "m": 2506.885972720033,
+        "I_z": 5025.848818601805,
+        "l_f": 1.29985233426609,
+        "l_r": 1.5058567728133525,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.326332189741021,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.870280277327325,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_03",
+      "fleet_seed": 3103,
+      "client": "client_00",
+      "plant_id": "fleet_03_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.025213759869319043,
+        "log_wheelbase_bound": 0.01106308501122183,
+        "cg_fraction_bound": -0.01946363446774476,
+        "log_inertia_shape_bound": -0.023037112112028958,
+        "log_front_B_bound": -0.015754100919607307,
+        "log_rear_B_bound": 0.04525345900096965
+      },
+      "params": {
+        "m": 1189.6237716717508,
+        "I_z": 1461.3203935348024,
+        "l_f": 1.0124803380698988,
+        "l_r": 1.5153309300142308,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.85932411232611,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.462930186870958,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_03",
+      "fleet_seed": 3103,
+      "client": "client_01",
+      "plant_id": "fleet_03_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.03582275518421282,
+        "log_wheelbase_bound": 0.007030745650169312,
+        "cg_fraction_bound": 0.01566572936032656,
+        "log_inertia_shape_bound": -0.021665430603551018,
+        "log_front_B_bound": -0.04531253326432153,
+        "log_rear_B_bound": 0.029946866642795097
+      },
+      "params": {
+        "m": 1412.4837228907693,
+        "I_z": 1463.6327066433068,
+        "l_f": 1.159789913339511,
+        "l_r": 1.3578488850794157,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.601288727536527,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.30399783899221,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_03",
+      "fleet_seed": 3103,
+      "client": "client_02",
+      "plant_id": "fleet_03_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.024948979086443043,
+        "log_wheelbase_bound": 0.014182179801299016,
+        "cg_fraction_bound": 0.017024908671151074,
+        "log_inertia_shape_bound": 0.01756283118358201,
+        "log_front_B_bound": -0.017919854312917885,
+        "log_rear_B_bound": -0.04184918691541709
+      },
+      "params": {
+        "m": 1250.820627400643,
+        "I_z": 1610.1724385987438,
+        "l_f": 1.1081675833643814,
+        "l_r": 1.4275404766955229,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.514134098848938,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.590144015869026,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_03",
+      "fleet_seed": 3103,
+      "client": "client_03",
+      "plant_id": "fleet_03_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.013195448361969453,
+        "log_wheelbase_bound": -0.02658334876827776,
+        "cg_fraction_bound": -0.0053312451664966395,
+        "log_inertia_shape_bound": 0.014271517731036742,
+        "log_front_B_bound": -0.006843931201792788,
+        "log_rear_B_bound": -0.010230196944575734
+      },
+      "params": {
+        "m": 1500.0746694405236,
+        "I_z": 1708.637102650558,
+        "l_f": 1.106853435004121,
+        "l_r": 1.327563760453797,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.407922374647104,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.857507349449854,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_03",
+      "fleet_seed": 3103,
+      "client": "client_04",
+      "plant_id": "fleet_03_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.018397460844671115,
+        "log_wheelbase_bound": 0.0067142139051461144,
+        "cg_fraction_bound": -0.01713606534661725,
+        "log_inertia_shape_bound": -0.0032343355797226775,
+        "log_front_B_bound": -0.0016032319421033225,
+        "log_rear_B_bound": -0.0235455161565208
+      },
+      "params": {
+        "m": 1857.8675518124269,
+        "I_z": 1888.8658622005614,
+        "l_f": 1.1775396066013302,
+        "l_r": 1.3393024053261569,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.478373709393816,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.674213233569187,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_03",
+      "fleet_seed": 3103,
+      "client": "client_05",
+      "plant_id": "fleet_03_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -5.3763649224457255e-05,
+        "log_wheelbase_bound": 0.02006208036214547,
+        "cg_fraction_bound": 0.007139556421272751,
+        "log_inertia_shape_bound": 0.043806687195500724,
+        "log_front_B_bound": 0.015371034926981622,
+        "log_rear_B_bound": -0.03383094150486604
+      },
+      "params": {
+        "m": 1519.9182814499422,
+        "I_z": 1957.4913875863574,
+        "l_f": 1.1915149709861326,
+        "l_r": 1.3591467201672676,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 11.652745189926495,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.534288958049714,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_03",
+      "fleet_seed": 3103,
+      "client": "client_06",
+      "plant_id": "fleet_03_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.04468118976896958,
+        "log_wheelbase_bound": 0.009306761054426883,
+        "cg_fraction_bound": -0.017088907465744253,
+        "log_inertia_shape_bound": -0.0003267218998364227,
+        "log_front_B_bound": 0.04463923408371598,
+        "log_rear_B_bound": 0.043855678404289736
+      },
+      "params": {
+        "m": 2438.570896110218,
+        "I_z": 5064.544668492994,
+        "l_f": 1.2629964918504049,
+        "l_r": 1.6136515884676268,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.8423791757939485,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.358652417998382,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_03",
+      "fleet_seed": 3103,
+      "client": "client_07",
+      "plant_id": "fleet_03_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.010146721995104066,
+        "log_wheelbase_bound": -0.025419228085951276,
+        "cg_fraction_bound": 0.010539834000712456,
+        "log_inertia_shape_bound": 0.02202926809773703,
+        "log_front_B_bound": -0.04839902125826907,
+        "log_rear_B_bound": -0.031208365630871295
+      },
+      "params": {
+        "m": 3029.1080218941765,
+        "I_z": 5076.028014392351,
+        "l_f": 1.3661177549016896,
+        "l_r": 1.4123504382814982,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.145651567268043,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.754188709845249,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_03",
+      "fleet_seed": 3103,
+      "client": "client_08",
+      "plant_id": "fleet_03_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.006408861563276726,
+        "log_wheelbase_bound": 0.013152373203034327,
+        "cg_fraction_bound": 0.018652973489217125,
+        "log_inertia_shape_bound": 0.018171653196563484,
+        "log_front_B_bound": -0.027933266084847322,
+        "log_rear_B_bound": 0.04325215237889042
+      },
+      "params": {
+        "m": 2566.395077761295,
+        "I_z": 5471.451221121557,
+        "l_f": 1.371075805607714,
+        "l_r": 1.5166560457980565,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.199389534089194,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.35360927571374,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_04",
+      "fleet_seed": 3104,
+      "client": "client_00",
+      "plant_id": "fleet_04_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.002565929469407903,
+        "log_wheelbase_bound": 0.023484929130136216,
+        "cg_fraction_bound": 0.013509862495530423,
+        "log_inertia_shape_bound": 0.017115602820401477,
+        "log_front_B_bound": -0.027825344381690233,
+        "log_rear_B_bound": 0.03533117622983231
+      },
+      "params": {
+        "m": 1216.873578850764,
+        "I_z": 1595.1769008640624,
+        "l_f": 1.1095282542745124,
+        "l_r": 1.4498789248088741,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.753023932522327,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.359627382287847,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_04",
+      "fleet_seed": 3104,
+      "client": "client_01",
+      "plant_id": "fleet_04_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.015591090705649978,
+        "log_wheelbase_bound": -0.014008937982838341,
+        "cg_fraction_bound": -0.008291634908850196,
+        "log_inertia_shape_bound": -0.04067912761652799,
+        "log_front_B_bound": -0.009896285128658797,
+        "log_rear_B_bound": 0.033771253430517637
+      },
+      "params": {
+        "m": 1441.351658164904,
+        "I_z": 1405.0320316058505,
+        "l_f": 1.0765829934152582,
+        "l_r": 1.3886388330330484,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.91137269768817,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.34347976113742,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_04",
+      "fleet_seed": 3104,
+      "client": "client_02",
+      "plant_id": "fleet_04_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.04678174523364989,
+        "log_wheelbase_bound": -0.018353523599550392,
+        "cg_fraction_bound": -0.015517758081218028,
+        "log_inertia_shape_bound": -0.030283345805584172,
+        "log_front_B_bound": -0.03204141740429339,
+        "log_rear_B_bound": 0.04843293254222955
+      },
+      "params": {
+        "m": 1164.2406984144916,
+        "I_z": 1338.6919357759648,
+        "l_f": 0.9928156949078873,
+        "l_r": 1.4617189966478417,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.408768494591211,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.496249737810388,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_04",
+      "fleet_seed": 3104,
+      "client": "client_03",
+      "plant_id": "fleet_04_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.04189782195108874,
+        "log_wheelbase_bound": 0.002196277333989284,
+        "cg_fraction_bound": -0.012310051093009138,
+        "log_inertia_shape_bound": -0.011426812005084032,
+        "log_front_B_bound": -0.027257981416311916,
+        "log_rear_B_bound": -0.044686738542353055
+      },
+      "params": {
+        "m": 1585.0376433728509,
+        "I_z": 1863.8611618739023,
+        "l_f": 1.1216857018289912,
+        "l_r": 1.3838110254652494,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.136987224808399,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.38815808273987,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_04",
+      "fleet_seed": 3104,
+      "client": "client_04",
+      "plant_id": "fleet_04_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.012485138092257028,
+        "log_wheelbase_bound": -0.01538284763049106,
+        "cg_fraction_bound": 0.011317655981787456,
+        "log_inertia_shape_bound": -0.029689356818911453,
+        "log_front_B_bound": -0.03462740278858102,
+        "log_rear_B_bound": 0.003715212544919834
+      },
+      "params": {
+        "m": 1846.9156467161954,
+        "I_z": 1749.648847069134,
+        "l_f": 1.2218532486812412,
+        "l_r": 1.2399839113614344,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.040531079905486,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.052109715024026,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_04",
+      "fleet_seed": 3104,
+      "client": "client_05",
+      "plant_id": "fleet_04_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.04133210557303607,
+        "log_wheelbase_bound": -0.02746842162048709,
+        "cg_fraction_bound": -0.00044377215704534054,
+        "log_inertia_shape_bound": -0.005233179646412511,
+        "log_front_B_bound": -0.013730469221963602,
+        "log_rear_B_bound": 0.036259499018236885
+      },
+      "params": {
+        "m": 1458.455835771118,
+        "I_z": 1626.2626613766017,
+        "l_f": 1.1177618447458748,
+        "l_r": 1.3145016673653147,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 11.318519598719595,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.516948496013947,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_04",
+      "fleet_seed": 3104,
+      "client": "client_06",
+      "plant_id": "fleet_04_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.02868426345501042,
+        "log_wheelbase_bound": -0.0008416107357813209,
+        "cg_fraction_bound": -0.013809994682438176,
+        "log_inertia_shape_bound": 0.035958745826717806,
+        "log_front_B_bound": 0.03612795019940461,
+        "log_rear_B_bound": 0.019928523407546223
+      },
+      "params": {
+        "m": 2624.204027981793,
+        "I_z": 5537.916867760892,
+        "l_f": 1.2595809920583352,
+        "l_r": 1.5880214264013892,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.775913714744269,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.161027376938774,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_04",
+      "fleet_seed": 3104,
+      "client": "client_07",
+      "plant_id": "fleet_04_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.02221097739450631,
+        "log_wheelbase_bound": -0.006608445517117038,
+        "cg_fraction_bound": 0.009570078466162233,
+        "log_inertia_shape_bound": 0.004358768746367106,
+        "log_front_B_bound": 0.03821827939603753,
+        "log_rear_B_bound": 0.011682115828711627
+      },
+      "params": {
+        "m": 3128.726001312236,
+        "I_z": 5348.615990104826,
+        "l_f": 1.3893131199025246,
+        "l_r": 1.441914905476181,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.792184934390719,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.094004945879659,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_04",
+      "fleet_seed": 3104,
+      "client": "client_08",
+      "plant_id": "fleet_04_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.03757099613862145,
+        "log_wheelbase_bound": -0.014917229073860117,
+        "cg_fraction_bound": 0.01205898974007703,
+        "log_inertia_shape_bound": 0.039513674883403946,
+        "log_front_B_bound": -0.028958465668932756,
+        "log_rear_B_bound": 0.013340232001077604
+      },
+      "params": {
+        "m": 2455.9713945127714,
+        "I_z": 5056.966745715264,
+        "l_f": 1.314610774633846,
+        "l_r": 1.4931906479411508,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.19303717928939,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.107436879155104,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_05",
+      "fleet_seed": 3105,
+      "client": "client_00",
+      "plant_id": "fleet_05_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.001103419051411883,
+        "log_wheelbase_bound": -0.006426803661369357,
+        "cg_fraction_bound": 0.01810489375264637,
+        "log_inertia_shape_bound": -0.019923038843676768,
+        "log_front_B_bound": -0.012087608154507587,
+        "log_rear_B_bound": -0.03011275887341454
+      },
+      "params": {
+        "m": 1221.3469142114639,
+        "I_z": 1453.234673225418,
+        "l_f": 1.0882457699138386,
+        "l_r": 1.3957387402620762,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.891866381629178,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.703361133725988,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_05",
+      "fleet_seed": 3105,
+      "client": "client_01",
+      "plant_id": "fleet_05_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.007431340575324609,
+        "log_wheelbase_bound": 0.00606878188848918,
+        "cg_fraction_bound": -0.014376856283422172,
+        "log_inertia_shape_bound": 0.023820750238701144,
+        "log_front_B_bound": -0.032668532778591254,
+        "log_rear_B_bound": -0.005744334694913124
+      },
+      "params": {
+        "m": 1474.9200074950888,
+        "I_z": 1596.378856633352,
+        "l_f": 1.083111119169155,
+        "l_r": 1.4321069664663526,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.710733880583557,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.942721324496127,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_05",
+      "fleet_seed": 3105,
+      "client": "client_02",
+      "plant_id": "fleet_05_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.0011211825477435017,
+        "log_wheelbase_bound": 0.01880961509548855,
+        "cg_fraction_bound": 0.015746319487954404,
+        "log_inertia_shape_bound": -0.037541368223844775,
+        "log_front_B_bound": -0.025940876497921275,
+        "log_rear_B_bound": 0.0322863567130882
+      },
+      "params": {
+        "m": 1218.632923805945,
+        "I_z": 1498.435835233614,
+        "l_f": 1.1100502737524351,
+        "l_r": 1.4374188019631218,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.454104135220282,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.328132159614887,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_05",
+      "fleet_seed": 3105,
+      "client": "client_03",
+      "plant_id": "fleet_05_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.00046486216236034383,
+        "log_wheelbase_bound": 0.008923280084251008,
+        "cg_fraction_bound": -0.0003678947419653786,
+        "log_inertia_shape_bound": -0.02318287918066484,
+        "log_front_B_bound": 0.03956327969796124,
+        "log_rear_B_bound": 0.04883920927325938
+      },
+      "params": {
+        "m": 1520.7067547458303,
+        "I_z": 1791.2527010137103,
+        "l_f": 1.1593797122660416,
+        "l_r": 1.3630283158136616,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 14.044810458191284,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.700720980706405,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_05",
+      "fleet_seed": 3105,
+      "client": "client_04",
+      "plant_id": "fleet_05_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.01377716716782234,
+        "log_wheelbase_bound": -0.024070890383530937,
+        "cg_fraction_bound": -0.0120796980196672,
+        "log_inertia_shape_bound": 0.0027392691923350462,
+        "log_front_B_bound": -0.022438634377544477,
+        "log_rear_B_bound": 0.01259950076290925
+      },
+      "params": {
+        "m": 1799.0427618673548,
+        "I_z": 1730.145214887296,
+        "l_f": 1.1541815084244813,
+        "l_r": 1.2863597489319853,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.200451731192997,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.177508924343815,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_05",
+      "fleet_seed": 3105,
+      "client": "client_05",
+      "plant_id": "fleet_05_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.01847839977442879,
+        "log_wheelbase_bound": 0.023507699748832198,
+        "cg_fraction_bound": -0.011356499263739432,
+        "log_inertia_shape_bound": -0.01910769261829225,
+        "log_front_B_bound": -0.029991431957814386,
+        "log_rear_B_bound": -0.010901687585213052
+      },
+      "params": {
+        "m": 1548.3482764245118,
+        "I_z": 1885.4617885418522,
+        "l_f": 1.1482875435536035,
+        "l_r": 1.4111779154782784,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 11.135957910417533,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.848205286435787,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_05",
+      "fleet_seed": 3105,
+      "client": "client_06",
+      "plant_id": "fleet_05_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.03295841004294804,
+        "log_wheelbase_bound": 0.017737587429286036,
+        "cg_fraction_bound": 0.01527489035697267,
+        "log_inertia_shape_bound": -0.03380794018976764,
+        "log_front_B_bound": -0.0018205980300565541,
+        "log_rear_B_bound": 0.008259443616102993
+      },
+      "params": {
+        "m": 2467.325940798075,
+        "I_z": 5039.805299135856,
+        "l_f": 1.3675770871127775,
+        "l_r": 1.5334260360201513,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.486357936899318,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.0663491753795,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_05",
+      "fleet_seed": 3105,
+      "client": "client_07",
+      "plant_id": "fleet_05_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.0015745550092012145,
+        "log_wheelbase_bound": 0.026862649186890138,
+        "cg_fraction_bound": -0.008072200576953374,
+        "log_inertia_shape_bound": -0.022040284328038996,
+        "log_front_B_bound": -0.03399236270835694,
+        "log_rear_B_bound": 0.008824208101870193
+      },
+      "params": {
+        "m": 3064.8219335317335,
+        "I_z": 5456.156193383497,
+        "l_f": 1.3849524730617082,
+        "l_r": 1.542643629492919,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.24934164990628,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.070906049582788,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_05",
+      "fleet_seed": 3105,
+      "client": "client_08",
+      "plant_id": "fleet_05_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.021167625814820776,
+        "log_wheelbase_bound": 0.02655873490719067,
+        "cg_fraction_bound": 0.00819207937574662,
+        "log_inertia_shape_bound": 0.036272166235903694,
+        "log_front_B_bound": -0.028018306656492353,
+        "log_rear_B_bound": 0.04290150487307057
+      },
+      "params": {
+        "m": 2604.5527853687327,
+        "I_z": 5807.881575680741,
+        "l_f": 1.3589647415416686,
+        "l_r": 1.5677417579405855,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.198862356875408,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.35068061695007,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_06",
+      "fleet_seed": 3106,
+      "client": "client_00",
+      "plant_id": "fleet_06_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.021642770899677255,
+        "log_wheelbase_bound": -0.002935603429635742,
+        "cg_fraction_bound": -0.0005262643565739598,
+        "log_inertia_shape_bound": 0.018156273185234356,
+        "log_front_B_bound": -0.04641936668897028,
+        "log_rear_B_bound": -0.046026639004109964
+      },
+      "params": {
+        "m": 1193.87949909385,
+        "I_z": 1486.0289137382695,
+        "l_f": 1.0456103320065582,
+        "l_r": 1.4470614210954758,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.591773800368925,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.55016521162822,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_06",
+      "fleet_seed": 3106,
+      "client": "client_01",
+      "plant_id": "fleet_06_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.04129156460309284,
+        "log_wheelbase_bound": 0.018821582647554347,
+        "cg_fraction_bound": -0.004169272543450061,
+        "log_inertia_shape_bound": -0.030326487551114167,
+        "log_front_B_bound": -0.013289841120157929,
+        "log_rear_B_bound": -0.00792439878322828
+      },
+      "params": {
+        "m": 1525.7162625308945,
+        "I_z": 1604.7314752693003,
+        "l_f": 1.123016085493808,
+        "l_r": 1.4244834773729773,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.881182710156862,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.921069164919711,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_06",
+      "fleet_seed": 3106,
+      "client": "client_02",
+      "plant_id": "fleet_06_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.04325115165704796,
+        "log_wheelbase_bound": 0.026292345582495526,
+        "cg_fraction_bound": -0.018902872157955157,
+        "log_inertia_shape_bound": 0.006253599117473661,
+        "log_front_B_bound": 0.046589830892902404,
+        "log_rear_B_bound": 0.04371927282655681
+      },
+      "params": {
+        "m": 1168.3584238761473,
+        "I_z": 1523.563877565343,
+        "l_f": 1.0294569297467602,
+        "l_r": 1.537145666700074,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.014845253242571,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.44689041118157,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_06",
+      "fleet_seed": 3106,
+      "client": "client_03",
+      "plant_id": "fleet_06_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.01513689141104465,
+        "log_wheelbase_bound": 0.008521635050272522,
+        "cg_fraction_bound": 0.00025005860506464167,
+        "log_inertia_shape_bound": 0.004217557668254636,
+        "log_front_B_bound": 0.02717799387474376,
+        "log_rear_B_bound": -0.03033367132710725
+      },
+      "params": {
+        "m": 1497.1651851133754,
+        "I_z": 1811.0569067854885,
+        "l_f": 1.1604722512173076,
+        "l_r": 1.360922867632847,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.871934236901103,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.581704888030533,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_06",
+      "fleet_seed": 3106,
+      "client": "client_04",
+      "plant_id": "fleet_06_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.03940729938738083,
+        "log_wheelbase_bound": 0.018350522166605494,
+        "cg_fraction_bound": -0.004631421236943765,
+        "log_inertia_shape_bound": 0.00039394730902634484,
+        "log_front_B_bound": 0.023126227326865575,
+        "log_rear_B_bound": -0.010907949287396024
+      },
+      "params": {
+        "m": 1753.5189408247898,
+        "I_z": 1831.385373644774,
+        "l_f": 1.2231624252035842,
+        "l_r": 1.3231373938920232,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.815842110643848,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.84811857337,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_06",
+      "fleet_seed": 3106,
+      "client": "client_05",
+      "plant_id": "fleet_06_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.04697754632483396,
+        "log_wheelbase_bound": -0.011348188660724859,
+        "cg_fraction_bound": -0.00861651595769949,
+        "log_inertia_shape_bound": 0.028470389532255544,
+        "log_front_B_bound": 0.016907598725763265,
+        "log_rear_B_bound": -0.01571754891749514
+      },
+      "params": {
+        "m": 1593.1096822321679,
+        "I_z": 1897.5018845032714,
+        "l_f": 1.115725135922363,
+        "l_r": 1.3560647619503847,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 11.670664139620873,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.781674579988145,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_06",
+      "fleet_seed": 3106,
+      "client": "client_06",
+      "plant_id": "fleet_06_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.018731487132059327,
+        "log_wheelbase_bound": 0.0018662234805381511,
+        "cg_fraction_bound": -0.010161742478502806,
+        "log_inertia_shape_bound": -0.026074936907197643,
+        "log_front_B_bound": 0.04575466653446715,
+        "log_rear_B_bound": 0.0199129913063206
+      },
+      "params": {
+        "m": 2598.2154560178074,
+        "I_z": 5181.256646884043,
+        "l_f": 1.2734132915846788,
+        "l_r": 1.5819104113994997,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.851131700535302,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.160900620019854,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_06",
+      "fleet_seed": 3106,
+      "client": "client_07",
+      "plant_id": "fleet_06_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.012006769247193037,
+        "log_wheelbase_bound": -0.02240225455191438,
+        "cg_fraction_bound": 0.017159438478034503,
+        "log_inertia_shape_bound": 0.04111103008086135,
+        "log_front_B_bound": 0.016452406469679576,
+        "log_rear_B_bound": -0.04050143894453076
+      },
+      "params": {
+        "m": 3096.962167961705,
+        "I_z": 5321.729098812476,
+        "l_f": 1.3886934531056052,
+        "l_r": 1.3981699627960915,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.624413694495736,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.682462261446297,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_06",
+      "fleet_seed": 3106,
+      "client": "client_08",
+      "plant_id": "fleet_06_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.012592068520893465,
+        "log_wheelbase_bound": 0.006634519351513581,
+        "cg_fraction_bound": -0.00863211641979874,
+        "log_inertia_shape_bound": -0.023148515959216766,
+        "log_front_B_bound": -0.03855485488366836,
+        "log_rear_B_bound": -0.024806157820807775
+      },
+      "params": {
+        "m": 2582.3127902033993,
+        "I_z": 5214.124623080128,
+        "l_f": 1.2838882557103963,
+        "l_r": 1.5850829873933572,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.133890634630354,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.803991892414278,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_07",
+      "fleet_seed": 3107,
+      "client": "client_00",
+      "plant_id": "fleet_07_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.007441223068932266,
+        "log_wheelbase_bound": -0.006801801533049781,
+        "cg_fraction_bound": -0.007930900724857137,
+        "log_inertia_shape_bound": -0.01293564809735983,
+        "log_front_B_bound": 0.0269458992427819,
+        "log_rear_B_bound": 0.03467107341342841
+      },
+      "params": {
+        "m": 1210.9554010297618,
+        "I_z": 1449.8855668085093,
+        "l_f": 1.0231894938878743,
+        "l_r": 1.4598637020147864,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 9.245810006017997,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.352791219609255,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_07",
+      "fleet_seed": 3107,
+      "client": "client_01",
+      "plant_id": "fleet_07_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.0036145553753997445,
+        "log_wheelbase_bound": 0.016725641894291106,
+        "cg_fraction_bound": 0.00779695647832292,
+        "log_inertia_shape_bound": -0.04144144128948594,
+        "log_front_B_bound": -0.016688545764517983,
+        "log_rear_B_bound": -0.039051249465022746
+      },
+      "params": {
+        "m": 1458.717843005845,
+        "I_z": 1510.9573888033528,
+        "l_f": 1.1510849128099836,
+        "l_r": 1.3910808335383806,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.851049429299515,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.61701421200039,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_07",
+      "fleet_seed": 3107,
+      "client": "client_02",
+      "plant_id": "fleet_07_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.000473797808079178,
+        "log_wheelbase_bound": 0.002636960111300983,
+        "cg_fraction_bound": -0.011516766184100344,
+        "log_inertia_shape_bound": -0.03630538460108688,
+        "log_front_B_bound": 0.029625375767471332,
+        "log_rear_B_bound": 0.01735594624713299
+      },
+      "params": {
+        "m": 1220.578170282947,
+        "I_z": 1454.856749082603,
+        "l_f": 1.0239045231620765,
+        "l_r": 1.4826965767096076,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.880024583559036,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.175074358281593,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_07",
+      "fleet_seed": 3107,
+      "client": "client_03",
+      "plant_id": "fleet_07_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.01047190709765413,
+        "log_wheelbase_bound": 0.0021861649494762797,
+        "cg_fraction_bound": -0.0058122500780664905,
+        "log_inertia_shape_bound": -0.004068980817749458,
+        "log_front_B_bound": 0.045159727238764394,
+        "log_rear_B_bound": -0.028249207363123575
+      },
+      "params": {
+        "m": 1504.1657532912793,
+        "I_z": 1781.789340558177,
+        "l_f": 1.1379544135157675,
+        "l_r": 1.3675169773602764,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 14.123631857328535,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.610044989137386,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_07",
+      "fleet_seed": 3107,
+      "client": "client_04",
+      "plant_id": "fleet_07_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.03470481983483069,
+        "log_wheelbase_bound": -0.025012400014622453,
+        "cg_fraction_bound": 0.010957566120374813,
+        "log_inertia_shape_bound": 0.021931327942693438,
+        "log_front_B_bound": -0.023957847306327898,
+        "log_rear_B_bound": -0.0364587720421701
+      },
+      "params": {
+        "m": 1888.412844557092,
+        "I_z": 1847.8011612771033,
+        "l_f": 1.2092658304496728,
+        "l_r": 1.2289787151656868,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.18041265991946,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.498769829789762,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_07",
+      "fleet_seed": 3107,
+      "client": "client_05",
+      "plant_id": "fleet_07_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.03860641779393299,
+        "log_wheelbase_bound": -0.009437862694991701,
+        "cg_fraction_bound": 0.009650599088370834,
+        "log_inertia_shape_bound": -0.005701133482691877,
+        "log_front_B_bound": 0.04628018611978206,
+        "log_rear_B_bound": -0.013756184447130941
+      },
+      "params": {
+        "m": 1579.8292200992637,
+        "I_z": 1825.4311830684292,
+        "l_f": 1.1630973805620715,
+        "l_r": 1.3134189548151982,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 12.018545823741153,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.808731992901585,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_07",
+      "fleet_seed": 3107,
+      "client": "client_06",
+      "plant_id": "fleet_07_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.036661058134680194,
+        "log_wheelbase_bound": 0.013508566204251872,
+        "cg_fraction_bound": 0.012604897753339287,
+        "log_inertia_shape_bound": -0.015959908022698137,
+        "log_front_B_bound": 0.023847692324061656,
+        "log_rear_B_bound": -0.02048321126799939
+      },
+      "params": {
+        "m": 2645.2204752145167,
+        "I_z": 5454.150661656008,
+        "l_f": 1.354092817160958,
+        "l_r": 1.534667807329685,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.681007418695755,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.837801157434668,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_07",
+      "fleet_seed": 3107,
+      "client": "client_07",
+      "plant_id": "fleet_07_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.033583281250807784,
+        "log_wheelbase_bound": 0.012626637707464597,
+        "cg_fraction_bound": 0.0036816888328942803,
+        "log_inertia_shape_bound": -0.01727235353214677,
+        "log_front_B_bound": 0.011281886926356198,
+        "log_rear_B_bound": -0.030820727003155326
+      },
+      "params": {
+        "m": 3164.5099111721615,
+        "I_z": 5501.656243177884,
+        "l_f": 1.399300191139244,
+        "l_r": 1.4869138761420087,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.585093255631003,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.757195115577635,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_07",
+      "fleet_seed": 3107,
+      "client": "client_08",
+      "plant_id": "fleet_07_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.035268183801175274,
+        "log_wheelbase_bound": 0.008622638050990339,
+        "cg_fraction_bound": 0.014187751756269015,
+        "log_inertia_shape_bound": -0.009289311001474745,
+        "log_front_B_bound": 0.01112318459556668,
+        "log_rear_B_bound": 0.011012919286177182
+      },
+      "params": {
+        "m": 2641.538580311853,
+        "I_z": 5429.693976773411,
+        "l_f": 1.3520431532707016,
+        "l_r": 1.5226376189398871,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.446306142292574,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.088590277695301,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_08",
+      "fleet_seed": 3108,
+      "client": "client_00",
+      "plant_id": "fleet_08_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.01721627063376542,
+        "log_wheelbase_bound": -0.013643593538839718,
+        "cg_fraction_bound": 0.01201907277894337,
+        "log_inertia_shape_bound": -0.01021276046549667,
+        "log_front_B_bound": -0.04346373461753442,
+        "log_rear_B_bound": 0.027045814722710337
+      },
+      "params": {
+        "m": 1241.185696229049,
+        "I_z": 1469.8809795185048,
+        "l_f": 1.065412018923185,
+        "l_r": 1.4007106271673444,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.617205487404977,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.274148724127276,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_08",
+      "fleet_seed": 3108,
+      "client": "client_01",
+      "plant_id": "fleet_08_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.021233499007458356,
+        "log_wheelbase_bound": -0.022900205614982547,
+        "cg_fraction_bound": 0.0014147393182652526,
+        "log_inertia_shape_bound": -0.0030505961031256565,
+        "log_front_B_bound": -0.03534242495223305,
+        "log_rear_B_bound": 0.00024022445839120415
+      },
+      "params": {
+        "m": 1433.2418645023852,
+        "I_z": 1425.1309279585303,
+        "l_f": 1.0907697896170068,
+        "l_r": 1.3526302452536103,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.687473429261729,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.002402533145972,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_08",
+      "fleet_seed": 3108,
+      "client": "client_02",
+      "plant_id": "fleet_08_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": -0.042805667289858254,
+        "log_wheelbase_bound": 0.004628078567230257,
+        "cg_fraction_bound": -0.001374612122348226,
+        "log_inertia_shape_bound": -0.023447731981488154,
+        "log_front_B_bound": 0.03596350587148284,
+        "log_rear_B_bound": 0.04708871524917081
+      },
+      "params": {
+        "m": 1168.8790252405336,
+        "I_z": 1416.895011646886,
+        "l_f": 1.0514182731980275,
+        "l_r": 1.4601787384607994,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.930127817271024,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.482149976095418,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_08",
+      "fleet_seed": 3108,
+      "client": "client_03",
+      "plant_id": "fleet_08_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.015041736644105123,
+        "log_wheelbase_bound": -0.003677971043077089,
+        "cg_fraction_bound": 0.019982125510182625,
+        "log_inertia_shape_bound": -0.03330057055613535,
+        "log_front_B_bound": -0.046375434128082815,
+        "log_rear_B_bound": 0.01165592224737031
+      },
+      "params": {
+        "m": 1497.3076542958381,
+        "I_z": 1702.4840928918788,
+        "l_f": 1.195550019117538,
+        "l_r": 1.295271941901873,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 12.888226900929038,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.1641376409389,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_08",
+      "fleet_seed": 3108,
+      "client": "client_04",
+      "plant_id": "fleet_08_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.009708206167481324,
+        "log_wheelbase_bound": -0.02794501466075502,
+        "cg_fraction_bound": 0.009086915276186876,
+        "log_inertia_shape_bound": 0.021379397419872298,
+        "log_front_B_bound": 0.0398167447838024,
+        "log_rear_B_bound": -0.006558723440652926
+      },
+      "params": {
+        "m": 1806.377909798443,
+        "I_z": 1756.224237409461,
+        "l_f": 1.2011769668154286,
+        "l_r": 1.2299276216232056,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 14.048370778469074,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.908478332564568,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_08",
+      "fleet_seed": 3108,
+      "client": "client_05",
+      "plant_id": "fleet_08_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.025573722266725885,
+        "log_wheelbase_bound": 0.010179776759309478,
+        "cg_fraction_bound": -0.017241652519741805,
+        "log_inertia_shape_bound": 0.0013863344178598677,
+        "log_front_B_bound": 0.017609933515822462,
+        "log_rear_B_bound": 0.015551988226681343
+      },
+      "params": {
+        "m": 1559.373373833395,
+        "I_z": 1887.2226955923363,
+        "l_f": 1.118221369270623,
+        "l_r": 1.4073580481123156,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 11.678863732161725,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.219429696535062,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_08",
+      "fleet_seed": 3108,
+      "client": "client_06",
+      "plant_id": "fleet_08_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.021512042338182796,
+        "log_wheelbase_bound": -0.012559543956170743,
+        "cg_fraction_bound": -0.010020734343448537,
+        "log_inertia_shape_bound": 0.02989101252407772,
+        "log_front_B_bound": -0.010361619804396052,
+        "log_rear_B_bound": 0.007799705695781922
+      },
+      "params": {
+        "m": 2605.4499908813145,
+        "I_z": 5338.488671186939,
+        "l_f": 1.2555720505596757,
+        "l_r": 1.5588570936129262,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.422689076359988,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.062641621101976,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_08",
+      "fleet_seed": 3108,
+      "client": "client_07",
+      "plant_id": "fleet_08_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.035085431194248784,
+        "log_wheelbase_bound": 0.026878698913297895,
+        "cg_fraction_bound": -0.004194721835446603,
+        "log_inertia_shape_bound": -0.047507310718421264,
+        "log_front_B_bound": -0.0041309022774875595,
+        "log_rear_B_bound": -0.04664935264993717
+      },
+      "params": {
+        "m": 3169.2670516308604,
+        "I_z": 5500.398241697186,
+        "l_f": 1.3963265751927478,
+        "l_r": 1.5313165148554246,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.469082136221893,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.635376035753151,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_08",
+      "fleet_seed": 3108,
+      "client": "client_08",
+      "plant_id": "fleet_08_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.028416023442699764,
+        "log_wheelbase_bound": 0.020282839626477304,
+        "cg_fraction_bound": -0.012970022692852315,
+        "log_inertia_shape_bound": -0.01219963148006168,
+        "log_front_B_bound": -0.017761047948681177,
+        "log_rear_B_bound": -0.03885518577888043
+      },
+      "params": {
+        "m": 2623.5002058618693,
+        "I_z": 5503.8106445876065,
+        "l_f": 1.2889149482921436,
+        "l_r": 1.6194813641884336,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.262772904934823,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.695119955289785,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_09",
+      "fleet_seed": 3109,
+      "client": "client_00",
+      "plant_id": "fleet_09_compact_nominal",
+      "base_vehicle": "compact_nominal",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.010715132031278864,
+        "log_wheelbase_bound": 0.02799497997252056,
+        "cg_fraction_bound": -0.008035999277811871,
+        "log_inertia_shape_bound": -0.010520911700392543,
+        "log_front_B_bound": -0.04314780508583821,
+        "log_rear_B_bound": -0.003280123340476171
+      },
+      "params": {
+        "m": 1233.1427484732867,
+        "I_z": 1586.6887354635528,
+        "l_f": 1.0591496842253425,
+        "l_r": 1.5118266204241262,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 8.619928347192403,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 9.967252503869862,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_09",
+      "fleet_seed": 3109,
+      "client": "client_01",
+      "plant_id": "fleet_09_compact_payload",
+      "base_vehicle": "compact_payload",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.012137905121989326,
+        "log_wheelbase_bound": 0.015287258275839273,
+        "cg_fraction_bound": -0.018076199040988672,
+        "log_inertia_shape_bound": 0.017145238067856047,
+        "log_front_B_bound": 0.0003169311563872221,
+        "log_rear_B_bound": 0.0234122306337404
+      },
+      "params": {
+        "m": 1481.8781754000893,
+        "I_z": 1622.8856901609865,
+        "l_f": 1.0837510916324193,
+        "l_r": 1.4547606736942218,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 9.00285283245935,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.236884483171856,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_09",
+      "fleet_seed": 3109,
+      "client": "client_02",
+      "plant_id": "fleet_09_compact_front_tire",
+      "base_vehicle": "compact_front_tire",
+      "family": "compact",
+      "draw": {
+        "log_mass_bound": 0.009797662030495716,
+        "log_wheelbase_bound": -0.010288043768686701,
+        "cg_fraction_bound": -0.007739327637905783,
+        "log_inertia_shape_bound": 0.027122795602258484,
+        "log_front_B_bound": -0.03166934154868515,
+        "log_rear_B_bound": 0.006532770305763547
+      },
+      "params": {
+        "m": 1232.011895835889,
+        "I_z": 1524.718004995593,
+        "l_f": 1.0201026487995013,
+        "l_r": 1.4543090940298777,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.411525631368043,
+          "C": 1.27,
+          "E": 0.93
+        },
+        "pacejka_r_lat": {
+          "B": 10.065541553922877,
+          "C": 1.27,
+          "E": 0.93
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_09",
+      "fleet_seed": 3109,
+      "client": "client_03",
+      "plant_id": "fleet_09_sport_nominal",
+      "base_vehicle": "sport_nominal",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.04856959285571373,
+        "log_wheelbase_bound": 0.027852981846042332,
+        "cg_fraction_bound": -0.010467501682232863,
+        "log_inertia_shape_bound": 0.04962558663466998,
+        "log_front_B_bound": 0.00861813351692238,
+        "log_rear_B_bound": -4.5895136249231305e-05
+      },
+      "params": {
+        "m": 1447.9383860713008,
+        "I_z": 1905.1269035052296,
+        "l_f": 1.1555733004504503,
+        "l_r": 1.4150379562992113,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.616847583305539,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 13.99935748283683,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_09",
+      "fleet_seed": 3109,
+      "client": "client_04",
+      "plant_id": "fleet_09_sport_payload",
+      "base_vehicle": "sport_payload",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": -0.033600400757679394,
+        "log_wheelbase_bound": 0.02420206332646494,
+        "cg_fraction_bound": 0.015918982424569305,
+        "log_inertia_shape_bound": 0.022932635426597084,
+        "log_front_B_bound": -0.03260771683452668,
+        "log_rear_B_bound": 0.01850375067059276
+      },
+      "params": {
+        "m": 1763.7310692606052,
+        "I_z": 1906.2184002012802,
+        "l_f": 1.282975375444993,
+        "l_r": 1.2782679003340183,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 13.066895472295494,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.261464082327684,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_09",
+      "fleet_seed": 3109,
+      "client": "client_05",
+      "plant_id": "fleet_09_sport_front_tire",
+      "base_vehicle": "sport_front_tire",
+      "family": "sport",
+      "draw": {
+        "log_mass_bound": 0.0230983708645756,
+        "log_wheelbase_bound": -0.004390610483462624,
+        "cg_fraction_bound": -0.014173737377083117,
+        "log_inertia_shape_bound": -0.04368475236954246,
+        "log_front_B_bound": -0.04574843318840795,
+        "log_rear_B_bound": 0.007931504488265052
+      },
+      "params": {
+        "m": 1555.5181502510804,
+        "I_z": 1747.9069829991145,
+        "l_f": 1.1096827601932382,
+        "l_r": 1.3793647751957123,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 10.96186381042994,
+          "C": 1.38,
+          "E": 0.86
+        },
+        "pacejka_r_lat": {
+          "B": 14.111482590734717,
+          "C": 1.38,
+          "E": 0.86
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_09",
+      "fleet_seed": 3109,
+      "client": "client_06",
+      "plant_id": "fleet_09_suv_nominal",
+      "base_vehicle": "suv_nominal",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.04208658098020136,
+        "log_wheelbase_bound": -0.027585747405363577,
+        "cg_fraction_bound": 0.0133688715546505,
+        "log_inertia_shape_bound": 0.02940648392132543,
+        "log_front_B_bound": 0.04051682402112963,
+        "log_rear_B_bound": 0.0033531620464749973
+      },
+      "params": {
+        "m": 2444.9062489162056,
+        "I_z": 4858.875505725492,
+        "l_f": 1.3016932402250099,
+        "l_r": 1.4707618640279652,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.810116219223867,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.026870321466053,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_09",
+      "fleet_seed": 3109,
+      "client": "client_07",
+      "plant_id": "fleet_09_suv_payload",
+      "base_vehicle": "suv_payload",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": 0.01128608672194932,
+        "log_wheelbase_bound": 0.005560330838838508,
+        "cg_fraction_bound": -0.01952117250562703,
+        "log_inertia_shape_bound": 0.02591331715487548,
+        "log_front_B_bound": -0.022032873711351653,
+        "log_rear_B_bound": 0.04818068868100571
+      },
+      "params": {
+        "m": 3094.7310455079632,
+        "I_z": 5538.950511469137,
+        "l_f": 1.3229502864756888,
+        "l_r": 1.5429407953086585,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 7.336560578945005,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 8.394881965713871,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    },
+    {
+      "fleet_id": "fleet_09",
+      "fleet_seed": 3109,
+      "client": "client_08",
+      "plant_id": "fleet_09_suv_front_tire",
+      "base_vehicle": "suv_front_tire",
+      "family": "suv",
+      "draw": {
+        "log_mass_bound": -0.009841701978343075,
+        "log_wheelbase_bound": -0.010941565096391569,
+        "cg_fraction_bound": 0.0015207067083731103,
+        "log_inertia_shape_bound": 0.015857353474336464,
+        "log_front_B_bound": 0.008755429597311737,
+        "log_rear_B_bound": -0.01600523565011972
+      },
+      "params": {
+        "m": 2525.026751164995,
+        "I_z": 5118.140281967524,
+        "l_f": 1.2901403506449918,
+        "l_r": 1.5288461662573822,
+        "mu": 0.9,
+        "g": 9.81,
+        "delta_r_offset": 0.0,
+        "eps_vx": 1.0,
+        "alpha_max": 0.4363323129985824,
+        "ax_clip_min": -8.829,
+        "ax_clip_max": 6.0,
+        "pacejka_f_lat": {
+          "B": 6.431060924296826,
+          "C": 1.22,
+          "E": 0.95
+        },
+        "pacejka_r_lat": {
+          "B": 7.87297734017962,
+          "C": 1.22,
+          "E": 0.95
+        }
+      }
+    }
+  ],
+  "development_signature": "38d9b407c5333160cf0bb55473db7922eee576fa729fd06e70aa0e4d0ae1b6c2",
+  "historical_training_records": 0,
+  "worker_reference_access": false,
+  "worker_evaluation_access": false,
+  "peer_rule": "Prior-round eligible context incumbents; untried locally; donor-cost priority; mandatory local test.",
+  "measurement_pairing": "Independent client/query seeds; identical counterfactual noise across methods.",
+  "evaluator_rule": "Fresh dense calibration; held-out validation of calibration winners and all budget recommendations only.",
+  "missing_reference_rule": "Retain all cells; unavailable reference means unsuccessful with missing gap; flag incomplete reference coverage.",
+  "replication_unit": "Heterogeneous fleet averaged over three runs; homogeneous fresh programme/noise seed.",
+  "confirmation_rule": "Final 5%-context success bootstrap lower > 0, complete references, no loss of eligible-policy count, lower jointly eligible mean J; A first, B second.",
+  "git_head": "449cd9910481aa3cc112fd30a4ae58c1c08881bb",
+  "runtime": {
+    "python": "3.11.16",
+    "numpy": "2.3.2",
+    "scipy": "1.16.1",
+    "pandas": "2.3.1"
+  }
+}
