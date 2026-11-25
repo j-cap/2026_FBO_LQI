@@ -2,6 +2,13 @@
 
 Research repository for fleet-informed Bayesian optimization of LQI controller calibration.
 
+Prepared next experiment: [six-speed contextual BO pilot](docs/tracking_six_speed.md).
+Nine homogeneous clients receive speeds sampled with replacement from six
+values within 20–30 m/s, retaining the 24-test cap and A/B/D256/E256 comparison.
+Run `python code/scripts/tracking_six_speed.py run --workers 3` from the repository
+root. The report separates encountered-context quality, first/subsequent visits
+and unvisited coverage. This exploratory pilot leaves all completed experiments frozen.
+
 Latest completed experiment: [frozen D256 confirmation](docs/tracking_confirmation.md).
 The [confirmation analysis](docs/analysis/spectral_confirmation/report.md) reproduces
 all score tables: the declared A criterion passes in both conditions, while

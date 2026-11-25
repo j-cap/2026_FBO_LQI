@@ -1,0 +1,26 @@
+{
+  "tag": "tracking_six_speed_v1",
+  "physics_config": "config/runs/tracking_diagnostic.json",
+  "baseline_config": "config/runs/tracking_peer_cost.json",
+  "hierarchical_config": "config/runs/tracking_hierarchical.json",
+  "speeds_m_s": [20.0, 22.0, 24.0, 26.0, 28.0, 30.0],
+  "seeds": [5100, 5101, 5102],
+  "clients": 9,
+  "queries_per_client": 24,
+  "fleet_budgets": [9, 18, 27, 54, 108, 216],
+  "spectral_rank": 256,
+  "calibration_repeats": 2,
+  "validation_repeats": 2,
+  "basis_diagnostic_targets": {
+    "relative_kernel_Frobenius_error": 0.02,
+    "max_relative_diagonal_error": 0.05
+  },
+  "smoke": {
+    "seed": 5199,
+    "clients": 3,
+    "queries_per_client": 8,
+    "fleet_budgets": [3, 6, 12, 24],
+    "calibration_repeats": 1,
+    "validation_repeats": 1
+  }
+}
