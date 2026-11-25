@@ -1,0 +1,18 @@
+{
+  "tag": "tracking_six_speed_zero_bonus_v1",
+  "reference_config": "config/runs/tracking_six_speed.json",
+  "seeds": [6100, 6101, 6102],
+  "clients": 9,
+  "queries_per_client": 24,
+  "fleet_budgets": [9, 18, 27, 54, 108, 216],
+  "calibration_repeats": 2,
+  "validation_repeats": 2,
+  "smoke": {
+    "seed": 6199,
+    "clients": 3,
+    "queries_per_client": 8,
+    "fleet_budgets": [3, 6, 12, 24],
+    "calibration_repeats": 1,
+    "validation_repeats": 1
+  }
+}
