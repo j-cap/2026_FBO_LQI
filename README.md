@@ -1,14 +1,21 @@
 # 2026_FBO_LQI
 
-Research repository for fleet-informed Bayesian optimization of LQI controller calibration.
+Research repository for online fleet-assisted calibration of trajectory-tracking
+controller gains. Earlier LQI experiments remain archived.
 
-Prepared next: [one fixed small-bonus comparison](docs/tracking_six_speed_small_bonus.md).
-Fresh seeds 7100–7102 compare A/B, D/E at beta=0, and matched D/E at beta=0.5.
-Run `python code/scripts/tracking_six_speed_small_bonus.py run --workers 3`.
-The report includes the 0.3 Hz discovery/failure tradeoff and consolidation
-inputs. Consolidation and a bigger-picture review follow this experiment.
+Current [consolidation and bigger-picture assessment](docs/fedbo_consolidation.md)
+freeze the exploration ablation and distinguish near-reference success from
+failed-test burden, mean cost and complete-policy eligibility.
 
-Latest completed experiment: [matched six-speed zero-bonus D/E comparison](docs/tracking_six_speed_zero_bonus.md).
+Latest completed experiment: [fixed small-bonus comparison](docs/tracking_six_speed_small_bonus.md).
+The [three-study audit](docs/analysis/six_speed_consolidation/report.md) replays
+all 10,368 paid decisions and reconstructs 36 tables. Beta=0.5 D improves
+success over A/B, matched E and zero-bonus D in all three new seeds, while
+recovering 0.3 Hz discoveries. It increases failed tests and loses complete
+policies against zero-bonus D, so its clean-improvement criterion fails.
+Reproduce with `python code/scripts/consolidate_tracking_six_speed.py --workers 3`.
+
+Previous completed experiment: [matched six-speed zero-bonus D/E comparison](docs/tracking_six_speed_zero_bonus.md).
 The [audited results](docs/analysis/six_speed_zero_bonus/report.md) reproduce
 all 3,888 paid decisions and 11 tables. Zero-bonus D256 has the highest average
 success and a better failure tradeoff than beta=2, with an added sharing

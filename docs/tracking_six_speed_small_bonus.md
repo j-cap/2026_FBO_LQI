@@ -7,6 +7,12 @@ neither zero-bonus method discovered a near-reference controller at 0.3 Hz.
 The next question is whether a restrained cost uncertainty bonus can recover
 useful discoveries while preserving the shared model's practical advantages.
 
+Completed results: the [three-study audit](analysis/six_speed_consolidation/report.md)
+reproduces all paid decisions and tables. Small-bonus D improves primary
+success and recovers 0.3 Hz discoveries, but its failed-test and complete-policy
+criteria fail against D0. The [current consolidation](fedbo_consolidation.md)
+records the bigger-picture decision; the predeclared protocol below is retained.
+
 **The only new policy parameter is beta = 0.5**, one quarter of the earlier
 beta = 2 coefficient. It is fixed for every speed, frequency, client and
 round. This is a single candidate, not a sweep or a frequency-specific rule.
