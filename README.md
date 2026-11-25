@@ -2,13 +2,16 @@
 
 Research repository for fleet-informed Bayesian optimization of LQI controller calibration.
 
-Prepared next experiment: [matched six-speed zero-bonus D/E comparison](docs/tracking_six_speed_zero_bonus.md).
-Fresh seeds 6100–6102 run A/B, D/E at beta=2, and matched D/E at beta=0, with
-the same peer-first rule and 24-test cap. Run locally with
-`python code/scripts/tracking_six_speed_zero_bonus.py run --workers 3`.
-The six arms share simulation/evaluator work but maintain separate online histories.
+Latest completed experiment: [matched six-speed zero-bonus D/E comparison](docs/tracking_six_speed_zero_bonus.md).
+The [audited results](docs/analysis/six_speed_zero_bonus/report.md) reproduce
+all 3,888 paid decisions and 11 tables. Zero-bonus D256 has the highest average
+success and a better failure tradeoff than beta=2, with an added sharing
+benefit against matched E256. It still loses to A in one seed, has fewer
+complete eligible policies than B, and misses every 0.3 Hz near-reference
+target. Reproduce with
+`python code/scripts/analyze_tracking_six_speed_zero_bonus.py --workers 3`.
 
-Latest completed experiment: [six-speed contextual BO pilot](docs/tracking_six_speed.md).
+Previous completed experiment: [six-speed contextual BO pilot](docs/tracking_six_speed.md).
 The [audited analysis](docs/analysis/six_speed_contextual_pilot/report.md) reproduces
 all 2,592 paid decisions and 11 tables. D256 improves encountered-context success
 over A/E256 but loses complete-policy eligibility; B has the highest success.

@@ -5,6 +5,12 @@ online controller tuning when D256 and its local-only E256 control both use
 zero cost uncertainty bonus. The practical priorities remain beating A, then B.
 The completed six-speed pilot and its results remain frozen.
 
+The completed [read-only audit and analysis](analysis/six_speed_zero_bonus/report.md)
+reproduce all 3,888 paid decisions and all eleven saved numerical tables.
+D256 with zero bonus improves average success over A/B and its matched local
+control, while retaining seed, complete-eligibility and frequency-specific
+limitations. The report records the resulting decision before any new variant.
+
 ## Fixed design
 
 | Arm | Cost model | Cost bonus multiplier |
