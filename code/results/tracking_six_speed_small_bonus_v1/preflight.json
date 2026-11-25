@@ -1,0 +1,227 @@
+{
+  "signature": "236074802809c7f251115eb4d2abd654751bda759a68fd6fc115ba6e78d00605",
+  "mode": "pilot",
+  "jobs": 3,
+  "online_requests": 3888,
+  "dense_calibration_rollouts": 2556,
+  "validation_rollout_upper_bound": 2556,
+  "methods": [
+    "peer_gp_bo",
+    "peer_local_cost_bo",
+    "peer_spectral_shared_256_zero_bonus_bo",
+    "peer_spectral_local_256_zero_bonus_bo",
+    "peer_spectral_shared_256_small_bonus_bo",
+    "peer_spectral_local_256_small_bonus_bo"
+  ],
+  "bonus_by_method": {
+    "peer_gp_bo": 2.0,
+    "peer_local_cost_bo": 2.0,
+    "peer_spectral_shared_256_zero_bonus_bo": 0.0,
+    "peer_spectral_local_256_zero_bonus_bo": 0.0,
+    "peer_spectral_shared_256_small_bonus_bo": 0.5,
+    "peer_spectral_local_256_small_bonus_bo": 0.5
+  },
+  "contexts": 18,
+  "public_grid_inputs": 1278,
+  "basis_accuracy": {
+    "relative_kernel_Frobenius_error": 0.005208596952535837,
+    "max_relative_diagonal_error": 0.05112401411654286,
+    "targets": {
+      "relative_kernel_Frobenius_error": 0.02,
+      "max_relative_diagonal_error": 0.05
+    },
+    "meets_earlier_kernel_targets": false
+  },
+  "historical_training_records": 0,
+  "sampled_programme_statistics": [
+    {
+      "seed": 7100,
+      "client": "client_00",
+      "encountered_contexts": 14,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 5
+    },
+    {
+      "seed": 7100,
+      "client": "client_01",
+      "encountered_contexts": 11,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 5
+    },
+    {
+      "seed": 7100,
+      "client": "client_02",
+      "encountered_contexts": 14,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 4
+    },
+    {
+      "seed": 7100,
+      "client": "client_03",
+      "encountered_contexts": 13,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 4
+    },
+    {
+      "seed": 7100,
+      "client": "client_04",
+      "encountered_contexts": 15,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 3
+    },
+    {
+      "seed": 7100,
+      "client": "client_05",
+      "encountered_contexts": 14,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 3
+    },
+    {
+      "seed": 7100,
+      "client": "client_06",
+      "encountered_contexts": 15,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 2
+    },
+    {
+      "seed": 7100,
+      "client": "client_07",
+      "encountered_contexts": 15,
+      "encountered_speeds": 5,
+      "consecutive_speed_repeats": 3
+    },
+    {
+      "seed": 7100,
+      "client": "client_08",
+      "encountered_contexts": 17,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 7
+    },
+    {
+      "seed": 7101,
+      "client": "client_00",
+      "encountered_contexts": 14,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 4
+    },
+    {
+      "seed": 7101,
+      "client": "client_01",
+      "encountered_contexts": 15,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 7
+    },
+    {
+      "seed": 7101,
+      "client": "client_02",
+      "encountered_contexts": 15,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 3
+    },
+    {
+      "seed": 7101,
+      "client": "client_03",
+      "encountered_contexts": 16,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 2
+    },
+    {
+      "seed": 7101,
+      "client": "client_04",
+      "encountered_contexts": 13,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 4
+    },
+    {
+      "seed": 7101,
+      "client": "client_05",
+      "encountered_contexts": 13,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 2
+    },
+    {
+      "seed": 7101,
+      "client": "client_06",
+      "encountered_contexts": 14,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 3
+    },
+    {
+      "seed": 7101,
+      "client": "client_07",
+      "encountered_contexts": 11,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 1
+    },
+    {
+      "seed": 7101,
+      "client": "client_08",
+      "encountered_contexts": 14,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 1
+    },
+    {
+      "seed": 7102,
+      "client": "client_00",
+      "encountered_contexts": 13,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 0
+    },
+    {
+      "seed": 7102,
+      "client": "client_01",
+      "encountered_contexts": 13,
+      "encountered_speeds": 5,
+      "consecutive_speed_repeats": 7
+    },
+    {
+      "seed": 7102,
+      "client": "client_02",
+      "encountered_contexts": 14,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 7
+    },
+    {
+      "seed": 7102,
+      "client": "client_03",
+      "encountered_contexts": 12,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 7
+    },
+    {
+      "seed": 7102,
+      "client": "client_04",
+      "encountered_contexts": 12,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 2
+    },
+    {
+      "seed": 7102,
+      "client": "client_05",
+      "encountered_contexts": 15,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 4
+    },
+    {
+      "seed": 7102,
+      "client": "client_06",
+      "encountered_contexts": 15,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 5
+    },
+    {
+      "seed": 7102,
+      "client": "client_07",
+      "encountered_contexts": 14,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 2
+    },
+    {
+      "seed": 7102,
+      "client": "client_08",
+      "encountered_contexts": 14,
+      "encountered_speeds": 6,
+      "consecutive_speed_repeats": 1
+    }
+  ]
+}
