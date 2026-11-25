@@ -1,0 +1,22 @@
+{
+  "tag": "tracking_dense_gain_v1",
+  "audit_tag": "tracking_gain_domain_v1",
+  "seeds": [8100, 8101, 8102],
+  "clients": 9,
+  "queries_per_client": 24,
+  "fleet_budgets": [9, 18, 27, 54, 108, 216],
+  "actual_upper_gains": [0.15, 1.0, 1.0],
+  "validation_repeats": 4,
+  "evaluation_batch_size": 128,
+  "representation_seed": 1732,
+  "representation_probe_count": 512,
+  "smoke": {
+    "seed": 8199,
+    "clients": 3,
+    "queries_per_client": 8,
+    "fleet_budgets": [3, 6, 12, 24],
+    "inside_added": 64,
+    "outside_added": 32,
+    "validation_repeats": 2
+  }
+}

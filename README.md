@@ -3,6 +3,14 @@
 Research repository for online fleet-assisted calibration of trajectory-tracking
 controller gains. Earlier LQI experiments remain archived.
 
+Prepared follow-up: [matched dense-gain online A/B/D/E comparison](docs/tracking_dense_gain.md).
+The 1,292-point public pool genuinely extends K_y to 0.15 while retaining
+K_psi/K_r upper bounds of 1. D/E use the exact shared/local target kernel
+with a fixed 0.5 bonus and empty histories. Three fresh seeds require 2,592
+paid requests; archived reference calibration is evaluator-only. Run
+`python code/scripts/tracking_dense_gain.py run --workers 3`.
+Analyse and consolidate these outcomes before communication experiments.
+
 Completed validity check: [offline gain-domain and boundary-extension audit](docs/analysis/gain_domain/report.md).
 Original-box refinement from 71 to 1,033 points reduces mean held-out J by
 5.85%; the 2,011-point expanded set adds 2.32%. All seven selected exterior
