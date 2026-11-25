@@ -166,6 +166,40 @@ programmes, physical values and public basis are checked on resume. Keep all
 these files together when moving a run. Do not run two processes against the
 same result directory. Completed old result directories are untouched.
 
+### Resuming the GP optimizer bounds failure
+
+The original Windows pilot can stop inside SciPy's finite-difference gradient
+with `ValueError: x0 violates bound constraints`. The hotfix retains the normal
+A/B fit path. Only that specific error triggers a retry using the same GP
+likelihood, starts, parameter bounds and L-BFGS-B iteration cap, with an explicit
+bound-aware finite-difference Jacobian. Every derivative evaluation stays in
+the box; no rollout is requested during recovery. Other optimizer errors still
+raise. Each recovery is logged in its paid event and, when present, the
+`gp_optimizer_recovery` / `gp_optimizer_error` columns of `paid_visits.csv`.
+`verification.json` reports the recovery count. D/E inference is unchanged.
+
+For an already started run, the source-hash upgrade is explicit and limited
+to the two patched six-speed source files from the original `e3ec942` release.
+It rejects changes to the configuration, basis, programmes and other sources.
+It replays each saved checkpoint from logged fit states, without optimization
+or simulation, before updating signatures. Exact original files are backed up
+under `repairs/gp_bounds_v1/backup/`; the repair journal records old/new
+signatures and verifies unchanged result bodies. An interrupted repair can be
+rerun. It does not remove or reset checkpoints, refit old models, or rewrite
+paid observations and decisions.
+
+After pulling the hotfix on the experiment branch:
+
+```bat
+git pull --ff-only
+python code/scripts/tracking_six_speed.py repair-resume
+python code/scripts/tracking_six_speed.py run --workers 3
+```
+
+Completed seeds are reused. The incomplete seed resumes at the last saved
+complete round. Fresh runs do not need `repair-resume`. To upgrade an old
+software smoke directory, add `--smoke-results` to the repair command.
+
 From the repository root, use the existing environment:
 
 ```bat

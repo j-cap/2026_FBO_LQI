@@ -8,6 +8,7 @@ without repeating platform-dependent hyperparameter optimization.
 from copy import deepcopy
 
 import numpy as np
+from scipy.optimize import minimize
 from scipy.special import logsumexp
 
 from . import tracking_hierarchical as joint
@@ -94,14 +95,66 @@ def _minimum(values, actions, rng):
     return int(rng.choice(tied))
 
 
+def _bounded_gradient(loss, parameters, bounds, step=1e-8):
+    """Forward/backward finite differences whose evaluations stay inside the box."""
+    limits = np.asarray(bounds, float)
+    point = np.clip(np.asarray(parameters, float), limits[:, 0], limits[:, 1])
+    value = loss(point.copy())
+    gradient = np.zeros_like(point)
+    for j in range(len(point)):
+        forward, backward = limits[j, 1] - point[j], point[j] - limits[j, 0]
+        distance = step if forward >= step else -step if backward >= step else (
+            forward if forward >= backward else -backward)
+        probe = point.copy()
+        probe[j] = np.clip(point[j] + distance, limits[j, 0], limits[j, 1])
+        actual_step = probe[j] - point[j]
+        if actual_step:
+            gradient[j] = (loss(probe) - value) / actual_step
+    return gradient
+
+
+def _bounded_refit(history, domain, prior, gp, parameters):
+    """Retry the same GP loss, starts, bounds and iteration cap with explicit jac."""
+    posterior = Posterior(domain, history, prior, gp, np.asarray(parameters), optimize=False)
+    bounds = np.log([gp['length_bounds']] * domain.X.shape[1] + [gp['amplitude_bounds']])
+    starts = [np.asarray(parameters), np.log([*gp['length_scales'], gp['amplitude']])]
+    def objective(point):
+        return posterior._loss(np.clip(np.asarray(point, float), bounds[:, 0], bounds[:, 1]).copy())
+    fits = []
+    for start in starts[:1 + gp['optimizer_restarts']]:
+        result = minimize(objective, np.clip(start, bounds[:, 0], bounds[:, 1]),
+            method='L-BFGS-B', bounds=bounds,
+            jac=lambda point: _bounded_gradient(objective, point, bounds),
+            options={'maxiter': gp['optimizer_maxiter']})
+        point = np.clip(result.x, bounds[:, 0], bounds[:, 1])
+        value = objective(point)
+        if np.isfinite(point).all() and np.isfinite(value) and value < 1e30:
+            fits.append((value, point))
+    if not fits:
+        raise RuntimeError('Bounded GP refit recovery produced no valid fit.')
+    return min(fits, key=lambda item: item[0])[1].tolist()
+
+
 def _gp_proposal(history, domain, context, prior, cfg, parameters, last_fit, rng, recorded=None):
     """Fresh fits during execution; fixed logged fit during portable audit."""
     count = sum(o['eligible'] for o in history)
     optimize = count >= 4 and count - last_fit >= cfg['gp']['optimize_every']
     expected_fit = count if optimize else last_fit
+    recovery = {}
     if recorded is None:
-        action, parameters, fitted, _ = gp_choose(history, domain, context, prior, cfg['gp'],
-            cfg['acquisition'], parameters, last_fit, rng)
+        random_state = deepcopy(rng.bit_generator.state)
+        try:
+            action, parameters, fitted, _ = gp_choose(history, domain, context, prior, cfg['gp'],
+                cfg['acquisition'], parameters, last_fit, rng)
+        except ValueError as error:
+            if not optimize or 'x0' not in str(error) or 'violates bound constraints' not in str(error):
+                raise
+            parameters = _bounded_refit(history, domain, prior, cfg['gp'], parameters)
+            rng.bit_generator.state = random_state
+            # Mark the fit current so the frozen acquisition does not optimize again.
+            action, parameters, fitted, _ = gp_choose(history, domain, context, prior, cfg['gp'],
+                cfg['acquisition'], parameters, count, rng)
+            recovery = dict(gp_optimizer_recovery='bounded_finite_difference_v1', gp_optimizer_error=str(error))
     else:
         previous_parameters = np.asarray(parameters).copy()
         parameters = np.asarray(recorded['gp_fit_parameters'], float)
@@ -112,6 +165,11 @@ def _gp_proposal(history, domain, context, prior, cfg, parameters, last_fit, rng
             raise RuntimeError('Invalid logged GP fit or refit schedule.')
         if not optimize and not np.array_equal(parameters, previous_parameters):
             raise RuntimeError('Unscheduled GP parameter change.')
+        if 'gp_optimizer_recovery' in recorded:
+            if (not optimize or recorded['gp_optimizer_recovery'] != 'bounded_finite_difference_v1' or
+                    'violates bound constraints' not in recorded.get('gp_optimizer_error', '')):
+                raise RuntimeError('Invalid GP optimizer recovery provenance.')
+            recovery = {k: recorded[k] for k in ('gp_optimizer_recovery', 'gp_optimizer_error')}
         fitted = expected_fit
         posterior = Posterior(domain, history, prior, cfg['gp'], parameters, optimize=False)
         mean, variance = posterior.predict()
@@ -128,7 +186,7 @@ def _gp_proposal(history, domain, context, prior, cfg, parameters, last_fit, rng
     values = acquisition_values(mean, variance, probability, cfg['acquisition'])
     diagnostics = dict(gp_fit_parameters=list(parameters), gp_fit_count=fitted,
         predicted_log_J=float(mean[action]), predicted_variance=float(variance[action]),
-        eligibility_probability=float(probability[action]), acquisition_score=float(values[action]))
+        eligibility_probability=float(probability[action]), acquisition_score=float(values[action]), **recovery)
     return action, parameters, fitted, diagnostics
 
 

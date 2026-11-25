@@ -8,6 +8,7 @@ import multiprocessing
 import os
 from pathlib import Path
 import platform
+import shutil
 import subprocess
 import sys
 import time
@@ -33,6 +34,11 @@ from src.tracking_task import candidates, fleet, reference_metadata, references,
 
 CONFIG = ROOT / 'config/runs/tracking_six_speed.json'
 WORKER = None
+REPAIR_NAME = 'gp_bounds_v1'
+LEGACY_BOUND_SOURCES = {
+    'code/scripts/tracking_six_speed.py': '4fd7fd981850266b0ca0f3a910eeecaf10a9950f7c132d1f8ea80e3feab73da9',
+    'code/src/tracking_six_speed.py': '1985b7a8415a1192d66b27bf8165790c7bf4c7e8d869914e32b90490ac3dc4b4',
+}
 
 
 def read(path):
@@ -144,6 +150,9 @@ def setup(path=CONFIG, smoke=False):
 
 
 def initialize(state):
+    journal = state['out'] / 'repairs' / REPAIR_NAME / 'repair.json'
+    if journal.exists() and not read(journal)['complete']:
+        raise RuntimeError('Interrupted GP bounds repair; rerun repair-resume before running.')
     path = state['out'] / 'run_manifest.json'
     if path.exists():
         if read(path)['signature'] != state['signature']:
@@ -380,6 +389,8 @@ def analyze(state, workers):
         historical_training_records=0, calibration_rollouts=sum(len(t['candidates']) for t in evaluator_tasks(state, 'calibration')),
         validation_rollouts=sum(len(t['candidates']) for t in tasks), unavailable_reference_contexts=sum(not v['eligible'] for v in refs.values()),
         unresolved_online_requests=int((~visits.integration_resolved).sum()),
+        gp_bound_recoveries=sum(bool(e.get('gp_optimizer_recovery')) for result in results
+            for record in result['state']['methods'].values() for e in record['events']),
         public_bases=state['specification']['public_bases'], mode=state['specification']['mode'], confirmation_claim=False)
     save(state['out'] / 'verification.json', verification)
     save(state['out'] / 'completion.json', dict(signature=state['signature'], jobs=len(results)))
@@ -415,9 +426,105 @@ def collect(state, workers):
     print('Staged only ' + relative, flush=True)
 
 
+def _body_hash(record):
+    payload = {k: v for k, v in record.items() if k != 'signature'}
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, allow_nan=False).encode()).hexdigest()
+
+
+def repair_resume(state):
+    """Narrow, backed-up source upgrade; replays prior paid decisions before writes."""
+    out = state['out']
+    path = out / 'run_manifest.json'
+    if not path.exists():
+        raise RuntimeError('No existing run to repair; start it with run.')
+    repair_dir = out / 'repairs' / REPAIR_NAME
+    journal_path = repair_dir / 'repair.json'
+    journal = read(journal_path) if journal_path.exists() else None
+    current = read(path)
+    if journal and journal['new_signature'] != state['signature']:
+        raise RuntimeError('Repair targets different source/configuration; refusing to rewrite provenance.')
+    if current['signature'] == state['signature'] and (journal is None or journal['complete']):
+        print('Source signature already current; saved results are ready to resume.', flush=True)
+        return
+    old = read(repair_dir / 'backup/run_manifest.json') if journal else current
+    old_spec = {k: old[k] for k in state['specification']}
+    old_signature = hashlib.sha256(json.dumps(old_spec, sort_keys=True).encode()).hexdigest()
+    if old_signature != old['signature']:
+        raise RuntimeError('Original manifest does not match its own signature.')
+    for key, value in state['specification'].items():
+        if key != 'source_hashes' and old_spec[key] != value:
+            raise RuntimeError('Bounds repair cannot change experiment design: ' + key)
+    before, after = old_spec['source_hashes'], state['specification']['source_hashes']
+    if before.keys() != after.keys():
+        raise RuntimeError('Bounds repair source set differs.')
+    changed = {p for p in before if before[p] != after[p]}
+    if changed != set(LEGACY_BOUND_SOURCES) or any(before[p] != LEGACY_BOUND_SOURCES[p] for p in changed):
+        raise RuntimeError('Only the original six-speed bounds-fix source transition is supported.')
+    run_files = sorted((out / 'runs').glob('*.json'))
+    expected_jobs = {run_path(state, job): job for job in state['jobs']}
+    if any(p not in expected_jobs for p in run_files):
+        raise RuntimeError('Unexpected checkpoint in the experiment directory.')
+    data_files = run_files + sorted((out / 'evaluation').rglob('*.json'))
+    if journal and set(journal['data_bodies']) != {p.relative_to(out).as_posix() for p in data_files}:
+        raise RuntimeError('Result files changed during an interrupted repair.')
+    for p in data_files:
+        record = read(p)
+        name = p.relative_to(out).as_posix()
+        if record.get('signature') not in (old_signature, state['signature']):
+            raise RuntimeError('Unknown result signature: ' + name)
+        if journal and _body_hash(record) != journal['data_bodies'][name]:
+            raise RuntimeError('Result contents changed during repair: ' + name)
+    if journal:
+        for name, expected in journal['backup_hashes'].items():
+            if hashlib.sha256((repair_dir / 'backup' / name).read_bytes()).hexdigest() != expected:
+                raise RuntimeError('Original repair backup differs: ' + name)
+    # Recompute decisions from paid prefixes and logged states, never from evaluator outcomes.
+    for p in run_files:
+        record = read(p)
+        old_state = dict(state, signature=record['signature'])
+        validate_job(old_state, expected_jobs[p], record, replay=True)
+        print(f'Validated saved seed {record["seed"]}: {record["state"]["round"]} rounds.', flush=True)
+    if journal is None:
+        backup_hashes = {}
+        for p in [path, *data_files]:
+            name = p.relative_to(out).as_posix()
+            destination = repair_dir / 'backup' / name
+            if destination.exists():
+                if destination.read_bytes() != p.read_bytes():
+                    raise RuntimeError('Unjournaled backup differs; refusing to overwrite it.')
+            else:
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                temporary = destination.with_suffix(destination.suffix + '.tmp')
+                shutil.copy2(p, temporary)
+                temporary.replace(destination)
+            backup_hashes[name] = hashlib.sha256(destination.read_bytes()).hexdigest()
+        journal = dict(complete=False, old_signature=old_signature, new_signature=state['signature'],
+            changed_source_files=sorted(changed), backup_hashes=backup_hashes,
+            data_bodies={p.relative_to(out).as_posix(): _body_hash(read(p)) for p in data_files},
+            paid_histories_modified=False, resimulated_rollouts=0)
+        save(journal_path, journal)
+    for p in data_files:
+        record = read(p)
+        if record['signature'] != state['signature']:
+            record['signature'] = state['signature']
+            save(p, record)
+        if _body_hash(read(p)) != journal['data_bodies'][p.relative_to(out).as_posix()]:
+            raise RuntimeError('Result body changed during the source upgrade.')
+    upgraded = dict(old)
+    upgraded.update(state['specification'])
+    upgraded.update(signature=state['signature'], source_repair=dict(name=REPAIR_NAME,
+        original_signature=old_signature, original_runtime=old.get('runtime'),
+        repair_runtime=dict(python=platform.python_version(), numpy=np.__version__, scipy=scipy.__version__),
+        paid_histories_modified=False, resimulated_rollouts=0))
+    save(path, upgraded)
+    journal['complete'] = True
+    save(journal_path, journal)
+    print('Bounds repair complete. Original files backed up; paid histories unchanged. Rerun run to continue.', flush=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['preflight', 'run', 'smoke', 'status', 'analyze', 'collect'])
+    parser.add_argument('command', choices=['preflight', 'run', 'smoke', 'status', 'analyze', 'collect', 'repair-resume'])
     parser.add_argument('--config', type=Path, default=CONFIG)
     parser.add_argument('--workers', type=int, default=min(3, os.cpu_count() or 1))
     parser.add_argument('--smoke-results', action='store_true')
@@ -433,6 +540,8 @@ def main():
         analyze(state, args.workers)
     elif args.command == 'collect':
         collect(state, args.workers)
+    elif args.command == 'repair-resume':
+        repair_resume(state)
     else:
         complete = sum(run_path(state, j).exists() and
                        read(run_path(state, j))['state']['round'] == state['cfg']['queries_per_client'] for j in state['jobs'])
