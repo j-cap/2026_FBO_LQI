@@ -1,0 +1,67 @@
+{
+  "result_signature": "324056c71c0961ef1e1c19cb34544b5deb50aeaea6d35a9263d2597a77b75ff2",
+  "original_trace_commit": "4b14a428de677d81634050edeb8186a533194335",
+  "jobs": 8,
+  "paired_bo_decisions": 594,
+  "all_prior_histories_and_refit_counters_match": true,
+  "all_paid_bo_decisions_in_selected_jobs_present": true,
+  "original_trace_differences": 0,
+  "linux_refit_differences": 15,
+  "logged_original_state_differences": 0,
+  "logged_linux_state_differences": 0,
+  "materially_different_fitted_states": 547,
+  "changed_decisions_with_different_parameters": 15,
+  "max_log_parameter_difference": 3.218875773465082,
+  "max_prediction_errors": {
+    "original_state_score_error": 1.509903313490213e-14,
+    "original_state_mean_error": 1.5987211554602254e-14,
+    "original_state_variance_error": 1.7763568394002505e-15,
+    "original_state_eligibility_error": 2.220446049250313e-16,
+    "original_state_likelihood_error": 4.050093593832571e-13,
+    "linux_state_recorded_score_error": 0.0
+  },
+  "public_input_roundoff_before_loading_pinned_values": 0.0,
+  "source_runtime": {
+    "python": "3.11.16",
+    "numpy": "2.3.2",
+    "scipy": "1.16.1",
+    "pandas": "2.3.1",
+    "platform": "Windows-10-10.0.26100-SP0"
+  },
+  "previous_linux_runtime": {
+    "python": "3.11.16",
+    "numpy": "2.3.2",
+    "scipy": "1.16.1",
+    "pandas": "2.3.1",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41"
+  },
+  "verification_runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "pandas": "2.2.3",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41"
+  },
+  "gp_optimizations_during_state_replay": 0,
+  "new_physical_rollouts": 0,
+  "new_policy_variants": 0,
+  "closure_scope": "Original-run validity and logged-state replay; fresh cross-platform GP refitting remains non-identical.",
+  "source_sha256": "7df50cf1e616cf5e0e65159cd43498d8059e6665736730a4475c6024d138169f",
+  "input_hashes": {
+    "docs/analysis/spectral_confirmation/gp_trace_original.csv": "4c97fc3d80c61c06d9a9cf38a1297cd55a526a288292f09229fb4e36cce7abde",
+    "docs/analysis/spectral_confirmation/gp_trace_original_runtime.json": "c28d39b4229cd42e39a71395af906dffa08069fcf11515375552f374bb90746f",
+    "docs/analysis/spectral_confirmation/gp_trace_linux_audit.csv": "5cf6106f307597af7d3c0690ad8a8121340f859d3e2d639f2c457a7cedb27696",
+    "docs/analysis/spectral_confirmation/gp_trace_linux_audit_runtime.json": "4bbfc4755cac87f9892942a15f8f6e12e8e8cd4556f177c395becea96c896539",
+    "docs/analysis/spectral_confirmation/verification.json": "2224320c8f4cc885f30bc4a16db13f98928e658b86f9630f8452158526fe4eb3",
+    "code/results/tracking_confirmation_v1/runs/homogeneous__homogeneous__2103.json": "7d4e280da4a3ae45fd91fad591ec182eb61d7a0808678305a22573f124a0ae14",
+    "code/results/tracking_confirmation_v1/runs/homogeneous__homogeneous__2106.json": "2d0115f6f21276b958d9b283fd259eca7b4b323181e54ac29fb40c3ec98286d8",
+    "code/results/tracking_confirmation_v1/runs/heterogeneous__fleet_01__4104.json": "234aa3eae2cc751ca8c5f41bcb390ec8eaeaf6d3385a23cc6affaa418acc480a",
+    "code/results/tracking_confirmation_v1/runs/heterogeneous__fleet_03__4111.json": "cd543f9cbd5e7977232adf90d1be4f5a0a86c41ed4fc3050370b970c6d0b56bc",
+    "code/results/tracking_confirmation_v1/runs/heterogeneous__fleet_04__4112.json": "ab81ce9f9de7b47ce928c73bd68c037b30632e83648b09e66dd2dca8ed51778a",
+    "code/results/tracking_confirmation_v1/runs/heterogeneous__fleet_05__4117.json": "b8d6289d94d15df1d8cfb1128022cab83c26fce5a5fa04ac1cfa72cddbf2f193",
+    "code/results/tracking_confirmation_v1/runs/heterogeneous__fleet_07__4123.json": "7ec9bfbc2ce7fb6ad41b0b2577e8a813bcceba40f1517f96c7d2d0b1b65811a0",
+    "code/results/tracking_confirmation_v1/runs/heterogeneous__fleet_09__4129.json": "a2cd33976057ead65034e616f9685c99ac3c7dd13a5bfbffffff01ef0164f854",
+    "code/results/tracking_confirmation_v1/public_bases.npz": "deac731de1f3eb1aa5a7d8e0059b2b75500dc12a9ced85aa987a5eccd4faeaed",
+    "code/scripts/trace_tracking_confirmation_gp.py": "b613f7da1272397bad4d2ad6faf7e69572a574074d8adc06d9155d18df508cda"
+  }
+}

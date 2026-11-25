@@ -5,6 +5,11 @@
 Fixed protocol: [tracking_confirmation.md](../../tracking_confirmation.md).
 Development result: [spectral online campaign](../spectral_online_cost_model/report.md).
 
+25 November follow-up: the [GP replay closure](../gp_replay_closure/report.md)
+validates A's original-environment trace and recovers all 594 affected BO
+decisions from logged GP states on Linux. Fresh cross-platform refitting
+remains non-identical; no confirmation score or criterion is changed.
+
 ## Decision under the declared criteria
 
 **The committed confirmation results meet the primary D256/A criteria in both
@@ -19,13 +24,12 @@ Heterogeneous D256/E256 does not confirm an added benefit from cost sharing:
 its success interval includes zero, paired mean cost is higher, and eligibility
 is lower. Retain E256 as a strong heterogeneous reference.
 
-There is also an unresolved portability qualification on the A comparison:
-all saved scores reproduce, but eight of A's 40 decision paths do not replay
-exactly on the Linux audit environment. The distinction between scored results
-and exact cross-runtime policy reproduction is recorded below. Do not describe
-the independent replay audit as fully closed for A.
+The original-run validity concern raised by A's eight Linux replay differences
+is now resolved by the original-environment and logged-state follow-up.
+The remaining qualification concerns identical fresh hyperparameter refits
+across numerical environments, rather than the validity of the saved choices.
 
-## Audit scope and reproducibility qualification
+## Audit scope and numerical reproduction
 
 The audit validates all 40 jobs, their fixed physical draws, source/configuration
 signatures, public basis, factory tests, context programmes, noise pairing,
@@ -42,8 +46,9 @@ attempts are retained as charged, ineligible tests. No fleet, seed or failed
 attempt is dropped. One selected final B controller fails held-out validation;
 that outcome remains ineligible.
 
-The audit separately replays each arm so a baseline difference cannot hide a
-check on another method:
+The initial Linux audit separately replayed each arm so a baseline difference
+could not hide a check on another method. These historical fresh-refit counts
+are retained:
 
 | Method | Exact decision-path replays on Linux | Total jobs |
 |---|---:|---:|
@@ -53,33 +58,36 @@ check on another method:
 | E256 | 40 | 40 |
 
 The committed original-runtime verification reports all four policies replayed
-successfully. The independent audit initially used a newer environment, then
-also tested the recorded Python 3.11.16, NumPy 2.3.2, SciPy 1.16.1 and pandas
-2.3.1 versions on Linux. Matching those versions did not remove the eight A
-differences. Public input coordinates match exactly, and all non-action
-protocol fields match at the first difference. The first discrepancies occur
-in A's adaptive local-GP acquisition choices for seeds
-2103/2106/4104/4111/4112/4117/4123/4129.
+successfully. The initial independent audit also tested the recorded Python
+3.11.16, NumPy 2.3.2, SciPy 1.16.1 and pandas 2.3.1 versions on Linux. Matching
+those versions did not remove the eight A differences. Public input coordinates
+match exactly, and all non-action protocol fields match at the first difference.
+The first discrepancies occur in A's adaptive local-GP acquisition choices
+for seeds 2103/2106/4104/4111/4112/4117/4123/4129.
 
 These are not simply choices inside the declared 1e-12 acquisition tie band:
 the recorded-minus-computed first-choice score gaps range from about .000067
-to .223 on the audit backend. A numerical optimizer/backend difference is a
-plausible explanation, but its precise cause has not been isolated. The
-[first-difference table](first_replay_differences.csv) preserves these cases;
-the audit does not replace the recorded actions with the Linux alternatives,
-rerun their outcomes, discard their seeds, or relax the tie rule.
+to .223 under the Linux-refitted states. The [first-difference table](first_replay_differences.csv)
+preserves those cases. The follow-up now locates the difference in GP refitting:
+all 594 original Windows BO choices match the recorded campaign, their prior
+history fingerprints and refit counters match the Linux trace, and reusing
+the original fitted states on Linux recovers all 594 choices. The maximum
+acquisition-score difference under those fixed states is 1.51e-14.
 
-The separate fixed-recorded-path Linux diagnostic logs 594 BO decisions on
-the eight affected jobs and finds 15 differing candidates along those paths.
-Eight refers to affected jobs at their first difference, while fifteen counts
-all logged decision differences when continuing along the original paid history.
+The Linux fixed-path diagnostic has 15 differing choices across those eight
+jobs. Restoring its own logged fit states also recovers all 594 Linux diagnostic
+choices. These checks isolate fitted-state variation from prediction and
+acquisition. The particular OS/compiler/math-library contribution has not been
+separated; no specific library defect is claimed.
 
-Consequently, the primary numerical claims below describe the committed common
-execution environment and recorded policies. Their scores and intervals are
-verified, while exact portable reproduction of A remains an open technical
-issue. The D256/B and D256/E256 decision replays are complete for every job.
-The [verification record](verification.json) explicitly marks the all-four
-exact-replay flag false and retains the original-runtime verification separately.
+The primary claims below describe the committed common execution environment
+and recorded policies. Their scores, intervals and original A choices are
+verified. Fresh refitting remains numerically platform dependent. The D256/B
+and D256/E256 decision replays are complete for every job. The historical
+[verification record](verification.json) retains its all-four fresh-replay flag
+false; the separate [closure verification](../gp_replay_closure/verification.json)
+records successful logged-state recovery. No actions, outcomes or tie thresholds
+are changed to obtain that recovery.
 
 ## Final outcomes at the 24-test local cap
 
@@ -230,10 +238,10 @@ Retain three distinct claims:
 3. Sharing strength, approximation accuracy and a practical baseline win are
    insufficient substitutes for the matched cost-sharing control.
 
-Keep D256 and the result definitions fixed. Close the remaining A reproduction
-issue using the original-environment GP-fit trace described below. Communication
-work can then target an exact implementation change whose posterior predictions
-and controller decisions remain fixed. The homogeneous sharing gain provides
+Keep D256 and the result definitions fixed. The original A decision validity
+concern is resolved by the GP-fit follow-up. Communication work can now target
+an exact implementation change whose posterior predictions and controller
+decisions remain fixed. The homogeneous sharing gain provides
 the demonstrated benefit for that study. Communication reduction alone would
 not establish the currently unconfirmed heterogeneous D/E benefit.
 
@@ -243,7 +251,7 @@ declared public-basis and peer publication costs. Those estimates motivate
 implementation work; this analysis introduces no message compression or new
 communication protocol.
 
-## Reproduction and small original-environment diagnostic
+## Reproduction and completed GP-fit follow-up
 
 Run the score audit without changing source results:
 
@@ -252,23 +260,15 @@ python code/scripts/analyze_tracking_confirmation.py --workers 6
 python code/scripts/plot_tracking_confirmation_analysis.py
 ```
 
-The audit records exact per-arm replay counts and first differences rather
-than treating an unmatched adaptive-GP action as a numerical tie. For the
-remaining A issue, run this small read-only diagnostic in the original
-experiment environment:
+The audit records fresh per-arm replay counts rather than treating unmatched
+adaptive-GP actions as numerical ties. The original-environment trace has now
+been supplied. Reproduce its comparison and logged-state replay with:
 
 ```bat
-git fetch origin
-git switch analysis/spectral-confirmation-results
-git pull --ff-only
-python code/scripts/trace_tracking_confirmation_gp.py --label original
-git add docs/analysis/spectral_confirmation/gp_trace_original.csv docs/analysis/spectral_confirmation/gp_trace_original_runtime.json
-git commit -m "Add original-environment GP fit traces for confirmation audit"
-git push
+python code/scripts/compare_tracking_gp_traces.py
 ```
 
-It fits only the already-paid prior observations on the eight affected jobs
-and records A's GP parameters, likelihoods, scores, training fingerprints and
-numerical backend information. If a replay action differs, the difference is
-logged and the fixed recorded path is followed. No controller is newly tested.
-The Linux trace is retained alongside the analysis for comparison.
+This follow-up uses recorded prior histories and fitted states only, with
+hyperparameter optimization disabled. The original and Linux traces remain
+available alongside the analysis. No controller is newly tested and no complete
+confirmation rerun is needed solely to close this recorded-run audit concern.

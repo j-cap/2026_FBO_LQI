@@ -6,9 +6,12 @@ Latest completed experiment: [frozen D256 confirmation](docs/tracking_confirmati
 The [confirmation analysis](docs/analysis/spectral_confirmation/report.md) reproduces
 all score tables: the declared A criterion passes in both conditions, while
 added cost sharing is supported in the homogeneous condition and remains
-unconfirmed against E256 in the heterogeneous condition. A's eight Linux replay
-differences remain an explicit portability qualification. Reproduce with
+unconfirmed against E256 in the heterogeneous condition. The
+[GP replay follow-up](docs/analysis/gp_replay_closure/report.md) validates the
+original A choices and recovers all 594 affected BO decisions from logged fit
+states on Linux. Fresh GP refits remain platform dependent. Reproduce with
 `python code/scripts/analyze_tracking_confirmation.py --workers 6`.
+The follow-up uses `python code/scripts/compare_tracking_gp_traces.py`.
 The [seed-1102 discovery inspection](docs/analysis/spectral_discovery_chains/report.md)
 locates missed useful gains before peer transfer, retaining the existing method.
 
