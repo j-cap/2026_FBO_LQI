@@ -3,6 +3,13 @@
 Research repository for online fleet-assisted calibration of trajectory-tracking
 controller gains. Earlier LQI experiments remain archived.
 
+Prepared validity check: [offline gain-domain and boundary-extension audit](docs/tracking_gain_domain.md).
+It compares the original 71 vectors, 1,033 points within the original bounds,
+and an expanded set of 2,011 points. Physical upper gains become
+`[0.15, 3, 3]`, with nominal gains fixed. Run
+`python code/scripts/tracking_gain_domain.py run --workers 3`.
+This is an offline search-domain check; the recorded online methods remain frozen.
+
 Current [consolidation and bigger-picture assessment](docs/fedbo_consolidation.md)
 freeze the exploration ablation and distinguish near-reference success from
 failed-test burden, mean cost and complete-policy eligibility.

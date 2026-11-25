@@ -1,0 +1,29 @@
+{
+  "tag": "tracking_gain_domain_v1",
+  "source_tag": "tracking_six_speed_small_bonus_v1",
+  "physics_config": "config/runs/tracking_diagnostic.json",
+  "dense_sobol_power": 10,
+  "expanded_sobol_power": 11,
+  "expanded_sobol_seed": 1731,
+  "expanded_multiplier_upper": 30.0,
+  "profile_values": [10.0, 12.0, 20.0, 30.0],
+  "profile_sources": [
+    {"candidate": "g012", "coordinate": 0, "frequency_hz": 0.1},
+    {"candidate": "g030", "coordinate": 1, "frequency_hz": 0.3}
+  ],
+  "expanded_scaling_anchors": [12.0, 20.0, 30.0],
+  "source_check_candidates": ["g000", "g012", "g030"],
+  "source_check_rtol": 0.0000001,
+  "source_check_atol": 0.00000001,
+  "calibration_repeats": 2,
+  "validation_repeats": 4,
+  "batch_size": 128,
+  "material_improvement_percent": 5.0,
+  "boundary_fraction": 0.1,
+  "smoke": {
+    "contexts": ["s20_f0.1", "s20_f0.3", "s20_f0.6"],
+    "dense_sobol_power": 7,
+    "expanded_sobol_power": 6,
+    "validation_repeats": 2
+  }
+}
