@@ -5,6 +5,12 @@
 archived unchanged. Latest evidence: the
 [three-study six-speed audit](analysis/six_speed_consolidation/report.md).
 
+Subsequent [gain-domain audit](analysis/gain_domain/report.md): denser sampling
+and a genuine K_y extension improve the offline reference, especially at
+0.1 Hz. The online results below retain their original 71-vector task and
+reference. Their success rates are not recomputed against controllers that
+were outside their permitted action set.
+
 **Online fleet cost information helps the declared near-reference success
 metric in the tested homogeneous task. It has not yet produced a method that
 dominates the practical references on cost, failed experiments and complete

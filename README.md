@@ -3,11 +3,12 @@
 Research repository for online fleet-assisted calibration of trajectory-tracking
 controller gains. Earlier LQI experiments remain archived.
 
-Prepared validity check: [offline gain-domain and boundary-extension audit](docs/tracking_gain_domain.md).
-It compares the original 71 vectors, 1,033 points within the original bounds,
-and an expanded set of 2,011 points. Physical upper gains become
-`[0.15, 3, 3]`, with nominal gains fixed. Run
-`python code/scripts/tracking_gain_domain.py run --workers 3`.
+Completed validity check: [offline gain-domain and boundary-extension audit](docs/analysis/gain_domain/report.md).
+Original-box refinement from 71 to 1,033 points reduces mean held-out J by
+5.85%; the 2,011-point expanded set adds 2.32%. All seven selected exterior
+winners exceed only the old K_y bound. All six saved tables and 72,396
+calibration observations are verified. Reproduce without new simulation:
+`python code/scripts/analyze_tracking_gain_domain.py`.
 This is an offline search-domain check; the recorded online methods remain frozen.
 
 Current [consolidation and bigger-picture assessment](docs/fedbo_consolidation.md)

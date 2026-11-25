@@ -1,5 +1,11 @@
 # Offline gain-domain and sampling-resolution audit
 
+Completed results and the [read-only analysis](analysis/gain_domain/report.md)
+show that original-box refinement reduces mean held-out J by 5.85%, with a
+further 2.32% from genuine extension. All selected exterior winners exceed
+only the old K_y upper bound. The result remains an offline finite-pool
+diagnosis; the previous online comparisons remain frozen.
+
 This audit checks the adequacy of the search domain underlying the completed
 [six-speed studies](fedbo_consolidation.md). It separates more sampling inside
 the original physical gain box from evaluations genuinely outside that box.
