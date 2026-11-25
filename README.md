@@ -2,6 +2,12 @@
 
 Research repository for fleet-informed Bayesian optimization of LQI controller calibration.
 
+Prepared next: [one fixed small-bonus comparison](docs/tracking_six_speed_small_bonus.md).
+Fresh seeds 7100–7102 compare A/B, D/E at beta=0, and matched D/E at beta=0.5.
+Run `python code/scripts/tracking_six_speed_small_bonus.py run --workers 3`.
+The report includes the 0.3 Hz discovery/failure tradeoff and consolidation
+inputs. Consolidation and a bigger-picture review follow this experiment.
+
 Latest completed experiment: [matched six-speed zero-bonus D/E comparison](docs/tracking_six_speed_zero_bonus.md).
 The [audited results](docs/analysis/six_speed_zero_bonus/report.md) reproduce
 all 3,888 paid decisions and 11 tables. Zero-bonus D256 has the highest average
