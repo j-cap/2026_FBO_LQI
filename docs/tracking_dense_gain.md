@@ -1,5 +1,11 @@
 # Matched online BO on the denser K_y-extended controller pool
 
+Completed results: [read-only audit and consolidation](analysis/dense_gain/report.md).
+D leads the average declared success metric, with a seed-dependent D/A and
+D/E effect and limited low-frequency success. All paid decisions, thirteen
+saved tables and 437 direct-GP prediction checks reproduce. The protocol
+below remains the fixed definition of the completed pilot.
+
 This follow-up tests whether D beats A and then B, and whether sharing adds
 value over matched E, after the [gain-domain audit](analysis/gain_domain/report.md)
 identified missing sampling resolution and a restrictive K_y cap. Analyse

@@ -3,13 +3,14 @@
 Research repository for online fleet-assisted calibration of trajectory-tracking
 controller gains. Earlier LQI experiments remain archived.
 
-Prepared follow-up: [matched dense-gain online A/B/D/E comparison](docs/tracking_dense_gain.md).
-The 1,292-point public pool genuinely extends K_y to 0.15 while retaining
-K_psi/K_r upper bounds of 1. D/E use the exact shared/local target kernel
-with a fixed 0.5 bonus and empty histories. Three fresh seeds require 2,592
-paid requests; archived reference calibration is evaluator-only. Run
-`python code/scripts/tracking_dense_gain.py run --workers 3`.
-Analyse and consolidate these outcomes before communication experiments.
+Latest completed experiment: [matched dense-gain online A/B/D/E analysis](docs/analysis/dense_gain/report.md).
+D achieves 29.07% encountered-context success versus A/B/E's 20.76/21.81/20.91%,
+with 61 failed tests and 14 complete eligible policies. It loses to A/E in
+one seed and retains a low-frequency discovery gap. All 2,592 paid decisions,
+13 saved tables and 437 exact-GP predictions are verified. Reproduce with
+`python code/scripts/analyze_tracking_dense_gain.py --workers 3`.
+Freeze this exact reference for a scoped communication study; retain the
+average-benefit and practical-tradeoff qualifications in the consolidation.
 
 Completed validity check: [offline gain-domain and boundary-extension audit](docs/analysis/gain_domain/report.md).
 Original-box refinement from 71 to 1,033 points reduces mean held-out J by
@@ -20,10 +21,10 @@ calibration observations are verified. Reproduce without new simulation:
 This is an offline search-domain check; the recorded online methods remain frozen.
 
 Current [consolidation and bigger-picture assessment](docs/fedbo_consolidation.md)
-freeze the exploration ablation and distinguish near-reference success from
-failed-test burden, mean cost and complete-policy eligibility.
+include the exact 1,292-controller follow-up and distinguish near-reference
+success, failed tests, conditional costs and complete-policy eligibility.
 
-Latest completed experiment: [fixed small-bonus comparison](docs/tracking_six_speed_small_bonus.md).
+Previous completed experiment: [fixed small-bonus comparison](docs/tracking_six_speed_small_bonus.md).
 The [three-study audit](docs/analysis/six_speed_consolidation/report.md) replays
 all 10,368 paid decisions and reconstructs 36 tables. Beta=0.5 D improves
 success over A/B, matched E and zero-bonus D in all three new seeds, while
