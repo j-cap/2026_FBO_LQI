@@ -1,5 +1,12 @@
 # Compact exchange and periodic synchronization
 
+Completed pilot: [read-only analysis and consolidation](analysis/communication/report.md).
+Two-round contact retains D's average success with lower traffic under this
+protocol; the added D/E benefit is programme dependent. An archive-only
+diagnostic also identifies repeated unchanged catalogue entries as the main
+remaining byte overhead. The fixed protocol below remains the definition
+of the completed experiment.
+
 This is the communication follow-up to the frozen
 [dense-gain comparison](tracking_dense_gain.md). It has two separate stages:
 first prove that the exchanged representation can be reduced without changing
@@ -202,4 +209,5 @@ of which 405,344 are the peer catalogue. These exclude the unused final flush.
 The separate 288-request smoke completes with 186 fresh validation rollouts
 and no unresolved requests. A cached rerun succeeds with the simulator and
 hyperparameter optimizers disabled. These are software/equivalence checks;
-the fresh 7,776-request pilot remains to be run locally.
+the subsequent 7,776-request pilot is analysed in the completed-results link
+above.
