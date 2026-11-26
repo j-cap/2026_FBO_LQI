@@ -84,9 +84,12 @@ checks, not a new live protocol result. Removing unchanged entries reduces
 the k=2 versus k=1 used-byte benefit to about 9.4%; packet/contact savings
 remain separate.
 
-The next step is lossless changed-catalogue exchange and frozen-decision
-replay at fixed contact times. Then use that efficient reference for fresh
-fixed-protocol confirmation at k=1/2, retaining A/B and especially matched E.
+The [lossless changed-catalogue implementation](tracking_delta_catalogue.md)
+now reproduces all 7,776 archived choices and every recipient catalogue at
+504 contacts. Its actual serialized totals match the preceding diagnostic.
+The next scientific step is the prepared ten-programme fixed confirmation
+at k=1/2, retaining A/B and especially matched E; those fresh results are
+still pending.
 Keep k=2 as a candidate, not a declared optimum or demonstrated noninferior
 protocol. Do not launch further kernel, bonus or gain-domain tuning on these
 programme outcomes.

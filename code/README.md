@@ -2,6 +2,12 @@
 
 This directory is the root of the experimental framework.
 
+The lossless peer-catalogue implementation and ten-programme confirmation
+are documented in [docs/tracking_delta_catalogue.md](../docs/tracking_delta_catalogue.md).
+Run `python code/scripts/tracking_delta_catalogue.py run --workers 3`.
+The runner first verifies the archived decisions, then uses fresh matched
+programmes at one- and two-round contact with unchanged controller/GP settings.
+
 The communication follow-up to the completed dense-gain BO comparison is
 documented in [docs/tracking_communication.md](../docs/tracking_communication.md).
 Run `python code/scripts/tracking_communication.py run --workers 3` from the

@@ -1,0 +1,146 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lossless catalogue: full decision replay</title><style>body{font:16px/1.6 system-ui;max-width:1250px;margin:35px auto;padding:0 22px;color:#203747}table{border-collapse:collapse;font-size:12px}td,th{padding:8px;border:1px solid #d0dce2}.table{overflow-x:auto;margin:18px 0}img{max-width:100%}h2{margin-top:32px}</style></head><body><h1>Lossless catalogue: full decision replay</h1><p>All archived controller choices, local recommendations, diagnostics, cost packets and recipient catalogue contents reproduce. No new rollout or hyperparameter optimization is allowed.</p><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>signature</th>
+      <th>all_decisions_identical</th>
+      <th>all_recipient_caches_identical</th>
+      <th>paid_decisions_replayed</th>
+      <th>contact_caches_checked</th>
+      <th>new_simulations</th>
+      <th>new_optimization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>7a1fef8c8f23ae093db9abdfae497e12fbc8cd0ab776dca0fa7066a911615acf</td>
+      <td>True</td>
+      <td>True</td>
+      <td>7776</td>
+      <td>504</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>interval</th>
+      <th>method</th>
+      <th>original_used_bytes</th>
+      <th>delta_used_bytes</th>
+      <th>original_all_bytes</th>
+      <th>delta_all_bytes</th>
+      <th>packet_deliveries</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>3.908e+05</td>
+      <td>4.182e+04</td>
+      <td>4.196e+05</td>
+      <td>4.363e+04</td>
+      <td>414</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>4.075e+05</td>
+      <td>4.43e+04</td>
+      <td>4.37e+05</td>
+      <td>4.571e+04</td>
+      <td>414</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>4.457e+05</td>
+      <td>8.893e+04</td>
+      <td>4.766e+05</td>
+      <td>9.293e+04</td>
+      <td>828</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>4.017e+05</td>
+      <td>4.438e+04</td>
+      <td>4.31e+05</td>
+      <td>4.627e+04</td>
+      <td>414</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>1.885e+05</td>
+      <td>3.789e+04</td>
+      <td>2.175e+05</td>
+      <td>4.114e+04</td>
+      <td>198</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>1.936e+05</td>
+      <td>3.917e+04</td>
+      <td>2.231e+05</td>
+      <td>4.162e+04</td>
+      <td>198</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>2.324e+05</td>
+      <td>8.055e+04</td>
+      <td>2.648e+05</td>
+      <td>8.687e+04</td>
+      <td>396</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>1.921e+05</td>
+      <td>3.917e+04</td>
+      <td>2.216e+05</td>
+      <td>4.226e+04</td>
+      <td>198</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>A: local GP + peer gains</td>
+      <td>8.384e+04</td>
+      <td>3.16e+04</td>
+      <td>1.124e+05</td>
+      <td>3.749e+04</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>8.784e+04</td>
+      <td>3.32e+04</td>
+      <td>1.168e+05</td>
+      <td>3.821e+04</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>D: shared/local exact GP</td>
+      <td>1.207e+05</td>
+      <td>6.92e+04</td>
+      <td>1.563e+05</td>
+      <td>8.096e+04</td>
+      <td>180</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>E: independent exact GP</td>
+      <td>8.728e+04</td>
+      <td>3.36e+04</td>
+      <td>1.164e+05</td>
+      <td>3.909e+04</td>
+      <td>90</td>
+    </tr>
+  </tbody>
+</table></div><p>Delta catalogue packets have version 2, with the same 16-byte header and 24-byte entry size. The cost channel remains unchanged. Packet/contact counts are identical to the full-catalogue protocol. Empty headers and all recipients are charged.</p></body></html>
