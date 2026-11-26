@@ -2,6 +2,12 @@
 
 This directory is the root of the experimental framework.
 
+The communication follow-up to the completed dense-gain BO comparison is
+documented in [docs/tracking_communication.md](../docs/tracking_communication.md).
+Run `python code/scripts/tracking_communication.py run --workers 3` from the
+repository root. It first audits exact compact exchange without new rollouts,
+then runs the fresh matched A/B/D/E comparison at 1/2/4-round contact intervals.
+
 The trajectory-tracking diagnostic is documented in
 [docs/tracking_diagnostic.md](../docs/tracking_diagnostic.md). Its isolated runner
 is `python code/scripts/tracking_diagnostic.py smoke --workers 4` from the repository
