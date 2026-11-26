@@ -1,5 +1,10 @@
 # Lossless catalogue updates and fixed programme confirmation
 
+Completed results: [read-only confirmation analysis](analysis/lossless_catalogue/report.md).
+Every-round D beats A/B/E in all ten new programmes; k=2 retains positive
+average A/B effects but weakens D/E and loses substantial success relative
+to k=1. The fixed protocol below remains the definition of this study.
+
 This follows the [communication pilot analysis](analysis/communication/report.md).
 The immediate implementation question is whether changed catalogue entries
 can preserve every controller decision. The fresh statistical question is
@@ -178,4 +183,5 @@ states with every recipient cache intact. All 36 method/seed/interval byte
 totals match the earlier posthoc diagnostic exactly. The 192-request smoke
 completes validation and decision/packet replay. A cached rerun also succeeds
 with physical simulation and hyperparameter optimization disabled. The
-17,280-request fresh confirmation remains for local execution.
+17,280-request fresh confirmation is now complete and analysed in the link
+at the top of this document.
