@@ -1,0 +1,3803 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lossless catalogue: fixed 1/2-round confirmation</title><style>body{font:16px/1.6 system-ui;max-width:1250px;margin:35px auto;padding:0 22px;color:#203747}table{border-collapse:collapse;font-size:12px}td,th{padding:8px;border:1px solid #d0dce2}.table{overflow-x:auto;margin:18px 0}img{max-width:100%}h2{margin-top:32px}</style></head><body><h1>Lossless catalogue: fixed 1/2-round confirmation</h1><p>Question: how much synchronization can be removed while retaining the benefit of shared cost information over A, B and matched independent E?</p><p>9 homogeneous clients, 24 paid requests each, 1,292 public gains and 18 speed/frequency contexts. Cold histories, one paid factory test, the same charged peer-first rule and the same local eligibility penalty. A/B beta=2; D/E beta=0.5. The dynamics, trajectories, objective, prior and controller bounds remain those of the frozen dense-gain reference.</p><p>All four arms refresh their own observations every round. Both the peer-gain catalogue and D cost records synchronize only after every k rounds. A decision in round r can use remote information through k·floor((r−1)/k), plus its own current data. The coordinator relays summaries; recipients reconstruct the exact shared/local GP. Failed labels remain private. Public input IDs and sender/trial IDs retain observation provenance.</p><p>Primary comparison: D versus A at k=2; then B and matched local E. One-round comparisons are references. Paired bootstrap intervals resample programme means, not individual clients. They are descriptive, with no multiplicity-adjusted significance or noninferiority claim.</p><h2>Programme-level uncertainty</h2><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>interval</th>
+      <th>method</th>
+      <th>baseline</th>
+      <th>fleet_budget</th>
+      <th>programme_units</th>
+      <th>success_delta_pp</th>
+      <th>lower_percentile_pp</th>
+      <th>upper_percentile_pp</th>
+      <th>positive_programmes</th>
+      <th>negative_programmes</th>
+      <th>uncertainty_available</th>
+      <th>interval_is_descriptive</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>10</td>
+      <td>18.79</td>
+      <td>12.91</td>
+      <td>24.9</td>
+      <td>10</td>
+      <td>0</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>10</td>
+      <td>26.32</td>
+      <td>20.94</td>
+      <td>31.36</td>
+      <td>10</td>
+      <td>0</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>10</td>
+      <td>22.21</td>
+      <td>13.46</td>
+      <td>30.71</td>
+      <td>10</td>
+      <td>0</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>10</td>
+      <td>5.778</td>
+      <td>-0.8453</td>
+      <td>13.5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>10</td>
+      <td>14.01</td>
+      <td>8.807</td>
+      <td>19.07</td>
+      <td>9</td>
+      <td>1</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>10</td>
+      <td>9.441</td>
+      <td>3.634</td>
+      <td>15.35</td>
+      <td>7</td>
+      <td>3</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table></div><h2>Added cost-sharing value at each interval</h2><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>fleet_budget</th>
+      <th>method</th>
+      <th>baseline</th>
+      <th>role</th>
+      <th>programme_seeds</th>
+      <th>matched_client_runs</th>
+      <th>success_delta_pp</th>
+      <th>positive_seeds</th>
+      <th>negative_seeds</th>
+      <th>tied_seeds</th>
+      <th>worst_seed_delta_pp</th>
+      <th>eligible_method</th>
+      <th>eligible_baseline</th>
+      <th>common_eligible_pairs</th>
+      <th>paired_mean_J_method</th>
+      <th>paired_mean_J_baseline</th>
+      <th>paired_J_change_percent</th>
+      <th>interval</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>216</td>
+      <td>D: shared/local exact GP</td>
+      <td>A: local GP + peer gains</td>
+      <td>primary</td>
+      <td>10</td>
+      <td>90</td>
+      <td>26.32</td>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8.098</td>
+      <td>47</td>
+      <td>47</td>
+      <td>26</td>
+      <td>1.346</td>
+      <td>1.385</td>
+      <td>-2.841</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>216</td>
+      <td>D: shared/local exact GP</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>secondary</td>
+      <td>10</td>
+      <td>90</td>
+      <td>22.21</td>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2.596</td>
+      <td>47</td>
+      <td>57</td>
+      <td>39</td>
+      <td>1.307</td>
+      <td>1.156</td>
+      <td>13.06</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>216</td>
+      <td>D: shared/local exact GP</td>
+      <td>E: independent exact GP</td>
+      <td>sharing</td>
+      <td>10</td>
+      <td>90</td>
+      <td>18.79</td>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3.97</td>
+      <td>47</td>
+      <td>46</td>
+      <td>31</td>
+      <td>1.209</td>
+      <td>1.354</td>
+      <td>-10.69</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>216</td>
+      <td>D: shared/local exact GP</td>
+      <td>A: local GP + peer gains</td>
+      <td>primary</td>
+      <td>10</td>
+      <td>90</td>
+      <td>14.01</td>
+      <td>9</td>
+      <td>1</td>
+      <td>0</td>
+      <td>-3.077</td>
+      <td>29</td>
+      <td>40</td>
+      <td>22</td>
+      <td>1.331</td>
+      <td>1.6</td>
+      <td>-16.77</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>216</td>
+      <td>D: shared/local exact GP</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>secondary</td>
+      <td>10</td>
+      <td>90</td>
+      <td>9.441</td>
+      <td>7</td>
+      <td>3</td>
+      <td>0</td>
+      <td>-3.945</td>
+      <td>29</td>
+      <td>49</td>
+      <td>22</td>
+      <td>1.329</td>
+      <td>1.128</td>
+      <td>17.74</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>216</td>
+      <td>D: shared/local exact GP</td>
+      <td>E: independent exact GP</td>
+      <td>sharing</td>
+      <td>10</td>
+      <td>90</td>
+      <td>5.778</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>-5.681</td>
+      <td>29</td>
+      <td>40</td>
+      <td>22</td>
+      <td>1.332</td>
+      <td>1.405</td>
+      <td>-5.134</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table></div><h2>Matched change from every-round contact</h2><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>method</th>
+      <th>interval</th>
+      <th>baseline_interval</th>
+      <th>fleet_budget</th>
+      <th>programme_seeds</th>
+      <th>matched_client_runs</th>
+      <th>success_delta_pp</th>
+      <th>worst_seed_delta_pp</th>
+      <th>positive_seeds</th>
+      <th>negative_seeds</th>
+      <th>tied_seeds</th>
+      <th>failed_requests_delta</th>
+      <th>complete_policy_delta</th>
+      <th>common_eligible_pairs</th>
+      <th>paired_mean_J_target</th>
+      <th>paired_mean_J_k1</th>
+      <th>paired_J_change_percent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10</td>
+      <td>90</td>
+      <td>-0.009484</td>
+      <td>-12.64</td>
+      <td>4</td>
+      <td>6</td>
+      <td>0</td>
+      <td>-10</td>
+      <td>-7</td>
+      <td>35</td>
+      <td>1.591</td>
+      <td>1.468</td>
+      <td>8.372</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10</td>
+      <td>90</td>
+      <td>0.4525</td>
+      <td>-11.06</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>-8</td>
+      <td>-8</td>
+      <td>46</td>
+      <td>1.21</td>
+      <td>1.205</td>
+      <td>0.3979</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10</td>
+      <td>90</td>
+      <td>-12.32</td>
+      <td>-27.53</td>
+      <td>1</td>
+      <td>9</td>
+      <td>0</td>
+      <td>38</td>
+      <td>-18</td>
+      <td>20</td>
+      <td>1.316</td>
+      <td>1.255</td>
+      <td>4.838</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10</td>
+      <td>90</td>
+      <td>0.6927</td>
+      <td>-11.3</td>
+      <td>4</td>
+      <td>6</td>
+      <td>0</td>
+      <td>-1</td>
+      <td>-6</td>
+      <td>39</td>
+      <td>1.359</td>
+      <td>1.272</td>
+      <td>6.843</td>
+    </tr>
+  </tbody>
+</table></div><p>Effects are paired by programme/noise seed and client. Success effects are percentage points; lower cost is better. Cost comparisons include only common complete eligible policies and show their denominators. No noninferiority margin has been declared.</p><img alt="Success versus interval, application traffic and packet deliveries" src="data:image/png;base64,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j4E8Fj18bknXqCCvkqYA5QxlbyGgPiJNyCd8drIlyuVJNc/zvHyfBAAAAAAAAAAAAAoHM5AAAAAAAAAAAAAQQAcSAAAAAAAAAAAAAuhAAgAAAAAAAAAAQAAdSAAAAAAAAAAAAAigA6kK/fzzz2bEiBGmf//+plGjRqZatWrmb3/7W1WeAgAAGZs3b565+OKLTadOnUy9evXMTjvtZE488USzYMECUhWVNmrUKBsbde7cOe53s2fPNgcccICpW7euad68ubn00kttXIWgV1991aZhoq+33nqLNK2Ed9991xx99NE2hlc+VD69++67SdMMnX766Unzqr6+/fbb2L58/lO3cOFC89vf/tbsuOOONp927NjR3HjjjWb9+vXkVRStdOLTTz75xLbHbLvttrY8P/XUU83KlSvj9tu6dau57bbbTNu2bU2dOnVM165dzSOPPGKi4qOPPjKDBg0yu+yyiy0LdthhB9O7d2/z3HPPlWya5Cr23LRpkxk2bJhp2bKlKSsrMz179jTTp083pRo3Rjk9chX3FUOa5CJui3q6LMxyzFXo6VEz3ydQSr7//nubmRTQ7LnnnrawBgAgKm699VYza9Yse0Oqm8Zly5aZsWPHmr322sveZCS6+QJSsWTJEnPzzTfbhp+w999/3xxyyCFm9913N3fccYfd9/bbb7dB+4svvkgCJ6Abk3333TewrV27dqRphl5++WVz1FFHme7du5trr73WNrJ98cUXNi+STzNz3nnnmX79+gW2eZ5nzj//fLPzzjubVq1a2W18/lO3ePFi06NHD9OgQQPbmK5GrzfffNMOYHznnXfM1KlTSVOUdHyqMludKPqMKOZQA57iiQ8//NDMnTvX1KpVK/aa11xzjbnlllvMOeecY+tTfX5OPvlk21CqBsNC9/XXX5u1a9ea0047zTZGqkFzypQptkF8/Pjx5txzzy25NMlV7KmG9SeffNJcfvnlZrfddrODxI844ggzY8YM22hcanFjMaRHtuO+YkiTXMRtUU6XxTmIuQo+PTxUmY0bN3pLly61/583b56n5J88eTJXAAAQCbNmzfI2bdoU2LZgwQKvdu3a3pAhQ/J2Xoi+k046yTv44IO9Pn36eJ06dQr87vDDD/datGjhrV69OrZt4sSJNo6aNm1aHs62cM2YMcOmyxNPPFHufqRp6pTvmjVr5h177LHeli1bSNMcev31123+HTVqVGwbeTV1Sjel3/z58wPbhw4darf/+OOPpClKOj694IILvLKyMu/rr7+ObZs+fbr9fIwfPz62bcmSJd4222zjXXTRRbFtW7du9Q488EBvxx139DZv3uxFkc57zz339Dp06BDbVsppko3Yc86cOXbb6NGjY9s2bNjg7brrrt7+++/vlVrcGPX0yEXcVwxpkou4LerpMirLMVcU0oMl7KpQ7dq17XQ1AACiqFevXoGRiKLRMVoyRMtfAJmYOXOmHW111113xf1uzZo1dur+KaecYrbbbrvY9qFDh9rRgI8//jiJnoRGHm/evJk0raR//OMfZvny5XaZm+rVq5t169bZZXzIp7lJa41k14h24fOfHqWXNGvWLLC9RYsWNu+q/iZNUcrxqWbgHHnkkXZFGEcj6tu3bx+IJzRy/NdffzUXXnhhbJvKpgsuuMCOHtco8yiqUaOGad26tfnpp59MqadJtmJPvYbS1c3oEi3vd9ZZZ9k00SyFUoobiyE9sh33FUOa5CJui3q6rMlyzBWF9KADCQAAZExT1xVka211IF1btmwxl1xyiTn77LNNly5d4n6vJVR0M7vPPvsEtiso79atm3nvvfdI9ATOOOMMe6OiG4++ffuat99+mzTN0CuvvGLTUmu7d+jQwd7w6Wc1mm3cuJF8miVqmNSNtBqCtRSK8PlPz0EHHWS/q7FBS6aoseGxxx4z9957r12eSMs0kaYo1fhUZfiKFSvi4gnRMkT+eEL/1+dFSw6F93O/jwo1futRClp+684777RLJmk5pVJOk2zGnvq/Otv8jcP+dFFZXEpxYzGkR7bjvmJIk1zEbVFPl4OyHHNFIT3oQAIAABl7+OGHbYB90kknkYpI23333WfX6R85cmTC3y9dujQ2mitM27777jtSPXRDcvzxx5sxY8bY0cI33XSTvXk58MADYzcppGl6tEa5bv6OOeYYc9hhh9nR2meeeabNu2pwIU2zY9q0aeaHH34wQ4YMiW0jr6anf//+tizVaFc9t0EzCvRcEjWUquGYNEUpx6cVlSc//vijfYC521ejyjWyPryfRCn2+N3vfmeaNGlin2dz5ZVXmmOPPdY+H6qU0ySbsaf2TbZfFNIl23Fj1NMjF3FfMaRJLuK2qKdL/yzHXFFIj5r5PgEAABBNn376qbnooovM/vvvbx/SC6RDNx3XXXedfTitGjcS2bBhQ2wZ4DCNknS/x39pFKC+HD0s+4QTTrAPFR8+fLh56aWXSNM06YHievi4HhJ89913223HHXec+eWXX+yDyG+88UbSNEvLoGyzzTbmxBNPjG3j858+jQLu3bu3bRBs3LixeeGFF+xD4rWMuh7yTJqiVOPTivK+20e/d9/L2y8q9DB2xQFqfNRsAc2+Uf1VqmmS7dgz6umS7bgx6umRi7ivGNIkF3FbMaTLzlmMuaKQHnQgAQCAtC1btswMGDDANGjQILZmL5COP/7xj6ZRo0Z2pFYyZWVl9rsbAeunZSTc75GcRh1rFOVTTz1lG45I0/S49Bo8eHBgu9Z7V0OC1iWvW7cu+bSSjTUa+ayRvroBD6c9n//UPProo3bt/AULFpgdd9wx1uilZzcMGzbM5mHSFKUan1aU9/376Hsq+0VBx44d7Zd77sahhx5qjjrqKDNnzpySTJNsx57Fki7ZihuLIT2yHfcVQ5rkIm6Lero8muWYKwrpwRJ2AAAgLatXrzaHH364fQivRqa1bNmSFETay0NMmDDBrhGtUbGLFi2yXwqStaa2/q+lU9y0fbcEgJ+2kfdSo4dma+SknoVAmqbH5bHwQ3KbNm1qv69atYo0raRnnnnGjvb1L4Mi5NX0jBs3zi6j4hoy/CPKlb5ajog0RanGpxXlfXUquNHf2lcdUXqOUng/iXLsodkl8+bNs42epZYmuYg9tW+y/aKSLtmMG4shPbId9xVDmuQibot6uozLcswVhfSgAwkAAKRMN1kauagbz+eff97ssccepB7SpucSaISWbuLbtm0b+9KIWOUt/V9LRHTu3NnUrFkz8DBf0U2tHiaqB5CiYl9++aVdAkEPAiZN07P33nvH8qyfW4tcS+CQppV/Vonypm66/UjX9CxfvtyOFg9Tw6jomQ6kKUo1Pm3VqpUtr8PxhMydOzcQT+j/agD85JNPAvspRnG/jyq3DJI620otTXIRe+r/+ts1a9ZENl2yGTcWQ3pkO+4rhjTJRdwW9XRZnuWYKxLp4SEv5s2bp6Eb3uTJk7kCAIBI2Lx5s3f00Ud7NWvW9F544YV8nw4ibOXKld7TTz8d99WpUydvp512sv//4IMP7L79+/f3WrRo4a1Zsyb293/9619tHPXiiy/m8V0UnhUrVsRte//9971tttnGfnYd0jR17777rs1rJ598cmD74MGDbVn47bffkqaVzLNKx1NPPTXh78mrqTvyyCO9WrVqeZ999llg+8CBA73q1auTV+GVenx6/vnne2VlZd4333wT2/bKK6/YMv7ee++NbVu8eLGtNy+66KLYtq1bt3oHHnig16pVK3u8Qrd8+fK4bb/88ou311572TRYu3ZtyaVJLmLPt956y24bPXp0bNvGjRu9du3aeT179vRKLW6MenrkIu4rhjTJRdwW9XQ5MssxVxTSgw6kKnbPPfd4I0eO9C644AKbOY477jj7s75++umnqj4dAABSdtlll9m666ijjvIefPDBuC+gsvr06WNv5P3eeecdr3bt2l737t1tY8Y111zj1alTxzv00ENJ8JC+fft6RxxxhHfTTTd5EyZM8C6//HKvbt26XoMGDbyPP/6YNM3QmWeeacu+E0880fvLX/7iDRo0yP48fPhw0jQL90ZKy5deeinh7/n8p+61117zatSo4TVt2tS78cYbbV49/PDDbfqeffbZpCm8Uo9P1UnSuHFjb9ddd/Xuvvtu7+abb/a23357r0uXLrahzu/3v/+9fc1zzz3XmzhxojdgwAD788MPP+xFgRoxDz74YO/666+356/2po4dO9r38Oc//7kk0yRXsadiAjWoK33Gjx/v9erVy/6sMrkU48Yop0eu4r5iSJNcxG1RTpfXchBzFXp60IFUxdq0aWMzVKKvr776qqpPBwCAtG6wktVhTGpGrm7i5fXXX7dBtALuJk2a2BGw/pFc+K8xY8Z4PXr08Bo1amRvODTi7ZRTTvEWLlxImlaCRm2rEU5xvEblajTgnXfeSZpmwX777Wdvvssbvc7nP3Vz5syxDRjNmze3ebV9+/beqFGjvF9//ZU0RdFKJz6dP3++bbhTI3nDhg29IUOGeMuWLYt7zS1bttjOFJX7GmWu2OShhx7youKRRx7x+vXr5zVr1szGA+oU0s9Tp06N27dU0iRXseeGDRu8K6+80pa7aijed999kzaul0LcGOX0yFXcVwxpkou4LerpMifLMVehp0c1/ZPvZfQAAAAAAAAAAABQOKrn+wQAAAAAAAAAAABQWOhAAgAAAAAAAAAAQAAdSAAAAAAAAAAAAAigAwkAAAAAAAAAAAABdCABAAAAAAAAAAAggA4kAAAAAAAAAAAABNCBBAAAAAAAAAAAgAA6kAAAAAAAAAAAABBABxIAAAAAAAAAAAAC6EACAAAAAAAAAABAAB1IQI5cf/31plq1aub7778vqDQ+6KCD7FepHPfVV1+110HfSyXPVWTnnXe2++nr4osvNlF1+umn2/eSjmeeeSb23vX19ttv5+z8ACAf9euiRYts+fa3v/2tZOr6qjB69Gizyy67mBo1aphu3brZbZs3bzZXXXWVad26talevboZOHCg3a70V51cbFKtd/317O23317h/sqr2ld5Nxdy/frZOLbSdtttt81rfta11XnkA/EZgMpSGXbkkUcWVEJWJi4Kl8n5btfI5N67mOQzlsjEgw8+aDp27Gi22WYb07Bhw6KP05F7dCAh0j788ENzwgknmDZt2pg6deqYVq1amd/85jfmnnvuyfeplaSPP/7YNphEpVKtyHfffWffz/vvv2+KzYEHHmiDitNOO82Ukn322ce+73PPPTffpwKUPHcjpq833ngjLj08z7MN8/p9oTUIlLJCrOtzfU4vv/yy7Sj6n//5HzN58mRz88032+3333+/bYhXLPr3v//dXHHFFTk5fhQde+yxtr4dMGBAvk+lqKjhx99BV6tWLdO2bVsb1yxevDjh32zdutU0adLE3HbbbeXm56owbty4hJ3bxGdA8cZ4+lJbTfv27e3gxeXLl5tCN3v2bBtX/PTTT/k+FSBtn376qe3w23XXXc3EiRPNhAkTqiwV//GPf5i77rqryo6HqlOzCo8FZL1S79u3r9lpp53MOeecY5o3b25vnN566y0zZswYc8kll5DiCeimMZcNODfccIO9uQ2PTsnlccvTu3dvs2HDBnuDnUkHkt6P3osbnVksNOr0lFNOMaVmxx13tO9bo8arMpACkJwaFXSzccABBwS2v/baa2bJkiWmdu3aJF8aNKhG9Z5GHJZKXV/eOWXDv//9bzvDaNKkSYF4Qts1eOnOO+8M7K/0r1mztG+zunbtWjBxxqmnnmp++9vfFk1ZoljmT3/6k/3/L7/8YvP/fffdZ6ZNm2Y++eQTU7du3cD+c+fOtSsiuM68ZPm5qjqQdthhh7iZTsRnQHG68cYbbSf3xo0b7WChe++91/zzn/808+fPjyurCq2tSXGFyio3eyPfKtOukQ3qiNCABBQ+zVLTtVK7aLt27ar02Lqn0+f78ssvr9LjIvdK+84GkTZq1CjToEEDM2/evLhK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maZyUOWZ7udVBiuuCz8HR/Walps7//zz7TFVn6kTQQMwtV0d9smW/EtG9Z9LI7UThdsT0qlT05Fq2a+OLcWvardTHKM2D8VbOq+KZtTr/l5ppUG3apvSwFSlkeoeP8U+uta6bpqJpAE7qqcuvvji2D7KW4oXtGSbViPStVGcpHh3yZIl9rXTiVXKo5l16szTPYjajzTwVmmtxxa4penSqTtzJdX8qOumPD58+HBb96tTVzG88rniTcVfaq8SXQO1yepZ3xoMo8688gYGIkI8IKJefPFF78wzz/Q6duzobbvttl6tWrW8du3aeZdccom3fPnyhH9z2223qdXIu/nmm+N+99VXX9nfjR49Ou532j5ixIjAtvnz53vHHnus17BhQ69OnTpehw4dvGuvvTb2e+2vv1u5cmXg7yZPnmy363j+17/ooosSnvO7777rHXbYYfY91q1b1+vbt683e/bshK85b968wPYZM2bY7fru9OnTx375j53sy/3dqlWrvDPOOMPbYYcd7HnofD799FOvTZs23mmnnRY45sSJE71ddtnFq1GjRuA1wscVXSf3urp+Xbp0se+lMtclLFkadOrUKW5fvRe9J7+pU6d6e+yxh1ezZk37Ov7ze++997zjjjvOa9y4sVe7dm37tyeeeKL3r3/9q8J8EE4z7VO/fn1vw4YNcb//+OOPvX79+tm0V1qdc8453n/+85+483HHqkii6+ZPqyeeeCLh3z322GNe9+7d7Xtt1KiRN2TIEG/JkiVx+z300EM2D+iaduvWzZs2bVpc2qZ7XadMmeLtvvvu9ti6Hk899VTcaz755JPeoYce6jVt2tQee6eddvLOO+88b+nSpXHHSPaZAVB1Uv0c6nM+YMCAuO0TJkzw9t57b6+srMyWn6pDrrrqKu+7776L7TNr1ixvv/32s/u0bNnS/l5lUmXqhUSeffZZr2vXrjYe2Hnnnb1bb73Vu//+++Pqe/dedA7aX2Wa4phwuevS5rXXXvPOPfdcb/vtt7d1gMrdH374IbBvuH515Wu4Pq0obolyXV/eOSXLP+lcN73/evXqxf19snyT6Jy//vprb+jQoV6TJk3sdde5KvbbtGlTue9L8cPxxx9vY0DlA9Vrupb+a/z999/b11Je0nk2aNDA69mzp/f444/HvZ7SRddW++h977rrrt7pp5/uvf3222nXu8mUd80++OADm246dqtWrbyRI0d6kyZNikvzdM61orydKPZOli8SxeSJ8qfiH3dMnd+gQYNs2RN+74mOnUiiPKbrqrRv3ry5t3DhQrtNaeeP1atVq2ZjsqOPPtp75513Yn87duxYe16//vprSsdyaRL+rK9du9YbPny4vcfS51ef4169enm3336798svv6RdJi9btsymu36v8w+XF8RnQHFI9bOs8n+33XaLxUP6u2T3tKqf3b2o6kOVH9OnTy+3XJ8zZ44tb3r37u2tX78+5Xt4Uf2keqp69eoplePjxo3z2rZta19zn3328WbOnJkwLlLZqXhD8YN7Lyo7b7jhBm/16tVJy+RE7RrONddcY3+nsjqZVOrUZPWD+12iGKCisl/tWYMHD7b35nq/ulc/8sgj4+ryRLZs2eINGzbM1j2Kg3T+n3/+eVza3HTTTV6PHj1snazzUF4aNWpUXD31xRdf2FhM9eo222xjr6/ORe0ImcYqidJJaahjqW1C592sWTObr/V+0k2/imLZRJK1QVUmP7rY8IADDrDvT19KZ8VMn332WWyfn3/+2Tv55JPttdA5pBI3Ihqq6Z98d2IBVUW9+JotoV5z/3r3QCnRCHA9IF2jiTVaNdFIqmKl0fyaCaX1ljWLUSPX0h3lBQCVKX81k0CzC8qjZU80MpYyClGk2VKavaJRvIox8rW2fynTqG6N+tUI4iggPgMAFAPN2NXsp8rM2AYKEc9AQslQX+mkSZPsVFE6j1Dq1IGi6dPDhg0zpUTPA9D7VucRAADIjdGjR9v6VkvGoOppKR//EsOFjvgMAACgcPEMJBQ9rdWt9bu1pqfW7J46dWq+TwnIKz0AUg9FlNatW5fU1dC6vnqumNOhQ4e8ng8AAMXGX8/qmV+oepr9FSXEZwAAAIWLDiQUvZUrV9qHMuoBxXpoXboPngaKjW7SS5VGQ/fr1y/fpwEAQNGinkW6iM8AAAAKF89AAgAAAAAAAAAAQADPQAIAAAAAAAAAAEAAHUgAAAAAAAAAAAAIoAMJAAAAAAAAAAAAAXQgAQAAAAAAAAAAwPj9PzsFI8qGimDBAAAAAElFTkSuQmCC"><h2>Control outcomes</h2><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>interval</th>
+      <th>method</th>
+      <th>fleet_budget</th>
+      <th>client_runs</th>
+      <th>programme_seeds</th>
+      <th>context_success_percent</th>
+      <th>validation_eligible_coverage_percent</th>
+      <th>complete_eligible_policies</th>
+      <th>failed_paid_requests</th>
+      <th>conditional_mean_J</th>
+      <th>mean_unvisited_contexts</th>
+      <th>reference_coverage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>90</td>
+      <td>10</td>
+      <td>13.79</td>
+      <td>95.98</td>
+      <td>47</td>
+      <td>299</td>
+      <td>1.483</td>
+      <td>4.167</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>90</td>
+      <td>10</td>
+      <td>17.9</td>
+      <td>96.76</td>
+      <td>57</td>
+      <td>224</td>
+      <td>1.251</td>
+      <td>4.167</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>216</td>
+      <td>90</td>
+      <td>10</td>
+      <td>40.11</td>
+      <td>95.45</td>
+      <td>47</td>
+      <td>264</td>
+      <td>1.345</td>
+      <td>4.167</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>90</td>
+      <td>10</td>
+      <td>21.32</td>
+      <td>95.61</td>
+      <td>46</td>
+      <td>262</td>
+      <td>1.293</td>
+      <td>4.167</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>90</td>
+      <td>10</td>
+      <td>13.78</td>
+      <td>94.96</td>
+      <td>40</td>
+      <td>289</td>
+      <td>1.637</td>
+      <td>4.167</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>90</td>
+      <td>10</td>
+      <td>18.35</td>
+      <td>95.93</td>
+      <td>49</td>
+      <td>216</td>
+      <td>1.227</td>
+      <td>4.167</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>216</td>
+      <td>90</td>
+      <td>10</td>
+      <td>27.79</td>
+      <td>93.83</td>
+      <td>29</td>
+      <td>302</td>
+      <td>1.354</td>
+      <td>4.167</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>90</td>
+      <td>10</td>
+      <td>22.02</td>
+      <td>95.28</td>
+      <td>40</td>
+      <td>261</td>
+      <td>1.361</td>
+      <td>4.167</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table></div><h2>Mean application traffic per fleet and arm</h2><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>interval</th>
+      <th>method</th>
+      <th>contacts_used</th>
+      <th>contacts_including_final</th>
+      <th>used_application_bytes</th>
+      <th>used_peer_application_bytes</th>
+      <th>used_cost_application_bytes</th>
+      <th>used_packet_deliveries</th>
+      <th>used_coordinator_broadcasts</th>
+      <th>all_application_bytes</th>
+      <th>all_peer_application_bytes</th>
+      <th>all_cost_application_bytes</th>
+      <th>all_packet_deliveries</th>
+      <th>unused_final_flush_bytes</th>
+      <th>cost_records_used</th>
+      <th>peer_records_used</th>
+      <th>all_unique_cost_records</th>
+      <th>all_cost_body_bytes</th>
+      <th>all_peer_body_bytes</th>
+      <th>application_reduction_vs_k1_percent</th>
+      <th>packet_reduction_vs_k1_percent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>23</td>
+      <td>24</td>
+      <td>4.174e+04</td>
+      <td>4.174e+04</td>
+      <td>0</td>
+      <td>414</td>
+      <td>23</td>
+      <td>4.332e+04</td>
+      <td>4.332e+04</td>
+      <td>0</td>
+      <td>432</td>
+      <td>1584</td>
+      <td>0</td>
+      <td>146.3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3.641e+04</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>23</td>
+      <td>24</td>
+      <td>4.454e+04</td>
+      <td>4.454e+04</td>
+      <td>0</td>
+      <td>414</td>
+      <td>23</td>
+      <td>4.632e+04</td>
+      <td>4.632e+04</td>
+      <td>0</td>
+      <td>432</td>
+      <td>1776</td>
+      <td>0</td>
+      <td>158</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3.941e+04</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>23</td>
+      <td>24</td>
+      <td>8.744e+04</td>
+      <td>4.462e+04</td>
+      <td>4.282e+04</td>
+      <td>828</td>
+      <td>46</td>
+      <td>9.142e+04</td>
+      <td>4.658e+04</td>
+      <td>4.483e+04</td>
+      <td>864</td>
+      <td>3976</td>
+      <td>181</td>
+      <td>158.3</td>
+      <td>189.6</td>
+      <td>3.792e+04</td>
+      <td>3.967e+04</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>23</td>
+      <td>24</td>
+      <td>4.457e+04</td>
+      <td>4.457e+04</td>
+      <td>0</td>
+      <td>414</td>
+      <td>23</td>
+      <td>4.642e+04</td>
+      <td>4.642e+04</td>
+      <td>0</td>
+      <td>432</td>
+      <td>1848</td>
+      <td>0</td>
+      <td>158.1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3.95e+04</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>11</td>
+      <td>12</td>
+      <td>3.65e+04</td>
+      <td>3.65e+04</td>
+      <td>0</td>
+      <td>198</td>
+      <td>11</td>
+      <td>3.962e+04</td>
+      <td>3.962e+04</td>
+      <td>0</td>
+      <td>216</td>
+      <td>3120</td>
+      <td>0</td>
+      <td>138.9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3.617e+04</td>
+      <td>12.54</td>
+      <td>52.17</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>11</td>
+      <td>12</td>
+      <td>3.874e+04</td>
+      <td>3.874e+04</td>
+      <td>0</td>
+      <td>198</td>
+      <td>11</td>
+      <td>4.198e+04</td>
+      <td>4.198e+04</td>
+      <td>0</td>
+      <td>216</td>
+      <td>3240</td>
+      <td>0</td>
+      <td>148.2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3.852e+04</td>
+      <td>13.04</td>
+      <td>52.17</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>11</td>
+      <td>12</td>
+      <td>7.634e+04</td>
+      <td>3.934e+04</td>
+      <td>3.701e+04</td>
+      <td>396</td>
+      <td>22</td>
+      <td>8.374e+04</td>
+      <td>4.313e+04</td>
+      <td>4.062e+04</td>
+      <td>432</td>
+      <td>7400</td>
+      <td>169.2</td>
+      <td>150.7</td>
+      <td>185.8</td>
+      <td>3.716e+04</td>
+      <td>3.967e+04</td>
+      <td>12.69</td>
+      <td>52.17</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>11</td>
+      <td>12</td>
+      <td>3.862e+04</td>
+      <td>3.862e+04</td>
+      <td>0</td>
+      <td>198</td>
+      <td>11</td>
+      <td>4.226e+04</td>
+      <td>4.226e+04</td>
+      <td>0</td>
+      <td>216</td>
+      <td>3648</td>
+      <td>0</td>
+      <td>147.7</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3.881e+04</td>
+      <td>13.35</td>
+      <td>52.17</td>
+    </tr>
+  </tbody>
+</table></div><p>Used traffic is delivered before the last paid decision; all traffic also includes the unused final flush. Each channel/contact uses one uplink per client and one coordinator batch delivered to every client, including empty 16-byte headers. A 20-byte eligible-cost record is sent once per sender then delivered to all clients. A peer catalogue sends only changed 24-byte entries at each contact, with persistent recipient caches. Batching reduces contacts and headers; lossless delta entries already remove unchanged catalogue records. It does not remove every new cost record. Different controller decisions can change eligibility counts. Packet deliveries count each recipient; coordinator broadcasts count one generated batch. Public-design provisioning, IP/TLS, acknowledgements and retries are excluded.</p><h2>Per-seed interval effects</h2><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>method</th>
+      <th>interval</th>
+      <th>baseline_interval</th>
+      <th>fleet_budget</th>
+      <th>seed</th>
+      <th>success_delta_pp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10100</td>
+      <td>2.435</td>
+    </tr>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10101</td>
+      <td>-3.053</td>
+    </tr>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10102</td>
+      <td>6.483</td>
+    </tr>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10103</td>
+      <td>-0.02798</td>
+    </tr>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10104</td>
+      <td>5.043</td>
+    </tr>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10105</td>
+      <td>14.02</td>
+    </tr>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10106</td>
+      <td>-2.44</td>
+    </tr>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10107</td>
+      <td>-8.447</td>
+    </tr>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10108</td>
+      <td>-1.466</td>
+    </tr>
+    <tr>
+      <td>A: local GP + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10109</td>
+      <td>-12.64</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10100</td>
+      <td>4.935</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10101</td>
+      <td>-2.574</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10102</td>
+      <td>5.903</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10103</td>
+      <td>-2.488</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10104</td>
+      <td>-5.441</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10105</td>
+      <td>8.66</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10106</td>
+      <td>-11.06</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10107</td>
+      <td>6.798</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10108</td>
+      <td>-1.119</td>
+    </tr>
+    <tr>
+      <td>B: local cost mean + peer gains</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10109</td>
+      <td>0.9076</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10100</td>
+      <td>-24.38</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10101</td>
+      <td>-1.24</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10102</td>
+      <td>-27.53</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10103</td>
+      <td>-15.44</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10104</td>
+      <td>4.668</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10105</td>
+      <td>-8.771</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10106</td>
+      <td>-14.38</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10107</td>
+      <td>-19.36</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10108</td>
+      <td>-11.11</td>
+    </tr>
+    <tr>
+      <td>D: shared/local exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10109</td>
+      <td>-5.633</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10100</td>
+      <td>11.33</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10101</td>
+      <td>-4.803</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10102</td>
+      <td>-5.283</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10103</td>
+      <td>3.274</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10104</td>
+      <td>-7.074</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10105</td>
+      <td>19.34</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10106</td>
+      <td>-11.3</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10107</td>
+      <td>-0.5772</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10108</td>
+      <td>2.714</td>
+    </tr>
+    <tr>
+      <td>E: independent exact GP</td>
+      <td>2</td>
+      <td>1</td>
+      <td>216</td>
+      <td>10109</td>
+      <td>-0.6944</td>
+    </tr>
+  </tbody>
+</table></div><h2>Frequency outcomes</h2><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>interval</th>
+      <th>method</th>
+      <th>fleet_budget</th>
+      <th>frequency</th>
+      <th>context_success_percent</th>
+      <th>encountered_contexts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>0.3</td>
+      <td>25.3</td>
+      <td>423</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>0.6</td>
+      <td>16.09</td>
+      <td>417</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>0.1</td>
+      <td>0</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>0.3</td>
+      <td>18.15</td>
+      <td>423</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>0.6</td>
+      <td>35.19</td>
+      <td>417</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>0.1</td>
+      <td>0</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>216</td>
+      <td>0.3</td>
+      <td>41.61</td>
+      <td>423</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>216</td>
+      <td>0.6</td>
+      <td>78.7</td>
+      <td>417</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>216</td>
+      <td>0.1</td>
+      <td>0</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>0.3</td>
+      <td>14.89</td>
+      <td>423</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>0.6</td>
+      <td>47.28</td>
+      <td>417</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>0.1</td>
+      <td>2.444</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>0.3</td>
+      <td>24.37</td>
+      <td>423</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>0.6</td>
+      <td>17.48</td>
+      <td>417</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>216</td>
+      <td>0.1</td>
+      <td>0</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>0.3</td>
+      <td>19.15</td>
+      <td>423</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>0.6</td>
+      <td>36.07</td>
+      <td>417</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>216</td>
+      <td>0.1</td>
+      <td>0</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>216</td>
+      <td>0.3</td>
+      <td>18.09</td>
+      <td>423</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>216</td>
+      <td>0.6</td>
+      <td>61.78</td>
+      <td>417</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>216</td>
+      <td>0.1</td>
+      <td>3.704</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>0.3</td>
+      <td>14.43</td>
+      <td>423</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>0.6</td>
+      <td>48.52</td>
+      <td>417</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>216</td>
+      <td>0.1</td>
+      <td>3.63</td>
+      <td>405</td>
+    </tr>
+  </tbody>
+</table></div><h2>Failed tests and proposal allocation</h2><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>interval</th>
+      <th>method</th>
+      <th>seed</th>
+      <th>mode</th>
+      <th>requests</th>
+      <th>eligible</th>
+      <th>new_incumbents</th>
+      <th>ineligible</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10100</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10100</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>73</td>
+      <td>47</td>
+      <td>27</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10100</td>
+      <td>peer_gain_verification</td>
+      <td>134</td>
+      <td>134</td>
+      <td>127</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10100</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10100</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>73</td>
+      <td>50</td>
+      <td>30</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10100</td>
+      <td>peer_gain_verification</td>
+      <td>134</td>
+      <td>134</td>
+      <td>132</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10100</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10100</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>74</td>
+      <td>50</td>
+      <td>35</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10100</td>
+      <td>peer_gain_verification</td>
+      <td>133</td>
+      <td>133</td>
+      <td>125</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10100</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10100</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>71</td>
+      <td>51</td>
+      <td>29</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10100</td>
+      <td>peer_gain_verification</td>
+      <td>136</td>
+      <td>136</td>
+      <td>134</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10101</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>6</td>
+      <td>6</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10101</td>
+      <td>peer_gain_verification</td>
+      <td>121</td>
+      <td>121</td>
+      <td>113</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10101</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>86</td>
+      <td>57</td>
+      <td>23</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10101</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>6</td>
+      <td>6</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10101</td>
+      <td>peer_gain_verification</td>
+      <td>129</td>
+      <td>129</td>
+      <td>119</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10101</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>78</td>
+      <td>64</td>
+      <td>34</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10101</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>6</td>
+      <td>6</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10101</td>
+      <td>peer_gain_verification</td>
+      <td>144</td>
+      <td>144</td>
+      <td>134</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10101</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>63</td>
+      <td>55</td>
+      <td>39</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10101</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>6</td>
+      <td>6</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10101</td>
+      <td>peer_gain_verification</td>
+      <td>135</td>
+      <td>135</td>
+      <td>126</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10101</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>72</td>
+      <td>59</td>
+      <td>40</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10102</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10102</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>80</td>
+      <td>53</td>
+      <td>28</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10102</td>
+      <td>peer_gain_verification</td>
+      <td>127</td>
+      <td>127</td>
+      <td>117</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10102</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10102</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>75</td>
+      <td>57</td>
+      <td>33</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10102</td>
+      <td>peer_gain_verification</td>
+      <td>132</td>
+      <td>132</td>
+      <td>129</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10102</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10102</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>76</td>
+      <td>47</td>
+      <td>38</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10102</td>
+      <td>peer_gain_verification</td>
+      <td>131</td>
+      <td>131</td>
+      <td>125</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10102</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10102</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>68</td>
+      <td>56</td>
+      <td>39</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10102</td>
+      <td>peer_gain_verification</td>
+      <td>139</td>
+      <td>139</td>
+      <td>128</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10103</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10103</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>76</td>
+      <td>58</td>
+      <td>28</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10103</td>
+      <td>peer_gain_verification</td>
+      <td>131</td>
+      <td>131</td>
+      <td>123</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10103</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10103</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>71</td>
+      <td>53</td>
+      <td>35</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10103</td>
+      <td>peer_gain_verification</td>
+      <td>136</td>
+      <td>136</td>
+      <td>129</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10103</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10103</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>81</td>
+      <td>46</td>
+      <td>33</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10103</td>
+      <td>peer_gain_verification</td>
+      <td>126</td>
+      <td>126</td>
+      <td>119</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10103</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10103</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>76</td>
+      <td>53</td>
+      <td>37</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10103</td>
+      <td>peer_gain_verification</td>
+      <td>131</td>
+      <td>131</td>
+      <td>124</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10104</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>8</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10104</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>92</td>
+      <td>56</td>
+      <td>31</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10104</td>
+      <td>peer_gain_verification</td>
+      <td>115</td>
+      <td>115</td>
+      <td>110</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10104</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>8</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10104</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>73</td>
+      <td>50</td>
+      <td>34</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10104</td>
+      <td>peer_gain_verification</td>
+      <td>134</td>
+      <td>131</td>
+      <td>123</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10104</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>8</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10104</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>70</td>
+      <td>47</td>
+      <td>38</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10104</td>
+      <td>peer_gain_verification</td>
+      <td>137</td>
+      <td>137</td>
+      <td>124</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10104</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>8</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10104</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>86</td>
+      <td>53</td>
+      <td>36</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10104</td>
+      <td>peer_gain_verification</td>
+      <td>121</td>
+      <td>121</td>
+      <td>111</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10105</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10105</td>
+      <td>peer_gain_verification</td>
+      <td>113</td>
+      <td>112</td>
+      <td>105</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10105</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>94</td>
+      <td>59</td>
+      <td>29</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10105</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10105</td>
+      <td>peer_gain_verification</td>
+      <td>133</td>
+      <td>133</td>
+      <td>125</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10105</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>74</td>
+      <td>65</td>
+      <td>44</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10105</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10105</td>
+      <td>peer_gain_verification</td>
+      <td>116</td>
+      <td>116</td>
+      <td>112</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10105</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>91</td>
+      <td>66</td>
+      <td>32</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10105</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10105</td>
+      <td>peer_gain_verification</td>
+      <td>132</td>
+      <td>129</td>
+      <td>118</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10105</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>75</td>
+      <td>47</td>
+      <td>34</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10106</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10106</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>86</td>
+      <td>52</td>
+      <td>35</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10106</td>
+      <td>peer_gain_verification</td>
+      <td>121</td>
+      <td>121</td>
+      <td>110</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10106</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10106</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>77</td>
+      <td>59</td>
+      <td>39</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10106</td>
+      <td>peer_gain_verification</td>
+      <td>130</td>
+      <td>130</td>
+      <td>114</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10106</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10106</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>81</td>
+      <td>56</td>
+      <td>44</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10106</td>
+      <td>peer_gain_verification</td>
+      <td>126</td>
+      <td>125</td>
+      <td>117</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10106</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10106</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>78</td>
+      <td>55</td>
+      <td>42</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10106</td>
+      <td>peer_gain_verification</td>
+      <td>129</td>
+      <td>129</td>
+      <td>117</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10107</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10107</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>82</td>
+      <td>59</td>
+      <td>37</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10107</td>
+      <td>peer_gain_verification</td>
+      <td>125</td>
+      <td>124</td>
+      <td>114</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10107</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10107</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>86</td>
+      <td>63</td>
+      <td>38</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10107</td>
+      <td>peer_gain_verification</td>
+      <td>121</td>
+      <td>121</td>
+      <td>110</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10107</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10107</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>85</td>
+      <td>57</td>
+      <td>37</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10107</td>
+      <td>peer_gain_verification</td>
+      <td>122</td>
+      <td>122</td>
+      <td>108</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10107</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10107</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>90</td>
+      <td>50</td>
+      <td>35</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10107</td>
+      <td>peer_gain_verification</td>
+      <td>117</td>
+      <td>117</td>
+      <td>108</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10108</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10108</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>77</td>
+      <td>53</td>
+      <td>32</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10108</td>
+      <td>peer_gain_verification</td>
+      <td>130</td>
+      <td>130</td>
+      <td>117</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10108</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10108</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>76</td>
+      <td>54</td>
+      <td>35</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10108</td>
+      <td>peer_gain_verification</td>
+      <td>131</td>
+      <td>131</td>
+      <td>126</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10108</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10108</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>78</td>
+      <td>51</td>
+      <td>39</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10108</td>
+      <td>peer_gain_verification</td>
+      <td>129</td>
+      <td>129</td>
+      <td>121</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10108</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10108</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>66</td>
+      <td>52</td>
+      <td>37</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10108</td>
+      <td>peer_gain_verification</td>
+      <td>141</td>
+      <td>141</td>
+      <td>129</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10109</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10109</td>
+      <td>peer_gain_verification</td>
+      <td>134</td>
+      <td>134</td>
+      <td>127</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>10109</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>73</td>
+      <td>61</td>
+      <td>27</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10109</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10109</td>
+      <td>peer_gain_verification</td>
+      <td>135</td>
+      <td>135</td>
+      <td>124</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10109</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>72</td>
+      <td>52</td>
+      <td>32</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10109</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10109</td>
+      <td>peer_gain_verification</td>
+      <td>149</td>
+      <td>149</td>
+      <td>131</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>10109</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>58</td>
+      <td>52</td>
+      <td>45</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10109</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10109</td>
+      <td>peer_gain_verification</td>
+      <td>140</td>
+      <td>140</td>
+      <td>129</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>10109</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>67</td>
+      <td>47</td>
+      <td>36</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10100</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10100</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>68</td>
+      <td>52</td>
+      <td>29</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10100</td>
+      <td>peer_gain_verification</td>
+      <td>139</td>
+      <td>137</td>
+      <td>129</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10100</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10100</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>75</td>
+      <td>56</td>
+      <td>35</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10100</td>
+      <td>peer_gain_verification</td>
+      <td>132</td>
+      <td>132</td>
+      <td>130</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10100</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10100</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>76</td>
+      <td>52</td>
+      <td>40</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10100</td>
+      <td>peer_gain_verification</td>
+      <td>131</td>
+      <td>130</td>
+      <td>121</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10100</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10100</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>71</td>
+      <td>55</td>
+      <td>35</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10100</td>
+      <td>peer_gain_verification</td>
+      <td>136</td>
+      <td>136</td>
+      <td>132</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10101</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>6</td>
+      <td>6</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10101</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>92</td>
+      <td>69</td>
+      <td>29</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10101</td>
+      <td>peer_gain_verification</td>
+      <td>115</td>
+      <td>115</td>
+      <td>107</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10101</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>6</td>
+      <td>6</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10101</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>76</td>
+      <td>65</td>
+      <td>38</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10101</td>
+      <td>peer_gain_verification</td>
+      <td>131</td>
+      <td>130</td>
+      <td>117</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10101</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>6</td>
+      <td>6</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10101</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>76</td>
+      <td>52</td>
+      <td>41</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10101</td>
+      <td>peer_gain_verification</td>
+      <td>131</td>
+      <td>131</td>
+      <td>121</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10101</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>6</td>
+      <td>6</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10101</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>72</td>
+      <td>54</td>
+      <td>38</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10101</td>
+      <td>peer_gain_verification</td>
+      <td>135</td>
+      <td>135</td>
+      <td>118</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10102</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10102</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>79</td>
+      <td>52</td>
+      <td>34</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10102</td>
+      <td>peer_gain_verification</td>
+      <td>128</td>
+      <td>126</td>
+      <td>112</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10102</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10102</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>71</td>
+      <td>59</td>
+      <td>38</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10102</td>
+      <td>peer_gain_verification</td>
+      <td>136</td>
+      <td>136</td>
+      <td>123</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10102</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10102</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>68</td>
+      <td>51</td>
+      <td>43</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10102</td>
+      <td>peer_gain_verification</td>
+      <td>139</td>
+      <td>139</td>
+      <td>124</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10102</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10102</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>72</td>
+      <td>59</td>
+      <td>42</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10102</td>
+      <td>peer_gain_verification</td>
+      <td>135</td>
+      <td>135</td>
+      <td>123</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10103</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10103</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>75</td>
+      <td>58</td>
+      <td>27</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10103</td>
+      <td>peer_gain_verification</td>
+      <td>132</td>
+      <td>132</td>
+      <td>124</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10103</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10103</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>69</td>
+      <td>54</td>
+      <td>34</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10103</td>
+      <td>peer_gain_verification</td>
+      <td>138</td>
+      <td>138</td>
+      <td>125</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10103</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10103</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>78</td>
+      <td>47</td>
+      <td>41</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10103</td>
+      <td>peer_gain_verification</td>
+      <td>129</td>
+      <td>129</td>
+      <td>119</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10103</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10103</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>77</td>
+      <td>53</td>
+      <td>39</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10103</td>
+      <td>peer_gain_verification</td>
+      <td>130</td>
+      <td>130</td>
+      <td>120</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10104</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>8</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10104</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>88</td>
+      <td>51</td>
+      <td>31</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10104</td>
+      <td>peer_gain_verification</td>
+      <td>119</td>
+      <td>119</td>
+      <td>105</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10104</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>8</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10104</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>77</td>
+      <td>54</td>
+      <td>34</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10104</td>
+      <td>peer_gain_verification</td>
+      <td>130</td>
+      <td>129</td>
+      <td>111</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10104</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>8</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10104</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>84</td>
+      <td>49</td>
+      <td>42</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10104</td>
+      <td>peer_gain_verification</td>
+      <td>123</td>
+      <td>123</td>
+      <td>112</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10104</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>8</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10104</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>85</td>
+      <td>52</td>
+      <td>38</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10104</td>
+      <td>peer_gain_verification</td>
+      <td>122</td>
+      <td>122</td>
+      <td>105</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10105</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10105</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>83</td>
+      <td>56</td>
+      <td>37</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10105</td>
+      <td>peer_gain_verification</td>
+      <td>124</td>
+      <td>123</td>
+      <td>108</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10105</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10105</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>69</td>
+      <td>58</td>
+      <td>40</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10105</td>
+      <td>peer_gain_verification</td>
+      <td>138</td>
+      <td>138</td>
+      <td>120</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10105</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10105</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>89</td>
+      <td>56</td>
+      <td>42</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10105</td>
+      <td>peer_gain_verification</td>
+      <td>118</td>
+      <td>118</td>
+      <td>105</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10105</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10105</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>84</td>
+      <td>56</td>
+      <td>40</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10105</td>
+      <td>peer_gain_verification</td>
+      <td>123</td>
+      <td>123</td>
+      <td>110</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10106</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10106</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>83</td>
+      <td>54</td>
+      <td>39</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10106</td>
+      <td>peer_gain_verification</td>
+      <td>124</td>
+      <td>124</td>
+      <td>111</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10106</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10106</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>78</td>
+      <td>62</td>
+      <td>42</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10106</td>
+      <td>peer_gain_verification</td>
+      <td>129</td>
+      <td>129</td>
+      <td>113</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10106</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10106</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>85</td>
+      <td>51</td>
+      <td>43</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10106</td>
+      <td>peer_gain_verification</td>
+      <td>122</td>
+      <td>122</td>
+      <td>115</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10106</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10106</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>80</td>
+      <td>55</td>
+      <td>39</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10106</td>
+      <td>peer_gain_verification</td>
+      <td>127</td>
+      <td>127</td>
+      <td>110</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10107</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10107</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>94</td>
+      <td>61</td>
+      <td>33</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10107</td>
+      <td>peer_gain_verification</td>
+      <td>113</td>
+      <td>112</td>
+      <td>106</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10107</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10107</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>87</td>
+      <td>58</td>
+      <td>45</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10107</td>
+      <td>peer_gain_verification</td>
+      <td>120</td>
+      <td>120</td>
+      <td>98</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10107</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10107</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>81</td>
+      <td>57</td>
+      <td>50</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10107</td>
+      <td>peer_gain_verification</td>
+      <td>126</td>
+      <td>126</td>
+      <td>116</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10107</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10107</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>95</td>
+      <td>56</td>
+      <td>37</td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10107</td>
+      <td>peer_gain_verification</td>
+      <td>112</td>
+      <td>112</td>
+      <td>103</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10108</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10108</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>81</td>
+      <td>56</td>
+      <td>33</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10108</td>
+      <td>peer_gain_verification</td>
+      <td>126</td>
+      <td>126</td>
+      <td>118</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10108</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10108</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>84</td>
+      <td>54</td>
+      <td>34</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10108</td>
+      <td>peer_gain_verification</td>
+      <td>123</td>
+      <td>123</td>
+      <td>118</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10108</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10108</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>71</td>
+      <td>42</td>
+      <td>37</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10108</td>
+      <td>peer_gain_verification</td>
+      <td>136</td>
+      <td>136</td>
+      <td>127</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10108</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10108</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>64</td>
+      <td>51</td>
+      <td>40</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10108</td>
+      <td>peer_gain_verification</td>
+      <td>143</td>
+      <td>143</td>
+      <td>131</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10109</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10109</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>79</td>
+      <td>63</td>
+      <td>25</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>10109</td>
+      <td>peer_gain_verification</td>
+      <td>128</td>
+      <td>128</td>
+      <td>116</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10109</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10109</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>70</td>
+      <td>55</td>
+      <td>34</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>10109</td>
+      <td>peer_gain_verification</td>
+      <td>137</td>
+      <td>137</td>
+      <td>124</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10109</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10109</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>72</td>
+      <td>55</td>
+      <td>41</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>10109</td>
+      <td>peer_gain_verification</td>
+      <td>135</td>
+      <td>135</td>
+      <td>123</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10109</td>
+      <td>factory_initialization</td>
+      <td>9</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10109</td>
+      <td>feasibility_penalized_LCB</td>
+      <td>70</td>
+      <td>51</td>
+      <td>37</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>10109</td>
+      <td>peer_gain_verification</td>
+      <td>137</td>
+      <td>137</td>
+      <td>126</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div><h2>Local computation</h2><div class="table"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>interval</th>
+      <th>method</th>
+      <th>phase</th>
+      <th>calls</th>
+      <th>total_seconds</th>
+      <th>mean_seconds</th>
+      <th>maximum_seconds</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>proposal</td>
+      <td>2160</td>
+      <td>62.3</td>
+      <td>0.02884</td>
+      <td>0.2019</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>proposal</td>
+      <td>2160</td>
+      <td>56.4</td>
+      <td>0.02611</td>
+      <td>0.211</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>proposal</td>
+      <td>2160</td>
+      <td>20.54</td>
+      <td>0.009509</td>
+      <td>0.07261</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>proposal</td>
+      <td>2160</td>
+      <td>13.41</td>
+      <td>0.00621</td>
+      <td>0.04452</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>A: local GP + peer gains</td>
+      <td>communication_codec</td>
+      <td>240</td>
+      <td>0.7826</td>
+      <td>0.003261</td>
+      <td>0.03787</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>communication_codec</td>
+      <td>240</td>
+      <td>0.7177</td>
+      <td>0.00299</td>
+      <td>0.03007</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>D: shared/local exact GP</td>
+      <td>communication_codec</td>
+      <td>240</td>
+      <td>0.6902</td>
+      <td>0.002876</td>
+      <td>0.00655</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>E: independent exact GP</td>
+      <td>communication_codec</td>
+      <td>240</td>
+      <td>0.6615</td>
+      <td>0.002756</td>
+      <td>0.02746</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>proposal</td>
+      <td>2160</td>
+      <td>67.02</td>
+      <td>0.03103</td>
+      <td>0.2434</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>proposal</td>
+      <td>2160</td>
+      <td>59.57</td>
+      <td>0.02758</td>
+      <td>0.2821</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>proposal</td>
+      <td>2160</td>
+      <td>20.82</td>
+      <td>0.009637</td>
+      <td>0.07654</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>proposal</td>
+      <td>2160</td>
+      <td>15.11</td>
+      <td>0.006997</td>
+      <td>0.06399</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>A: local GP + peer gains</td>
+      <td>communication_codec</td>
+      <td>120</td>
+      <td>0.3775</td>
+      <td>0.003146</td>
+      <td>0.007127</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>B: local cost mean + peer gains</td>
+      <td>communication_codec</td>
+      <td>120</td>
+      <td>0.3926</td>
+      <td>0.003272</td>
+      <td>0.0357</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>D: shared/local exact GP</td>
+      <td>communication_codec</td>
+      <td>120</td>
+      <td>0.4061</td>
+      <td>0.003384</td>
+      <td>0.04271</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>E: independent exact GP</td>
+      <td>communication_codec</td>
+      <td>120</td>
+      <td>0.3936</td>
+      <td>0.00328</td>
+      <td>0.03319</td>
+    </tr>
+  </tbody>
+</table></div><p>Proposal timings include local model fitting and acquisition; codec timings include serialization and cache updates, with no simulated network delay. Wall times are descriptive and machine dependent. Recipient reconstruction moves computation to clients; it is not a compression-free compute claim.</p><h2>Audit and scope</h2><p><a href="../tracking_delta_catalogue_v1_equivalence/report.html">Lossless-catalogue equivalence audit</a>: all nine archived seed/interval jobs reproduced with no new rollouts. This is separate from these fresh matched online runs. Four fresh common validation repeats cover the union of paid controllers and references across all intervals and arms; archived calibration labels select references only. Within encountered contexts, missing or ineligible recommendations remain failures. Unvisited contexts are reported separately. Ten fresh matched programmes on one plant form a fixed programme/noise confirmation; no heterogeneous-fleet or network-reliability claim follows.</p><p>Signature: <code>8769dcff74fd097e2fa8acb6632b7324f4e7278166eccc0aa31e77f330bfd025</code>.</p></body></html>

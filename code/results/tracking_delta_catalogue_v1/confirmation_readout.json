@@ -1,0 +1,39 @@
+{
+  "confirmation_claim": false,
+  "mode": "confirmation",
+  "primary_metric": "Encountered-context success within 5% of finite-pool reference; clients and seeds equally weighted.",
+  "equivalence_audit_signature": "7a1fef8c8f23ae093db9abdfae497e12fbc8cd0ab776dca0fa7066a911615acf",
+  "interpretation": "Primary D2-A2, then D2-B2 and D2-E2; k=1 is the reference. Programme bootstrap intervals are descriptive.",
+  "no_predeclared_noninferiority_margin": true,
+  "network_scope": "Periodic synchronization only; no latency, loss, asynchronous updates, TLS or routing overhead.",
+  "predeclared_primary_interval": 2,
+  "primary_results": [
+    {
+      "baseline": "E",
+      "programme_units": 10,
+      "mean_success_delta_pp": 5.77778757190522,
+      "descriptive_lower_pp": -0.8453057563351669,
+      "descriptive_upper_pp": 13.496316469478224,
+      "positive_programmes": 5,
+      "negative_programmes": 5
+    },
+    {
+      "baseline": "A",
+      "programme_units": 10,
+      "mean_success_delta_pp": 14.01007779439152,
+      "descriptive_lower_pp": 8.806791170884308,
+      "descriptive_upper_pp": 19.074648028079388,
+      "positive_programmes": 9,
+      "negative_programmes": 1
+    },
+    {
+      "baseline": "B",
+      "programme_units": 10,
+      "mean_success_delta_pp": 9.440521442972422,
+      "descriptive_lower_pp": 3.634403967492205,
+      "descriptive_upper_pp": 15.352859157454741,
+      "positive_programmes": 7,
+      "negative_programmes": 3
+    }
+  ]
+}
