@@ -2,6 +2,12 @@
 
 This directory is the root of the experimental framework.
 
+The matched 25/50/100-test budget continuation is documented in
+[docs/tracking_budget_extension.md](../docs/tracking_budget_extension.md).
+Run `python code/scripts/tracking_budget_extension.py run --workers 3`.
+It retains the first 24 paid tests and every-round lossless A/B/D/E state,
+adds 76 tests per client/arm, and reports fixed-context budget curves.
+
 The lossless peer-catalogue implementation and ten-programme confirmation
 are documented in [docs/tracking_delta_catalogue.md](../docs/tracking_delta_catalogue.md).
 Run `python code/scripts/tracking_delta_catalogue.py run --workers 3`.

@@ -1,0 +1,14 @@
+{
+  "tag": "tracking_budget_extension_v1",
+  "source_config": "config/runs/tracking_delta_catalogue.json",
+  "source_interval": 1,
+  "prefix_queries": 24,
+  "queries_per_client": 100,
+  "checkpoints": [24, 25, 50, 100],
+  "validation_batch_size": 128,
+  "bootstrap_seed": 18432,
+  "bootstrap_repeats": 20000,
+  "bootstrap_confidence": 0.95,
+  "smoke_seed": 10100,
+  "smoke_queries": 28
+}
