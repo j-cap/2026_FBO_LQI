@@ -1,5 +1,9 @@
 # Matched continuation to 25, 50 and 100 total tests
 
+Completed results: [read-only budget analysis](analysis/budget_continuation/report.md).
+D reaches 79.13% success at 100 tests on the original context sets and
+retains positive average effects against A, B and matched E.
+
 The question is whether a larger local test budget improves absolute controller
 quality, and whether frozen every-round lossless D retains its advantage over
 A, then B, and matched E as that budget grows. This study continues the ten
